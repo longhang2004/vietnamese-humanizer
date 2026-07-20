@@ -1,5 +1,6 @@
 .DS_Store
 .venv/
+.tmp-wheel-venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -9,3 +10,4 @@ dist/
 build/
 benchmarks/results/*
 !benchmarks/results/.gitkeep
+!benchmarks/results/README.md

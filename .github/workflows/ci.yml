@@ -8,13 +8,17 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  lint-test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
           cache: pip
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[dev]"
@@ -22,5 +26,32 @@ jobs:
       - run: pytest
       - run: python scripts/validate_skills.py
       - run: python scripts/validate_patterns.py
+      - run: python scripts/validate_examples.py
       - run: python scripts/run_benchmarks.py --validate-only
       - run: python scripts/generate_pattern_docs.py --check
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install build
+      - run: python -m build
+      - run: python -m venv .tmp-wheel-venv
+      - run: .tmp-wheel-venv/bin/python -m pip install dist/*.whl
+      - run: .tmp-wheel-venv/bin/python -c "import vietnamese_writing_skills"
+      - run: .tmp-wheel-venv/bin/viet-writing-lint --help
+      - run: .tmp-wheel-venv/bin/viet-writing-validate-patterns --help
+      - run: .tmp-wheel-venv/bin/viet-writing-validate-examples --help
+      - run: .tmp-wheel-venv/bin/viet-writing-lint tests/fixtures/natural_article.md
+      - run: >-
+          .tmp-wheel-venv/bin/python -c
+          "from importlib.resources import files;
+          root = files('vietnamese_writing_skills').joinpath('data');
+          assert root.joinpath('patterns/schema.json').is_file();
+          assert root.joinpath('examples/schema.json').is_file();
+          assert root.joinpath('skills/humanizer-vi/SKILL.md').is_file()"

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "vietnamese-writing-skills"
-version = "0.1.0"
+version = "0.2.0"
 description = "Agent Skills và công cụ kiểm tra văn phong tiếng Việt"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -17,12 +17,27 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+  "build>=1.2,<2",
   "pytest>=8.2,<9",
   "ruff>=0.6,<1",
 ]
 
+[project.scripts]
+viet-writing-lint = "vietnamese_writing_skills.cli.lint:main"
+viet-writing-validate-skills = "vietnamese_writing_skills.cli.validate_skills:main"
+viet-writing-validate-patterns = "vietnamese_writing_skills.cli.validate_patterns:main"
+viet-writing-validate-examples = "vietnamese_writing_skills.cli.validate_examples:main"
+viet-writing-benchmark = "vietnamese_writing_skills.cli.benchmarks:main"
+viet-writing-generate-docs = "vietnamese_writing_skills.cli.generate_docs:main"
+
 [tool.hatch.build.targets.wheel]
-packages = ["scripts"]
+packages = ["src/vietnamese_writing_skills"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"patterns" = "vietnamese_writing_skills/data/patterns"
+"skills" = "vietnamese_writing_skills/data/skills"
+"examples" = "vietnamese_writing_skills/data/examples"
+"benchmarks" = "vietnamese_writing_skills/data/benchmarks"
 
 [tool.pytest.ini_options]
 addopts = "-ra"

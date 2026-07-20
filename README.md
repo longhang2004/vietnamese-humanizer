@@ -1,12 +1,14 @@
 # Vietnamese Writing Skills
 
-Bộ công cụ biên tập tiếng Việt giúp văn bản rõ ràng, tự nhiên, nhất quán và phù hợp với ngữ cảnh.
+[![CI](https://github.com/longhang2004/vietnamese-humanizer/actions/workflows/ci.yml/badge.svg)](https://github.com/longhang2004/vietnamese-humanizer/actions/workflows/ci.yml)
+[![Python 3.11–3.13](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Repository gồm bốn Agent Skills và một lớp công cụ deterministic để kiểm cấu trúc, quản lý pattern, lint tín hiệu bề mặt và chạy benchmark. Dự án không phân loại văn bản do người hay AI viết, không tạo "AI probability score" và không hướng dẫn vượt detector.
+Bộ công cụ biên tập tiếng Việt giúp văn bản rõ, tự nhiên, nhất quán và phù hợp ngữ cảnh mà không làm mất dữ kiện.
 
-## Dự án giải quyết gì
+Repository vẫn mang tên `vietnamese-humanizer` vì đó là URL dự án. Sản phẩm có tên **Vietnamese Writing Skills** vì gồm bốn skill, không chỉ humanizer. Bản phân phối Python dùng tên `vietnamese-writing-skills`, còn package để import là `vietnamese_writing_skills`.
 
-Văn bản tiếng Việt có thể đúng ngữ pháp nhưng vẫn khó đọc vì danh hóa dày, cấu trúc dịch sát tiếng Anh, giọng lệch đối tượng hoặc trình bày thiếu nhất quán. Các skill hỗ trợ reviewer xử lý những vấn đề đó mà không làm mất dữ kiện, số liệu, tên riêng, thuật ngữ, điều kiện và mức chắc chắn.
+Dự án không phân loại tác giả, không tạo “AI probability score” và không hướng dẫn vượt detector. Linter chỉ tìm tín hiệu bề mặt để con người review.
 
 ## Bốn skill
 
@@ -17,59 +19,101 @@ Văn bản tiếng Việt có thể đúng ngữ pháp nhưng vẫn khó đọc 
 | `grammar-checker-vi` | Soát chính tả, dấu câu, cấu trúc và mơ hồ | Áp một phong cách hoặc sửa code, URL, identifier |
 | `style-guide-vi` | Giữ nhất quán xưng hô, thuật ngữ, số và định dạng | Ghi đè style guide riêng hoặc đổi dữ kiện |
 
-## Ví dụ
+## Ví dụ bảo toàn dữ kiện
 
-Input:
+Trước:
 
-> Trong bài viết này, chúng ta sẽ cùng khám phá cách Redis giúp tối ưu hiệu suất.
+> Trong bài viết này, chúng ta sẽ cùng tìm hiểu cách Redis lưu dữ liệu thường dùng trong bộ nhớ để giảm số lần truy cập nguồn dữ liệu chậm hơn.
 
-Output:
+Sau:
 
-> Redis giữ dữ liệu thường dùng trong bộ nhớ để giảm số lần đọc từ nguồn chậm hơn.
+> Redis lưu dữ liệu thường dùng trong bộ nhớ, nhờ đó hệ thống ít phải truy cập nguồn dữ liệu chậm hơn.
 
-Skill bỏ câu thông báo và đi thẳng vào cơ chế. Nếu input đã rõ, chẳng hạn "API có thể trả lỗi 429 nếu client gửi quá 100 yêu cầu mỗi phút", skill nên giữ nguyên.
+Bản sửa chỉ bỏ câu thông báo. Cơ chế Redis đã có trong input, không được suy ra từ một câu chung như “Redis giúp tối ưu hiệu suất”. Với corpus, thông tin nằm ngoài input phải được ghi rõ trong trường `context`.
 
-## Cài đặt
-
-### Dùng Agent Skills
-
-Clone repository rồi trỏ agent tương thích Agent Skills đến từng thư mục trong `skills/`, hoặc sao chép skill cần dùng vào thư mục skill của agent. Mỗi thư mục tự chứa `SKILL.md`, README và references.
+## Cài Agent Skills từ repository
 
 ```bash
-git clone https://github.com/your-org/vietnamese-writing-skills.git
+git clone https://github.com/longhang2004/vietnamese-humanizer.git
+cd vietnamese-humanizer
 ```
 
-URL trên là ví dụ cho repository sau khi được publish. Khi làm việc từ bản clone hiện tại, dùng trực tiếp đường dẫn `skills/humanizer-vi` và các thư mục cùng cấp.
+Trỏ agent tương thích Agent Skills đến thư mục cần dùng trong `skills/`, hoặc sao chép riêng thư mục đó vào nơi agent đọc skill. Mỗi skill chứa `SKILL.md`, tài liệu tham chiếu và tài sản cần thiết.
 
-### Dùng công cụ Python
-
-Yêu cầu Python 3.11 trở lên.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e ".[dev]"
-```
-
-## Cách dùng
-
-Yêu cầu trực tiếp với agent:
+Ví dụ yêu cầu:
 
 ```text
 Dùng humanizer-vi để biên tập email này. Giữ giọng chuyên nghiệp,
-mọi con số, tên sản phẩm và hạn chót.
+mọi con số, tên sản phẩm, điều kiện và hạn chót.
 ```
 
-Lint một file hoặc thư mục:
+## Cài Python CLI
+
+Yêu cầu Python 3.11 trở lên. Cài trực tiếp từ source checkout:
+
+```bash
+python -m pip install .
+```
+
+Build và cài wheel:
+
+```bash
+python -m pip install build
+python -m build
+python -m pip install dist/*.whl
+```
+
+Cài cho phát triển:
+
+```bash
+python -m pip install -e ".[dev]"
+```
+
+Wheel chứa pattern, schema, skill Markdown, example và benchmark resources. CLI mặc định dùng repository bao quanh thư mục hiện tại nếu tìm thấy; dùng `--root PATH` để chỉ định một checkout khác. Khi chạy ngoài repository, các lệnh đọc pattern mặc định dùng resource trong wheel.
+
+## Console commands
+
+```bash
+viet-writing-lint article.md
+viet-writing-lint article.md --format json
+viet-writing-lint docs/ --recursive --root .
+viet-writing-validate-skills --root .
+viet-writing-validate-patterns --root .
+viet-writing-validate-examples --root .
+viet-writing-benchmark --root . --validate-only
+viet-writing-generate-docs --root . --check
+```
+
+Các wrapper cũ vẫn hoạt động trong source checkout:
 
 ```bash
 python scripts/lint_vietnamese.py article.md
-python scripts/lint_vietnamese.py article.md --format json
-python scripts/lint_vietnamese.py docs/ --recursive
-python scripts/lint_vietnamese.py article.md --skill humanizer-vi
+python scripts/validate_skills.py
+python scripts/validate_patterns.py
+python scripts/validate_examples.py
+python scripts/run_benchmarks.py --validate-only
+python scripts/generate_pattern_docs.py --check
 ```
 
-Linter chỉ trả số tín hiệu cần review. Exit code `1` nghĩa là có tín hiệu, không phải văn bản "do AI viết" và cũng không khẳng định có lỗi.
+Linter trả exit code `1` khi có phát hiện cần review và `2` khi lệnh không thể chạy. Một phát hiện không chứng minh văn bản sai hay do AI viết.
+
+## Taxonomy của linter
+
+- `ERROR`: lỗi có thể chứng minh tương đối chắc, chẳng hạn từ bị lặp do gõ hoặc khoảng trắng sai.
+- `WARNING`: cấu trúc có thể gây mơ hồ hoặc không nhất quán nhưng cần ngữ cảnh.
+- `PREFERENCE`: lựa chọn phong cách, chỉ nên áp khi style đã được chọn.
+- `HEURISTIC`: tín hiệu bề mặt như mật độ hoặc nhịp câu; reviewer phải đọc toàn phạm vi.
+
+Mỗi pattern còn có `scope` và `aggregation`. Ví dụ, lặp mở đầu câu dùng `paragraph/sequence`, nhịp câu dùng `document/variance`, còn trộn đại từ dùng `document/consistency`.
+
+## Corpus và benchmark
+
+- 40 pattern có finding type, scope, aggregation, ngoại lệ và rủi ro false positive.
+- 100 example có `context`, `must_preserve`, `must_not_add` và biên bản preservation review.
+- 30 benchmark case có context, blocker cụ thể và ràng buộc bảo toàn.
+- Kết quả review thủ công được kiểm bằng JSON Schema và có thể chứa nhiều reviewer cho một case.
+
+Repository chưa có baseline do người bản ngữ chấm độc lập. Benchmark hiện phục vụ thiết kế quy trình và regression dữ liệu, chưa phải bằng chứng về hiệu quả ngoài các case đã viết.
 
 ## Kiểm tra repository
 
@@ -78,43 +122,28 @@ ruff check .
 pytest
 python scripts/validate_skills.py
 python scripts/validate_patterns.py
+python scripts/validate_examples.py
 python scripts/run_benchmarks.py --validate-only
 python scripts/generate_pattern_docs.py --check
+python -m build
 ```
 
-Sinh lại bảng pattern sau khi sửa YAML:
+Sinh lại tài liệu pattern sau khi sửa YAML:
 
 ```bash
 python scripts/generate_pattern_docs.py
 ```
 
-## Dữ liệu và benchmark
+## Đóng góp
 
-- 40 pattern trong `patterns/`, mỗi pattern có tín hiệu, hai ví dụ xấu, hai ví dụ tốt, ngoại lệ và rủi ro false positive.
-- 100 cặp trước/sau có metadata trong `examples/examples.jsonl`.
-- 30 benchmark case trong `benchmarks/cases/`, chấm theo tám tiêu chí từ 1 đến 5.
-- Unit test chỉ kiểm phần deterministic. Bản sửa ngôn ngữ cần reviewer bản ngữ.
-
-## Đóng góp pattern
-
-Đọc [CONTRIBUTING.md](CONTRIBUTING.md) và [hướng dẫn viết pattern](docs/pattern-authoring-guide.md). Một pattern mới cần bằng chứng quan sát, ít nhất hai ví dụ ở ngữ cảnh khác nhau, ngoại lệ, rủi ro false positive và test hoặc benchmark case. Không merge danh sách từ cấm thiếu ngữ cảnh.
-
-## Triết lý thiết kế
-
-- Chất lượng biên tập quan trọng hơn việc đoán nguồn gốc văn bản.
-- Bảo toàn nội dung là ràng buộc, không phải điểm cộng tùy chọn.
-- Pattern là tín hiệu review theo mật độ và ngữ cảnh, không phải lỗi tự động.
-- Logic ngôn ngữ nằm trong Agent Skills; CLI chỉ phát hiện phần bề mặt có thể kiểm tra ổn định.
-- Tiếng Việt có khác biệt vùng miền, thế hệ, nghề nghiệp và register. Dự án không chọn một nhóm làm chuẩn duy nhất.
+Đọc [CONTRIBUTING.md](CONTRIBUTING.md) và [hướng dẫn viết pattern](docs/pattern-authoring-guide.md). Example mới phải tự chứa đủ input/context, nêu phần phải giữ và phần cấm thêm, rồi được đánh dấu `reviewed` hoặc `needs-review`. Pattern mới cần taxonomy, phạm vi, cách aggregation, ngoại lệ, test và ví dụ không tự thêm dữ kiện.
 
 ## Giới hạn
 
-MVP dùng rule bề mặt, chưa có corpus gán nhãn riêng và chưa được đánh giá liên chủ thể trên quy mô lớn. Regex có thể bỏ sót biến thể hoặc báo nhầm thuật ngữ ngành. Xem [limitations](docs/limitations.md) và [research notes](docs/research-notes.md).
+Regex không chứng minh bảo toàn ngữ nghĩa và có thể bỏ sót hoặc báo nhầm. Một trăm example chưa đại diện đầy đủ cho khác biệt vùng miền, thế hệ, ngành nghề và register. Xem [limitations](docs/limitations.md) và [evaluation methodology](docs/evaluation-methodology.md).
 
-## Attribution
+## Attribution và license
 
-Dự án tham khảo định dạng [Agent Skills](https://agentskills.io/specification), ý tưởng audit văn phong của [blader/humanizer](https://github.com/blader/humanizer) và kinh nghiệm bản địa hóa từ các dự án tiếng Trung, tiếng Hàn. Taxonomy, ví dụ và corpus tiếng Việt trong repository được viết riêng, không phải bản dịch từng dòng. Chi tiết license và bài nghiên cứu nằm trong [research notes](docs/research-notes.md).
+Dự án tham khảo định dạng [Agent Skills](https://agentskills.io/specification), ý tưởng audit văn phong của [blader/humanizer](https://github.com/blader/humanizer) và kinh nghiệm bản địa hóa từ các dự án tiếng Trung, tiếng Hàn. Taxonomy và dữ liệu tiếng Việt trong repository được viết riêng. Chi tiết nằm trong [research notes](docs/research-notes.md).
 
-## Roadmap và license
-
-Xem [ROADMAP.md](ROADMAP.md). Mã và nội dung gốc của repository được phát hành theo [MIT License](LICENSE).
+Mã và nội dung gốc được phát hành theo [MIT License](LICENSE). Xem [ROADMAP.md](ROADMAP.md) cho kế hoạch tiếp theo.

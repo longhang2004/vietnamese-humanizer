@@ -1,6 +1,6 @@
 # Ví dụ
 
-Input: "Nền tảng giúp doanh nghiệp điều hướng sự phức tạp của việc tuân thủ."
+Input: "Nền tảng giúp doanh nghiệp điều hướng sự phức tạp của việc theo dõi và đáp ứng các yêu cầu tuân thủ."
 
 Output: "Nền tảng giúp doanh nghiệp theo dõi và đáp ứng các yêu cầu tuân thủ."
 

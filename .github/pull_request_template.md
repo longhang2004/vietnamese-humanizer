@@ -11,7 +11,9 @@ Nêu ví dụ, ngoại lệ, nguồn quan sát và rủi ro false positive nếu
 - [ ] `ruff check .`
 - [ ] `pytest`
 - [ ] Skill và pattern validators
+- [ ] Example preservation validator
 - [ ] Benchmark validation
 - [ ] Generated docs check
+- [ ] Wheel build và smoke test
 - [ ] Không có dữ liệu nhạy cảm, secret hoặc claim bypass detector
 - [ ] Đã cập nhật changelog nếu người dùng thấy thay đổi

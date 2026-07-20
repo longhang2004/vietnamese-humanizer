@@ -4,7 +4,7 @@ description: Kiểm tra chính tả, dấu câu, khoảng trắng, cấu trúc c
 license: MIT
 metadata:
   language: vi
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Kiểm tra ngữ pháp tiếng Việt
@@ -29,9 +29,10 @@ Không đổi dữ kiện, giọng, register, thuật ngữ, tên thương hiệ
 
 ## Phân loại phát hiện
 
-- Lỗi: có quy tắc và cách sửa đủ chắc chắn.
-- Cảnh báo: câu có thể mơ hồ, lặp hoặc thiếu thành phần nhưng cần ngữ cảnh.
-- Preference: lựa chọn nhất quán, không nên tự sửa.
+- Error: có quy tắc và cách sửa đủ chắc chắn.
+- Warning: câu có thể mơ hồ, lặp hoặc thiếu thành phần nhưng cần ngữ cảnh.
+- Preference: lựa chọn nhất quán, không nên tự sửa nếu chưa có style đã chọn.
+- Heuristic: tín hiệu bề mặt cần đọc cả câu, đoạn hoặc tài liệu.
 
 Các lỗi thường gặp và ngoại lệ nằm ở [common errors](references/common-errors.md).
 

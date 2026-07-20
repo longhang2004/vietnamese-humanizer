@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/longhang2004/vietnamese-humanizer/blob/main/benchmarks/case.schema.json",
+  "title": "Vietnamese Writing Skills benchmark case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "skill",
+    "domain",
+    "register",
+    "input",
+    "context",
+    "constraints",
+    "expected_patterns",
+    "must_preserve",
+    "must_not_add",
+    "evaluation_notes",
+    "blockers"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^BENCH-(HUM|TRA|GRA|STY)-[0-9]{3}$"},
+    "skill": {
+      "enum": [
+        "humanizer-vi",
+        "translationese-cleaner-vi",
+        "grammar-checker-vi",
+        "style-guide-vi"
+      ]
+    },
+    "domain": {"type": "string", "minLength": 1},
+    "register": {"type": "string", "minLength": 1},
+    "input": {"type": "string", "minLength": 1},
+    "context": {"type": "string"},
+    "constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
+    },
+    "expected_patterns": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^VI-(HUM|TRA|GRA|STY)-[A-Z][0-9]{2}$"}
+    },
+    "must_preserve": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
+    },
+    "must_not_add": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
+    },
+    "evaluation_notes": {"type": "string", "minLength": 1},
+    "blockers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
+    }
+  }
+}

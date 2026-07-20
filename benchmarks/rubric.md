@@ -15,7 +15,7 @@ Chấm từng tiêu chí từ 1 đến 5.
 
 ## Blocker
 
-Output fail dù tổng điểm cao nếu có một trong các lỗi: bịa dữ kiện; đổi số; đổi tên riêng; đổi mức chắc chắn; đổi lập trường; thêm nguồn không tồn tại; xóa điều kiện hoặc ngoại lệ quan trọng; làm sai thuật ngữ chuyên môn.
+Output fail dù tổng điểm cao nếu có một trong các lỗi: bịa dữ kiện; đổi số, tên riêng hoặc ngày tháng; đổi mức chắc chắn hoặc lập trường; thêm nguồn; xóa điều kiện hoặc ngoại lệ; làm sai thuật ngữ; thêm trải nghiệm cá nhân, nguyên nhân hoặc metric không có trong input/context.
 
 Reviewer đánh dấu blocker trước khi cộng điểm. Một output có blocker không được dùng làm expected answer.
 

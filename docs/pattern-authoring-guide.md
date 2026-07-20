@@ -4,38 +4,52 @@
 
 Pattern phải có:
 
-- lý do mô tả tác động lên người đọc, không chỉ nói "nghe như AI";
+- lý do mô tả tác động lên người đọc, không chỉ nói “nghe như AI”;
+- `finding_type`, `scope` và `aggregation` đúng với cách phát hiện;
 - ít nhất hai ví dụ xấu từ ngữ cảnh khác nhau;
-- ít nhất hai cách sửa hoặc hai output tốt;
-- ngoại lệ và phản biện trường hợp cấu trúc hợp lệ;
-- domain, category, severity, confidence và false-positive risk;
-- tín hiệu có thể kiểm tra hoặc mô tả rõ vì sao chỉ reviewer xử lý được;
+- ít nhất hai ví dụ tốt không thêm dữ kiện so với ví dụ nguồn;
+- ngoại lệ, false-positive risk, severity và confidence;
+- tín hiệu đủ hẹp hoặc mô tả rõ vì sao chỉ reviewer xử lý được;
 - test hoặc benchmark case;
 - kiểm tra không trùng pattern hiện có.
 
-## Chọn severity và confidence
+## Chọn finding type
 
-Severity đo tác hại nếu pattern xuất hiện trong ngữ cảnh bị nêu. High dành cho nguy cơ đổi nghĩa, nguồn hoặc trách nhiệm; medium cho độ rõ và register; low cho nhịp hoặc nhất quán ít ảnh hưởng.
+- `error`: lỗi có thể chứng minh tương đối rõ trong convention đã chọn.
+- `warning`: có khả năng gây mơ hồ hoặc không nhất quán nhưng cần ngữ cảnh.
+- `preference`: lựa chọn phong cách, không được gọi là lỗi.
+- `heuristic`: tín hiệu bề mặt cần reviewer đọc toàn phạm vi.
 
-Confidence đo độ chắc của tín hiệu, không phải mức nghiêm trọng. Regex dấu câu có thể high confidence. Nhịp câu đều thường low confidence.
+Không nâng một preference thành error chỉ vì maintainer thích một cách viết.
+
+## Chọn scope và aggregation
+
+`scope` là đơn vị tối thiểu cần đọc: token, phrase, sentence, paragraph hoặc document. `aggregation` mô tả cách nhiều quan sát tạo thành finding: single, count, density, sequence, variance hoặc consistency.
+
+Một phrase dịch sát thường dùng `phrase/single`; lặp mở đầu câu dùng `paragraph/sequence`; mật độ từ nối dùng `paragraph/density`; nhịp câu dùng `document/variance`; trộn đại từ dùng `document/consistency`.
+
+## Severity, confidence và false positive
+
+Severity đo tác hại nếu finding đúng trong ngữ cảnh. Confidence đo độ chắc của tín hiệu. False-positive risk ghi khả năng rule chạm trường hợp hợp lệ. Ba trường này không thay thế nhau.
 
 ## Viết signals
 
-Phrase và regex phải đủ hẹp. Với pattern phong cách, đặt `min_occurrences` từ 2 trở lên trừ công thức đặc hiệu. Kiểm regex trên ví dụ hợp lệ, code, URL và thuật ngữ ngành. CLI che một số vùng nhưng pattern vẫn nên tự giới hạn.
+Phrase và regex phải đủ hẹp. Với pattern theo mật độ hoặc count, đặt `min_occurrences` phù hợp. Kiểm regex trên ví dụ hợp lệ, code, URL và thuật ngữ ngành. CLI che một số vùng nhưng pattern vẫn phải tự giới hạn.
 
-## Ví dụ và quyền riêng tư
+## Ví dụ và preservation
 
-Ưu tiên ví dụ tự viết hoặc đã được phép dùng. Nếu lấy từ quan sát thực tế, ẩn tên, số tài khoản, địa chỉ và chi tiết nhận dạng. Không thay vài từ rồi coi đó là dữ liệu vô danh nếu người đọc vẫn nhận ra nguồn.
+Ví dụ tốt chỉ được dùng thông tin có trong câu nguồn hoặc context được lưu rõ. Không thay “cải thiện hiệu suất” bằng một metric tự chọn, không thêm deadline, nguyên nhân, nguồn, trải nghiệm hay cơ chế kỹ thuật.
 
-## Nguồn quan sát
+Example corpus dùng `examples/schema.json`. Một example mới cần input, context, output, must-preserve, must-not-add và preservation review. Nếu chưa đủ bằng chứng, đặt `needs-review` và `gold: false`.
 
-Khuyến nghị ghi issue hoặc PR: nguồn quan sát, domain, vùng ngôn ngữ, thế hệ, register, số lần gặp, phản ví dụ và nhận xét của người bản ngữ. Không dùng một giọng miền làm chuẩn cho toàn bộ tiếng Việt.
+Ưu tiên ví dụ tự viết hoặc đã được phép dùng. Nếu lấy từ quan sát thực tế, ẩn chi tiết nhận dạng và kiểm license.
 
 ## Checklist lệnh
 
 ```bash
 python scripts/generate_pattern_docs.py
 python scripts/validate_patterns.py
+python scripts/validate_examples.py
 pytest
 python scripts/run_benchmarks.py --validate-only
 ```

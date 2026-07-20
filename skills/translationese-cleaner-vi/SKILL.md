@@ -4,7 +4,7 @@ description: Làm sạch văn phong tiếng Việt dịch sát từ tiếng Anh,
 license: MIT
 metadata:
   language: vi
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Làm sạch văn phong dịch Anh-Việt
@@ -26,6 +26,8 @@ Tra [patterns](references/patterns.md) và [false positives](references/false-po
 ## Bảo toàn
 
 Giữ nội dung mệnh đề, quan hệ nguyên nhân, phủ định, điều kiện, mức nghĩa vụ, mức chắc chắn, số liệu và thuật ngữ. Không biến "may" thành "sẽ", "shall" thành "nên", hay "associated with" thành quan hệ nhân quả.
+
+Không thay một cụm chung bằng cơ chế, metric hoặc ví dụ cụ thể nếu thông tin đó không nằm trong input hay context được cung cấp.
 
 Nếu một metaphor tiếng Anh có nhiều cách hiểu, dùng diễn đạt trung tính giữ đúng chức năng hoặc hỏi lại. Không thêm ví dụ bản địa để lấp chỗ trống.
 

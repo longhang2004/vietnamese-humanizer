@@ -17,3 +17,8 @@ repos:
         entry: python scripts/validate_patterns.py
         language: system
         pass_filenames: false
+      - id: validate-examples
+        name: validate preservation examples
+        entry: python scripts/validate_examples.py
+        language: system
+        pass_filenames: false

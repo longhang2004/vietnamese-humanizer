@@ -8,7 +8,7 @@ Output: "Giải pháp này giúp nhóm làm việc nhanh hơn."
 
 Chỉ dùng output nếu "hiệu suất" trong ngữ cảnh thực sự là tốc độ. Nếu hiệu suất còn gồm chi phí hoặc độ chính xác, phải giữ nghĩa rộng hơn.
 
-Input: "Trong bài viết này, chúng ta sẽ cùng khám phá ba lợi ích nổi bật của bộ nhớ đệm."
+Input: "Trong bài viết này, chúng ta sẽ cùng tìm hiểu cách bộ nhớ đệm giảm số lần ứng dụng phải đọc lại cùng một dữ liệu."
 
 Output: "Bộ nhớ đệm giảm số lần ứng dụng phải đọc lại cùng một dữ liệu."
 

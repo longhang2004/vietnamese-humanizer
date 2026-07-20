@@ -1,37 +1,113 @@
+import json
 import re
 from collections import Counter
 from pathlib import Path
 
-from scripts._shared import load_jsonl
-from scripts.generate_pattern_docs import render
-from scripts.run_benchmarks import load_cases, validate_case
+from vietnamese_writing_skills.cli.generate_docs import render
+from vietnamese_writing_skills.core.benchmark import (
+    load_cases,
+    summarize,
+    validate_case,
+    validate_results,
+)
+from vietnamese_writing_skills.core.patterns import load_jsonl, pattern_index
 
 ROOT = Path(__file__).resolve().parents[1]
 LINK_RE = re.compile(r"\[[^]]+\]\(([^)]+)\)")
+PATTERN_IDS = set(pattern_index(ROOT / "patterns"))
+REVIEW_SCHEMA = ROOT / "benchmarks" / "review-result.schema.json"
+
+
+def review(
+    case_id: str,
+    reviewer_id: str = "reviewer-01",
+    blockers: list[str] | None = None,
+) -> dict:
+    return {
+        "case_id": case_id,
+        "system": "candidate-system",
+        "reviewer_id": reviewer_id,
+        "scores": {
+            "naturalness": 4,
+            "clarity": 5,
+            "meaning_preservation": 5,
+            "factual_preservation": 5,
+            "register_fit": 4,
+            "terminology_consistency": 5,
+            "edit_necessity": 4,
+            "over_editing_avoidance": 5,
+        },
+        "blockers": blockers or [],
+        "notes": "",
+    }
+
+
+def write_jsonl(path: Path, rows: list[dict]) -> None:
+    path.write_text(
+        "\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n",
+        encoding="utf-8",
+    )
 
 
 def test_benchmark_loader_reads_all_cases() -> None:
-    cases, errors = load_cases(ROOT / "benchmarks" / "cases")
+    cases, errors = load_cases(ROOT / "benchmarks" / "cases", PATTERN_IDS)
     assert errors == []
     assert len(cases) == 30
+    assert all("context" in case and "blockers" in case for case in cases)
 
 
-def test_benchmark_missing_field_is_reported(tmp_path: Path) -> None:
+def test_benchmark_missing_context_is_reported(tmp_path: Path) -> None:
     case = {
         "id": "BENCH-HUM-999",
         "skill": "humanizer-vi",
         "domain": "technical",
         "register": "professional",
     }
-    errors = validate_case(case, tmp_path / "case.jsonl")
-    assert any("thiếu field input" in error for error in errors)
+    errors = validate_case(case, tmp_path / "case.jsonl", PATTERN_IDS)
+    assert any("thiếu field context" in error for error in errors)
 
 
-def test_generated_pattern_docs_are_stable() -> None:
+def test_manual_review_is_validated(tmp_path: Path) -> None:
+    path = tmp_path / "reviews.jsonl"
+    write_jsonl(path, [review("BENCH-HUM-001")])
+    rows, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-001"})
+    assert len(rows) == 1
+    assert errors == []
+
+
+def test_manual_review_missing_field_is_rejected(tmp_path: Path) -> None:
+    row = review("BENCH-HUM-001")
+    del row["reviewer_id"]
+    path = tmp_path / "reviews.jsonl"
+    write_jsonl(path, [row])
+    _, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-001"})
+    assert any("reviewer_id" in error for error in errors)
+
+
+def test_summary_averages_blocker_rate_and_unreviewed_count() -> None:
+    cases, _ = load_cases(ROOT / "benchmarks" / "cases", PATTERN_IDS)
+    results = [
+        review("BENCH-HUM-001"),
+        review("BENCH-HUM-001", "reviewer-02", ["fabricated_fact"]),
+    ]
+    summary = summarize(cases, results)
+    assert summary["averages"]["clarity"] == 5
+    assert summary["blocker_rate"] == 0.5
+    assert summary["reviewers"] == 2
+    assert summary["reviewed_cases"] == 1
+    assert summary["unreviewed_cases"] == 29
+
+
+def test_generated_pattern_docs_are_stable_and_complete() -> None:
     expected = render(ROOT / "patterns")
     actual = (ROOT / "docs" / "generated-patterns.md").read_text(encoding="utf-8")
     assert actual == expected
     assert "**40 pattern**" in actual
+    assert "Finding type:" in actual
+    assert "Scope / aggregation:" in actual
+    assert "False-positive risk:" in actual
+    assert "Rewrite strategy:" in actual
+    assert "Exceptions:" in actual
 
 
 def test_example_count_and_domain_distribution() -> None:
@@ -49,21 +125,6 @@ def test_example_count_and_domain_distribution() -> None:
         "social-media": 10,
         "administrative": 5,
     }
-
-
-def test_example_required_fields() -> None:
-    required = {
-        "domain",
-        "register",
-        "input",
-        "output",
-        "patterns_triggered",
-        "notes",
-        "meaning_preserved",
-        "facts_preserved",
-    }
-    for example in load_jsonl(ROOT / "examples" / "examples.jsonl"):
-        assert required <= example.keys()
 
 
 def test_internal_markdown_links_resolve() -> None:

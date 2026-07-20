@@ -4,7 +4,7 @@ description: Biên tập văn bản tiếng Việt máy móc, sáo rỗng hoặc
 license: MIT
 metadata:
   language: vi
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Humanizer tiếng Việt
@@ -26,6 +26,8 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 ## Bảo toàn
 
 Giữ nguyên dữ kiện, con số, tên riêng, trích dẫn, điều kiện, ngoại lệ, lập trường, thuật ngữ và mức độ chắc chắn. Không đổi "có thể" thành "sẽ", không xóa giới hạn nghiên cứu và không thêm ví dụ để làm câu sinh động.
+
+Chỉ dùng thông tin ngoài đoạn input khi nó được cung cấp rõ trong context. Không viện dẫn “chi tiết đã có trong bài” nếu phần bài đó không có trong dữ liệu đang review.
 
 Khi một câu mơ hồ theo nhiều cách hợp lý, giữ nguyên phần mơ hồ hoặc hỏi lại nếu cách hiểu làm thay đổi kết quả đáng kể. Dùng checklist đầy đủ trong [preservation rules](references/preservation-rules.md).
 

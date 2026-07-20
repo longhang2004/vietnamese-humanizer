@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from scripts.validate_patterns import validate_catalog
+from vietnamese_writing_skills.cli.validate_patterns import validate_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "patterns" / "schema.json"
@@ -16,6 +16,9 @@ def sample_pattern(pattern_id: str = "VI-HUM-L99") -> dict:
         "name": f"pattern-{pattern_id[-2:]}",
         "skill": "humanizer-vi",
         "category": "lexical",
+        "finding_type": "heuristic",
+        "scope": "phrase",
+        "aggregation": "density",
         "severity": "low",
         "confidence": "medium",
         "summary": "Một pattern đủ dài để kiểm tra schema dữ liệu.",
@@ -37,6 +40,11 @@ def write_catalog(path: Path, patterns: list[dict]) -> None:
     )
 
 
+def schema_errors(tmp_path: Path, pattern: dict) -> list[str]:
+    write_catalog(tmp_path / "one.yml", [pattern])
+    return validate_catalog(tmp_path, SCHEMA, None)
+
+
 def test_duplicate_pattern_id_is_reported(tmp_path: Path) -> None:
     pattern = sample_pattern()
     second = deepcopy(pattern)
@@ -49,17 +57,31 @@ def test_duplicate_pattern_id_is_reported(tmp_path: Path) -> None:
 def test_schema_error_is_reported(tmp_path: Path) -> None:
     pattern = sample_pattern()
     del pattern["exceptions"]
-    write_catalog(tmp_path / "one.yml", [pattern])
-    errors = validate_catalog(tmp_path, SCHEMA, None)
-    assert any("exceptions" in error for error in errors)
+    assert any("exceptions" in error for error in schema_errors(tmp_path, pattern))
+
+
+def test_invalid_finding_type_is_reported(tmp_path: Path) -> None:
+    pattern = sample_pattern()
+    pattern["finding_type"] = "mistake"
+    assert any("finding_type" in error for error in schema_errors(tmp_path, pattern))
+
+
+def test_invalid_scope_is_reported(tmp_path: Path) -> None:
+    pattern = sample_pattern()
+    pattern["scope"] = "chapter"
+    assert any("scope" in error for error in schema_errors(tmp_path, pattern))
+
+
+def test_invalid_aggregation_is_reported(tmp_path: Path) -> None:
+    pattern = sample_pattern()
+    pattern["aggregation"] = "average"
+    assert any("aggregation" in error for error in schema_errors(tmp_path, pattern))
 
 
 def test_invalid_regex_is_reported(tmp_path: Path) -> None:
     pattern = sample_pattern()
     pattern["signals"] = {"regex": ["("]}
-    write_catalog(tmp_path / "one.yml", [pattern])
-    errors = validate_catalog(tmp_path, SCHEMA, None)
-    assert any("regex không hợp lệ" in error for error in errors)
+    assert any("regex không hợp lệ" in error for error in schema_errors(tmp_path, pattern))
 
 
 def test_schema_file_is_json() -> None:

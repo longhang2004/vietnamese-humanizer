@@ -1,6 +1,10 @@
 from pathlib import Path
 
-from scripts.validate_skills import parse_frontmatter, validate_all, validate_skill
+from vietnamese_writing_skills.core.frontmatter import (
+    parse_frontmatter,
+    validate_all,
+    validate_skill,
+)
 
 VALID_BODY = """---
 name: demo-skill

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.org/vietnamese-writing-skills/pattern.schema.json",
+  "$id": "https://github.com/longhang2004/vietnamese-humanizer/blob/main/patterns/schema.json",
   "title": "Vietnamese writing pattern catalog",
   "type": "object",
   "required": ["schema_version", "patterns"],
@@ -20,6 +20,7 @@
       "additionalProperties": false,
       "properties": {
         "text": {"type": "string", "minLength": 1},
+        "context": {"type": "string", "minLength": 1},
         "reason": {"type": "string", "minLength": 1}
       }
     },
@@ -49,7 +50,8 @@
     "pattern": {
       "type": "object",
       "required": [
-        "id", "name", "skill", "category", "severity", "confidence", "summary",
+        "id", "name", "skill", "category", "finding_type", "scope", "aggregation",
+        "severity", "confidence", "summary",
         "signals", "why_it_matters", "rewrite_strategy", "bad_examples",
         "good_examples", "exceptions", "false_positive_risk", "tags"
       ],
@@ -64,6 +66,11 @@
           ]
         },
         "category": {"type": "string", "minLength": 2},
+        "finding_type": {"enum": ["error", "warning", "preference", "heuristic"]},
+        "scope": {"enum": ["token", "phrase", "sentence", "paragraph", "document"]},
+        "aggregation": {
+          "enum": ["single", "count", "density", "sequence", "variance", "consistency"]
+        },
         "severity": {"enum": ["low", "medium", "high"]},
         "confidence": {"enum": ["low", "medium", "high"]},
         "summary": {"type": "string", "minLength": 12},

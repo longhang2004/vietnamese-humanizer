@@ -1,261 +1,336 @@
-schema_version: "1.0"
+schema_version: '1.0'
 patterns:
-  - id: VI-TRA-L01
-    name: mo-khoa-tiem-nang
-    skill: translationese-cleaner-vi
-    category: lexical
-    severity: medium
-    confidence: high
-    summary: Dịch sát "unlock potential" thành "mở khóa tiềm năng" khi ý thực là cho phép hoặc cải thiện một khả năng cụ thể.
-    signals:
-      phrases: [mở khóa tiềm năng]
-    why_it_matters: Ẩn dụ không cho biết khả năng nào được mở ra hoặc bằng cách nào.
-    rewrite_strategy:
-      - Nêu khả năng, đối tượng và tác động cụ thể đã có trong bản gốc.
-    bad_examples:
-      - text: Công cụ giúp mở khóa tiềm năng của dữ liệu.
-        reason: Không rõ dữ liệu được dùng để làm gì.
-      - text: Khóa học mở khóa tiềm năng lãnh đạo của bạn.
-        reason: Cụm quảng cáo dịch sát thiếu hành động cụ thể.
-    good_examples:
-      - text: Công cụ giúp nhóm tìm xu hướng trong dữ liệu bán hàng.
-      - text: Khóa học cho học viên thực hành giao việc và phản hồi.
-    exceptions:
-      - Slogan đã duyệt hoặc ngữ cảnh cố ý dùng ẩn dụ về khóa.
-    false_positive_risk: low
-    tags: [dich-sat, an-du, business]
-    min_occurrences: 1
-
-  - id: VI-TRA-L02
-    name: dieu-huong-su-phuc-tap
-    skill: translationese-cleaner-vi
-    category: lexical
-    severity: medium
-    confidence: high
-    summary: Dịch "navigate complexity" thành "điều hướng sự phức tạp" thay vì nêu công việc cần xử lý.
-    signals:
-      phrases: [điều hướng sự phức tạp, điều hướng những phức tạp]
-    why_it_matters: Cụm lạ trong tiếng Việt và che các ràng buộc hoặc quyết định thực tế.
-    rewrite_strategy:
-      - Thay bằng xử lý, theo dõi, lựa chọn hoặc đáp ứng tùy hành động gốc.
-    bad_examples:
-      - text: Nền tảng giúp doanh nghiệp điều hướng sự phức tạp của tuân thủ.
-        reason: Không nêu nghiệp vụ được hỗ trợ.
-      - text: Hướng dẫn giúp bạn điều hướng những phức tạp của thuế.
-        reason: Dịch sát ẩn dụ tiếng Anh.
-    good_examples:
-      - text: Nền tảng giúp doanh nghiệp theo dõi các yêu cầu tuân thủ.
-      - text: Hướng dẫn giải thích cách khai và nộp thuế hộ kinh doanh.
-    exceptions:
-      - Văn cảnh nói thật về điều hướng trong không gian hoặc giao diện.
-    false_positive_risk: low
-    tags: [dich-sat, an-du]
-    min_occurrences: 1
-
-  - id: VI-TRA-L03
-    name: tac-dong-co-y-nghia
-    skill: translationese-cleaner-vi
-    category: lexical
-    severity: medium
-    confidence: high
-    summary: Dịch "meaningful impact" thành "tác động có ý nghĩa" mà không nêu tác động cụ thể.
-    signals:
-      phrases: [tác động có ý nghĩa, tạo ra tác động có ý nghĩa]
-    why_it_matters: Cụm đánh giá rỗng, khó xác định tiêu chí hay đối tượng được hưởng lợi.
-    rewrite_strategy:
-      - Nêu thay đổi có thể quan sát hoặc giữ mức khái quát nếu bản gốc không có thêm dữ kiện.
-    bad_examples:
-      - text: Chương trình tạo ra tác động có ý nghĩa cho cộng đồng.
-        reason: Không rõ cộng đồng thay đổi thế nào.
-      - text: Mỗi đóng góp đều mang lại tác động có ý nghĩa.
-        reason: Lời khẳng định không có tiêu chí.
-    good_examples:
-      - text: Chương trình cấp học bổng cho 35 học sinh trong năm 2025.
-      - text: Mỗi 200.000 đồng đóng góp chi trả một bộ sách.
-    exceptions:
-      - Khi đây là thuật ngữ được định nghĩa bằng tiêu chí ở phần trước.
-    false_positive_risk: low
-    tags: [dich-sat, tru-tuong]
-    min_occurrences: 1
-
-  - id: VI-TRA-L04
-    name: o-cap-do-cot-loi
-    skill: translationese-cleaner-vi
-    category: lexical
-    severity: low
-    confidence: high
-    summary: Dịch "at its core" thành "ở cấp độ cốt lõi" như một lời dẫn tạo vẻ sâu sắc.
-    signals:
-      phrases: [ở cấp độ cốt lõi, tại cốt lõi của nó]
-    why_it_matters: Cụm không tự nhiên và thường chỉ trì hoãn mệnh đề chính.
-    rewrite_strategy:
-      - Bỏ lời dẫn hoặc nêu thành phần nền tảng bằng danh từ cụ thể.
-    bad_examples:
-      - text: Ở cấp độ cốt lõi, sản phẩm này là một nền tảng dữ liệu.
-        reason: Có thể dùng câu trực tiếp.
-      - text: Tại cốt lõi của nó, vấn đề là giao tiếp.
-        reason: Trật tự và đại từ bám tiếng Anh.
-    good_examples:
-      - text: Sản phẩm này là một nền tảng dữ liệu.
-      - text: Vấn đề chính nằm ở cách hai nhóm trao đổi yêu cầu.
-    exceptions:
-      - Phân tích kiến trúc có nhiều lớp và "lõi" là một thành phần đã định nghĩa.
-    false_positive_risk: low
-    tags: [dich-sat, loi-dan]
-    min_occurrences: 1
-
-  - id: VI-TRA-L05
-    name: tan-dung-moi-ngu-canh
-    skill: translationese-cleaner-vi
-    category: lexical
-    severity: low
-    confidence: medium
-    summary: Dùng "tận dụng" cho mọi trường hợp của "leverage" dù động từ cụ thể tự nhiên hơn.
-    signals:
-      regex: ['\btận dụng (?:sức mạnh|khả năng|nền tảng|công nghệ) (?:của|để)\b']
-    why_it_matters: Động từ chung làm mờ thao tác thực tế và tạo giọng business không cần thiết.
-    rewrite_strategy:
-      - Chọn dùng, phân tích, kết hợp, dựa vào hoặc khai thác theo quan hệ thực tế.
-    bad_examples:
-      - text: Nhóm tận dụng sức mạnh của AI để viết báo cáo.
-        reason: '"Sức mạnh" không chỉ chức năng nào.'
-      - text: Ứng dụng tận dụng nền tảng để cung cấp thông báo.
-        reason: Có thể nêu trực tiếp cách ứng dụng dùng nền tảng.
-    good_examples:
-      - text: Nhóm dùng mô hình để tạo bản nháp báo cáo.
-      - text: Ứng dụng dùng Firebase Cloud Messaging để gửi thông báo.
-    exceptions:
-      - Khi nghĩa thực là khai thác lợi thế hoặc nguồn lực sẵn có.
-    false_positive_risk: medium
-    tags: [dong-tu, business, dich-sat]
-    min_occurrences: 2
-
-  - id: VI-TRA-L06
-    name: trai-nghiem-lien-mach
-    skill: translationese-cleaner-vi
-    category: lexical
-    severity: low
-    confidence: medium
-    summary: Dịch "seamless experience" thành "trải nghiệm liền mạch" mà không chỉ ra sự gián đoạn được loại bỏ.
-    signals:
-      phrases: [trải nghiệm liền mạch, mang lại trải nghiệm liền mạch]
-    why_it_matters: Cụm marketing khó kiểm chứng nếu không có luồng hoặc tiêu chí cụ thể.
-    rewrite_strategy:
-      - Mô tả bước chuyển, thời gian chờ hoặc thao tác được bỏ nếu đầu vào có dữ kiện.
-    bad_examples:
-      - text: Ứng dụng mang lại trải nghiệm liền mạch cho mọi người dùng.
-        reason: Không có tiêu chí cho "liền mạch".
-      - text: Đăng nhập liền mạch giúp nâng cao trải nghiệm.
-        reason: Hai khái niệm trừu tượng đứng cạnh nhau.
-    good_examples:
-      - text: Người dùng đăng nhập một lần để mở cả ứng dụng web và di động.
-      - text: Bản nháp được giữ khi người dùng chuyển từ điện thoại sang máy tính.
-    exceptions:
-      - Khi "liền mạch" là thuật ngữ UX đã có tiêu chí hoặc bằng chứng ở phần trước.
-    false_positive_risk: medium
-    tags: [ux, marketing, dich-sat]
-    min_occurrences: 1
-
-  - id: VI-TRA-S01
-    name: thong-qua-viec-day-dac
-    skill: translationese-cleaner-vi
-    category: structural
-    severity: medium
-    confidence: medium
-    summary: Lặp "thông qua việc" để dịch cấu trúc "by + V-ing" thay vì dùng động từ trực tiếp.
-    signals:
-      phrases: [thông qua việc]
-    why_it_matters: Cụm làm câu dài, tăng danh hóa và có thể che tác nhân.
-    rewrite_strategy:
-      - Đưa hành động sau "việc" thành động từ chính hoặc mệnh đề chỉ cách thức.
-    bad_examples:
-      - text: Hệ thống giảm lỗi thông qua việc kiểm tra dữ liệu tự động.
-        reason: Có thể dùng "bằng cách" hoặc đổi chủ thể của kiểm tra.
-      - text: Nhóm tiết kiệm thời gian thông qua việc sử dụng mẫu có sẵn.
-        reason: Danh hóa không cần thiết.
-    good_examples:
-      - text: Hệ thống tự kiểm tra dữ liệu nên giảm lỗi nhập.
-      - text: Nhóm dùng mẫu có sẵn để tiết kiệm thời gian.
-    exceptions:
-      - Khi cần nhấn mạnh cơ chế và cấu trúc không bị lặp trong đoạn.
-    false_positive_risk: medium
-    tags: [danh-hoa, by-ving]
-    min_occurrences: 2
-
-  - id: VI-TRA-S02
-    name: thuc-hien-viec
-    skill: translationese-cleaner-vi
-    category: structural
-    severity: medium
-    confidence: high
-    summary: Dùng động từ nhẹ "thực hiện việc" hoặc "tiến hành thực hiện" trước một hành động rõ.
-    signals:
-      regex: ['\b(?:thực hiện việc|tiến hành thực hiện(?: việc)?)\b']
-    why_it_matters: Cụm kéo dài vị ngữ và khiến câu hành chính hơn mức cần thiết.
-    rewrite_strategy:
-      - Biến danh từ chỉ hành động thành động từ chính, giữ chủ thể và thời gian.
-    bad_examples:
-      - text: Nhóm thực hiện việc đánh giá hồ sơ vào thứ Hai.
-        reason: '"Đánh giá" có thể làm động từ chính.'
-      - text: Kỹ thuật viên tiến hành thực hiện việc kiểm tra máy.
-        reason: Hai lớp động từ nhẹ chồng nhau.
-    good_examples:
-      - text: Nhóm đánh giá hồ sơ vào thứ Hai.
-      - text: Kỹ thuật viên kiểm tra máy trước mỗi ca.
-    exceptions:
-      - Khi "việc" là một đối tượng pháp lý đã được định nghĩa và cần tham chiếu nhất quán.
-    false_positive_risk: low
-    tags: [dong-tu-yeu, hanh-chinh]
-    min_occurrences: 1
-
-  - id: VI-TRA-S03
-    name: bi-dong-che-tac-nhan
-    skill: translationese-cleaner-vi
-    category: structural
-    severity: medium
-    confidence: low
-    summary: Dùng "được ... bởi" theo tiếng Anh khi tác nhân đã rõ và cần chịu trách nhiệm.
-    signals:
-      regex: ['\bđược\b.{1,80}\bbởi\b']
-    why_it_matters: Trật tự bị động có thể gượng và đẩy tác nhân quan trọng ra cuối câu.
-    rewrite_strategy:
-      - Đưa tác nhân lên làm chủ ngữ nếu trách nhiệm hoặc hành động là thông tin chính.
-    bad_examples:
-      - text: Báo cáo được phê duyệt bởi giám đốc vào sáng nay.
-        reason: Tác nhân cụ thể và quan trọng.
-      - text: Lỗi được phát hiện bởi nhóm vận hành trong ca đêm.
-        reason: Câu chủ động tự nhiên và rõ trách nhiệm hơn.
-    good_examples:
-      - text: Giám đốc phê duyệt báo cáo vào sáng nay.
-      - text: Nhóm vận hành phát hiện lỗi trong ca đêm.
-    exceptions:
-      - Khi tác nhân không biết, không quan trọng, cần giấu hợp lý hoặc phương pháp khoa học ưu tiên đối tượng.
-    false_positive_risk: high
-    tags: [bi-dong, tac-nhan]
-    min_occurrences: 2
-
-  - id: VI-TRA-S04
-    name: dua-ra-su-ho-tro
-    skill: translationese-cleaner-vi
-    category: structural
-    severity: medium
-    confidence: high
-    summary: Dùng "đưa ra/cung cấp sự hỗ trợ" thay cho động từ "hỗ trợ" trong câu thông thường.
-    signals:
-      regex: ['\b(?:đưa ra|cung cấp) sự hỗ trợ\b']
-    why_it_matters: Danh hóa khiến hành động đơn giản thành cụm dài và kém trực tiếp.
-    rewrite_strategy:
-      - Dùng "hỗ trợ" làm động từ và giữ rõ người hỗ trợ, đối tượng, phạm vi.
-    bad_examples:
-      - text: Nhóm sẽ đưa ra sự hỗ trợ cho khách hàng mới.
-        reason: Có thể dùng động từ trực tiếp.
-      - text: Bộ phận IT cung cấp sự hỗ trợ trong giờ làm việc.
-        reason: Cấu trúc nặng hơn cần thiết.
-    good_examples:
-      - text: Nhóm sẽ hỗ trợ khách hàng mới trong 30 ngày đầu.
-      - text: Bộ phận IT hỗ trợ trong giờ làm việc.
-    exceptions:
-      - Khi "gói hỗ trợ" hoặc "sự hỗ trợ" là danh mục, quyền lợi hay đối tượng đang được phân tích.
-    false_positive_risk: low
-    tags: [danh-hoa, dong-tu-yeu]
-    min_occurrences: 1
+- id: VI-TRA-L01
+  name: mo-khoa-tiem-nang
+  skill: translationese-cleaner-vi
+  category: lexical
+  finding_type: warning
+  scope: phrase
+  aggregation: single
+  severity: medium
+  confidence: high
+  summary: Dịch sát "unlock potential" thành "mở khóa tiềm năng" khi ý thực là cho phép hoặc cải thiện một khả năng
+    cụ thể.
+  signals:
+    phrases:
+    - mở khóa tiềm năng
+  why_it_matters: Ẩn dụ không cho biết khả năng nào được mở ra hoặc bằng cách nào.
+  rewrite_strategy:
+  - Nêu khả năng, đối tượng và tác động cụ thể đã có trong bản gốc.
+  bad_examples:
+  - text: Công cụ mở khóa tiềm năng tìm xu hướng trong dữ liệu bán hàng.
+    reason: Không rõ dữ liệu được dùng để làm gì.
+  - text: Khóa học mở khóa tiềm năng lãnh đạo qua bài tập giao việc và phản hồi.
+    reason: Cụm quảng cáo dịch sát thiếu hành động cụ thể.
+  good_examples:
+  - text: Công cụ giúp nhóm tìm xu hướng trong dữ liệu bán hàng.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Khóa học cho học viên thực hành giao việc và phản hồi.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Slogan đã duyệt hoặc ngữ cảnh cố ý dùng ẩn dụ về khóa.
+  false_positive_risk: low
+  tags:
+  - dich-sat
+  - an-du
+  - business
+  min_occurrences: 1
+- id: VI-TRA-L02
+  name: dieu-huong-su-phuc-tap
+  skill: translationese-cleaner-vi
+  category: lexical
+  finding_type: warning
+  scope: phrase
+  aggregation: single
+  severity: medium
+  confidence: high
+  summary: Dịch "navigate complexity" thành "điều hướng sự phức tạp" thay vì nêu công việc cần xử lý.
+  signals:
+    phrases:
+    - điều hướng sự phức tạp
+    - điều hướng những phức tạp
+  why_it_matters: Cụm lạ trong tiếng Việt và che các ràng buộc hoặc quyết định thực tế.
+  rewrite_strategy:
+  - Thay bằng xử lý, theo dõi, lựa chọn hoặc đáp ứng tùy hành động gốc.
+  bad_examples:
+  - text: Nền tảng giúp doanh nghiệp điều hướng sự phức tạp khi theo dõi các yêu cầu tuân thủ.
+    reason: Không nêu nghiệp vụ được hỗ trợ.
+  - text: Hướng dẫn giúp bạn điều hướng những phức tạp khi khai và nộp thuế hộ kinh doanh.
+    reason: Dịch sát ẩn dụ tiếng Anh.
+  good_examples:
+  - text: Nền tảng giúp doanh nghiệp theo dõi các yêu cầu tuân thủ.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Hướng dẫn giải thích cách khai và nộp thuế hộ kinh doanh.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Văn cảnh nói thật về điều hướng trong không gian hoặc giao diện.
+  false_positive_risk: low
+  tags:
+  - dich-sat
+  - an-du
+  min_occurrences: 1
+- id: VI-TRA-L03
+  name: tac-dong-co-y-nghia
+  skill: translationese-cleaner-vi
+  category: lexical
+  finding_type: warning
+  scope: phrase
+  aggregation: single
+  severity: medium
+  confidence: high
+  summary: Dịch "meaningful impact" thành "tác động có ý nghĩa" mà không nêu tác động cụ thể.
+  signals:
+    phrases:
+    - tác động có ý nghĩa
+    - tạo ra tác động có ý nghĩa
+  why_it_matters: Cụm đánh giá rỗng, khó xác định tiêu chí hay đối tượng được hưởng lợi.
+  rewrite_strategy:
+  - Nêu thay đổi có thể quan sát hoặc giữ mức khái quát nếu bản gốc không có thêm dữ kiện.
+  bad_examples:
+  - text: Chương trình tạo tác động có ý nghĩa bằng cách cấp học bổng cho 35 học sinh trong năm 2025.
+    reason: Không rõ cộng đồng thay đổi thế nào.
+  - text: Mỗi đóng góp 200.000 đồng tạo tác động có ý nghĩa bằng cách chi trả một bộ sách.
+    reason: Lời khẳng định không có tiêu chí.
+  good_examples:
+  - text: Chương trình cấp học bổng cho 35 học sinh trong năm 2025.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Mỗi 200.000 đồng đóng góp chi trả một bộ sách.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Khi đây là thuật ngữ được định nghĩa bằng tiêu chí ở phần trước.
+  false_positive_risk: low
+  tags:
+  - dich-sat
+  - tru-tuong
+  min_occurrences: 1
+- id: VI-TRA-L04
+  name: o-cap-do-cot-loi
+  skill: translationese-cleaner-vi
+  category: lexical
+  finding_type: preference
+  scope: phrase
+  aggregation: single
+  severity: low
+  confidence: high
+  summary: Dịch "at its core" thành "ở cấp độ cốt lõi" như một lời dẫn tạo vẻ sâu sắc.
+  signals:
+    phrases:
+    - ở cấp độ cốt lõi
+    - tại cốt lõi của nó
+  why_it_matters: Cụm không tự nhiên và thường chỉ trì hoãn mệnh đề chính.
+  rewrite_strategy:
+  - Bỏ lời dẫn hoặc nêu thành phần nền tảng bằng danh từ cụ thể.
+  bad_examples:
+  - text: Ở cấp độ cốt lõi, sản phẩm này là một nền tảng dữ liệu.
+    reason: Có thể dùng câu trực tiếp.
+  - text: Tại cốt lõi của nó, vấn đề chính nằm ở cách hai nhóm trao đổi yêu cầu.
+    reason: Trật tự và đại từ bám tiếng Anh.
+  good_examples:
+  - text: Sản phẩm này là một nền tảng dữ liệu.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Vấn đề chính nằm ở cách hai nhóm trao đổi yêu cầu.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Phân tích kiến trúc có nhiều lớp và "lõi" là một thành phần đã định nghĩa.
+  false_positive_risk: low
+  tags:
+  - dich-sat
+  - loi-dan
+  min_occurrences: 1
+- id: VI-TRA-L05
+  name: tan-dung-moi-ngu-canh
+  skill: translationese-cleaner-vi
+  category: lexical
+  finding_type: preference
+  scope: phrase
+  aggregation: count
+  severity: low
+  confidence: medium
+  summary: Dùng "tận dụng" cho mọi trường hợp của "leverage" dù động từ cụ thể tự nhiên hơn.
+  signals:
+    regex:
+    - \btận dụng (?:sức mạnh|khả năng|nền tảng|công nghệ) (?:của|để)\b
+  why_it_matters: Động từ chung làm mờ thao tác thực tế và tạo giọng business không cần thiết.
+  rewrite_strategy:
+  - Chọn dùng, phân tích, kết hợp, dựa vào hoặc khai thác theo quan hệ thực tế.
+  bad_examples:
+  - text: Nhóm tận dụng sức mạnh của AI để viết báo cáo.
+    reason: '"Sức mạnh" không chỉ chức năng nào.'
+  - text: Ứng dụng tận dụng nền tảng để cung cấp thông báo.
+    reason: Có thể nêu trực tiếp cách ứng dụng dùng nền tảng.
+  good_examples:
+  - text: Nhóm dùng AI để viết báo cáo.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Ứng dụng dùng nền tảng để gửi thông báo.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Khi nghĩa thực là khai thác lợi thế hoặc nguồn lực sẵn có.
+  false_positive_risk: medium
+  tags:
+  - dong-tu
+  - business
+  - dich-sat
+  min_occurrences: 2
+- id: VI-TRA-L06
+  name: trai-nghiem-lien-mach
+  skill: translationese-cleaner-vi
+  category: lexical
+  finding_type: warning
+  scope: phrase
+  aggregation: single
+  severity: low
+  confidence: medium
+  summary: Dịch "seamless experience" thành "trải nghiệm liền mạch" mà không chỉ ra sự gián đoạn được loại bỏ.
+  signals:
+    phrases:
+    - trải nghiệm liền mạch
+    - mang lại trải nghiệm liền mạch
+  why_it_matters: Cụm marketing khó kiểm chứng nếu không có luồng hoặc tiêu chí cụ thể.
+  rewrite_strategy:
+  - Mô tả bước chuyển, thời gian chờ hoặc thao tác được bỏ nếu đầu vào có dữ kiện.
+  bad_examples:
+  - text: Ứng dụng mang lại trải nghiệm liền mạch nhờ đăng nhập một lần trên web và di động.
+    reason: Không có tiêu chí cho "liền mạch".
+  - text: Bản nháp được giữ khi đổi thiết bị, tạo nên trải nghiệm liền mạch.
+    reason: Hai khái niệm trừu tượng đứng cạnh nhau.
+  good_examples:
+  - text: Người dùng đăng nhập một lần trên cả ứng dụng web và di động.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Bản nháp được giữ khi người dùng đổi thiết bị.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Khi "liền mạch" là thuật ngữ UX đã có tiêu chí hoặc bằng chứng ở phần trước.
+  false_positive_risk: medium
+  tags:
+  - ux
+  - marketing
+  - dich-sat
+  min_occurrences: 1
+- id: VI-TRA-S01
+  name: thong-qua-viec-day-dac
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: preference
+  scope: phrase
+  aggregation: count
+  severity: medium
+  confidence: medium
+  summary: Lặp "thông qua việc" để dịch cấu trúc "by + V-ing" thay vì dùng động từ trực tiếp.
+  signals:
+    phrases:
+    - thông qua việc
+  why_it_matters: Cụm làm câu dài, tăng danh hóa và có thể che tác nhân.
+  rewrite_strategy:
+  - Đưa hành động sau "việc" thành động từ chính hoặc mệnh đề chỉ cách thức.
+  bad_examples:
+  - text: Hệ thống giảm lỗi thông qua việc kiểm tra dữ liệu tự động.
+    reason: Có thể dùng "bằng cách" hoặc đổi chủ thể của kiểm tra.
+  - text: Nhóm tiết kiệm thời gian thông qua việc sử dụng mẫu có sẵn.
+    reason: Danh hóa không cần thiết.
+  good_examples:
+  - text: Hệ thống tự kiểm tra dữ liệu để giảm lỗi.
+  - text: Nhóm dùng mẫu có sẵn để tiết kiệm thời gian.
+  exceptions:
+  - Khi cần nhấn mạnh cơ chế và cấu trúc không bị lặp trong đoạn.
+  false_positive_risk: medium
+  tags:
+  - danh-hoa
+  - by-ving
+  min_occurrences: 2
+- id: VI-TRA-S02
+  name: thuc-hien-viec
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: warning
+  scope: phrase
+  aggregation: single
+  severity: medium
+  confidence: high
+  summary: Dùng động từ nhẹ "thực hiện việc" hoặc "tiến hành thực hiện" trước một hành động rõ.
+  signals:
+    regex:
+    - '\b(?:thực hiện việc|tiến hành thực hiện(?: việc)?)\b'
+  why_it_matters: Cụm kéo dài vị ngữ và khiến câu hành chính hơn mức cần thiết.
+  rewrite_strategy:
+  - Biến danh từ chỉ hành động thành động từ chính, giữ chủ thể và thời gian.
+  bad_examples:
+  - text: Nhóm thực hiện việc đánh giá hồ sơ vào thứ Hai.
+    reason: '"Đánh giá" có thể làm động từ chính.'
+  - text: Kỹ thuật viên tiến hành thực hiện việc kiểm tra máy.
+    reason: Hai lớp động từ nhẹ chồng nhau.
+  good_examples:
+  - text: Nhóm đánh giá hồ sơ vào thứ Hai.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Kỹ thuật viên kiểm tra máy.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Khi "việc" là một đối tượng pháp lý đã được định nghĩa và cần tham chiếu nhất quán.
+  false_positive_risk: low
+  tags:
+  - dong-tu-yeu
+  - hanh-chinh
+  min_occurrences: 1
+- id: VI-TRA-S03
+  name: bi-dong-che-tac-nhan
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: preference
+  scope: sentence
+  aggregation: count
+  severity: medium
+  confidence: low
+  summary: Dùng "được ... bởi" theo tiếng Anh khi tác nhân đã rõ và cần chịu trách nhiệm.
+  signals:
+    regex:
+    - \bđược\b.{1,80}\bbởi\b
+  why_it_matters: Trật tự bị động có thể gượng và đẩy tác nhân quan trọng ra cuối câu.
+  rewrite_strategy:
+  - Đưa tác nhân lên làm chủ ngữ nếu trách nhiệm hoặc hành động là thông tin chính.
+  bad_examples:
+  - text: Báo cáo được phê duyệt bởi giám đốc vào sáng nay.
+    reason: Tác nhân cụ thể và quan trọng.
+  - text: Lỗi được phát hiện bởi nhóm vận hành trong ca đêm.
+    reason: Câu chủ động tự nhiên và rõ trách nhiệm hơn.
+  good_examples:
+  - text: Giám đốc phê duyệt báo cáo vào sáng nay.
+  - text: Nhóm vận hành phát hiện lỗi trong ca đêm.
+  exceptions:
+  - Khi tác nhân không biết, không quan trọng, cần giấu hợp lý hoặc phương pháp khoa học ưu tiên đối tượng.
+  false_positive_risk: high
+  tags:
+  - bi-dong
+  - tac-nhan
+  min_occurrences: 2
+- id: VI-TRA-S04
+  name: dua-ra-su-ho-tro
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: warning
+  scope: phrase
+  aggregation: single
+  severity: medium
+  confidence: high
+  summary: Dùng "đưa ra/cung cấp sự hỗ trợ" thay cho động từ "hỗ trợ" trong câu thông thường.
+  signals:
+    regex:
+    - \b(?:đưa ra|cung cấp) sự hỗ trợ\b
+  why_it_matters: Danh hóa khiến hành động đơn giản thành cụm dài và kém trực tiếp.
+  rewrite_strategy:
+  - Dùng "hỗ trợ" làm động từ và giữ rõ người hỗ trợ, đối tượng, phạm vi.
+  bad_examples:
+  - text: Nhóm sẽ đưa ra sự hỗ trợ cho khách hàng mới.
+    reason: Có thể dùng động từ trực tiếp.
+  - text: Bộ phận IT cung cấp sự hỗ trợ trong giờ làm việc.
+    reason: Cấu trúc nặng hơn cần thiết.
+  good_examples:
+  - text: Nhóm sẽ hỗ trợ khách hàng mới.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - text: Bộ phận IT hỗ trợ trong giờ làm việc.
+    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  exceptions:
+  - Khi "gói hỗ trợ" hoặc "sự hỗ trợ" là danh mục, quyền lợi hay đối tượng đang được phân tích.
+  false_positive_risk: low
+  tags:
+  - danh-hoa
+  - dong-tu-yeu
+  min_occurrences: 1

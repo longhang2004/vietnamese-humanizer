@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/longhang2004/vietnamese-humanizer/blob/main/benchmarks/review-result.schema.json",
+  "title": "Vietnamese Writing Skills manual review result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "system", "reviewer_id", "scores", "blockers", "notes"],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^BENCH-(HUM|TRA|GRA|STY)-[0-9]{3}$"},
+    "system": {"type": "string", "minLength": 1},
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "naturalness",
+        "clarity",
+        "meaning_preservation",
+        "factual_preservation",
+        "register_fit",
+        "terminology_consistency",
+        "edit_necessity",
+        "over_editing_avoidance"
+      ],
+      "properties": {
+        "naturalness": {"type": "integer", "minimum": 1, "maximum": 5},
+        "clarity": {"type": "integer", "minimum": 1, "maximum": 5},
+        "meaning_preservation": {"type": "integer", "minimum": 1, "maximum": 5},
+        "factual_preservation": {"type": "integer", "minimum": 1, "maximum": 5},
+        "register_fit": {"type": "integer", "minimum": 1, "maximum": 5},
+        "terminology_consistency": {"type": "integer", "minimum": 1, "maximum": 5},
+        "edit_necessity": {"type": "integer", "minimum": 1, "maximum": 5},
+        "over_editing_avoidance": {"type": "integer", "minimum": 1, "maximum": 5}
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "fabricated_fact",
+          "changed_number",
+          "changed_proper_name",
+          "changed_date",
+          "changed_certainty",
+          "changed_stance",
+          "invented_source",
+          "removed_condition",
+          "removed_exception",
+          "incorrect_terminology",
+          "invented_personal_experience",
+          "invented_cause",
+          "invented_metric"
+        ]
+      }
+    },
+    "notes": {"type": "string"}
+  }
+}
