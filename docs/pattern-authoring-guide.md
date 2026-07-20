@@ -40,7 +40,20 @@ Phrase và regex phải đủ hẹp. Với pattern theo mật độ hoặc count
 
 Ví dụ tốt chỉ được dùng thông tin có trong câu nguồn hoặc context được lưu rõ. Không thay “cải thiện hiệu suất” bằng một metric tự chọn, không thêm deadline, nguyên nhân, nguồn, trải nghiệm hay cơ chế kỹ thuật.
 
-Example corpus dùng `examples/schema.json`. Một example mới cần input, context, output, must-preserve, must-not-add và preservation review. Nếu chưa đủ bằng chứng, đặt `needs-review` và `gold: false`.
+Mỗi `good_examples` phải có `mode`: `clean_rewrite`, `review_comment`, `needs_author_decision` hoặc `no_change`. Review comment không phải câu thay thế. Nếu không thể sửa an toàn vì thiếu nguồn hoặc có nhiều cách hiểu, không được gắn lời bình meta nhãn `clean_rewrite`.
+
+Trước khi chấp nhận một good example, reviewer xác nhận:
+
+- [ ] Giữ mệnh đề chính, chủ thể, đối tượng và phạm vi.
+- [ ] Giữ số lượng, thời gian, quan hệ nhân quả, điều kiện và ngoại lệ.
+- [ ] Giữ mức độ bắt buộc, mức độ chắc chắn và lập trường.
+- [ ] Không thêm metric, nguồn, tác nhân, cơ chế, nguyên nhân hoặc kết quả.
+- [ ] Mọi dữ kiện ngoài input đều có trong `context`.
+- [ ] Không đổi ngôi xưng hoặc register ngoài phạm vi pattern.
+- [ ] Chỉ sửa tín hiệu mà pattern nhắm tới.
+- [ ] Nếu không thể clean rewrite, dùng `review_comment` hoặc `needs_author_decision`.
+
+Example corpus dùng `examples/schema.json`. Một example mới cần input, context, output, output mode, must-preserve, must-not-add, gold metadata và preservation review có provenance. Dùng `unreviewed` nếu chưa audit; trạng thái đó không được là gold rewrite.
 
 Ưu tiên ví dụ tự viết hoặc đã được phép dùng. Nếu lấy từ quan sát thực tế, ẩn chi tiết nhận dạng và kiểm license.
 

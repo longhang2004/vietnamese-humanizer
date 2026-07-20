@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Mapping
 from typing import Any
 
 from jsonschema import Draft202012Validator
@@ -17,6 +18,7 @@ CASE_FIELDS = {
     "context": str,
     "constraints": list,
     "expected_patterns": list,
+    "expected_output_mode": str,
     "must_preserve": list,
     "must_not_add": list,
     "blockers": list,
@@ -27,6 +29,12 @@ SKILLS = {
     "translationese-cleaner-vi",
     "grammar-checker-vi",
     "style-guide-vi",
+}
+OUTPUT_MODES = {
+    "clean_rewrite",
+    "review_comment",
+    "needs_author_decision",
+    "no_change",
 }
 CRITERIA = (
     "naturalness",
@@ -59,6 +67,11 @@ def validate_case(
             errors.append(f"{prefix}: {field} không được rỗng")
     if case.get("skill") not in SKILLS:
         errors.append(f"{prefix}: skill không hợp lệ: {case.get('skill')!r}")
+    if case.get("expected_output_mode") not in OUTPUT_MODES:
+        errors.append(
+            f"{prefix}: expected_output_mode không hợp lệ: "
+            f"{case.get('expected_output_mode')!r}"
+        )
     pattern_ids = case.get("expected_patterns", [])
     if isinstance(pattern_ids, list):
         if not all(isinstance(item, str) and item.startswith("VI-") for item in pattern_ids):
@@ -116,7 +129,7 @@ def load_cases(
 def validate_results(
     path: Any,
     schema_path: Any,
-    case_ids: set[str],
+    expected_modes: Mapping[str, str],
 ) -> tuple[list[dict[str, Any]], list[str]]:
     rows = load_jsonl(path)
     validator = Draft202012Validator(load_json(schema_path))
@@ -129,8 +142,25 @@ def validate_results(
             location = ".".join(str(part) for part in issue.absolute_path) or "<root>"
             errors.append(f"{prefix}:{location}: {issue.message}")
         case_id = row.get("case_id")
-        if case_id not in case_ids:
+        if case_id not in expected_modes:
             errors.append(f"{prefix}: benchmark case_id không tồn tại")
+        else:
+            expected_mode = expected_modes[case_id]
+            actual_mode = row.get("output_mode")
+            mode_correct = actual_mode == expected_mode
+            if row.get("output_mode_correct") is not mode_correct:
+                errors.append(
+                    f"{prefix}: output_mode_correct phải là {str(mode_correct).lower()} "
+                    f"khi expected={expected_mode!r} và actual={actual_mode!r}"
+                )
+            blockers = row.get("blockers", [])
+            has_mode_blocker = (
+                isinstance(blockers, list) and "incorrect_output_mode" in blockers
+            )
+            if not mode_correct and not has_mode_blocker:
+                errors.append(f"{prefix}: output mode sai phải có blocker incorrect_output_mode")
+            if mode_correct and has_mode_blocker:
+                errors.append(f"{prefix}: không được gắn incorrect_output_mode khi mode đúng")
         key = (str(case_id), str(row.get("system")), str(row.get("reviewer_id")))
         if key in seen:
             errors.append(f"{prefix}: review bị trùng cho cùng case, system và reviewer")

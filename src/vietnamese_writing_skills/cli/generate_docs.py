@@ -39,6 +39,13 @@ def render(pattern_dir: Any) -> str:
             ]
         )
         lines.extend(f"  - {_clean(item)}" for item in pattern["rewrite_strategy"])
+        lines.append("- Good examples:")
+        for example in pattern["good_examples"]:
+            lines.append(f"  - `{example['mode']}`: {_clean(example['text'])}")
+            if example.get("context"):
+                lines.append(f"    - Context: {_clean(example['context'])}")
+            if example.get("reason"):
+                lines.append(f"    - Reason: {_clean(example['reason'])}")
         lines.append("- Exceptions:")
         lines.extend(f"  - {_clean(item)}" for item in pattern["exceptions"])
         lines.append("")

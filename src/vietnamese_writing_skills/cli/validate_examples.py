@@ -30,8 +30,8 @@ def main(argv: list[str] | None = None) -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    reviewed = sum(row["preservation_review"]["status"] == "reviewed" for row in rows)
-    print(f"Example validation đạt: {len(rows)} example, {reviewed} đã review.")
+    reviewed = sum(row["preservation_review"]["status"] != "unreviewed" for row in rows)
+    print(f"Example validation đạt: {len(rows)} example, {reviewed} có provenance review.")
     return 0
 
 

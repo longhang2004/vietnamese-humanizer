@@ -9,8 +9,8 @@ patterns:
   aggregation: single
   severity: medium
   confidence: high
-  summary: Dịch sát "unlock potential" thành "mở khóa tiềm năng" khi ý thực là cho phép hoặc cải thiện một khả năng
-    cụ thể.
+  summary: Dịch sát "unlock potential" thành "mở khóa tiềm năng" khi ý thực là cho phép hoặc cải thiện
+    một khả năng cụ thể.
   signals:
     phrases:
     - mở khóa tiềm năng
@@ -23,9 +23,11 @@ patterns:
   - text: Khóa học mở khóa tiềm năng lãnh đạo qua bài tập giao việc và phản hồi.
     reason: Cụm quảng cáo dịch sát thiếu hành động cụ thể.
   good_examples:
-  - text: Công cụ giúp nhóm tìm xu hướng trong dữ liệu bán hàng.
+  - mode: clean_rewrite
+    text: Công cụ giúp tìm xu hướng trong dữ liệu bán hàng.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Khóa học cho học viên thực hành giao việc và phản hồi.
+  - mode: clean_rewrite
+    text: Khóa học phát triển năng lực lãnh đạo qua bài tập giao việc và phản hồi.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Slogan đã duyệt hoặc ngữ cảnh cố ý dùng ẩn dụ về khóa.
@@ -58,9 +60,11 @@ patterns:
   - text: Hướng dẫn giúp bạn điều hướng những phức tạp khi khai và nộp thuế hộ kinh doanh.
     reason: Dịch sát ẩn dụ tiếng Anh.
   good_examples:
-  - text: Nền tảng giúp doanh nghiệp theo dõi các yêu cầu tuân thủ.
+  - mode: clean_rewrite
+    text: Nền tảng giúp doanh nghiệp theo dõi các yêu cầu tuân thủ.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Hướng dẫn giải thích cách khai và nộp thuế hộ kinh doanh.
+  - mode: clean_rewrite
+    text: Hướng dẫn giải thích cách khai và nộp thuế hộ kinh doanh.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Văn cảnh nói thật về điều hướng trong không gian hoặc giao diện.
@@ -92,9 +96,11 @@ patterns:
   - text: Mỗi đóng góp 200.000 đồng tạo tác động có ý nghĩa bằng cách chi trả một bộ sách.
     reason: Lời khẳng định không có tiêu chí.
   good_examples:
-  - text: Chương trình cấp học bổng cho 35 học sinh trong năm 2025.
+  - mode: clean_rewrite
+    text: Chương trình hỗ trợ thiết thực bằng cách cấp học bổng cho 35 học sinh trong năm 2025.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Mỗi 200.000 đồng đóng góp chi trả một bộ sách.
+  - mode: clean_rewrite
+    text: Mỗi 200.000 đồng đóng góp tạo hỗ trợ thiết thực bằng cách chi trả một bộ sách.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi đây là thuật ngữ được định nghĩa bằng tiêu chí ở phần trước.
@@ -126,9 +132,11 @@ patterns:
   - text: Tại cốt lõi của nó, vấn đề chính nằm ở cách hai nhóm trao đổi yêu cầu.
     reason: Trật tự và đại từ bám tiếng Anh.
   good_examples:
-  - text: Sản phẩm này là một nền tảng dữ liệu.
+  - mode: clean_rewrite
+    text: Sản phẩm này là một nền tảng dữ liệu.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Vấn đề chính nằm ở cách hai nhóm trao đổi yêu cầu.
+  - mode: clean_rewrite
+    text: Vấn đề chính nằm ở cách hai nhóm trao đổi yêu cầu.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Phân tích kiến trúc có nhiều lớp và "lõi" là một thành phần đã định nghĩa.
@@ -159,9 +167,11 @@ patterns:
   - text: Ứng dụng tận dụng nền tảng để cung cấp thông báo.
     reason: Có thể nêu trực tiếp cách ứng dụng dùng nền tảng.
   good_examples:
-  - text: Nhóm dùng AI để viết báo cáo.
+  - mode: clean_rewrite
+    text: Nhóm dùng AI để viết báo cáo.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Ứng dụng dùng nền tảng để gửi thông báo.
+  - mode: clean_rewrite
+    text: Ứng dụng dùng nền tảng để gửi thông báo.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi nghĩa thực là khai thác lợi thế hoặc nguồn lực sẵn có.
@@ -180,7 +190,8 @@ patterns:
   aggregation: single
   severity: low
   confidence: medium
-  summary: Dịch "seamless experience" thành "trải nghiệm liền mạch" mà không chỉ ra sự gián đoạn được loại bỏ.
+  summary: Dịch "seamless experience" thành "trải nghiệm liền mạch" mà không chỉ ra sự gián đoạn được
+    loại bỏ.
   signals:
     phrases:
     - trải nghiệm liền mạch
@@ -194,9 +205,11 @@ patterns:
   - text: Bản nháp được giữ khi đổi thiết bị, tạo nên trải nghiệm liền mạch.
     reason: Hai khái niệm trừu tượng đứng cạnh nhau.
   good_examples:
-  - text: Người dùng đăng nhập một lần trên cả ứng dụng web và di động.
+  - mode: clean_rewrite
+    text: Việc chỉ đăng nhập một lần trên web và di động giúp trải nghiệm không bị gián đoạn.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Bản nháp được giữ khi người dùng đổi thiết bị.
+  - mode: clean_rewrite
+    text: Bản nháp được giữ khi người dùng đổi thiết bị, nên quá trình làm việc không bị gián đoạn.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi "liền mạch" là thuật ngữ UX đã có tiêu chí hoặc bằng chứng ở phần trước.
@@ -228,8 +241,10 @@ patterns:
   - text: Nhóm tiết kiệm thời gian thông qua việc sử dụng mẫu có sẵn.
     reason: Danh hóa không cần thiết.
   good_examples:
-  - text: Hệ thống tự kiểm tra dữ liệu để giảm lỗi.
-  - text: Nhóm dùng mẫu có sẵn để tiết kiệm thời gian.
+  - mode: clean_rewrite
+    text: Hệ thống tự kiểm tra dữ liệu để giảm lỗi.
+  - mode: clean_rewrite
+    text: Nhóm dùng mẫu có sẵn để tiết kiệm thời gian.
   exceptions:
   - Khi cần nhấn mạnh cơ chế và cấu trúc không bị lặp trong đoạn.
   false_positive_risk: medium
@@ -259,9 +274,11 @@ patterns:
   - text: Kỹ thuật viên tiến hành thực hiện việc kiểm tra máy.
     reason: Hai lớp động từ nhẹ chồng nhau.
   good_examples:
-  - text: Nhóm đánh giá hồ sơ vào thứ Hai.
+  - mode: clean_rewrite
+    text: Nhóm đánh giá hồ sơ vào thứ Hai.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Kỹ thuật viên kiểm tra máy.
+  - mode: clean_rewrite
+    text: Kỹ thuật viên kiểm tra máy.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi "việc" là một đối tượng pháp lý đã được định nghĩa và cần tham chiếu nhất quán.
@@ -292,8 +309,10 @@ patterns:
   - text: Lỗi được phát hiện bởi nhóm vận hành trong ca đêm.
     reason: Câu chủ động tự nhiên và rõ trách nhiệm hơn.
   good_examples:
-  - text: Giám đốc phê duyệt báo cáo vào sáng nay.
-  - text: Nhóm vận hành phát hiện lỗi trong ca đêm.
+  - mode: clean_rewrite
+    text: Giám đốc phê duyệt báo cáo vào sáng nay.
+  - mode: clean_rewrite
+    text: Nhóm vận hành phát hiện lỗi trong ca đêm.
   exceptions:
   - Khi tác nhân không biết, không quan trọng, cần giấu hợp lý hoặc phương pháp khoa học ưu tiên đối tượng.
   false_positive_risk: high
@@ -323,9 +342,11 @@ patterns:
   - text: Bộ phận IT cung cấp sự hỗ trợ trong giờ làm việc.
     reason: Cấu trúc nặng hơn cần thiết.
   good_examples:
-  - text: Nhóm sẽ hỗ trợ khách hàng mới.
+  - mode: clean_rewrite
+    text: Nhóm sẽ hỗ trợ khách hàng mới.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Bộ phận IT hỗ trợ trong giờ làm việc.
+  - mode: clean_rewrite
+    text: Bộ phận IT hỗ trợ trong giờ làm việc.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi "gói hỗ trợ" hoặc "sự hỗ trợ" là danh mục, quyền lợi hay đối tượng đang được phân tích.

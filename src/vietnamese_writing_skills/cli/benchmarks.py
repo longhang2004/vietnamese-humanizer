@@ -39,7 +39,7 @@ def main(argv: list[str] | None = None) -> int:
             results, result_errors = validate_results(
                 args.results,
                 review_schema,
-                {case["id"] for case in cases},
+                {case["id"]: case["expected_output_mode"] for case in cases},
             )
             errors.extend(result_errors)
     except (OSError, ValueError) as exc:

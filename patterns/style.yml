@@ -22,10 +22,14 @@ patterns:
   - text: Chúng tôi sẽ hướng dẫn; sau đó chúng ta xử lý yêu cầu của bạn.
     reason: Phạm vi "chúng ta" không rõ.
   good_examples:
-  - text: Bạn chọn gói rồi xác nhận địa chỉ.
-  - text: Chúng tôi sẽ hướng dẫn bạn xử lý yêu cầu.
+  - mode: clean_rewrite
+    text: Bạn chọn gói rồi xác nhận địa chỉ.
+    context: Style guide quy định gọi độc giả là “bạn”.
+  - mode: needs_author_decision
+    text: Cần xác nhận “chúng ta” có bao gồm người đọc hay chỉ phía “chúng tôi” trước khi sửa câu.
   exceptions:
-  - Khi "người dùng" là đối tượng phân tích còn "bạn" là lời gọi trực tiếp, hoặc trích dẫn nhiều người nói.
+  - Khi "người dùng" là đối tượng phân tích còn "bạn" là lời gọi trực tiếp, hoặc trích dẫn nhiều người
+    nói.
   false_positive_risk: high
   tags:
   - dai-tu
@@ -54,9 +58,11 @@ patterns:
   - text: Chúng ta ai cũng hiểu quy trình này rất đơn giản.
     reason: Có thể làm người chưa hiểu cảm thấy bị loại trừ.
   good_examples:
-  - text: AI sẽ thay đổi mọi ngành.
+  - mode: clean_rewrite
+    text: AI sẽ thay đổi mọi ngành.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Quy trình này rất đơn giản.
+  - mode: clean_rewrite
+    text: Quy trình này rất đơn giản.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Lời nói trong nhóm đã có đồng thuận hoặc hoạt động hướng dẫn thật sự cùng làm.
@@ -87,9 +93,11 @@ patterns:
   - text: Nếu login lỗi, hãy mở lại trang Đăng nhập.
     reason: Nội dung người dùng trộn Anh-Việt không có lý do.
   good_examples:
-  - text: Chọn Đăng nhập, sau đó đăng nhập bằng email.
+  - mode: clean_rewrite
+    text: Chọn Đăng nhập, sau đó đăng nhập bằng email.
     context: Style guide quy định nhãn UI là “Đăng nhập”.
-  - text: Nếu đăng nhập lỗi, hãy mở lại trang Đăng nhập.
+  - mode: clean_rewrite
+    text: Nếu đăng nhập lỗi, hãy mở lại trang Đăng nhập.
     context: Style guide quy định dùng “đăng nhập” trong nội dung người dùng.
   exceptions:
   - Khi phân biệt nhãn UI, endpoint, sự kiện analytics hoặc trích dẫn nguyên văn.
@@ -142,12 +150,15 @@ patterns:
   - text: Nhóm dùng RTO để quyết định phương án khôi phục.
     reason: Thuật ngữ chưa được mở rộng trong tài liệu phổ thông.
   good_examples:
-  - text: Thỏa thuận mức dịch vụ (SLA) sẽ được rà trong cuộc họp.
+  - mode: clean_rewrite
+    text: Thỏa thuận mức dịch vụ (SLA) sẽ được rà trong cuộc họp.
     context: Glossary định nghĩa SLA là “thỏa thuận mức dịch vụ”.
-  - text: Mục tiêu thời gian khôi phục (RTO) được dùng để quyết định phương án khôi phục.
+  - mode: clean_rewrite
+    text: Mục tiêu thời gian khôi phục (RTO) được dùng để quyết định phương án khôi phục.
     context: Glossary định nghĩa RTO là “mục tiêu thời gian khôi phục”.
   exceptions:
-  - Từ viết tắt quen thuộc với độc giả, tên sản phẩm, đơn vị, code, bảng glossary hoặc nội dung chuyên gia.
+  - Từ viết tắt quen thuộc với độc giả, tên sản phẩm, đơn vị, code, bảng glossary hoặc nội dung chuyên
+    gia.
   false_positive_risk: high
   tags:
   - viet-tat
@@ -167,7 +178,8 @@ patterns:
   signals:
     regex:
     - \b(?:Khách Hàng|Sản Phẩm|Giải Pháp|Dịch Vụ)\b
-  why_it_matters: Viết hoa không theo chức năng làm văn bản thiếu nhất quán và có thể mang giọng quảng cáo.
+  why_it_matters: Viết hoa không theo chức năng làm văn bản thiếu nhất quán và có thể mang giọng quảng
+    cáo.
   rewrite_strategy:
   - Viết thường danh từ chung, trừ tên riêng, thuật ngữ pháp lý đã định nghĩa hoặc style thương hiệu.
   bad_examples:
@@ -176,8 +188,10 @@ patterns:
   - text: Sản Phẩm này đi kèm Dịch Vụ bảo hành.
     reason: Không phải tên riêng.
   good_examples:
-  - text: Chúng tôi cung cấp giải pháp cho mọi khách hàng.
-  - text: Sản phẩm này đi kèm dịch vụ bảo hành.
+  - mode: clean_rewrite
+    text: Chúng tôi cung cấp giải pháp cho mọi khách hàng.
+  - mode: clean_rewrite
+    text: Sản phẩm này đi kèm dịch vụ bảo hành.
   exceptions:
   - Tên thương hiệu, nhãn UI, thuật ngữ đã định nghĩa trong hợp đồng hoặc style guide yêu cầu.
   false_positive_risk: high
@@ -207,8 +221,10 @@ patterns:
   - text: Mẫu được giữ ở 4°C.
     reason: Cách biểu diễn cần nhất quán với các số đo khác.
   good_examples:
-  - text: Tệp có dung lượng 5 GB.
-  - text: Mẫu được giữ ở 4 °C.
+  - mode: clean_rewrite
+    text: Tệp có dung lượng 5 GB.
+  - mode: clean_rewrite
+    text: Mẫu được giữ ở 4 °C.
   exceptions:
   - Nhãn UI thiếu chỗ, quy ước ngành, code, identifier hoặc style guide yêu cầu viết liền.
   false_positive_risk: medium
@@ -238,8 +254,10 @@ patterns:
   - text: Chiết khấu 5 % ở bảng nhưng 5% trong phần mô tả.
     reason: Trình bày không thống nhất.
   good_examples:
-  - text: Tỷ lệ A là 15%, còn tỷ lệ B là 20%.
-  - text: Chiết khấu 5% được dùng ở cả bảng và phần mô tả.
+  - mode: clean_rewrite
+    text: Tỷ lệ A là 15%, còn tỷ lệ B là 20%.
+  - mode: clean_rewrite
+    text: Chiết khấu 5% được dùng ở cả bảng và phần mô tả.
   exceptions:
   - Trích dẫn, dữ liệu nhập, locale khác nhau hoặc style từng sản phẩm có chủ đích.
   false_positive_risk: high
@@ -269,10 +287,11 @@ patterns:
   - text: Cuộc họp dời sang 05/06/26.
     reason: Cả thứ tự và năm đều có thể mơ hồ.
   good_examples:
-  - text: Hạn chót là ngày 7 tháng 8 năm 2026.
+  - mode: clean_rewrite
+    text: Hạn chót là ngày 7 tháng 8 năm 2026.
     context: Tài liệu dùng thứ tự ngày/tháng/năm.
-  - text: Cuộc họp dời sang 2026-06-05.
-    context: Tài liệu dùng thứ tự ngày/tháng/năm.
+  - mode: needs_author_decision
+    text: Cần xác nhận “26” thuộc thế kỷ nào trước khi đổi định dạng ngày.
   exceptions:
   - Tài liệu nội bộ có locale đã công bố, dữ liệu máy hoặc biểu mẫu bắt buộc.
   false_positive_risk: medium
@@ -321,8 +340,10 @@ patterns:
       Nhập mật khẩu.'
     reason: Một danh sách bước sẽ rõ hơn.
   good_examples:
-  - text: Trang tải nhanh; dữ liệu được mã hóa.
-  - text: '1. Nhập email.
+  - mode: clean_rewrite
+    text: Trang tải nhanh; dữ liệu được mã hóa.
+  - mode: clean_rewrite
+    text: '1. Nhập email.
 
       2. Nhập mật khẩu.'
   exceptions:
@@ -358,10 +379,12 @@ patterns:
       - **Bước hai**: Chọn Lưu.'
     reason: Numbered list phù hợp hơn.
   good_examples:
-  - text: '- Trang tải nhanh.
+  - mode: clean_rewrite
+    text: '- Trang tải nhanh.
 
       - Dữ liệu được mã hóa.'
-  - text: '1. Mở file.
+  - mode: clean_rewrite
+    text: '1. Mở file.
 
       2. Chọn Lưu.'
   exceptions:

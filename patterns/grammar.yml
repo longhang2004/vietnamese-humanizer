@@ -22,8 +22,10 @@ patterns:
   - text: Bạn đã nhận được email chưa ?
     reason: Có khoảng trắng trước dấu hỏi.
   good_examples:
-  - text: Báo cáo đã xong, vui lòng kiểm tra.
-  - text: Bạn đã nhận được email chưa?
+  - mode: clean_rewrite
+    text: Báo cáo đã xong, vui lòng kiểm tra.
+  - mode: clean_rewrite
+    text: Bạn đã nhận được email chưa?
   exceptions:
   - Code, biểu thức, dữ liệu nguyên bản hoặc style typography chuyên biệt.
   false_positive_risk: low
@@ -53,8 +55,10 @@ patterns:
   - text: Lưu ý:không tắt máy.
     reason: Thiếu khoảng trắng sau dấu hai chấm.
   good_examples:
-  - text: Bản A đã duyệt, bản B còn chờ.
-  - text: 'Lưu ý: không tắt máy.'
+  - mode: clean_rewrite
+    text: Bản A đã duyệt, bản B còn chờ.
+  - mode: clean_rewrite
+    text: 'Lưu ý: không tắt máy.'
   exceptions:
   - Số thập phân, URL, email, phiên bản, code và identifier.
   false_positive_risk: medium
@@ -84,9 +88,11 @@ patterns:
   - text: Vì sao hệ thống dừng???
     reason: Ba dấu hỏi không thêm nghĩa trong báo cáo sự cố.
   good_examples:
-  - text: Vui lòng gửi báo cáo ngay!
+  - mode: clean_rewrite
+    text: Vui lòng gửi báo cáo ngay!
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Vì sao hệ thống dừng?
+  - mode: clean_rewrite
+    text: Vì sao hệ thống dừng?
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Hội thoại, mạng xã hội, trích dẫn và văn chương dùng dấu lặp có chủ đích.
@@ -128,8 +134,10 @@ patterns:
   - text: Hệ thống đang đang khởi động lại.
     reason: Trợ động từ bị lặp.
   good_examples:
-  - text: Nhóm sẽ gửi kết quả vào chiều nay.
-  - text: Hệ thống đang khởi động lại.
+  - mode: clean_rewrite
+    text: Nhóm sẽ gửi kết quả vào chiều nay.
+  - mode: clean_rewrite
+    text: Hệ thống đang khởi động lại.
   exceptions:
   - Phép lặp biểu cảm, lời thoại, thơ hoặc ví dụ đang phân tích chính từ đó.
   false_positive_risk: low
@@ -159,8 +167,10 @@ patterns:
   - text: Công cụ hỗ trợ chuẩn đoán lỗi mạng.
     reason: Ngữ cảnh kỹ thuật vẫn dùng "chẩn đoán".
   good_examples:
-  - text: Bác sĩ chẩn đoán bệnh nhân bị viêm phổi.
-  - text: Công cụ hỗ trợ chẩn đoán lỗi mạng.
+  - mode: clean_rewrite
+    text: Bác sĩ chẩn đoán bệnh nhân bị viêm phổi.
+  - mode: clean_rewrite
+    text: Công cụ hỗ trợ chẩn đoán lỗi mạng.
   exceptions:
   - Trích dẫn nguyên văn, tên riêng hoặc nội dung đang minh họa lỗi chính tả.
   false_positive_risk: low
@@ -190,8 +200,10 @@ patterns:
   - text: Kế hoạch sát nhập đã được công bố.
     reason: Dạng chuẩn phổ thông là "sáp nhập".
   good_examples:
-  - text: Hai phòng ban sẽ sáp nhập từ tháng 8.
-  - text: Kế hoạch sáp nhập đã được công bố.
+  - mode: clean_rewrite
+    text: Hai phòng ban sẽ sáp nhập từ tháng 8.
+  - mode: clean_rewrite
+    text: Kế hoạch sáp nhập đã được công bố.
   exceptions:
   - Tên tác phẩm, trích dẫn hoặc dữ liệu cần giữ nguyên chính tả nguồn.
   false_positive_risk: low
@@ -218,11 +230,13 @@ patterns:
   bad_examples:
   - text: Các những tài liệu này cần được lưu lại.
     reason: Hai từ số nhiều đứng cạnh nhau.
-  - text: Những các trường hợp trên đều đã xử lý.
+  - text: Những các nhân viên trên đều đã xử lý yêu cầu.
     reason: Cấu trúc không tự nhiên.
   good_examples:
-  - text: Các tài liệu này cần được lưu lại.
-  - text: Những trường hợp trên đều đã được xử lý.
+  - mode: clean_rewrite
+    text: Các tài liệu này cần được lưu lại.
+  - mode: clean_rewrite
+    text: Những nhân viên trên đều đã xử lý yêu cầu.
   exceptions:
   - Nội dung trích dẫn nguyên văn hoặc đang phân tích chính lỗi này.
   false_positive_risk: low
@@ -252,8 +266,10 @@ patterns:
   - text: Bởi vì máy hết pin cho nên dữ liệu chưa đồng bộ.
     reason: Câu có thể trực tiếp hơn.
   good_examples:
-  - text: Vì trời mưa, trận đấu bị hoãn.
-  - text: Máy hết pin nên dữ liệu chưa đồng bộ.
+  - mode: clean_rewrite
+    text: Vì trời mưa, trận đấu bị hoãn.
+  - mode: clean_rewrite
+    text: Máy hết pin nên dữ liệu chưa đồng bộ.
   exceptions:
   - Văn nói, lời thoại, câu dài cần đánh dấu rõ hai vế hoặc phong cách tác giả.
   false_positive_risk: high
@@ -283,9 +299,11 @@ patterns:
   - text: Lan báo Mai đã nghỉ. Điều này khiến quản lý bất ngờ.
     reason: Chưa rõ ai nghỉ và sự việc nào gây bất ngờ.
   good_examples:
-  - text: Việc máy chủ dừng giữa lúc sao lưu làm nhóm lo ngại.
+  - mode: clean_rewrite
+    text: Việc máy chủ dừng giữa lúc sao lưu làm nhóm lo ngại.
     context: Nhóm xác nhận việc máy chủ dừng là nguyên nhân gây lo ngại.
-  - text: Tin Mai nghỉ việc khiến quản lý bất ngờ.
+  - mode: clean_rewrite
+    text: Tin Mai nghỉ việc khiến quản lý bất ngờ.
     context: Lan xác nhận Mai là người đã nghỉ.
   exceptions:
   - Khi câu trước chỉ có một mệnh đề và tham chiếu không thể hiểu theo cách khác.
@@ -316,8 +334,10 @@ patterns:
   - text: Hệ thống theo dõi đơn hàng, sẽ gửi cảnh báo khi có lỗi.
     reason: Không cần dấu phẩy giữa chủ ngữ và vị ngữ ghép.
   good_examples:
-  - text: Báo cáo mới của nhóm đã được gửi sáng nay.
-  - text: Hệ thống theo dõi đơn hàng và sẽ gửi cảnh báo khi có lỗi.
+  - mode: clean_rewrite
+    text: Báo cáo mới của nhóm đã được gửi sáng nay.
+  - mode: clean_rewrite
+    text: Hệ thống theo dõi đơn hàng và sẽ gửi cảnh báo khi có lỗi.
   exceptions:
   - Khi giữa chủ ngữ và vị ngữ có thành phần chen, chú thích hoặc mệnh đề phụ.
   false_positive_risk: high

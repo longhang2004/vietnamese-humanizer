@@ -12,11 +12,13 @@
     "input",
     "context",
     "output",
+    "output_mode",
     "patterns_triggered",
     "must_preserve",
     "must_not_add",
     "notes",
-    "gold",
+    "gold_output_mode",
+    "gold_rewrite",
     "preservation_review"
   ],
   "properties": {
@@ -34,6 +36,14 @@
     "input": {"type": "string", "minLength": 1},
     "context": {"type": "string"},
     "output": {"type": "string", "minLength": 1},
+    "output_mode": {
+      "enum": [
+        "clean_rewrite",
+        "review_comment",
+        "needs_author_decision",
+        "no_change"
+      ]
+    },
     "patterns_triggered": {
       "type": "array",
       "uniqueItems": true,
@@ -50,17 +60,66 @@
       "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
     },
     "notes": {"type": "string", "minLength": 1},
-    "gold": {"type": "boolean"},
+    "gold_output_mode": {"type": "boolean"},
+    "gold_rewrite": {"type": "boolean"},
     "preservation_review": {
       "type": "object",
       "additionalProperties": false,
       "required": ["status", "meaning_preserved", "facts_preserved", "review_notes"],
       "properties": {
-        "status": {"enum": ["reviewed", "needs-review"]},
+        "status": {
+          "enum": [
+            "unreviewed",
+            "agent-reviewed",
+            "maintainer-reviewed",
+            "independently-reviewed"
+          ]
+        },
+        "reviewer_id": {"type": "string", "minLength": 1},
+        "review_method": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date"},
         "meaning_preserved": {"type": "boolean"},
         "facts_preserved": {"type": "boolean"},
-        "review_notes": {"type": "string"}
+        "review_notes": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "unreviewed"}}},
+          "then": {
+            "not": {
+              "anyOf": [
+                {"required": ["reviewer_id"]},
+                {"required": ["review_method"]},
+                {"required": ["reviewed_at"]}
+              ]
+            }
+          },
+          "else": {"required": ["reviewer_id", "review_method", "reviewed_at"]}
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"gold_rewrite": {"const": true}}},
+      "then": {
+        "properties": {
+          "output_mode": {"enum": ["clean_rewrite", "no_change"]},
+          "preservation_review": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "agent-reviewed",
+                  "maintainer-reviewed",
+                  "independently-reviewed"
+                ]
+              },
+              "meaning_preserved": {"const": true},
+              "facts_preserved": {"const": true}
+            }
+          }
+        }
       }
     }
-  }
+  ]
 }

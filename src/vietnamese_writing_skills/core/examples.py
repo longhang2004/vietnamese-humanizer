@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 
 from vietnamese_writing_skills.core.patterns import load_json, load_jsonl, path_label
 
@@ -17,7 +17,7 @@ def validate_examples(
     except ValueError as exc:
         return [], [str(exc)]
     schema = load_json(schema_path)
-    validator = Draft202012Validator(schema)
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
     errors: list[str] = []
     seen: dict[str, int] = {}
     for row in rows:
@@ -38,8 +38,31 @@ def validate_examples(
         review = row.get("preservation_review", {})
         if not isinstance(review, dict):
             review = {}
-        if row.get("gold") is True and review.get("status") != "reviewed":
-            errors.append(f"{prefix}: gold example phải có preservation_review.status=reviewed")
-        if review.get("status") == "reviewed" and not str(review.get("review_notes", "")).strip():
-            errors.append(f"{prefix}: reviewed example phải có review_notes")
+        status = review.get("status")
+        reviewed_statuses = {
+            "agent-reviewed",
+            "maintainer-reviewed",
+            "independently-reviewed",
+        }
+        if row.get("gold_rewrite") is True and status not in reviewed_statuses:
+            errors.append(f"{prefix}: gold rewrite phải có preservation review và provenance")
+        if row.get("gold_output_mode") is True and status not in reviewed_statuses:
+            errors.append(f"{prefix}: gold output mode phải có preservation review và provenance")
+        if row.get("gold_rewrite") is True and row.get("output_mode") in {
+            "review_comment",
+            "needs_author_decision",
+        }:
+            errors.append(f"{prefix}: review comment hoặc author decision không phải gold rewrite")
+        if (
+            row.get("gold_rewrite") is True
+            and row.get("output_mode") == "no_change"
+            and row.get("output") != row.get("input")
+        ):
+            errors.append(f"{prefix}: gold no_change phải có output trùng input")
+        if status in reviewed_statuses:
+            for field in ("reviewer_id", "review_method", "reviewed_at"):
+                if not str(review.get(field, "")).strip():
+                    errors.append(f"{prefix}: reviewed example phải có {field}")
+        if status == "unreviewed" and row.get("gold_rewrite") is True:
+            errors.append(f"{prefix}: unreviewed example không thể là gold rewrite")
     return rows, errors

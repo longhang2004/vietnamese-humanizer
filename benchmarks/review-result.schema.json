@@ -4,11 +4,29 @@
   "title": "Vietnamese Writing Skills manual review result",
   "type": "object",
   "additionalProperties": false,
-  "required": ["case_id", "system", "reviewer_id", "scores", "blockers", "notes"],
+  "required": [
+    "case_id",
+    "system",
+    "reviewer_id",
+    "output_mode",
+    "output_mode_correct",
+    "scores",
+    "blockers",
+    "notes"
+  ],
   "properties": {
     "case_id": {"type": "string", "pattern": "^BENCH-(HUM|TRA|GRA|STY)-[0-9]{3}$"},
     "system": {"type": "string", "minLength": 1},
     "reviewer_id": {"type": "string", "minLength": 1},
+    "output_mode": {
+      "enum": [
+        "clean_rewrite",
+        "review_comment",
+        "needs_author_decision",
+        "no_change"
+      ]
+    },
+    "output_mode_correct": {"type": "boolean"},
     "scores": {
       "type": "object",
       "additionalProperties": false,
@@ -50,7 +68,8 @@
           "incorrect_terminology",
           "invented_personal_experience",
           "invented_cause",
-          "invented_metric"
+          "invented_metric",
+          "incorrect_output_mode"
         ]
       }
     },

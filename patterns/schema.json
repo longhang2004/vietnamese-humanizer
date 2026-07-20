@@ -14,11 +14,29 @@
     }
   },
   "$defs": {
-    "example": {
+    "source_example": {
       "type": "object",
       "required": ["text"],
       "additionalProperties": false,
       "properties": {
+        "text": {"type": "string", "minLength": 1},
+        "context": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "good_example": {
+      "type": "object",
+      "required": ["mode", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "clean_rewrite",
+            "review_comment",
+            "needs_author_decision",
+            "no_change"
+          ]
+        },
         "text": {"type": "string", "minLength": 1},
         "context": {"type": "string", "minLength": 1},
         "reason": {"type": "string", "minLength": 1}
@@ -80,10 +98,10 @@
           "type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}
         },
         "bad_examples": {
-          "type": "array", "minItems": 2, "items": {"$ref": "#/$defs/example"}
+          "type": "array", "minItems": 2, "items": {"$ref": "#/$defs/source_example"}
         },
         "good_examples": {
-          "type": "array", "minItems": 2, "items": {"$ref": "#/$defs/example"}
+          "type": "array", "minItems": 2, "items": {"$ref": "#/$defs/good_example"}
         },
         "exceptions": {
           "type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}

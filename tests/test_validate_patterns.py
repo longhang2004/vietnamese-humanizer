@@ -26,7 +26,10 @@ def sample_pattern(pattern_id: str = "VI-HUM-L99") -> dict:
         "why_it_matters": "Giúp test xác nhận catalog phát hiện dữ liệu không hợp lệ.",
         "rewrite_strategy": ["Sửa trực tiếp khi có đủ ngữ cảnh."],
         "bad_examples": [{"text": "Cụm thử một."}, {"text": "Cụm thử hai."}],
-        "good_examples": [{"text": "Câu tốt một."}, {"text": "Câu tốt hai."}],
+        "good_examples": [
+            {"mode": "clean_rewrite", "text": "Câu tốt một."},
+            {"mode": "review_comment", "text": "Cần bổ sung nguồn cho câu hai."},
+        ],
         "exceptions": ["Khi cụm nằm trong trích dẫn."],
         "false_positive_risk": "medium",
         "tags": ["test"],
@@ -82,6 +85,22 @@ def test_invalid_regex_is_reported(tmp_path: Path) -> None:
     pattern = sample_pattern()
     pattern["signals"] = {"regex": ["("]}
     assert any("regex không hợp lệ" in error for error in schema_errors(tmp_path, pattern))
+
+
+def test_clean_rewrite_and_review_comment_examples_are_valid(tmp_path: Path) -> None:
+    assert schema_errors(tmp_path, sample_pattern()) == []
+
+
+def test_invalid_good_example_mode_is_reported(tmp_path: Path) -> None:
+    pattern = sample_pattern()
+    pattern["good_examples"][0]["mode"] = "replacement"
+    assert any("good_examples" in error for error in schema_errors(tmp_path, pattern))
+
+
+def test_good_example_mode_is_required(tmp_path: Path) -> None:
+    pattern = sample_pattern()
+    del pattern["good_examples"][0]["mode"]
+    assert any("mode" in error for error in schema_errors(tmp_path, pattern))
 
 
 def test_schema_file_is_json() -> None:

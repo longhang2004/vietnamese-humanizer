@@ -22,11 +22,15 @@ def review(
     case_id: str,
     reviewer_id: str = "reviewer-01",
     blockers: list[str] | None = None,
+    output_mode: str = "clean_rewrite",
+    output_mode_correct: bool = True,
 ) -> dict:
     return {
         "case_id": case_id,
         "system": "candidate-system",
         "reviewer_id": reviewer_id,
+        "output_mode": output_mode,
+        "output_mode_correct": output_mode_correct,
         "scores": {
             "naturalness": 4,
             "clarity": 5,
@@ -53,7 +57,15 @@ def test_benchmark_loader_reads_all_cases() -> None:
     cases, errors = load_cases(ROOT / "benchmarks" / "cases", PATTERN_IDS)
     assert errors == []
     assert len(cases) == 30
-    assert all("context" in case and "blockers" in case for case in cases)
+    assert all(
+        "context" in case and "blockers" in case and "expected_output_mode" in case
+        for case in cases
+    )
+    modes = {case["id"]: case["expected_output_mode"] for case in cases}
+    assert modes["BENCH-HUM-001"] == "clean_rewrite"
+    assert modes["BENCH-HUM-003"] == "review_comment"
+    assert modes["BENCH-STY-002"] == "needs_author_decision"
+    assert modes["BENCH-GRA-006"] == "no_change"
 
 
 def test_benchmark_missing_context_is_reported(tmp_path: Path) -> None:
@@ -70,7 +82,9 @@ def test_benchmark_missing_context_is_reported(tmp_path: Path) -> None:
 def test_manual_review_is_validated(tmp_path: Path) -> None:
     path = tmp_path / "reviews.jsonl"
     write_jsonl(path, [review("BENCH-HUM-001")])
-    rows, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-001"})
+    rows, errors = validate_results(
+        path, REVIEW_SCHEMA, {"BENCH-HUM-001": "clean_rewrite"}
+    )
     assert len(rows) == 1
     assert errors == []
 
@@ -80,8 +94,33 @@ def test_manual_review_missing_field_is_rejected(tmp_path: Path) -> None:
     del row["reviewer_id"]
     path = tmp_path / "reviews.jsonl"
     write_jsonl(path, [row])
-    _, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-001"})
+    _, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-001": "clean_rewrite"})
     assert any("reviewer_id" in error for error in errors)
+
+
+def test_output_mode_mismatch_requires_blocker(tmp_path: Path) -> None:
+    path = tmp_path / "reviews.jsonl"
+    row = review(
+        "BENCH-HUM-003",
+        output_mode="clean_rewrite",
+        output_mode_correct=False,
+    )
+    write_jsonl(path, [row])
+    _, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-003": "review_comment"})
+    assert any("incorrect_output_mode" in error for error in errors)
+
+    row["blockers"] = ["incorrect_output_mode"]
+    write_jsonl(path, [row])
+    _, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-003": "review_comment"})
+    assert errors == []
+
+
+def test_output_mode_correct_must_match_expected_mode(tmp_path: Path) -> None:
+    path = tmp_path / "reviews.jsonl"
+    row = review("BENCH-GRA-006", output_mode="clean_rewrite")
+    write_jsonl(path, [row])
+    _, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-GRA-006": "no_change"})
+    assert any("output_mode_correct" in error for error in errors)
 
 
 def test_summary_averages_blocker_rate_and_unreviewed_count() -> None:
@@ -107,6 +146,10 @@ def test_generated_pattern_docs_are_stable_and_complete() -> None:
     assert "Scope / aggregation:" in actual
     assert "False-positive risk:" in actual
     assert "Rewrite strategy:" in actual
+    assert "Good examples:" in actual
+    assert "`clean_rewrite`:" in actual
+    assert "`review_comment`:" in actual
+    assert "`needs_author_decision`:" in actual
     assert "Exceptions:" in actual
 
 

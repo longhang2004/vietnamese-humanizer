@@ -23,9 +23,11 @@ patterns:
   - text: Người quản lý đóng vai trò then chốt trong việc duy trì tiến độ.
     reason: Câu chưa nói người quản lý làm gì để giữ tiến độ.
   good_examples:
-  - text: Tính năng này giúp cải thiện hiệu suất.
+  - mode: clean_rewrite
+    text: Tính năng này quan trọng đối với việc cải thiện hiệu suất.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Người quản lý giúp duy trì tiến độ.
+  - mode: clean_rewrite
+    text: Người quản lý có vai trò then chốt đối với việc duy trì tiến độ.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi văn bản thực sự phân tích vai trò của một người, bộ phận hoặc chức năng.
@@ -58,9 +60,11 @@ patterns:
   - text: Trong bối cảnh ngày càng phát triển, kỹ năng số rất quan trọng.
     reason: '"Phát triển" không có chủ thể hay thước đo.'
   good_examples:
-  - text: Doanh nghiệp cần đổi mới.
+  - mode: clean_rewrite
+    text: Doanh nghiệp cần đổi mới.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Kỹ năng số ngày càng quan trọng.
+  - mode: clean_rewrite
+    text: Kỹ năng số rất quan trọng.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi câu sau định nghĩa rõ xu hướng và lời dẫn giúp liên kết với đoạn trước.
@@ -91,10 +95,14 @@ patterns:
   - text: Gói này có bảo hành 24 tháng và hỗ trợ trong giờ hành chính với chất lượng đẳng cấp.
     reason: Câu không cung cấp thông tin kiểm chứng được.
   good_examples:
-  - text: Trong thử nghiệm nội bộ, công cụ xử lý 2.000 bản ghi mỗi phút.
-    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Gói này có bảo hành 24 tháng và hỗ trợ trong giờ hành chính.
-    reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - mode: review_comment
+    text: Cần có tiêu chí so sánh trước khi gọi hiệu năng “vượt trội”; thông tin hiện có chỉ xác nhận
+      công cụ xử lý 2.000 bản ghi mỗi phút trong thử nghiệm nội bộ.
+    reason: Không xóa đánh giá của tác giả hoặc biến dữ kiện thành câu thay thế khi thiếu căn cứ.
+  - mode: review_comment
+    text: Cần có tiêu chí chất lượng trước khi gọi gói này “đẳng cấp”; thông tin hiện có chỉ xác nhận
+      bảo hành 24 tháng và hỗ trợ trong giờ hành chính.
+    reason: Không tự quyết định bỏ lập trường đánh giá khi chưa có bằng chứng.
   exceptions:
   - Khi đây là trích dẫn, slogan đã duyệt hoặc lời đánh giá có nguồn và tiêu chí rõ.
   false_positive_risk: medium
@@ -119,14 +127,17 @@ patterns:
   rewrite_strategy:
   - Mở bằng vấn đề, kết luận chính hoặc bối cảnh cụ thể.
   bad_examples:
-  - text: Trong bài viết này, chúng ta sẽ cùng tìm hiểu cách cache giữ dữ liệu đã đọc để giảm số lần truy cập nguồn.
+  - text: Trong bài viết này, chúng ta sẽ cùng tìm hiểu cách cache giữ dữ liệu đã đọc để giảm số lần truy
+      cập nguồn.
     reason: Chỉ thông báo việc sắp nói.
   - text: Ở phần này, bài viết sẽ trình bày ba nguyên tắc giúp API thay đổi mà không phá client cũ.
     reason: Heading đã thể hiện chức năng này.
   good_examples:
-  - text: Cache giữ dữ liệu đã đọc để giảm số lần truy cập nguồn.
+  - mode: clean_rewrite
+    text: Cache giữ dữ liệu đã đọc để giảm số lần truy cập nguồn.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Ba nguyên tắc này giúp API thay đổi mà không phá client cũ.
+  - mode: clean_rewrite
+    text: Ba nguyên tắc này giúp API thay đổi mà không phá client cũ.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Trong syllabus, proposal hoặc tài liệu dài cần nêu rõ phạm vi và cấu trúc.
@@ -158,9 +169,11 @@ patterns:
   - text: Nhóm sẽ chốt phương án tại cuộc họp ngày 25 tháng 7. Hy vọng bài viết này hữu ích.
     reason: Câu kết sáo và lệch giọng tài liệu.
   good_examples:
-  - text: Cấu hình mới có hiệu lực từ lần khởi động tiếp theo.
+  - mode: clean_rewrite
+    text: Cấu hình mới có hiệu lực từ lần khởi động tiếp theo.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Nhóm sẽ chốt phương án tại cuộc họp ngày 25 tháng 7.
+  - mode: clean_rewrite
+    text: Nhóm sẽ chốt phương án tại cuộc họp ngày 25 tháng 7.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Trong thư cá nhân hoặc trao đổi chăm sóc khách hàng khi lời chúc phù hợp quan hệ.
@@ -182,8 +195,8 @@ patterns:
   signals:
     regex:
     - \b(?:các chuyên gia|nhiều nghiên cứu|giới quan sát|nhiều nguồn) (?:cho rằng|chỉ ra|nhận định)\b
-  why_it_matters: Người đọc không thể kiểm tra nguồn, còn người biên tập dễ vô tình củng cố một tuyên bố chưa có
-    căn cứ.
+  why_it_matters: Người đọc không thể kiểm tra nguồn, còn người biên tập dễ vô tình củng cố một tuyên
+    bố chưa có căn cứ.
   rewrite_strategy:
   - Nêu nguồn có sẵn; nếu không có, thu hẹp tuyên bố hoặc đánh dấu cần nguồn.
   bad_examples:
@@ -192,9 +205,11 @@ patterns:
   - text: Nhiều nghiên cứu chỉ ra mô hình giúp tăng năng suất.
     reason: Không có nghiên cứu, đối tượng hay mức tăng.
   good_examples:
-  - text: Đoạn này chưa nêu nguồn cho nhận định rằng phương pháp hoàn toàn an toàn.
+  - mode: review_comment
+    text: Cần bổ sung nguồn cụ thể cho nhận định rằng phương pháp hoàn toàn an toàn.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Đoạn này chưa xác định các nghiên cứu về tác động của mô hình lên năng suất.
+  - mode: review_comment
+    text: Cần xác định các nghiên cứu về tác động của mô hình lên năng suất.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi nguồn đã được nêu rõ ở câu ngay trước và cụm này chỉ tham chiếu lại.
@@ -226,9 +241,11 @@ patterns:
   - text: Việc họp sớm là cần thiết. Việc gửi tài liệu trước cũng quan trọng.
     reason: Nhịp danh hóa lặp mà không cần thiết.
   good_examples:
-  - text: Cập nhật giúp giảm lỗi; kiểm thử giúp tăng độ ổn định.
+  - mode: clean_rewrite
+    text: Cập nhật giúp giảm lỗi; kiểm thử giúp tăng độ ổn định.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Nên họp sớm và gửi tài liệu trước cuộc họp.
+  - mode: clean_rewrite
+    text: Họp sớm là việc cần thiết; gửi tài liệu trước cũng quan trọng.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi "việc" gọi tên một hành vi đã được định nghĩa trong văn bản pháp lý hoặc phân tích.
@@ -259,9 +276,11 @@ patterns:
   - text: Khóa học không chỉ có sáu bài thực hành mà còn có một buổi phản biện.
     reason: Cấu trúc thay cho bằng chứng cụ thể.
   good_examples:
-  - text: Công cụ mở tệp 2 GB trong 4 giây và có phím tắt cho các thao tác chính.
+  - mode: clean_rewrite
+    text: Công cụ mở tệp 2 GB trong 4 giây và có phím tắt cho các thao tác chính.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Khóa học có sáu bài thực hành và một buổi phản biện.
+  - mode: clean_rewrite
+    text: Khóa học có sáu bài thực hành và một buổi phản biện.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi phép đối sánh là trọng tâm lập luận và không bị lặp trong đoạn.
@@ -292,9 +311,11 @@ patterns:
   - text: Nhóm sửa lỗi, đồng thời cập nhật tài liệu, qua đó tạo ra giá trị.
     reason: Phần cuối trừu tượng và không cần thiết.
   good_examples:
-  - text: Hệ thống lưu log và gửi cảnh báo để nhóm phản hồi.
+  - mode: clean_rewrite
+    text: Hệ thống lưu log và gửi cảnh báo để giúp nhóm phản hồi, từ đó nâng cao chất lượng.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - text: Nhóm sửa lỗi rồi cập nhật tài liệu.
+  - mode: clean_rewrite
+    text: Nhóm sửa lỗi, cập nhật tài liệu và qua đó tạo ra giá trị.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Trong lập luận dài khi mỗi từ nối biểu thị một quan hệ khác nhau và chính xác.
@@ -320,13 +341,19 @@ patterns:
   rewrite_strategy:
   - Đọc thành tiếng và chỉ tách hoặc gộp nơi cấu trúc ý cần thay đổi.
   bad_examples:
-  - text: Nhóm nhận yêu cầu vào sáng nay. Nhóm kiểm tra dữ liệu vào buổi trưa. Nhóm gửi kết quả vào cuối ngày. Nhóm lưu biên bản sau cuộc họp. Nhóm đóng yêu cầu khi hoàn tất.
+  - text: Nhóm nhận yêu cầu vào sáng nay. Nhóm kiểm tra dữ liệu vào buổi trưa. Nhóm gửi kết quả vào cuối
+      ngày. Nhóm lưu biên bản sau cuộc họp. Nhóm đóng yêu cầu khi hoàn tất.
     reason: Các câu cùng khuôn và trọng lượng.
-  - text: Máy chủ ghi log mỗi phút. Hệ thống gửi báo cáo mỗi giờ. Nhân viên xem dashboard mỗi ngày. Bộ phận sao lưu dữ liệu mỗi tuần. Quản lý rà báo cáo mỗi tháng.
+  - text: Máy chủ ghi log mỗi phút. Hệ thống gửi báo cáo mỗi giờ. Nhân viên xem dashboard mỗi ngày. Bộ
+      phận sao lưu dữ liệu mỗi tuần. Quản lý rà báo cáo mỗi tháng.
     reason: Nhịp lặp che quan hệ giữa các hành động.
   good_examples:
-  - text: Nhóm nhận yêu cầu sáng nay, kiểm tra dữ liệu vào buổi trưa và sẽ gửi kết quả cuối ngày. Sau cuộc họp, nhóm lưu biên bản và đóng yêu cầu khi hoàn tất.
-  - text: Máy chủ ghi log mỗi phút và hệ thống gửi báo cáo mỗi giờ. Nhân viên xem dashboard hằng ngày; bộ phận sao lưu dữ liệu mỗi tuần, còn quản lý rà báo cáo mỗi tháng.
+  - mode: clean_rewrite
+    text: Nhóm nhận yêu cầu sáng nay, kiểm tra dữ liệu vào buổi trưa và sẽ gửi kết quả cuối ngày. Sau
+      cuộc họp, nhóm lưu biên bản và đóng yêu cầu khi hoàn tất.
+  - mode: clean_rewrite
+    text: Máy chủ ghi log mỗi phút và hệ thống gửi báo cáo mỗi giờ. Nhân viên xem dashboard hằng ngày;
+      bộ phận sao lưu dữ liệu mỗi tuần, còn quản lý rà báo cáo mỗi tháng.
   exceptions:
   - Checklist, thông số kỹ thuật, văn bản cho người mới đọc hoặc nhịp lặp có chủ đích.
   false_positive_risk: high

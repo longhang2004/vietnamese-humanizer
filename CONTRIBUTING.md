@@ -17,16 +17,17 @@ Mỗi example phải có:
 
 - input và context đầy đủ để output có thể được kiểm chứng;
 - output không thêm dữ kiện, metric, nguồn, nguyên nhân hoặc trải nghiệm;
+- `output_mode`, `gold_output_mode` và `gold_rewrite` nhất quán;
 - `must_preserve` và `must_not_add`;
 - pattern ID tồn tại;
-- `preservation_review` với trạng thái `reviewed` hoặc `needs-review`;
+- `preservation_review` với trạng thái và provenance đúng: `unreviewed`, `agent-reviewed`, `maintainer-reviewed` hoặc `independently-reviewed`;
 - review notes khi đã reviewed.
 
-Example `needs-review` không được đánh dấu gold. Đừng ghi “chi tiết đã có trong bài” nếu phần bài đó không nằm trong context.
+Example `unreviewed` không được đánh dấu gold rewrite. `review_comment` và `needs_author_decision` có thể là gold output mode nhưng không phải gold rewrite. Đừng ghi “chi tiết đã có trong bài” nếu phần bài đó không nằm trong context.
 
 ## Pattern mới
 
-Pattern cần finding type, scope, aggregation, severity, confidence, false-positive risk, hai bad example, hai good example, exceptions, test và example không tự thêm dữ kiện. Nêu nguồn quan sát và phản biện trường hợp cấu trúc hợp lệ.
+Pattern cần finding type, scope, aggregation, severity, confidence, false-positive risk, hai bad example, hai good example có mode, exceptions, test và example không tự thêm dữ kiện. Nêu nguồn quan sát và phản biện trường hợp cấu trúc hợp lệ.
 
 Pattern dựa trên trực giác của một người có thể mở ở dạng proposal để thu thập thêm ví dụ, nhưng chưa nên đưa vào catalog stable.
 
