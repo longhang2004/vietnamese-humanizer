@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/vietnamese-writing-skills/pattern.schema.json",
+  "title": "Vietnamese writing pattern catalog",
+  "type": "object",
+  "required": ["schema_version", "patterns"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "patterns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/pattern"}
+    }
+  },
+  "$defs": {
+    "example": {
+      "type": "object",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "signals": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "phrases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "regex": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "exclude_phrases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "required": [
+        "id", "name", "skill", "category", "severity", "confidence", "summary",
+        "signals", "why_it_matters", "rewrite_strategy", "bad_examples",
+        "good_examples", "exceptions", "false_positive_risk", "tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "^VI-(HUM|TRA|GRA|STY)-[A-Z][0-9]{2}$"},
+        "name": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "skill": {
+          "enum": [
+            "humanizer-vi", "translationese-cleaner-vi", "grammar-checker-vi",
+            "style-guide-vi"
+          ]
+        },
+        "category": {"type": "string", "minLength": 2},
+        "severity": {"enum": ["low", "medium", "high"]},
+        "confidence": {"enum": ["low", "medium", "high"]},
+        "summary": {"type": "string", "minLength": 12},
+        "signals": {"$ref": "#/$defs/signals"},
+        "why_it_matters": {"type": "string", "minLength": 12},
+        "rewrite_strategy": {
+          "type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}
+        },
+        "bad_examples": {
+          "type": "array", "minItems": 2, "items": {"$ref": "#/$defs/example"}
+        },
+        "good_examples": {
+          "type": "array", "minItems": 2, "items": {"$ref": "#/$defs/example"}
+        },
+        "exceptions": {
+          "type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}
+        },
+        "false_positive_risk": {"enum": ["low", "medium", "high"]},
+        "tags": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"}
+        },
+        "min_occurrences": {"type": "integer", "minimum": 1, "default": 2},
+        "case_sensitive": {"type": "boolean", "default": false}
+      }
+    }
+  }
+}

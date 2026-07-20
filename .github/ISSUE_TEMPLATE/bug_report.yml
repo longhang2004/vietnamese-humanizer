@@ -1,0 +1,25 @@
+name: Báo lỗi
+description: Báo lỗi trong script, tài liệu hoặc dữ liệu
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Mô tả
+      description: Điều gì đã xảy ra và bạn mong đợi điều gì?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Cách tái hiện
+      description: Ghi command, input đã ẩn thông tin nhạy cảm và output.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Python và hệ điều hành
+    validations:
+      required: true

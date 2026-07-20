@@ -1,0 +1,262 @@
+schema_version: "1.0"
+patterns:
+  - id: VI-GRA-P01
+    name: khoang-trang-truoc-dau-cau
+    skill: grammar-checker-vi
+    category: punctuation
+    severity: medium
+    confidence: high
+    summary: Có khoảng trắng thừa trước dấu chấm, phẩy, hỏi, than, hai chấm hoặc chấm phẩy.
+    signals:
+      regex: ['[ \t]+[,.!?;:]']
+    why_it_matters: Khoảng trắng sai làm ngắt nhịp và phá quy ước trình bày phổ biến.
+    rewrite_strategy:
+      - Xóa khoảng trắng trước dấu câu, trừ khi nội dung thuộc code hoặc dữ liệu đặc thù.
+    bad_examples:
+      - text: Báo cáo đã xong , vui lòng kiểm tra.
+        reason: Có khoảng trắng trước dấu phẩy.
+      - text: Bạn đã nhận được email chưa ?
+        reason: Có khoảng trắng trước dấu hỏi.
+    good_examples:
+      - text: Báo cáo đã xong, vui lòng kiểm tra.
+      - text: Bạn đã nhận được email chưa?
+    exceptions:
+      - Code, biểu thức, dữ liệu nguyên bản hoặc style typography chuyên biệt.
+    false_positive_risk: low
+    tags: [dau-cau, khoang-trang]
+    min_occurrences: 1
+
+  - id: VI-GRA-P02
+    name: thieu-khoang-trang-sau-dau-cau
+    skill: grammar-checker-vi
+    category: punctuation
+    severity: medium
+    confidence: high
+    summary: Thiếu khoảng trắng sau dấu câu khi một từ mới bắt đầu trên cùng dòng.
+    signals:
+      regex: ['[,.!?;:](?=[A-Za-zÀ-ỹĐđ])']
+    why_it_matters: Hai phần câu dính nhau, gây khó đọc và thường là lỗi gõ.
+    rewrite_strategy:
+      - Thêm một khoảng trắng sau dấu câu nếu đây không phải số, URL, code hay viết tắt.
+    bad_examples:
+      - text: Bản A đã duyệt,bản B còn chờ.
+        reason: Hai vế dính sau dấu phẩy.
+      - text: Lưu ý:không tắt máy.
+        reason: Thiếu khoảng trắng sau dấu hai chấm.
+    good_examples:
+      - text: Bản A đã duyệt, bản B còn chờ.
+      - text: "Lưu ý: không tắt máy."
+    exceptions:
+      - Số thập phân, URL, email, phiên bản, code và identifier.
+    false_positive_risk: medium
+    tags: [dau-cau, khoang-trang]
+    min_occurrences: 1
+
+  - id: VI-GRA-P03
+    name: dau-cau-lap
+    skill: grammar-checker-vi
+    category: punctuation
+    severity: low
+    confidence: medium
+    summary: Lặp nhiều dấu hỏi hoặc dấu than trong văn bản không cần nhấn mạnh cảm xúc.
+    signals:
+      regex: ['[!?]{2,}']
+    why_it_matters: Dấu câu lặp có thể lệch register công việc, kỹ thuật hoặc hành chính.
+    rewrite_strategy:
+      - Giữ một dấu; nếu cảm xúc có chủ đích trong mạng xã hội thì để nguyên.
+    bad_examples:
+      - text: Vui lòng gửi báo cáo ngay!!
+        reason: Hai dấu than làm email công việc gắt hơn.
+      - text: Vì sao hệ thống dừng???
+        reason: Ba dấu hỏi không thêm nghĩa trong báo cáo sự cố.
+    good_examples:
+      - text: Vui lòng gửi báo cáo trước 16:00.
+      - text: Vì sao hệ thống dừng?
+    exceptions:
+      - Hội thoại, mạng xã hội, trích dẫn và văn chương dùng dấu lặp có chủ đích.
+    false_positive_risk: high
+    tags: [dau-cau, register]
+    min_occurrences: 1
+
+  - id: VI-GRA-L01
+    name: lap-tu-lien-tiep
+    skill: grammar-checker-vi
+    category: lexical
+    severity: medium
+    confidence: high
+    summary: Một từ bị lặp ngay cạnh nhau do lỗi gõ hoặc sửa câu chưa hết.
+    signals:
+      regex: ['\b([A-Za-zÀ-ỹĐđ]{2,})\s+\1\b']
+      exclude_phrases: [song song, dần dần, từ từ, luôn luôn, ngày ngày, đều đều, xa xa, nho nhỏ, chầm chậm, vội vội]
+    why_it_matters: Lỗi lặp làm câu vấp và thường không có chức năng tu từ.
+    rewrite_strategy:
+      - Xóa một lần lặp sau khi chắc hai từ không thuộc cấu trúc nhấn mạnh có chủ đích.
+    bad_examples:
+      - text: Nhóm sẽ sẽ gửi kết quả vào chiều nay.
+        reason: '"sẽ" bị lặp do lỗi gõ.'
+      - text: Hệ thống đang đang khởi động lại.
+        reason: Trợ động từ bị lặp.
+    good_examples:
+      - text: Nhóm sẽ gửi kết quả vào chiều nay.
+      - text: Hệ thống đang khởi động lại.
+    exceptions:
+      - Phép lặp biểu cảm, lời thoại, thơ hoặc ví dụ đang phân tích chính từ đó.
+    false_positive_risk: low
+    tags: [lap-tu, loi-go]
+    min_occurrences: 1
+
+  - id: VI-GRA-L02
+    name: chuan-doan-sai-chinh-ta
+    skill: grammar-checker-vi
+    category: spelling
+    severity: high
+    confidence: high
+    summary: Viết "chuẩn đoán" khi nghĩa cần dùng là hoạt động chẩn đoán bệnh hoặc lỗi.
+    signals:
+      phrases: [chuẩn đoán]
+    why_it_matters: Đây là lỗi chính tả phổ biến có thể xuất hiện trong nội dung y tế quan trọng.
+    rewrite_strategy:
+      - Đổi thành "chẩn đoán" khi nói đến việc xác định bệnh, tình trạng hoặc nguyên nhân lỗi.
+    bad_examples:
+      - text: Bác sĩ chuẩn đoán bệnh nhân bị viêm phổi.
+        reason: Dùng sai từ "chẩn đoán".
+      - text: Công cụ hỗ trợ chuẩn đoán lỗi mạng.
+        reason: Ngữ cảnh kỹ thuật vẫn dùng "chẩn đoán".
+    good_examples:
+      - text: Bác sĩ chẩn đoán bệnh nhân bị viêm phổi.
+      - text: Công cụ hỗ trợ chẩn đoán lỗi mạng.
+    exceptions:
+      - Trích dẫn nguyên văn, tên riêng hoặc nội dung đang minh họa lỗi chính tả.
+    false_positive_risk: low
+    tags: [chinh-ta, y-khoa]
+    min_occurrences: 1
+
+  - id: VI-GRA-L03
+    name: sat-nhap-sai-chinh-ta
+    skill: grammar-checker-vi
+    category: spelling
+    severity: medium
+    confidence: high
+    summary: Viết "sát nhập" khi nghĩa phổ thông cần dùng là "sáp nhập".
+    signals:
+      phrases: [sát nhập]
+    why_it_matters: Dạng sai xuất hiện khá thường xuyên trong văn bản công việc và báo cáo.
+    rewrite_strategy:
+      - Đổi thành "sáp nhập" nếu không phải tên riêng hoặc trích dẫn.
+    bad_examples:
+      - text: Hai phòng ban sẽ sát nhập từ tháng 8.
+        reason: Dùng sai chính tả của "sáp nhập".
+      - text: Kế hoạch sát nhập đã được công bố.
+        reason: Dạng chuẩn phổ thông là "sáp nhập".
+    good_examples:
+      - text: Hai phòng ban sẽ sáp nhập từ tháng 8.
+      - text: Kế hoạch sáp nhập đã được công bố.
+    exceptions:
+      - Tên tác phẩm, trích dẫn hoặc dữ liệu cần giữ nguyên chính tả nguồn.
+    false_positive_risk: low
+    tags: [chinh-ta, hanh-chinh]
+    min_occurrences: 1
+
+  - id: VI-GRA-C01
+    name: cac-nhung-chong-nhau
+    skill: grammar-checker-vi
+    category: grammar
+    severity: medium
+    confidence: high
+    summary: Dùng đồng thời "các" và "những" trước cùng một danh từ mà không có chức năng riêng.
+    signals:
+      regex: ['\bcác\s+những\b|\bnhững\s+các\b']
+    why_it_matters: Hai từ chỉ số nhiều chồng lên nhau và thường là lỗi sửa câu.
+    rewrite_strategy:
+      - Giữ "các" cho tập xác định hoặc "những" cho một số phần tử tùy ý nghĩa.
+    bad_examples:
+      - text: Các những tài liệu này cần được lưu lại.
+        reason: Hai từ số nhiều đứng cạnh nhau.
+      - text: Những các trường hợp trên đều đã xử lý.
+        reason: Cấu trúc không tự nhiên.
+    good_examples:
+      - text: Các tài liệu này cần được lưu lại.
+      - text: Những trường hợp trên đều đã được xử lý.
+    exceptions:
+      - Nội dung trích dẫn nguyên văn hoặc đang phân tích chính lỗi này.
+    false_positive_risk: low
+    tags: [so-nhieu, thua-tu]
+    min_occurrences: 1
+
+  - id: VI-GRA-C02
+    name: boi-vi-cho-nen
+    skill: grammar-checker-vi
+    category: grammar
+    severity: low
+    confidence: medium
+    summary: Kết hợp "bởi vì" và "cho nên" trong câu ngắn khi một vế nối đã đủ rõ.
+    signals:
+      regex: ['\bbởi vì\b.{0,140}\bcho nên\b']
+    why_it_matters: Cặp quan hệ từ có thể làm câu nặng, nhưng vẫn hợp lệ trong nhiều cách nói.
+    rewrite_strategy:
+      - Giữ một đầu nối khi câu viết cần gọn; giữ cả hai nếu nhịp nói hoặc cấu trúc dài cần đánh dấu.
+    bad_examples:
+      - text: Bởi vì trời mưa cho nên trận đấu bị hoãn.
+        reason: Trong thông báo ngắn, một đầu nối đã đủ.
+      - text: Bởi vì máy hết pin cho nên dữ liệu chưa đồng bộ.
+        reason: Câu có thể trực tiếp hơn.
+    good_examples:
+      - text: Vì trời mưa, trận đấu bị hoãn.
+      - text: Máy hết pin nên dữ liệu chưa đồng bộ.
+    exceptions:
+      - Văn nói, lời thoại, câu dài cần đánh dấu rõ hai vế hoặc phong cách tác giả.
+    false_positive_risk: high
+    tags: [quan-he-tu, preference]
+    min_occurrences: 2
+
+  - id: VI-GRA-C03
+    name: tham-chieu-dieu-nay-day-dac
+    skill: grammar-checker-vi
+    category: ambiguity
+    severity: medium
+    confidence: low
+    summary: Lặp "điều này" nhiều lần khi phần được tham chiếu có thể không rõ.
+    signals:
+      phrases: [điều này]
+    why_it_matters: Đại từ chỉ định có thể trỏ đến cả câu, một hành động hoặc một kết quả khác nhau.
+    rewrite_strategy:
+      - Gọi tên sự việc được tham chiếu khi có hơn một tiền tố hợp lý; nếu chưa rõ thì hỏi tác giả.
+    bad_examples:
+      - text: Máy chủ dừng khi sao lưu đang chạy. Điều này làm nhóm lo ngại.
+        reason: Chưa rõ lo ngại việc dừng hay việc sao lưu.
+      - text: Lan báo Mai đã nghỉ. Điều này khiến quản lý bất ngờ.
+        reason: Chưa rõ ai nghỉ và sự việc nào gây bất ngờ.
+    good_examples:
+      - text: Việc máy chủ dừng giữa lúc sao lưu làm nhóm lo ngại.
+      - text: Tin Mai nghỉ việc khiến quản lý bất ngờ.
+    exceptions:
+      - Khi câu trước chỉ có một mệnh đề và tham chiếu không thể hiểu theo cách khác.
+    false_positive_risk: high
+    tags: [dai-tu, mo-ho]
+    min_occurrences: 3
+
+  - id: VI-GRA-C04
+    name: dau-phay-tach-chu-vi
+    skill: grammar-checker-vi
+    category: punctuation
+    severity: medium
+    confidence: low
+    summary: Dấu phẩy có thể đang tách chủ ngữ khỏi vị ngữ mà không có thành phần chen giữa.
+    signals:
+      regex: ['\b(?:nhóm|công ty|hệ thống|báo cáo|nghiên cứu)\b.{0,60},\s+(?:đã|sẽ|có|là|giúp)\b']
+    why_it_matters: Dấu phẩy sai vị trí làm đứt cấu trúc chủ vị, nhưng rule bề mặt dễ báo nhầm.
+    rewrite_strategy:
+      - Đọc cấu trúc câu; xóa dấu phẩy chỉ khi không có mệnh đề hoặc thành phần chen hợp lệ.
+    bad_examples:
+      - text: Báo cáo mới của nhóm, đã được gửi sáng nay.
+        reason: Dấu phẩy tách chủ ngữ và vị ngữ.
+      - text: Hệ thống theo dõi đơn hàng, sẽ gửi cảnh báo khi có lỗi.
+        reason: Không cần dấu phẩy giữa chủ ngữ và vị ngữ ghép.
+    good_examples:
+      - text: Báo cáo mới của nhóm đã được gửi sáng nay.
+      - text: Hệ thống theo dõi đơn hàng và sẽ gửi cảnh báo khi có lỗi.
+    exceptions:
+      - Khi giữa chủ ngữ và vị ngữ có thành phần chen, chú thích hoặc mệnh đề phụ.
+    false_positive_risk: high
+    tags: [dau-phay, chu-vi, heuristic]
+    min_occurrences: 1

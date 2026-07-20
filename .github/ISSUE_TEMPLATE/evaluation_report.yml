@@ -1,0 +1,25 @@
+name: Báo cáo đánh giá
+description: Gửi kết quả benchmark hoặc false-positive review
+title: "[Evaluation] "
+labels: [evaluation]
+body:
+  - type: input
+    id: scope
+    attributes:
+      label: Skill, pattern hoặc benchmark ID
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Thiết lập đánh giá
+      description: Nêu model hoặc reviewer, phiên bản, prompt và domain.
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Kết quả
+      description: Đính kèm điểm, blocker và nhận xét; không gửi dữ liệu nhạy cảm.
+    validations:
+      required: true

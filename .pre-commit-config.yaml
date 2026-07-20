@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.4
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: validate-skills
+        name: validate Agent Skills
+        entry: python scripts/validate_skills.py
+        language: system
+        pass_filenames: false
+      - id: validate-patterns
+        name: validate pattern catalog
+        entry: python scripts/validate_patterns.py
+        language: system
+        pass_filenames: false

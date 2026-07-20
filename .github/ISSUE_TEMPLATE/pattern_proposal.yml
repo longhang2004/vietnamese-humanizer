@@ -1,0 +1,31 @@
+name: Đề xuất pattern
+description: Đề xuất hoặc phản biện một pattern tiếng Việt
+title: "[Pattern] "
+labels: [pattern]
+body:
+  - type: textarea
+    id: impact
+    attributes:
+      label: Tác động lên người đọc
+      description: Nêu vấn đề về nghĩa, độ rõ hoặc register; không chỉ nói "nghe như AI".
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Ví dụ và cách sửa
+      description: Cung cấp ít nhất hai ví dụ đã ẩn thông tin nhạy cảm và hai output tốt.
+    validations:
+      required: true
+  - type: textarea
+    id: exceptions
+    attributes:
+      label: Ngoại lệ và false positive
+      description: Khi nào cấu trúc này hợp lệ? Domain, vùng và register nào liên quan?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Nguồn quan sát
+      description: Link, corpus, số lần gặp hoặc nhận xét reviewer bản ngữ nếu có.
