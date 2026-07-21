@@ -68,3 +68,35 @@ def test_scripts_are_thin_non_package_wrappers() -> None:
         text = path.read_text(encoding="utf-8")
         assert "from " + "scripts" not in text
         assert len(text.splitlines()) <= 5
+
+
+def test_ci_checks_artifacts_and_all_console_commands() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+    assert "twine check dist/*" in workflow
+    commands = (
+        "viet-writing-lint",
+        "viet-writing-validate-skills",
+        "viet-writing-validate-patterns",
+        "viet-writing-validate-examples",
+        "viet-writing-benchmark",
+        "viet-writing-generate-docs",
+    )
+    for command in commands:
+        assert f".tmp-wheel-venv/bin/{command} --help" in workflow
+
+
+def test_release_workflow_is_tag_gated_and_uses_trusted_publishing() -> None:
+    path = ROOT / ".github" / "workflows" / "release.yml"
+    assert path.is_file()
+    workflow = path.read_text(encoding="utf-8")
+
+    assert '      - "v*"' in workflow
+    assert "Verify tag matches package version" in workflow
+    assert "actions/upload-artifact@v6" in workflow
+    assert "actions/download-artifact@v7" in workflow
+    assert "environment: pypi" in workflow
+    assert "id-token: write" in workflow
+    assert "pypa/gh-action-pypi-publish@release/v1" in workflow
+    assert "needs: publish-pypi" in workflow
+    assert "gh release create" in workflow

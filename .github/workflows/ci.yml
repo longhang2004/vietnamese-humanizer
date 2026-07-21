@@ -39,14 +39,21 @@ jobs:
           python-version: "3.14"
           cache: pip
       - run: python -m pip install --upgrade pip
-      - run: python -m pip install build
+      - run: python -m pip install build twine
       - run: python -m build
+      - run: python -m twine check dist/*
       - run: python -m venv .tmp-wheel-venv
       - run: .tmp-wheel-venv/bin/python -m pip install dist/*.whl
-      - run: .tmp-wheel-venv/bin/python -c "import vietnamese_writing_skills"
+      - run: >-
+          .tmp-wheel-venv/bin/python -c
+          "import vietnamese_writing_skills;
+          assert vietnamese_writing_skills.__version__ == '0.2.0'"
       - run: .tmp-wheel-venv/bin/viet-writing-lint --help
+      - run: .tmp-wheel-venv/bin/viet-writing-validate-skills --help
       - run: .tmp-wheel-venv/bin/viet-writing-validate-patterns --help
       - run: .tmp-wheel-venv/bin/viet-writing-validate-examples --help
+      - run: .tmp-wheel-venv/bin/viet-writing-benchmark --help
+      - run: .tmp-wheel-venv/bin/viet-writing-generate-docs --help
       - run: .tmp-wheel-venv/bin/viet-writing-lint tests/fixtures/natural_article.md
       - run: >-
           .tmp-wheel-venv/bin/python -c
@@ -54,4 +61,5 @@ jobs:
           root = files('vietnamese_writing_skills').joinpath('data');
           assert root.joinpath('patterns/schema.json').is_file();
           assert root.joinpath('examples/schema.json').is_file();
+          assert root.joinpath('benchmarks/case.schema.json').is_file();
           assert root.joinpath('skills/humanizer-vi/SKILL.md').is_file()"
