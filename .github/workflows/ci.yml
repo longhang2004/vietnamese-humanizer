@@ -46,8 +46,9 @@ jobs:
       - run: .tmp-wheel-venv/bin/python -m pip install dist/*.whl
       - run: >-
           .tmp-wheel-venv/bin/python -c
-          "import vietnamese_writing_skills;
-          assert vietnamese_writing_skills.__version__ == '0.2.0'"
+          "import pathlib, tomllib, vietnamese_writing_skills;
+          expected = tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'];
+          assert vietnamese_writing_skills.__version__ == expected"
       - run: .tmp-wheel-venv/bin/viet-writing-lint --help
       - run: .tmp-wheel-venv/bin/viet-writing-validate-skills --help
       - run: .tmp-wheel-venv/bin/viet-writing-validate-patterns --help
