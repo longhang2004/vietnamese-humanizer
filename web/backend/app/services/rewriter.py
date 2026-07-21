@@ -63,14 +63,22 @@ def generate_rewrite(text: str, skill: str = "humanizer-vi", issue_ids: list[str
 
     # 5. Call Gemini API using google-genai SDK
     client = genai.Client(api_key=settings.GEMINI_API_KEY)
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=user_prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            temperature=0.3,
-        ),
-    )
+    response = None
+    for model_name in ["gemini-2.5-flash", "gemini-2.0-flash"]:
+        try:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=user_prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_instruction,
+                    temperature=0.3,
+                ),
+            )
+            if response and response.text:
+                break
+        except Exception as e:
+            if model_name == "gemini-2.0-flash":
+                raise e
 
     rewrite_text = response.text.strip() if response.text else text
 
