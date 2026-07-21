@@ -6,7 +6,7 @@ Tuân theo Keep a Changelog ở mức cấu trúc, chưa cam kết Semantic Vers
 
 Chưa có thay đổi.
 
-## [0.2.0] - 2026-07-20
+## [0.2.0] - 2026-07-21
 
 ### Added
 
