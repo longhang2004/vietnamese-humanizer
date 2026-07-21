@@ -11,3 +11,19 @@ build/
 benchmarks/results/*
 !benchmarks/results/.gitkeep
 !benchmarks/results/README.md
+
+# CodeGraph local index and generated agent rules
+.codegraph/
+.cursor/
+
+# Node / frontend
+node_modules/
+.next/
+.vercel/
+web/frontend/.env*.local
+
+# Python backend
+web/backend/.env
+web/backend/.venv/
+dev.db
+*.db

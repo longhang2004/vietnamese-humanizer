@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: vietnamese-writing-skills-api
+    env: python
+    rootDir: web/backend
+    buildCommand: pip install -e ../.. && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FRONTEND_ORIGIN
+        value: https://vietnamese-writing-skills.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ADMIN_API_KEY
+        sync: false
+      - key: LINT_MAX_CHARS
+        value: "20000"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vietnamese-writing-skills-db
+          property: connectionString
+
+databases:
+  - name: vietnamese-writing-skills-db
+    plan: free

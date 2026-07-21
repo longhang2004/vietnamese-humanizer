@@ -1,0 +1,10 @@
+fastapi>=0.111.0
+uvicorn>=0.30.0
+pydantic-settings>=2.3.0
+slowapi>=0.1.9
+sqlalchemy>=2.0.30
+psycopg2-binary>=2.9.9
+google-genai>=0.1.1
+pytest>=8.2
+httpx>=0.27.0
+vietnamese-writing-skills==0.2.0
