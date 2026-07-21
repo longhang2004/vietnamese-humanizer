@@ -23,7 +23,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Vietnamese Writing Skills API",
     description="Web API service for Vietnamese writing style analysis and skills",
-    version="0.3.0",
+    version="0.3.1",
     lifespan=lifespan,
 )
 

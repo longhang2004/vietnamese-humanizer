@@ -12,6 +12,13 @@ Tuân theo Keep a Changelog ở mức cấu trúc, chưa cam kết Semantic Vers
 
 - Biên tập lại tài liệu công khai bằng giọng văn tự nhiên, trực tiếp hơn.
 
+## [0.3.1] - 2026-07-22
+
+### Added
+
+- Tích hợp Vercel Analytics (`@vercel/analytics`) theo dõi lượng truy cập web app.
+- Cập nhật PyPI release workflow hỗ trợ `skip-existing: true` chống lỗi 400 khi file đã tồn tại trên PyPI.
+
 ## [0.3.0] - 2026-07-22
 
 ### Added

@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
@@ -116,7 +117,7 @@ export default function RootLayout({
                 Vietnamese Writing Skills
               </span>
               <span className="text-xs bg-brand-100 text-brand-800 px-2 py-0.5 rounded font-mono font-semibold">
-                v0.3.0
+                v0.3.1
               </span>
             </Link>
 
@@ -141,13 +142,14 @@ export default function RootLayout({
         <footer className="bg-white border-t border-gray-200 py-6 mt-12 text-center text-xs text-gray-500">
           <div className="max-w-6xl mx-auto px-4">
             <p>
-              Vietnamese Writing Skills — Bộ công cụ Agent Skills và linter văn phong tiếng Việt (v0.3.0).
+              Vietnamese Writing Skills — Bộ công cụ Agent Skills và linter văn phong tiếng Việt (v0.3.1).
             </p>
             <p className="mt-1 text-gray-400">
               Công cụ nêu tín hiệu hỗ trợ người viết review. Không phải AI-detector, không chấm điểm xác suất tác giả.
             </p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
