@@ -7,6 +7,33 @@ interface EditorProps {
   loading: boolean;
 }
 
+const DEFAULT_SKILLS: SkillItem[] = [
+  {
+    id: "humanizer-vi",
+    name: "Humanizer tiếng Việt",
+    when_to_use: "Văn bản có vẻ theo khuôn, sáo, đều nhịp hoặc lệch giọng",
+    when_not_to_use: "Suy đoán tác giả, lách detector, hoặc chỉ soát lỗi máy móc",
+  },
+  {
+    id: "translationese-cleaner-vi",
+    name: "Gọt dịch thuật ngữ tiếng Việt",
+    when_to_use: "Văn bản dịch thô, câu bị động khiên cưỡng, lạm dụng cấu trúc dịch tiếng Anh",
+    when_not_to_use: "Soát lỗi chính tả đơn thuần hoặc sửa văn bản đã tự nhiên",
+  },
+  {
+    id: "grammar-checker-vi",
+    name: "Soát lỗi ngữ pháp & chính tả tiếng Việt",
+    when_to_use: "Phát hiện lỗi sai từ ngữ, sai ngữ pháp, câu thiếu chủ/vị rõ ràng",
+    when_not_to_use: "Đánh giá văn phong hay/dở hoặc quy kết văn bản do AI sinh",
+  },
+  {
+    id: "style-guide-vi",
+    name: "Quy chuẩn văn phong & báo chí",
+    when_to_use: "Rà soát tính nhất quán về thuật ngữ, xưng hô, định dạng và hành văn chuyên nghiệp",
+    when_not_to_use: "Sáng tạo nghệ thuật tự do hoặc thay thế quy chuẩn riêng của tòa soạn",
+  },
+];
+
 const SAMPLE_TEXT = `Trong bối cảnh không ngừng phát triển, doanh nghiệp cần đổi mới. Trong bối cảnh không ngừng phát triển, thị trường yêu cầu linh hoạt. Việc thực hiện công tác kiểm tra được tổ chức bởi ban chỉ đạo nhằm nâng cao năng lực cạnh tranh.`;
 
 export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
@@ -17,6 +44,8 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
     "grammar-checker-vi",
     "style-guide-vi",
   ]);
+
+  const activeSkills = skills && skills.length > 0 ? skills : DEFAULT_SKILLS;
 
   const handleToggleSkill = (skillId: string) => {
     if (selectedSkills.includes(skillId)) {
@@ -71,7 +100,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
           Chọn bộ kỹ năng rà soát:
         </span>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {skills.map((skill) => (
+          {activeSkills.map((skill) => (
             <label
               key={skill.id}
               className={`flex items-start p-2.5 rounded border text-xs cursor-pointer transition-colors ${
