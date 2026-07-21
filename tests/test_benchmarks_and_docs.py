@@ -182,3 +182,16 @@ def test_internal_markdown_links_resolve() -> None:
             if not (document.parent / clean).exists():
                 broken.append(f"{document.relative_to(ROOT)} -> {target}")
     assert broken == []
+
+
+def test_public_docs_link_both_languages() -> None:
+    pairs = (
+        (ROOT / "README.md", ROOT / "README.vi.md"),
+        (ROOT / "CONTRIBUTING.md", ROOT / "CONTRIBUTING.vi.md"),
+    )
+
+    for english, vietnamese in pairs:
+        assert english.is_file()
+        assert vietnamese.is_file()
+        assert f"]({vietnamese.name})" in english.read_text(encoding="utf-8")
+        assert f"]({english.name})" in vietnamese.read_text(encoding="utf-8")

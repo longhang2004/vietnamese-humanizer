@@ -1,45 +1,58 @@
-# Đóng góp
+**English** | [Tiếng Việt](CONTRIBUTING.vi.md)
 
-Cảm ơn bạn đã giúp Vietnamese Writing Skills phản ánh tiếng Việt đa dạng hơn.
+# Contributing
 
-## Trước khi mở pull request
+Thank you for helping Vietnamese Writing Skills reflect a wider range of Vietnamese usage.
 
-1. Tìm ID, tên và tín hiệu tương tự trong `docs/generated-patterns.md`.
-2. Đọc `docs/pattern-authoring-guide.md`.
-3. Ẩn thông tin cá nhân và kiểm quyền sử dụng ví dụ.
-4. Sửa dữ liệu, package, test và tài liệu liên quan.
-5. Chạy generator, validators, test và build trong README.
-6. Ghi thay đổi người dùng thấy được vào `CHANGELOG.md`.
+## Before opening a pull request
 
-## Example mới
+1. Search for similar IDs, names, and signals in `docs/generated-patterns.md`.
+2. Read `docs/pattern-authoring-guide.md`.
+3. Remove personal information and verify that examples can be legally used.
+4. Update the relevant data, package code, tests, and documentation.
+5. Run the generators, validators, tests, and build commands listed in the README.
+6. Record user-visible changes in `CHANGELOG.md`.
 
-Mỗi example phải có:
+## New examples
 
-- input và context đầy đủ để output có thể được kiểm chứng;
-- output không thêm dữ kiện, metric, nguồn, nguyên nhân hoặc trải nghiệm;
-- `output_mode`, `gold_output_mode` và `gold_rewrite` nhất quán;
-- `must_preserve` và `must_not_add`;
-- pattern ID tồn tại;
-- `preservation_review` với trạng thái và provenance đúng: `unreviewed`, `agent-reviewed`, `maintainer-reviewed` hoặc `independently-reviewed`;
-- review notes khi đã reviewed.
+Every example must include:
 
-Example `unreviewed` không được đánh dấu gold rewrite. `review_comment` và `needs_author_decision` có thể là gold output mode nhưng không phải gold rewrite. Đừng ghi “chi tiết đã có trong bài” nếu phần bài đó không nằm trong context.
+- complete input and context so the output can be verified;
+- output that adds no facts, metrics, sources, causes, or experiences;
+- consistent `output_mode`, `gold_output_mode`, and `gold_rewrite` values;
+- `must_preserve` and `must_not_add` constraints;
+- an existing pattern ID;
+- `preservation_review` with one of these provenance states: `unreviewed`, `agent-reviewed`, `maintainer-reviewed`, or `independently-reviewed`;
+- review notes when the example has been reviewed.
 
-## Pattern mới
+An `unreviewed` example must not be marked as a gold rewrite. `review_comment` and `needs_author_decision` may be gold output modes, but they are not gold rewrites. Do not claim that a detail “appears elsewhere in the article” unless that content is included in the context.
 
-Pattern cần finding type, scope, aggregation, severity, confidence, false-positive risk, hai bad example, hai good example có mode, exceptions, test và example không tự thêm dữ kiện. Nêu nguồn quan sát và phản biện trường hợp cấu trúc hợp lệ.
+## New patterns
 
-Pattern dựa trên trực giác của một người có thể mở ở dạng proposal để thu thập thêm ví dụ, nhưng chưa nên đưa vào catalog stable.
+A pattern needs a finding type, scope, aggregation, severity, confidence, false-positive risk, two bad examples, two good examples with modes, exceptions, tests, and an example that does not introduce facts. State the observation source and discuss legitimate uses of the structure.
 
-## Quy ước
+A pattern based on one person's intuition may be opened as a proposal to collect examples, but it should not enter the stable catalog yet.
 
-- ID theo namespace `VI-HUM`, `VI-TRA`, `VI-GRA` hoặc `VI-STY`.
-- `name` dùng chữ thường ASCII và dấu gạch nối.
-- Tài liệu cho người dùng viết bằng tiếng Việt; identifier và thuật ngữ kỹ thuật có thể giữ tiếng Anh.
-- Không thêm score phát hiện AI, claim bypass detector hoặc heuristic nhằm né kiểm tra.
-- Không coi khác biệt vùng miền là lỗi nếu không có ràng buộc register cụ thể.
-- Logic importable nằm trong `vietnamese_writing_skills`; `scripts/` chỉ chứa wrapper.
+## Conventions
 
-## Báo lỗi và đánh giá
+- IDs use the `VI-HUM`, `VI-TRA`, `VI-GRA`, or `VI-STY` namespace.
+- `name` uses lowercase ASCII and hyphens.
+- User-facing Vietnamese documentation is written in Vietnamese; identifiers and technical terms may remain in English.
+- Do not add AI-detection scores, detector-bypass claims, or heuristics intended to evade checks.
+- Do not treat regional variation as an error without a specific register constraint.
+- Importable logic belongs in `vietnamese_writing_skills`; `scripts/` contains compatibility wrappers only.
 
-Với false positive, cung cấp đoạn tối thiểu còn đủ context, domain, register, finding type, output mong muốn và lý do cấu trúc hợp lệ. Không gửi dữ liệu nhạy cảm.
+## Reporting errors and evaluation results
+
+For a false positive, provide the shortest passage that preserves enough context, plus its domain, register, finding type, expected output, and why the structure is legitimate. Do not submit sensitive data.
+
+## Release checklist
+
+Before pushing a release tag:
+
+1. Confirm that CI is green on `main`.
+2. Confirm that `pyproject.toml`, `vietnamese_writing_skills.__version__`, and `CHANGELOG.md` agree on the version.
+3. Run the full repository checks, build wheel and sdist, and run `twine check dist/*`.
+4. Confirm that the GitHub `pypi` environment and PyPI Trusted Publisher target `.github/workflows/release.yml`.
+5. Review the wheel contents and install it in a clean virtual environment.
+6. Push the matching `vX.Y.Z` tag only after all checks pass.
