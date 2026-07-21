@@ -173,7 +173,8 @@ def test_example_count_and_domain_distribution() -> None:
 def test_internal_markdown_links_resolve() -> None:
     broken: list[str] = []
     for document in ROOT.rglob("*.md"):
-        if any(part in {".git", ".venv"} for part in document.parts):
+        ignored_dirs = {".git", ".venv", "node_modules", "dist", "build"}
+        if any(part in ignored_dirs for part in document.parts):
             continue
         for target in LINK_RE.findall(document.read_text(encoding="utf-8")):
             clean = target.split("#", 1)[0].strip().strip("<>")

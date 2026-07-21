@@ -2,9 +2,12 @@
 
 # Vietnamese Writing Skills
 
+[![Live Web App](https://img.shields.io/badge/Web_App-Trải_nghiệm_ngay-brightgreen?style=flat&logo=vercel)](https://vietnamese-humanizer-g1o9.vercel.app/)
 [![CI](https://github.com/longhang2004/vietnamese-humanizer/actions/workflows/ci.yml/badge.svg)](https://github.com/longhang2004/vietnamese-humanizer/actions/workflows/ci.yml)
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+🌐 **Phiên bản web**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/)
 
 Bộ công cụ này biên tập tiếng Việt mà không làm thay đổi dữ kiện. Mục tiêu là giúp văn bản đầu vào rõ hơn, tự nhiên hơn và hợp với ngữ cảnh.
 
@@ -160,7 +163,10 @@ Nếu Vietnamese Writing Skills hữu ích, bạn có thể ủng hộ việc du
   </a>
 </p>
 
-## Attribution và license
+## Đóng góp & Cảm ơn
+
+- **Hàng Nhựt Long** ([@longhang2004](https://github.com/longhang2004)) — Duyệt & phát triển chính.
+- **Lê Ngọc Phương Thư** (`lengocphuongthuct2006@gmail.com`) — Đề xuất và lên ý tưởng xây dựng phiên bản Web Application.
 
 Dự án tham khảo định dạng [Agent Skills](https://agentskills.io/specification), các ý tưởng audit văn phong của [blader/humanizer](https://github.com/blader/humanizer) và kinh nghiệm bản địa hóa từ dự án tiếng Trung, tiếng Hàn. Taxonomy cùng dữ liệu tiếng Việt trong repository được viết độc lập. Xem thêm [research notes](docs/research-notes.md).
 

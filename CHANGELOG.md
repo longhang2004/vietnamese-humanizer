@@ -12,6 +12,16 @@ Tuân theo Keep a Changelog ở mức cấu trúc, chưa cam kết Semantic Vers
 
 - Biên tập lại tài liệu công khai bằng giọng văn tự nhiên, trực tiếp hơn.
 
+## [0.3.0] - 2026-07-22
+
+### Added
+
+- Web Application "Vietnamese Writing Skills" (`web/`): bao gồm FastAPI Backend và Next.js Frontend.
+- Tích hợp Gemini AI (`gemini-2.5-flash`) cho tính năng Gợi ý viết lại tự nhiên và bảo toàn dữ kiện.
+- Cơ sở dữ liệu Staging (PostgreSQL / Neon) để lưu vết các case đóng góp từ cộng đồng.
+- Tối ưu hóa SEO toàn diện (Detailed SEO Standard): OpenGraph banner, Twitter card, Favicon, JSON-LD Schema và Canonical metadata.
+- Ghi nhận Contributor mới: **Lê Ngọc Phương Thư** (`lengocphuongthuct2006@gmail.com`) — Tác giả đề xuất và lên ý tưởng phiên bản Web App.
+
 ## [0.2.0] - 2026-07-21
 
 ### Added

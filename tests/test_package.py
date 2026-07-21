@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_package_import_and_version() -> None:
-    assert vietnamese_writing_skills.__version__ == "0.2.0"
+    assert vietnamese_writing_skills.__version__ == "0.3.0"
 
 
 def test_console_entry_modules_expose_main() -> None:
