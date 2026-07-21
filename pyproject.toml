@@ -5,11 +5,34 @@ build-backend = "hatchling.build"
 [project]
 name = "vietnamese-writing-skills"
 version = "0.2.0"
-description = "Agent Skills và công cụ kiểm tra văn phong tiếng Việt"
+description = "Agent Skills and lightweight tools for clearer, more natural Vietnamese writing"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Vietnamese Writing Skills contributors" }]
+keywords = [
+  "agent-skills",
+  "grammar",
+  "humanizer",
+  "natural-language-processing",
+  "vietnamese",
+  "writing",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Natural Language :: Vietnamese",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Text Processing :: Linguistic",
+]
 dependencies = [
   "jsonschema>=4.22,<5",
   "PyYAML>=6.0,<7",
@@ -18,9 +41,16 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "build>=1.2,<2",
-  "pytest>=8.2,<9",
+  "pytest>=8.2,<10",
   "ruff>=0.6,<1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/longhang2004/vietnamese-humanizer"
+Repository = "https://github.com/longhang2004/vietnamese-humanizer"
+Issues = "https://github.com/longhang2004/vietnamese-humanizer/issues"
+Changelog = "https://github.com/longhang2004/vietnamese-humanizer/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/longhang2004/vietnamese-humanizer/tree/main/docs"
 
 [project.scripts]
 viet-writing-lint = "vietnamese_writing_skills.cli.lint:main"

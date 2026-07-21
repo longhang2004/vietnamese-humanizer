@@ -1,3 +1,4 @@
+import tomllib
 from pathlib import Path
 
 import vietnamese_writing_skills
@@ -40,6 +41,25 @@ def test_pyproject_packages_official_import_and_resources() -> None:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert 'packages = ["src/vietnamese_writing_skills"]' in pyproject
     assert '"patterns" = "vietnamese_writing_skills/data/patterns"' in pyproject
+
+
+def test_release_metadata_matches_package_version() -> None:
+    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    project = pyproject["project"]
+
+    assert project["version"] == vietnamese_writing_skills.__version__
+    assert project["readme"] == "README.md"
+    assert project["license"] == "MIT"
+    assert project["license-files"] == ["LICENSE"]
+    assert "Programming Language :: Python :: 3.14" in project["classifiers"]
+    assert "Natural Language :: Vietnamese" in project["classifiers"]
+    assert project["urls"] == {
+        "Homepage": "https://github.com/longhang2004/vietnamese-humanizer",
+        "Repository": "https://github.com/longhang2004/vietnamese-humanizer",
+        "Issues": "https://github.com/longhang2004/vietnamese-humanizer/issues",
+        "Changelog": "https://github.com/longhang2004/vietnamese-humanizer/blob/main/CHANGELOG.md",
+        "Documentation": "https://github.com/longhang2004/vietnamese-humanizer/tree/main/docs",
+    }
 
 
 def test_scripts_are_thin_non_package_wrappers() -> None:
