@@ -1,10 +1,10 @@
 ## Thay đổi
 
-Mô tả vấn đề và phạm vi thay đổi.
+Nêu vấn đề và phạm vi thay đổi.
 
 ## Bằng chứng
 
-Nêu ví dụ, ngoại lệ, nguồn quan sát và rủi ro false positive nếu đổi pattern.
+Khi đổi pattern, nêu ví dụ, ngoại lệ, nguồn quan sát và rủi ro false positive.
 
 ## Kiểm tra
 
@@ -15,5 +15,5 @@ Nêu ví dụ, ngoại lệ, nguồn quan sát và rủi ro false positive nếu
 - [ ] Benchmark validation
 - [ ] Generated docs check
 - [ ] Wheel build và smoke test
-- [ ] Không có dữ liệu nhạy cảm, secret hoặc claim bypass detector
-- [ ] Đã cập nhật changelog nếu người dùng thấy thay đổi
+- [ ] Không có dữ liệu nhạy cảm, secret hoặc claim về bypass detector
+- [ ] Đã cập nhật changelog khi thay đổi ảnh hưởng người dùng

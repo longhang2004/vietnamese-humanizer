@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../README.vi.md) | [English project overview](../README.md)
 
-The public project overview and contribution guide are available in both English and Vietnamese. The specialist documentation below currently uses Vietnamese as its canonical language because it describes Vietnamese linguistic judgments, examples, and evaluation constraints.
+The public project overview and contribution guide are available in English and Vietnamese. The specialist documents below use Vietnamese as their canonical language because they cover Vietnamese linguistic judgments, examples, and evaluation constraints.
 
 ## Project design and evaluation
 
@@ -17,4 +17,4 @@ The public project overview and contribution guide are available in both English
 - [Generated pattern catalog](generated-patterns.md): the current generated catalog.
 - [Maintenance agent prompt](maintenance-agent-prompt.md): repository maintenance guidance for coding agents.
 
-When an English summary and a Vietnamese specialist document differ, treat the Vietnamese specialist document and the validated schemas as authoritative for linguistic behavior.
+If an English summary differs from a Vietnamese specialist document, follow the Vietnamese specialist document and the validated schemas for linguistic behavior.

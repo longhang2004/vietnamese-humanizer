@@ -8,6 +8,10 @@ Tuân theo Keep a Changelog ở mức cấu trúc, chưa cam kết Semantic Vers
 
 - Truyền repository context rõ ràng cho bước tạo GitHub Release khi job không checkout source.
 
+### Changed
+
+- Biên tập lại tài liệu công khai bằng giọng văn tự nhiên, trực tiếp hơn.
+
 ## [0.2.0] - 2026-07-21
 
 ### Added

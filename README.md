@@ -6,20 +6,20 @@
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-A Vietnamese editing toolkit that helps make writing clear, natural, consistent, and appropriate for its context without losing facts.
+Tools for editing Vietnamese prose without changing its facts. They help make writing clearer, more natural, and consistent with its context.
 
-The repository keeps the name `vietnamese-humanizer` because that is its project URL. The product is called **Vietnamese Writing Skills** because it includes four skills, not only a humanizer. The Python distribution is named `vietnamese-writing-skills`, while the import package is `vietnamese_writing_skills`.
+This repository is named `vietnamese-humanizer` because that is its project URL. The product is called **Vietnamese Writing Skills** because it contains four skills, not just a humanizer. Its Python distribution is `vietnamese-writing-skills`; import it as `vietnamese_writing_skills`.
 
-The project does not classify authorship, produce an “AI probability score,” or provide detector-evasion advice. The linter only identifies surface signals for human review.
+The project does not classify authorship, produce an "AI probability score," or offer detector-evasion advice. Its linter reports surface signals for a person to review.
 
 ## Four skills
 
 | Skill | Use it when | Do not use it when |
 | --- | --- | --- |
-| `humanizer-vi` | Writing sounds templated, clichéd, rhythmically flat, or inconsistent in voice | Inferring authorship, evading detectors, or performing purely mechanical proofreading |
-| `translationese-cleaner-vi` | Vietnamese follows English word order, metaphors, or nominalization too closely | Replacing established terminology or weakening legal language |
-| `grammar-checker-vi` | Checking spelling, punctuation, structure, and ambiguity | Imposing a style or modifying code, URLs, and identifiers |
-| `style-guide-vi` | Keeping pronouns, terminology, numbers, and formatting consistent | Overriding a project-specific style guide or changing facts |
+| `humanizer-vi` | Prose feels templated, clichéd, flat in rhythm, or uneven in voice | Inferring authorship, evading detectors, or doing only mechanical proofreading |
+| `translationese-cleaner-vi` | Vietnamese copies English word order, metaphors, or nominalization too closely | Replacing established terms or weakening legal language |
+| `grammar-checker-vi` | Checking spelling, punctuation, structure, or ambiguity | Imposing a style or changing code, URLs, or identifiers |
+| `style-guide-vi` | Keeping pronouns, terms, numbers, and formatting consistent | Overriding a project style guide or changing facts |
 
 ## Fact-preserving example
 
@@ -31,16 +31,16 @@ After:
 
 > Redis lưu dữ liệu thường dùng trong bộ nhớ, nhờ đó hệ thống ít phải truy cập nguồn dữ liệu chậm hơn.
 
-The edit only removes the announcement phrase. The Redis mechanism was present in the input; it must not be inferred from a generic sentence such as “Redis improves performance.” In the corpus, information outside the input must be stated explicitly in the `context` field.
+This edit removes only the announcement. The input already states the Redis mechanism, so an editor must not replace it with a broad claim such as "Redis improves performance." Corpus entries must state any information outside the input in `context`.
 
 ## Four output modes
 
-- `clean_rewrite`: A fact-preserving rewrite that can directly replace the input.
-- `review_comment`: Feedback for the author when evidence or sources are missing; it is not replacement text.
-- `needs_author_decision`: Multiple interpretations are possible, so the author must decide before editing.
-- `no_change`: The input is already suitable; do not edit merely to make it different.
+- `clean_rewrite`: A fact-preserving rewrite that can replace the input.
+- `review_comment`: Feedback for an author when evidence or sources are missing, not replacement text.
+- `needs_author_decision`: The input has multiple plausible readings, so the author decides before editing.
+- `no_change`: The input is already suitable. Do not change it merely for variety.
 
-An agent is not required to rewrite every input. Refusing to guess is correct when the subject, scope, date, or level of obligation is ambiguous.
+An agent does not need to rewrite every input. It should decline to guess when the subject, scope, date, or level of obligation is unclear.
 
 ## Install Agent Skills from the repository
 
@@ -49,7 +49,7 @@ git clone https://github.com/longhang2004/vietnamese-humanizer.git
 cd vietnamese-humanizer
 ```
 
-Point an Agent Skills-compatible client to the desired directory under `skills/`, or copy that directory into the client's skill location. Each skill contains a `SKILL.md`, references, and any required assets.
+Point an Agent Skills-compatible client at the needed directory under `skills/`, or copy that directory into the client's skill location. Each one includes `SKILL.md`, references, and any required assets.
 
 Example request:
 
@@ -80,7 +80,7 @@ Install for development:
 python -m pip install -e ".[dev]"
 ```
 
-The wheel contains patterns, schemas, skill Markdown, examples, and benchmark resources. By default, the CLI uses the repository surrounding the current directory when one is found; pass `--root PATH` to select another checkout. Outside a repository, pattern-reading commands use resources bundled in the wheel.
+The wheel includes patterns, schemas, skill Markdown, examples, and benchmark resources. When it finds a surrounding repository, the CLI uses that repository by default. Pass `--root PATH` to choose another checkout. Outside a repository, pattern-reading commands use the resources bundled in the wheel.
 
 ## Console commands
 
@@ -95,7 +95,7 @@ viet-writing-benchmark --root . --validate-only
 viet-writing-generate-docs --root . --check
 ```
 
-Legacy wrappers remain available in a source checkout:
+Source checkouts also retain these legacy wrappers:
 
 ```bash
 python scripts/lint_vietnamese.py article.md
@@ -106,7 +106,7 @@ python scripts/run_benchmarks.py --validate-only
 python scripts/generate_pattern_docs.py --check
 ```
 
-The linter exits with code `1` when it finds items that need review and `2` when the command cannot run. A finding does not prove that writing is incorrect or AI-generated.
+The linter exits with `1` when it finds material to review and `2` when it cannot run. A finding does not prove that prose is wrong or AI-generated.
 
 ## Linter taxonomy
 
@@ -115,16 +115,13 @@ The linter exits with code `1` when it finds items that need review and `2` when
 - `PREFERENCE`: A style choice that should only be applied after a style has been selected.
 - `HEURISTIC`: A surface signal such as density or sentence rhythm; a reviewer must inspect the full scope.
 
-Each pattern also defines `scope` and `aggregation`. For example, repeated sentence openings use `paragraph/sequence`, sentence rhythm uses `document/variance`, and mixed pronouns use `document/consistency`.
+Patterns also define `scope` and `aggregation`. Repeated sentence openings, for example, use `paragraph/sequence`; sentence rhythm uses `document/variance`; mixed pronouns use `document/consistency`.
 
 ## Corpus and benchmark
 
-- 40 patterns include finding type, scope, aggregation, exceptions, and false-positive risk.
-- 100 examples include output mode, `context`, `must_preserve`, `must_not_add`, and review provenance.
-- 30 benchmark cases include an expected output mode, context, specific blockers, and preservation constraints.
-- Manual review results are checked by JSON Schema and can contain multiple reviewers per case.
+The catalog has 40 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 100 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 30 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints. JSON Schema validates manual-review results, and a case may have several reviewers.
 
-The corpus has been audited by a coding agent against each input + context → output pair. `agent-reviewed` does not mean maintainer-reviewed, native-speaker-reviewed, or independently reviewed. The repository has no independent baseline yet; the current benchmark supports process design and data regression, not claims of effectiveness outside the authored cases.
+A coding agent audited each input + context → output pair in the corpus. `agent-reviewed` does not mean reviewed by a maintainer, native speaker, or independent reviewer. The repository has no independent baseline yet. The current benchmark helps with process design and data regression; it does not establish effectiveness outside these authored cases.
 
 ## Check the repository
 
@@ -147,15 +144,15 @@ python scripts/generate_pattern_docs.py
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md), the [documentation index](docs/README.md), and the [pattern authoring guide](docs/pattern-authoring-guide.md). New examples must contain enough input/context to be verified, state what must be preserved and must not be added, choose an output mode, and record accurate review provenance. New patterns need a taxonomy, scope, aggregation behavior, exceptions, tests, and examples that do not introduce facts.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), the [documentation index](docs/README.md), and the [pattern authoring guide](docs/pattern-authoring-guide.md). New examples need enough input and context for verification, explicit preservation and no-addition constraints, an output mode, and accurate review provenance. New patterns need a taxonomy, scope, aggregation behavior, exceptions, tests, and examples that add no facts.
 
 ## Limitations
 
-Regexes and structural validators cannot prove semantic equivalence; they can miss problems or report false positives. One hundred examples do not fully represent regional, generational, professional, and register variation. See [limitations](docs/limitations.md) and [evaluation methodology](docs/evaluation-methodology.md).
+Regexes and structural validators cannot prove semantic equivalence. They can miss problems or produce false positives. One hundred examples cannot represent every regional, generational, professional, or register difference. See [limitations](docs/limitations.md) and [evaluation methodology](docs/evaluation-methodology.md).
 
 ## Support the project
 
-If Vietnamese Writing Skills is useful to you, you can support its continued maintenance with an optional donation. Please verify that the recipient name is **HANG NHUT LONG** at **BIDV** before confirming the transfer.
+If Vietnamese Writing Skills is useful, you can make an optional donation to support maintenance. Before confirming a transfer, verify that the recipient is **HANG NHUT LONG** at **BIDV**.
 
 <p align="center">
   <a href="assets/donate-vietqr.png">
@@ -165,6 +162,6 @@ If Vietnamese Writing Skills is useful to you, you can support its continued mai
 
 ## Attribution and license
 
-The project references the [Agent Skills specification](https://agentskills.io/specification), the style-audit ideas in [blader/humanizer](https://github.com/blader/humanizer), and localization experience from Chinese and Korean projects. The Vietnamese taxonomy and data in this repository were written independently. See the [research notes](docs/research-notes.md) for details.
+The project draws on the [Agent Skills specification](https://agentskills.io/specification), style-audit ideas from [blader/humanizer](https://github.com/blader/humanizer), and localization work in Chinese and Korean projects. The Vietnamese taxonomy and data in this repository were written independently. Details are in the [research notes](docs/research-notes.md).
 
 Original code and content are released under the [MIT License](LICENSE). See [ROADMAP.md](ROADMAP.md) for planned work.
