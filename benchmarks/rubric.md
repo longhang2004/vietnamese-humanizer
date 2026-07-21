@@ -15,10 +15,10 @@ Chấm từng tiêu chí từ 1 đến 5.
 
 ## Blocker
 
-Output fail dù tổng điểm cao nếu sai output mode hoặc có một trong các lỗi: bịa dữ kiện; đổi số, tên riêng hoặc ngày tháng; đổi mức chắc chắn hoặc lập trường; thêm nguồn; xóa điều kiện hoặc ngoại lệ; làm sai thuật ngữ; thêm trải nghiệm cá nhân, nguyên nhân hoặc metric không có trong input/context.
+Output fail dù tổng điểm cao nếu sai output mode hoặc có một trong các lỗi sau: bịa dữ kiện; đổi số, tên riêng hoặc ngày tháng; đổi mức chắc chắn hoặc lập trường; thêm nguồn; xóa điều kiện hoặc ngoại lệ; làm sai thuật ngữ; thêm trải nghiệm cá nhân, nguyên nhân hoặc metric không có trong input/context.
 
 Reviewer đánh dấu blocker trước khi cộng điểm. Một output có blocker không được dùng làm expected answer.
 
 ## Cách dùng điểm
 
-Điểm 3 là bản dùng được sau một lượt sửa. Điểm 5 không đòi hỏi văn phong hoa mỹ; nó đòi hỏi lựa chọn phù hợp và bảo toàn chặt. Với case "không sửa", thay đổi không cần thiết làm giảm Edit necessity và Over-editing avoidance.
+Điểm 3 là bản dùng được sau một lượt sửa. Điểm 5 không đòi hỏi văn phong hoa mỹ; nó yêu cầu lựa chọn phù hợp và bảo toàn chặt. Với case "không sửa", thay đổi không cần thiết làm giảm Edit necessity và Over-editing avoidance.

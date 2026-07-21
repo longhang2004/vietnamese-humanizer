@@ -1,7 +1,7 @@
 # Giới hạn
 
-- 40 pattern do maintainer tổng hợp, chưa được hiệu chỉnh trên corpus đại diện.
-- 100 example đã được coding agent audit về preservation nhưng chưa được maintainer hoặc reviewer độc lập xác nhận, đồng thời chưa đại diện đầy đủ cho vùng miền, thế hệ, ngành nghề hoặc register tiếng Việt.
+- 40 pattern do maintainer tổng hợp và chưa được hiệu chỉnh trên corpus đại diện.
+- 100 example đã được coding agent audit về preservation nhưng chưa được maintainer hoặc reviewer độc lập xác nhận. Chúng cũng chưa đại diện đầy đủ cho vùng miền, thế hệ, ngành nghề hoặc register tiếng Việt.
 - Nhận định “tự nhiên” phụ thuộc độc giả và mục đích. Một cách nói hợp với blog miền Nam có thể không hợp thông báo hành chính, nhưng điều đó không khiến nó sai.
 - Pattern có false positive, đặc biệt với nhịp câu, bị động, từ viết tắt, đại từ và định dạng theo style riêng.
 - Regex chỉ thấy tín hiệu bề mặt. Nó bỏ sót paraphrase và không phát hiện được mọi thay đổi về nghĩa, nguyên nhân, phạm vi hoặc mức chắc chắn.

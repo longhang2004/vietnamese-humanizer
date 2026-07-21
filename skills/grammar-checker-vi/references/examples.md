@@ -1,8 +1,8 @@
 # Ví dụ
 
-Lỗi chắc chắn: "Báo cáo gồm ba phần ,phần cuối là phụ lục." thành "Báo cáo gồm ba phần, phần cuối là phụ lục."
+Lỗi chắc chắn: đổi "Báo cáo gồm ba phần ,phần cuối là phụ lục." thành "Báo cáo gồm ba phần, phần cuối là phụ lục."
 
-Cần ngữ cảnh: "Lan báo với Mai rằng cô ấy sẽ nghỉ." Đại từ có thể chỉ Lan hoặc Mai. Không tự chọn.
+Cần ngữ cảnh: "Lan báo với Mai rằng cô ấy sẽ nghỉ." Đại từ có thể chỉ Lan hoặc Mai, nên không tự chọn.
 
 Không sửa: `curl https://api.example.com/v1/items?sort=created_at`. Đây là command và URL.
 

@@ -2,7 +2,7 @@
 
 ## Một pattern đủ điều kiện merge
 
-Pattern phải có:
+Một pattern phải có:
 
 - lý do mô tả tác động lên người đọc, không chỉ nói “nghe như AI”;
 - `finding_type`, `scope` và `aggregation` đúng với cách phát hiện;
@@ -26,21 +26,21 @@ Không nâng một preference thành error chỉ vì maintainer thích một cá
 
 `scope` là đơn vị tối thiểu cần đọc: token, phrase, sentence, paragraph hoặc document. `aggregation` mô tả cách nhiều quan sát tạo thành finding: single, count, density, sequence, variance hoặc consistency.
 
-Một phrase dịch sát thường dùng `phrase/single`; lặp mở đầu câu dùng `paragraph/sequence`; mật độ từ nối dùng `paragraph/density`; nhịp câu dùng `document/variance`; trộn đại từ dùng `document/consistency`.
+Phrase dịch sát thường dùng `phrase/single`. Lặp mở đầu câu dùng `paragraph/sequence`; mật độ từ nối dùng `paragraph/density`; nhịp câu dùng `document/variance`; trộn đại từ dùng `document/consistency`.
 
 ## Severity, confidence và false positive
 
-Severity đo tác hại nếu finding đúng trong ngữ cảnh. Confidence đo độ chắc của tín hiệu. False-positive risk ghi khả năng rule chạm trường hợp hợp lệ. Ba trường này không thay thế nhau.
+Severity đo tác hại nếu finding đúng trong ngữ cảnh. Confidence đo độ chắc của tín hiệu. False-positive risk ghi khả năng rule chạm trường hợp hợp lệ. Ba trường này có vai trò khác nhau.
 
 ## Viết signals
 
-Phrase và regex phải đủ hẹp. Với pattern theo mật độ hoặc count, đặt `min_occurrences` phù hợp. Kiểm regex trên ví dụ hợp lệ, code, URL và thuật ngữ ngành. CLI che một số vùng nhưng pattern vẫn phải tự giới hạn.
+Phrase và regex phải đủ hẹp. Với pattern theo mật độ hoặc count, đặt `min_occurrences` phù hợp. Kiểm regex trên ví dụ hợp lệ, code, URL và thuật ngữ ngành. CLI che một số vùng, nhưng pattern vẫn phải tự giới hạn.
 
 ## Ví dụ và preservation
 
-Ví dụ tốt chỉ được dùng thông tin có trong câu nguồn hoặc context được lưu rõ. Không thay “cải thiện hiệu suất” bằng một metric tự chọn, không thêm deadline, nguyên nhân, nguồn, trải nghiệm hay cơ chế kỹ thuật.
+Ví dụ tốt chỉ dùng thông tin có trong câu nguồn hoặc context được lưu rõ. Không thay “cải thiện hiệu suất” bằng một metric tự chọn. Không thêm deadline, nguyên nhân, nguồn, trải nghiệm hay cơ chế kỹ thuật.
 
-Mỗi `good_examples` phải có `mode`: `clean_rewrite`, `review_comment`, `needs_author_decision` hoặc `no_change`. Review comment không phải câu thay thế. Nếu không thể sửa an toàn vì thiếu nguồn hoặc có nhiều cách hiểu, không được gắn lời bình meta nhãn `clean_rewrite`.
+Mỗi `good_examples` phải có `mode`: `clean_rewrite`, `review_comment`, `needs_author_decision` hoặc `no_change`. Review comment không phải câu thay thế. Nếu không thể sửa an toàn vì thiếu nguồn hoặc có nhiều cách hiểu, không gắn lời bình meta nhãn `clean_rewrite`.
 
 Trước khi chấp nhận một good example, reviewer xác nhận:
 
@@ -53,7 +53,7 @@ Trước khi chấp nhận một good example, reviewer xác nhận:
 - [ ] Chỉ sửa tín hiệu mà pattern nhắm tới.
 - [ ] Nếu không thể clean rewrite, dùng `review_comment` hoặc `needs_author_decision`.
 
-Example corpus dùng `examples/schema.json`. Một example mới cần input, context, output, output mode, must-preserve, must-not-add, gold metadata và preservation review có provenance. Dùng `unreviewed` nếu chưa audit; trạng thái đó không được là gold rewrite.
+Example corpus dùng `examples/schema.json`. Một example mới cần input, context, output, output mode, must-preserve, must-not-add, gold metadata và preservation review có provenance. Dùng `unreviewed` nếu chưa audit. Trạng thái đó không được là gold rewrite.
 
 Ưu tiên ví dụ tự viết hoặc đã được phép dùng. Nếu lấy từ quan sát thực tế, ẩn chi tiết nhận dạng và kiểm license.
 
