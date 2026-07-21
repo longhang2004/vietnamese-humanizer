@@ -4,7 +4,9 @@ Tuân theo Keep a Changelog ở mức cấu trúc, chưa cam kết Semantic Vers
 
 ## [Unreleased]
 
-Chưa có thay đổi.
+### Fixed
+
+- Truyền repository context rõ ràng cho bước tạo GitHub Release khi job không checkout source.
 
 ## [0.2.0] - 2026-07-21
 
