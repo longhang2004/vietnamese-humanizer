@@ -147,11 +147,21 @@ python scripts/generate_pattern_docs.py
 
 ## Đóng góp
 
-Đọc [CONTRIBUTING.md](CONTRIBUTING.md) và [hướng dẫn viết pattern](docs/pattern-authoring-guide.md). Example mới phải tự chứa đủ input/context, nêu phần phải giữ và phần cấm thêm, chọn output mode, rồi ghi đúng provenance review. Pattern mới cần taxonomy, phạm vi, cách aggregation, ngoại lệ, test và ví dụ không tự thêm dữ kiện.
+Đọc [CONTRIBUTING.vi.md](CONTRIBUTING.vi.md), [mục lục tài liệu](docs/README.md) và [hướng dẫn viết pattern](docs/pattern-authoring-guide.md). Example mới phải tự chứa đủ input/context, nêu phần phải giữ và phần cấm thêm, chọn output mode, rồi ghi đúng provenance review. Pattern mới cần taxonomy, phạm vi, cách aggregation, ngoại lệ, test và ví dụ không tự thêm dữ kiện.
 
 ## Giới hạn
 
 Regex và validator cấu trúc không chứng minh semantic equivalence; chúng có thể bỏ sót hoặc báo nhầm. Một trăm example chưa đại diện đầy đủ cho khác biệt vùng miền, thế hệ, ngành nghề và register. Xem [limitations](docs/limitations.md) và [evaluation methodology](docs/evaluation-methodology.md).
+
+## Ủng hộ dự án
+
+Nếu Vietnamese Writing Skills hữu ích với bạn, bạn có thể ủng hộ để duy trì dự án. Trước khi xác nhận chuyển khoản, vui lòng kiểm tra người nhận là **HANG NHUT LONG** tại **BIDV**.
+
+<p align="center">
+  <a href="assets/donate-vietqr.png">
+    <img src="https://raw.githubusercontent.com/longhang2004/vietnamese-humanizer/main/assets/donate-vietqr.png" alt="Mã VietQR ủng hộ HANG NHUT LONG tại BIDV" width="360">
+  </a>
+</p>
 
 ## Attribution và license
 

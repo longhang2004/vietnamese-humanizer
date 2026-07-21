@@ -195,3 +195,16 @@ def test_public_docs_link_both_languages() -> None:
         assert vietnamese.is_file()
         assert f"]({vietnamese.name})" in english.read_text(encoding="utf-8")
         assert f"]({english.name})" in vietnamese.read_text(encoding="utf-8")
+
+    assert "](CONTRIBUTING.md)" in (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "](CONTRIBUTING.vi.md)" in (ROOT / "README.vi.md").read_text(
+        encoding="utf-8"
+    )
+
+
+def test_donation_qr_is_published_in_both_readmes() -> None:
+    qr_path = ROOT / "assets" / "donate-vietqr.png"
+    assert qr_path.is_file()
+
+    for readme in (ROOT / "README.md", ROOT / "README.vi.md"):
+        assert "assets/donate-vietqr.png" in readme.read_text(encoding="utf-8")

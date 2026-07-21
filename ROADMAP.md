@@ -1,6 +1,6 @@
 # Roadmap
 
-## 0.2
+## 0.2.x / Post-0.2
 
 - Tổ chức review bản ngữ có người tham gia từ nhiều vùng và ngành.
 - Đo agreement cho benchmark, ghi cả bất đồng thay vì ép một đáp án.

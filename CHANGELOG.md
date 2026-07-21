@@ -15,7 +15,11 @@ Chưa có thay đổi.
 - Pattern example modes và generated docs hiển thị mode của từng good example.
 - Expected output mode, manual review schema, blocker rate, multi-reviewer summary và unreviewed count cho benchmark.
 - Package `vietnamese_writing_skills`, sáu console commands và wheel resources.
-- Python 3.11, 3.12 và 3.13 CI matrix cùng wheel smoke test.
+- Tài liệu công khai song ngữ Anh–Việt cho README và hướng dẫn đóng góp.
+- Mục ủng hộ dự án bằng mã VietQR trong cả hai README.
+- Workflow phát hành theo tag với artifact dùng chung, GitHub Release và PyPI Trusted Publishing qua OIDC.
+- Chính sách báo cáo lỗ hổng và cấu hình Dependabot cho Python cùng GitHub Actions.
+- Python 3.11–3.14 CI matrix, kiểm artifact bằng Twine và smoke test đủ sáu console command.
 
 ### Changed
 
@@ -24,6 +28,8 @@ Chưa có thay đổi.
 - `scripts/` chỉ còn wrapper tương thích; logic importable chuyển vào `src/`.
 - README dùng repository URL thật và giải thích repository, product, distribution và import name.
 - Generated docs hiển thị đầy đủ taxonomy, strategy, exceptions và false-positive risk.
+- Bổ sung metadata package, project URLs và classifier Python 3.11–3.14.
+- Chuyển các hạng mục 0.2 chưa hoàn tất trong roadmap sang nhóm 0.2.x / Post-0.2.
 
 ## [0.1.0] - 2026-07-20
 

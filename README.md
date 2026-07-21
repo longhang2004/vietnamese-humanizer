@@ -153,6 +153,16 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md), the [documentation index](docs/README.m
 
 Regexes and structural validators cannot prove semantic equivalence; they can miss problems or report false positives. One hundred examples do not fully represent regional, generational, professional, and register variation. See [limitations](docs/limitations.md) and [evaluation methodology](docs/evaluation-methodology.md).
 
+## Support the project
+
+If Vietnamese Writing Skills is useful to you, you can support its continued maintenance with an optional donation. Please verify that the recipient name is **HANG NHUT LONG** at **BIDV** before confirming the transfer.
+
+<p align="center">
+  <a href="assets/donate-vietqr.png">
+    <img src="https://raw.githubusercontent.com/longhang2004/vietnamese-humanizer/main/assets/donate-vietqr.png" alt="VietQR donation code for HANG NHUT LONG at BIDV" width="360">
+  </a>
+</p>
+
 ## Attribution and license
 
 The project references the [Agent Skills specification](https://agentskills.io/specification), the style-audit ideas in [blader/humanizer](https://github.com/blader/humanizer), and localization experience from Chinese and Korean projects. The Vietnamese taxonomy and data in this repository were written independently. See the [research notes](docs/research-notes.md) for details.

@@ -1,6 +1,8 @@
 import tomllib
 from pathlib import Path
 
+import yaml
+
 import vietnamese_writing_skills
 from vietnamese_writing_skills.cli import (
     benchmarks,
@@ -47,6 +49,7 @@ def test_release_metadata_matches_package_version() -> None:
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     project = pyproject["project"]
 
+    assert pyproject["build-system"]["requires"] == ["hatchling>=1.27"]
     assert project["version"] == vietnamese_writing_skills.__version__
     assert project["readme"] == "README.md"
     assert project["license"] == "MIT"
@@ -71,9 +74,20 @@ def test_scripts_are_thin_non_package_wrappers() -> None:
 
 
 def test_ci_checks_artifacts_and_all_console_commands() -> None:
-    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    workflow_text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(
+        encoding="utf-8"
+    )
+    workflow = yaml.safe_load(workflow_text)
+    jobs = workflow["jobs"]
 
-    assert "twine check dist/*" in workflow
+    assert jobs["lint-test"]["strategy"]["matrix"]["python-version"] == [
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.14",
+    ]
+    assert jobs["package"]["steps"][1]["with"]["python-version"] == "3.14"
+    assert "twine check dist/*" in workflow_text
     commands = (
         "viet-writing-lint",
         "viet-writing-validate-skills",
@@ -83,20 +97,71 @@ def test_ci_checks_artifacts_and_all_console_commands() -> None:
         "viet-writing-generate-docs",
     )
     for command in commands:
-        assert f".tmp-wheel-venv/bin/{command} --help" in workflow
+        assert f".tmp-wheel-venv/bin/{command} --help" in workflow_text
 
 
 def test_release_workflow_is_tag_gated_and_uses_trusted_publishing() -> None:
     path = ROOT / ".github" / "workflows" / "release.yml"
     assert path.is_file()
-    workflow = path.read_text(encoding="utf-8")
+    workflow_text = path.read_text(encoding="utf-8")
+    workflow = yaml.safe_load(workflow_text)
+    jobs = workflow["jobs"]
 
-    assert '      - "v*"' in workflow
-    assert "Verify tag matches package version" in workflow
-    assert "actions/upload-artifact@v6" in workflow
-    assert "actions/download-artifact@v7" in workflow
-    assert "environment: pypi" in workflow
-    assert "id-token: write" in workflow
-    assert "pypa/gh-action-pypi-publish@release/v1" in workflow
-    assert "needs: publish-pypi" in workflow
-    assert "gh release create" in workflow
+    assert '      - "v*"' in workflow_text
+
+    build = jobs["build"]
+    build_commands = [step.get("run") for step in build["steps"] if "run" in step]
+    assert build_commands.count("python -m build") == 1
+    tag_check = next(
+        step for step in build["steps"] if step.get("name") == "Verify tag matches package version"
+    )
+    assert "GITHUB_REF_NAME" in tag_check["run"]
+    assert "f'v{version}'" in tag_check["run"]
+    upload = next(
+        step for step in build["steps"] if step.get("uses") == "actions/upload-artifact@v6"
+    )
+    assert upload["with"] == {
+        "name": "python-distributions",
+        "path": "dist/",
+        "if-no-files-found": "error",
+    }
+
+    publish = jobs["publish-pypi"]
+    assert publish["needs"] == "build"
+    assert publish["environment"] == "pypi"
+    assert publish["permissions"] == {"id-token": "write"}
+    assert publish["steps"][0] == {
+        "uses": "actions/download-artifact@v7",
+        "with": {"name": "python-distributions", "path": "dist/"},
+    }
+    assert publish["steps"][1]["uses"] == "pypa/gh-action-pypi-publish@release/v1"
+
+    release = jobs["github-release"]
+    assert release["needs"] == "publish-pypi"
+    assert release["permissions"] == {"contents": "write"}
+    assert release["steps"][0] == publish["steps"][0]
+    assert "gh release create" in release["steps"][1]["run"]
+
+
+def test_release_hardening_files_and_status_are_present() -> None:
+    security_path = ROOT / "SECURITY.md"
+    dependabot_path = ROOT / ".github" / "dependabot.yml"
+    assert security_path.is_file()
+    assert dependabot_path.is_file()
+
+    security = security_path.read_text(encoding="utf-8")
+    dependabot = dependabot_path.read_text(encoding="utf-8")
+    roadmap = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+
+    assert "/security/advisories/new" in security
+    assert "sensitive" in security.lower()
+    assert 'package-ecosystem: "pip"' in dependabot
+    assert 'package-ecosystem: "github-actions"' in dependabot
+    assert dependabot.count('interval: "weekly"') == 2
+    assert "## 0.2.x / Post-0.2" in roadmap
+    assert "## 0.2\n" not in roadmap
+    unreleased, released = changelog.split("## [0.2.0]", 1)
+    assert "Trusted Publishing" not in unreleased
+    assert "Trusted Publishing" in released
+    assert "Python 3.11–3.14" in released
