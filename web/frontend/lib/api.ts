@@ -7,7 +7,8 @@ import {
   SkillsResponse,
 } from "./types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const rawBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE = rawBase.replace(/\/+$/, "");
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
