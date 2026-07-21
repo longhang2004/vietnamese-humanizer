@@ -202,6 +202,35 @@ def test_public_docs_link_both_languages() -> None:
     )
 
 
+def test_public_docs_preserve_core_product_facts() -> None:
+    facts = (
+        "vietnamese-writing-skills",
+        "humanizer-vi",
+        "translationese-cleaner-vi",
+        "grammar-checker-vi",
+        "style-guide-vi",
+        "clean_rewrite",
+        "review_comment",
+        "needs_author_decision",
+        "no_change",
+        "AI probability score",
+        "detector",
+        "python -m pip install .",
+        "assets/donate-vietqr.png",
+    )
+    count_facts = (
+        (ROOT / "README.md", ("40 patterns", "100 examples", "30 benchmark cases")),
+        (ROOT / "README.vi.md", ("40 pattern", "100 example", "30 benchmark case")),
+    )
+
+    for document, document_count_facts in count_facts:
+        contents = document.read_text(encoding="utf-8")
+        for fact in facts:
+            assert fact in contents, f"{document.name} is missing public fact: {fact}"
+        for fact in document_count_facts:
+            assert fact in contents, f"{document.name} is missing public fact: {fact}"
+
+
 def test_donation_qr_is_published_in_both_readmes() -> None:
     qr_path = ROOT / "assets" / "donate-vietqr.png"
     assert qr_path.is_file()
