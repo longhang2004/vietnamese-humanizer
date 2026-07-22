@@ -1,19 +1,22 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
-from app.capabilities import require_contributions_enabled
+from app.capabilities import capability_route_class, require_contributions_enabled
 from app.db.database import get_db
 from app.limiter import limiter
 from app.schemas import VALID_SKILLS, ContributionCreate, ContributionResponse
 from app.services.contributions import create_contribution
 
-router = APIRouter(prefix="/api", tags=["Contributions"])
+router = APIRouter(
+    prefix="/api",
+    tags=["Contributions"],
+    route_class=capability_route_class(require_contributions_enabled),
+)
 
 
 @router.post(
     "/contributions",
     response_model=ContributionResponse,
-    dependencies=[Depends(require_contributions_enabled)],
 )
 @limiter.limit("3/minute")
 def submit_contribution(request: Request, body: ContributionCreate, db: Session = Depends(get_db)):

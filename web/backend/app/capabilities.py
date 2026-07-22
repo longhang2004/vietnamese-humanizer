@@ -1,4 +1,10 @@
+from collections.abc import Callable, Coroutine
+from typing import Any
+
 from fastapi import HTTPException
+from fastapi.routing import APIRoute
+from starlette.requests import Request
+from starlette.responses import Response
 
 from app.config import Settings, settings
 
@@ -50,6 +56,22 @@ def require_contributions_enabled() -> None:
 def require_admin_enabled() -> None:
     if not settings.ADMIN_API_ENABLED:
         raise HTTPException(status_code=503, detail=_DISABLED_DETAIL)
+
+
+def capability_route_class(check: Callable[[], None]) -> type[APIRoute]:
+    class CapabilityRoute(APIRoute):
+        def get_route_handler(
+            self,
+        ) -> Callable[[Request], Coroutine[Any, Any, Response]]:
+            route_handler = super().get_route_handler()
+
+            async def gated_route_handler(request: Request) -> Response:
+                check()
+                return await route_handler(request)
+
+            return gated_route_handler
+
+    return CapabilityRoute
 
 
 def public_capabilities() -> dict[str, bool]:

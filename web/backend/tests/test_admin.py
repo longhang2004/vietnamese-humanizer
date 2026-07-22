@@ -2,6 +2,7 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
+from fastapi import HTTPException
 
 from app.config import settings
 from app.db.database import get_db
@@ -34,6 +35,27 @@ def test_admin_disabled_returns_503_before_authentication_or_database_access(
     app.dependency_overrides[get_db] = tracked_get_db
 
     response = client.request(method, path, json=json_body)
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Capability is disabled."}
+    assert database_dependency_entered is False
+
+
+def test_admin_disabled_rejects_malformed_json_before_database_access(client, db_session):
+    database_dependency_entered = False
+
+    def tracked_get_db():
+        nonlocal database_dependency_entered
+        database_dependency_entered = True
+        yield db_session
+
+    app.dependency_overrides[get_db] = tracked_get_db
+
+    response = client.patch(
+        "/api/admin/contributions/missing-id",
+        content="{",
+        headers={"Content-Type": "application/json"},
+    )
 
     assert response.status_code == 503
     assert response.json() == {"detail": "Capability is disabled."}
@@ -116,4 +138,23 @@ def test_admin_authentication_uses_compare_digest(client, monkeypatch):
     assert response.json() == {
         "detail": "Unauthorized: X-Admin-Key header missing or invalid."
     }
-    compare_digest.assert_called_once_with("wrong_key", admin_key)
+    compare_digest.assert_called_once_with(b"wrong_key", admin_key.encode())
+
+
+def test_admin_authentication_accepts_matching_unicode_keys(monkeypatch):
+    admin_key = "khóa-quản-trị-bí-mật-đủ-dài-🔐"
+    monkeypatch.setattr(settings, "ADMIN_API_KEY", admin_key)
+
+    assert admin.verify_admin_key(admin_key) is None
+
+
+def test_admin_authentication_rejects_mismatched_unicode_keys_with_existing_401(
+    monkeypatch,
+):
+    monkeypatch.setattr(settings, "ADMIN_API_KEY", "khóa-quản-trị-bí-mật-đủ-dài-🔐")
+
+    with pytest.raises(HTTPException) as exc_info:
+        admin.verify_admin_key("khóa-quản-trị-không-đúng-🔓")
+
+    assert exc_info.value.status_code == 401
+    assert exc_info.value.detail == "Unauthorized: X-Admin-Key header missing or invalid."

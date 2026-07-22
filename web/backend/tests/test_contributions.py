@@ -29,6 +29,30 @@ def test_contribution_disabled_returns_503_before_database_access(client, db_ses
     assert db_session.query(Contribution).count() == 0
 
 
+def test_contribution_disabled_rejects_malformed_json_before_database_access(
+    client, db_session
+):
+    database_dependency_entered = False
+
+    def tracked_get_db():
+        nonlocal database_dependency_entered
+        database_dependency_entered = True
+        yield db_session
+
+    app.dependency_overrides[get_db] = tracked_get_db
+
+    response = client.post(
+        "/api/contributions",
+        content="{",
+        headers={"Content-Type": "application/json"},
+    )
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Capability is disabled."}
+    assert database_dependency_entered is False
+    assert db_session.query(Contribution).count() == 0
+
+
 def test_contribution_without_consent(client, monkeypatch):
     monkeypatch.setattr(settings, "CONTRIBUTIONS_ENABLED", True)
     payload = {
