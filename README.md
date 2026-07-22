@@ -146,7 +146,7 @@ Patterns also define `scope` and `aggregation`. Repeated sentence openings, for 
 
 ## Corpus and benchmark
 
-The catalog has 40 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 100 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 30 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints. JSON Schema validates manual-review results, and a case may have several reviewers.
+The catalog has 43 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 100 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 30 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints. JSON Schema validates manual-review results, and a case may have several reviewers.
 
 A coding agent audited each input + context → output pair in the corpus. `agent-reviewed` does not mean reviewed by a maintainer, native speaker, or independent reviewer. The repository has no independent baseline yet. The current benchmark helps with process design and data regression; it does not establish effectiveness outside these authored cases.
 

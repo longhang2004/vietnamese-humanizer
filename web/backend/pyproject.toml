@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "vietnamese-writing-skills-web"
-version = "0.4.2"
+version = "0.4.3"
 description = "Web API backend for Vietnamese Writing Skills"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -15,7 +15,7 @@ dependencies = [
   "slowapi>=0.1.9",
   "sqlalchemy>=2.0.30",
   "psycopg2-binary>=2.9.9",
-  "vietnamese-writing-skills==0.4.2",
+  "vietnamese-writing-skills==0.4.3",
   "google-genai>=0.1.1",
 ]
 

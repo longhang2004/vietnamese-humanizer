@@ -1,3 +1,10 @@
+export interface IssueOccurrence {
+  line: number;
+  column: number;
+  excerpt: string;
+  matched_text: string;
+}
+
 export interface IssueItem {
   pattern_id: string;
   finding_type: "error" | "warning" | "preference" | "heuristic" | string;
@@ -9,6 +16,7 @@ export interface IssueItem {
   excerpt: string;
   message: string;
   suggestion: string;
+  occurrences: IssueOccurrence[];
 }
 
 export interface LintSummary {

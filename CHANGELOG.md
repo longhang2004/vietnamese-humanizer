@@ -6,6 +6,23 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-07-22
+
+### Added
+
+- Added focused checks for mismatched correlative conjunctions, redundant “vì vậy nên”, and dense administrative verb stacking.
+- Added occurrence details to lint findings so one aggregated finding can retain every matched location.
+
+### Changed
+
+- Aggregated count, density, and consistency signals into review-level findings instead of emitting one card per raw match.
+- Centered excerpts on the matched text and made the web empty state accurately describe rule coverage.
+
+### Fixed
+
+- Prevented lowercase common nouns from triggering the capitalization rule and corrected consistency checks for pronouns, terminology, and percentage spacing.
+- Prevented passive-voice matches from greedily spanning multiple clauses.
+
 ## [0.4.2] - 2026-07-22
 
 ### Added

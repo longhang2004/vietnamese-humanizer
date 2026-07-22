@@ -199,6 +199,7 @@ patterns:
   - viet-hoa
   - danh-tu-chung
   min_occurrences: 1
+  case_sensitive: true
 - id: VI-STY-N01
   name: don-vi-khong-co-khoang-trang
   skill: style-guide-vi

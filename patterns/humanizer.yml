@@ -48,9 +48,8 @@ patterns:
   confidence: medium
   summary: Câu mở bằng "trong bối cảnh không ngừng phát triển" nhưng không nêu thay đổi cụ thể.
   signals:
-    phrases:
-    - trong bối cảnh không ngừng phát triển
-    - trong bối cảnh ngày càng phát triển
+    regex:
+    - \btrong bối cảnh\b.{0,60}\b(?:không ngừng|ngày càng) phát triển\b
   why_it_matters: Lời dẫn chiếm chỗ nhưng không giúp người đọc biết điều gì đã thay đổi.
   rewrite_strategy:
   - Nêu thay đổi, mốc thời gian hoặc áp lực cụ thể; nếu không có thì bỏ lời dẫn.
@@ -72,7 +71,7 @@ patterns:
   tags:
   - loi-dan
   - chung-chung
-  min_occurrences: 2
+  min_occurrences: 1
 - id: VI-HUM-L03
   name: loi-khen-chung-chung
   skill: humanizer-vi

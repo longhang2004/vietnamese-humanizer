@@ -299,7 +299,7 @@ patterns:
   summary: Dùng "được ... bởi" theo tiếng Anh khi tác nhân đã rõ và cần chịu trách nhiệm.
   signals:
     regex:
-    - \bđược\b.{1,80}\bbởi\b
+    - \bđược\b[^.!?\n]{1,80}?\bbởi\b
   why_it_matters: Trật tự bị động có thể gượng và đẩy tác nhân quan trọng ra cuối câu.
   rewrite_strategy:
   - Đưa tác nhân lên làm chủ ngữ nếu trách nhiệm hoặc hành động là thông tin chính.
@@ -355,3 +355,40 @@ patterns:
   - danh-hoa
   - dong-tu-yeu
   min_occurrences: 1
+- id: VI-TRA-S05
+  name: cum-hanh-chinh-day-dac
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: warning
+  scope: sentence
+  aggregation: count
+  severity: medium
+  confidence: medium
+  summary: Một câu chồng nhiều lớp diễn đạt hành chính thay cho các động từ trực tiếp.
+  signals:
+    regex:
+    - '\bviệc thực hiện(?: công tác)?\b'
+    - '\btiến hành (?:rà soát|đánh giá|kiểm tra|xem xét)\b'
+    - '\bđược tiến hành\b'
+    - '\bnhằm mục đích\b'
+  why_it_matters: Nhiều lớp danh hóa và động từ nhẹ trong cùng câu che chủ thể, hành động chính và mục tiêu.
+  rewrite_strategy:
+  - Nêu chủ thể và dùng động từ chính như "rà soát", "đánh giá" hoặc "kiểm tra"; đổi "nhằm mục đích" thành "để" khi nghĩa không đổi.
+  bad_examples:
+  - text: Việc thực hiện công tác rà soát được tiến hành nhằm mục đích đánh giá hệ thống.
+    reason: Một câu chồng nhiều lớp danh hóa và động từ nhẹ.
+  - text: Nhóm tiến hành đánh giá và việc thực hiện công tác kiểm tra được tiến hành ngay sau đó.
+    reason: Các hành động có thể được nêu trực tiếp cùng chủ thể.
+  good_examples:
+  - mode: clean_rewrite
+    text: Nhóm rà soát và đánh giá hệ thống.
+  - mode: clean_rewrite
+    text: Nhóm đánh giá rồi kiểm tra hệ thống.
+  exceptions:
+  - Văn bản pháp lý cần giữ nguyên tên thủ tục hoặc trích dẫn biểu mẫu chính thức.
+  false_positive_risk: medium
+  tags:
+  - hanh-chinh
+  - danh-hoa
+  - dong-tu-yeu
+  min_occurrences: 2

@@ -346,3 +346,69 @@ patterns:
   - chu-vi
   - heuristic
   min_occurrences: 1
+- id: VI-GRA-C05
+  name: cap-tu-noi-khong-khop
+  skill: grammar-checker-vi
+  category: grammar
+  finding_type: error
+  scope: sentence
+  aggregation: single
+  severity: medium
+  confidence: high
+  summary: Dùng "không những/không chỉ ... nhưng còn" thay vì cặp tương ứng "... mà còn".
+  signals:
+    regex:
+    - \b(?:không những|không chỉ)\b.{0,160}\bnhưng còn\b
+  why_it_matters: Hai vế của cặp quan hệ từ không tương ứng làm cấu trúc câu thiếu cân đối.
+  rewrite_strategy:
+  - Đổi "nhưng còn" thành "mà còn", hoặc viết lại hai vế bằng một cấu trúc song song khác.
+  bad_examples:
+  - text: Phương án không những tiết kiệm chi phí nhưng còn rút ngắn thời gian xử lý.
+    reason: '"Không những" cần đi với "mà còn" trong cấu trúc này.'
+  - text: Công cụ không chỉ nhanh nhưng còn dễ sử dụng.
+    reason: Hai đầu nối không tạo thành một cặp tương ứng.
+  good_examples:
+  - mode: clean_rewrite
+    text: Phương án không những tiết kiệm chi phí mà còn rút ngắn thời gian xử lý.
+  - mode: clean_rewrite
+    text: Công cụ nhanh và dễ sử dụng.
+  exceptions:
+  - Trích dẫn nguyên văn hoặc nội dung đang phân tích chính cấu trúc này.
+  false_positive_risk: low
+  tags:
+  - quan-he-tu
+  - song-song
+  min_occurrences: 1
+- id: VI-GRA-C06
+  name: vi-vay-nen
+  skill: grammar-checker-vi
+  category: grammar
+  finding_type: preference
+  scope: phrase
+  aggregation: single
+  severity: low
+  confidence: high
+  summary: Dùng đồng thời "vì vậy" và "nên" khi một từ nối đã đủ thể hiện quan hệ kết quả.
+  signals:
+    phrases:
+    - vì vậy nên
+  why_it_matters: Hai từ nối cùng chức năng làm câu nặng mà không bổ sung quan hệ logic.
+  rewrite_strategy:
+  - Giữ "vì vậy" hoặc "nên" tùy cấu trúc câu và nhịp văn bản.
+  bad_examples:
+  - text: Vì vậy nên công ty sẽ áp dụng phương án mới.
+    reason: Một từ nối đã đủ dẫn kết quả.
+  - text: Máy hết pin, vì vậy nên dữ liệu chưa được đồng bộ.
+    reason: Cặp từ nối bị chồng chức năng.
+  good_examples:
+  - mode: clean_rewrite
+    text: Vì vậy, công ty sẽ áp dụng phương án mới.
+  - mode: clean_rewrite
+    text: Máy hết pin nên dữ liệu chưa được đồng bộ.
+  exceptions:
+  - Lời thoại cần giữ nguyên khẩu ngữ hoặc trích dẫn nguyên văn.
+  false_positive_risk: medium
+  tags:
+  - quan-he-tu
+  - thua-tu
+  min_occurrences: 1

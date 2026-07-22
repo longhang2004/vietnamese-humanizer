@@ -146,7 +146,7 @@ Mỗi pattern cũng có `scope` và `aggregation`. Lặp mở đầu câu dùng 
 
 ## Corpus và benchmark
 
-Catalog có 40 pattern, mỗi pattern nêu finding type, scope, aggregation, ngoại lệ và rủi ro false positive. Có 100 example với output mode, `context`, `must_preserve`, `must_not_add` và nguồn gốc đánh giá. Có 30 benchmark case ghi expected output mode, context, blocker cụ thể và ràng buộc bảo toàn. JSON Schema kiểm tra kết quả đánh giá thủ công; một case có thể có nhiều reviewer.
+Catalog có 43 pattern, mỗi pattern nêu finding type, scope, aggregation, ngoại lệ và rủi ro false positive. Có 100 example với output mode, `context`, `must_preserve`, `must_not_add` và nguồn gốc đánh giá. Có 30 benchmark case ghi expected output mode, context, blocker cụ thể và ràng buộc bảo toàn. JSON Schema kiểm tra kết quả đánh giá thủ công; một case có thể có nhiều reviewer.
 
 Coding agent đã audit từng cặp input + context → output trong corpus. `agent-reviewed` không có nghĩa maintainer, người bản ngữ hoặc reviewer độc lập đã đánh giá. Repository chưa có baseline độc lập. Benchmark hiện hỗ trợ thiết kế quy trình và regression dữ liệu, chưa chứng minh hiệu quả ngoài các case đã viết.
 

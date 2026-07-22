@@ -25,6 +25,14 @@ PRONOUN_GROUPS = (
 )
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
 FINDING_TYPES = ("error", "warning", "preference", "heuristic")
+SPECIAL_PATTERN_IDS = {
+    "VI-HUM-S01",
+    "VI-HUM-S04",
+    "VI-STY-N02",
+    "VI-STY-P01",
+    "VI-STY-T01",
+    "VI-TRA-S05",
+}
 
 
 def mask_protected(text: str) -> str:
@@ -65,8 +73,40 @@ def _excerpt(text: str, start: int, end: int, limit: int = 100) -> str:
     line_end = text.find("\n", end)
     if line_end < 0:
         line_end = len(text)
-    excerpt = text[line_start:line_end].strip()
-    return excerpt if len(excerpt) <= limit else excerpt[: limit - 1].rstrip() + "…"
+    line = text[line_start:line_end]
+    leading = len(line) - len(line.lstrip())
+    excerpt = line.strip()
+    relative_start = max(0, start - line_start - leading)
+    relative_end = min(len(excerpt), end - line_start - leading)
+    if len(excerpt) <= limit:
+        return excerpt
+
+    matched_length = max(1, relative_end - relative_start)
+    context_budget = max(0, limit - min(matched_length, limit) - 2)
+    left_context = min(relative_start, context_budget // 2)
+    right_context = min(len(excerpt) - relative_end, context_budget - left_context)
+    remaining = context_budget - left_context - right_context
+    if remaining:
+        extra_left = min(relative_start - left_context, remaining)
+        left_context += extra_left
+        remaining -= extra_left
+        right_context += min(len(excerpt) - relative_end - right_context, remaining)
+
+    clip_start = relative_start - left_context
+    clip_end = relative_end + right_context
+    prefix = "…" if clip_start > 0 else ""
+    suffix = "…" if clip_end < len(excerpt) else ""
+    return prefix + excerpt[clip_start:clip_end].strip() + suffix
+
+
+def _occurrence(text: str, start: int, end: int) -> dict[str, Any]:
+    line, column = _location(text, start)
+    return {
+        "line": line,
+        "column": column,
+        "excerpt": _excerpt(text, start, end),
+        "matched_text": text[start:end],
+    }
 
 
 def _issue(
@@ -76,20 +116,38 @@ def _issue(
     pattern: dict[str, Any],
     message: str | None = None,
     suggestion: str | None = None,
+    occurrence_spans: list[tuple[int, int]] | None = None,
 ) -> dict[str, Any]:
-    line, column = _location(text, start)
+    spans = occurrence_spans or [(start, end)]
+    occurrences = [_occurrence(text, span_start, span_end) for span_start, span_end in spans]
+    first = occurrences[0]
     return {
         "pattern_id": pattern["id"],
         "finding_type": pattern["finding_type"],
         "severity": pattern["severity"],
         "confidence": pattern["confidence"],
         "scope": pattern["scope"],
-        "line": line,
-        "column": column,
-        "excerpt": _excerpt(text, start, end),
+        "line": first["line"],
+        "column": first["column"],
+        "excerpt": first["excerpt"],
         "message": message or " ".join(pattern["summary"].split()),
         "suggestion": suggestion or pattern["rewrite_strategy"][0],
+        "occurrences": occurrences,
     }
+
+
+def _signal_matches(masked: str, pattern: dict[str, Any]) -> list[re.Match[str]]:
+    matches: list[re.Match[str]] = []
+    signals = pattern.get("signals", {})
+    flags = 0 if pattern.get("case_sensitive", False) else re.IGNORECASE
+    for phrase in signals.get("phrases", []):
+        matches.extend(re.finditer(re.escape(phrase), masked, flags=flags))
+    for expression in signals.get("regex", []):
+        matches.extend(re.finditer(expression, masked, flags=flags))
+    excluded = {phrase.casefold() for phrase in signals.get("exclude_phrases", [])}
+    matches = [match for match in matches if match.group(0).casefold() not in excluded]
+    unique = {(match.start(), match.end()): match for match in matches}
+    return [unique[key] for key in sorted(unique)]
 
 
 def _catalog_issues(
@@ -102,21 +160,26 @@ def _catalog_issues(
     for _, pattern in iter_patterns(pattern_dir):
         if skills and pattern["skill"] not in skills:
             continue
-        matches: list[re.Match[str]] = []
-        signals = pattern.get("signals", {})
-        flags = 0 if pattern.get("case_sensitive", False) else re.IGNORECASE
-        for phrase in signals.get("phrases", []):
-            matches.extend(re.finditer(re.escape(phrase), masked, flags=flags))
-        for expression in signals.get("regex", []):
-            matches.extend(re.finditer(expression, masked, flags=flags))
-        excluded = {phrase.casefold() for phrase in signals.get("exclude_phrases", [])}
-        matches = [match for match in matches if match.group(0).casefold() not in excluded]
-        unique = {(match.start(), match.end()): match for match in matches}
-        ordered = [unique[key] for key in sorted(unique)]
+        if pattern["id"] in SPECIAL_PATTERN_IDS:
+            continue
+        ordered = _signal_matches(masked, pattern)
         threshold = pattern.get("min_occurrences", 1)
         if len(ordered) < threshold:
             continue
-        issues.extend(_issue(text, match.start(), match.end(), pattern) for match in ordered)
+        aggregation = pattern.get("aggregation", "single")
+        if aggregation == "single":
+            issues.extend(_issue(text, match.start(), match.end(), pattern) for match in ordered)
+            continue
+        first = ordered[0]
+        issues.append(
+            _issue(
+                text,
+                first.start(),
+                first.end(),
+                pattern,
+                occurrence_spans=[(match.start(), match.end()) for match in ordered],
+            )
+        )
     return issues
 
 
@@ -150,6 +213,10 @@ def _repeated_opening_issues(
                 patterns["VI-HUM-S01"],
                 f"Ba câu liên tiếp cùng mở đầu bằng “{openings[0]}”.",
                 "Đổi chủ thể hoặc gộp câu nếu quan hệ giữa các ý cho phép.",
+                occurrence_spans=[
+                    (sentence_match.start(), sentence_match.start() + len(words[0]))
+                    for sentence_match, words in window
+                ],
             )
         )
     return issues
@@ -189,22 +256,101 @@ def _pronoun_issues(
     issues: list[dict[str, Any]] = []
     lower = masked.casefold()
     for group in PRONOUN_GROUPS:
-        counts = {
-            pronoun: len(re.findall(rf"(?<!\w){re.escape(pronoun)}(?!\w)", lower))
-            for pronoun in group
-        }
-        present = [pronoun for pronoun, count in counts.items() if count]
-        if len(present) < 2 or sum(counts.values()) < 3:
+        alternatives = "|".join(
+            re.escape(pronoun) for pronoun in sorted(group, key=len, reverse=True)
+        )
+        matches = list(re.finditer(rf"(?<!\w)(?:{alternatives})(?!\w)", lower))
+        matched_pronouns = {match.group(0) for match in matches}
+        present = [pronoun for pronoun in group if pronoun in matched_pronouns]
+        if len(present) < 2 or len(matches) < 3:
             continue
-        first = min(lower.find(pronoun) for pronoun in present if lower.find(pronoun) >= 0)
+        first = matches[0]
         issues.append(
             _issue(
                 text,
-                first,
-                first + len(present[0]),
+                first.start(),
+                first.end(),
                 patterns["VI-STY-P01"],
                 f"Đại từ có thể chưa nhất quán: {', '.join(present)}.",
                 "Chọn cách xưng hô theo quan hệ với độc giả rồi rà toàn văn.",
+                occurrence_spans=[(match.start(), match.end()) for match in matches],
+            )
+        )
+    return issues
+
+
+def _terminology_consistency_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-STY-T01"]
+    matches = _signal_matches(masked, pattern)
+    variants = {" ".join(match.group(0).casefold().split()) for match in matches}
+    if len(matches) < pattern.get("min_occurrences", 1) or len(variants) < 2:
+        return []
+    first = matches[0]
+    return [
+        _issue(
+            text,
+            first.start(),
+            first.end(),
+            pattern,
+            f"Thuật ngữ có thể chưa nhất quán: {', '.join(sorted(variants))}.",
+            occurrence_spans=[(match.start(), match.end()) for match in matches],
+        )
+    ]
+
+
+def _percentage_consistency_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-STY-N02"]
+    matches = _signal_matches(masked, pattern)
+    spacing_styles = {bool(re.search(r"\s+%$", match.group(0))) for match in matches}
+    if len(matches) < pattern.get("min_occurrences", 1) or len(spacing_styles) < 2:
+        return []
+    first = matches[0]
+    return [
+        _issue(
+            text,
+            first.start(),
+            first.end(),
+            pattern,
+            occurrence_spans=[(match.start(), match.end()) for match in matches],
+        )
+    ]
+
+
+def _administrative_stack_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-TRA-S05"]
+    matches = _signal_matches(masked, pattern)
+    threshold = pattern.get("min_occurrences", 1)
+    issues: list[dict[str, Any]] = []
+    for sentence_match, _ in _sentences(masked):
+        sentence_matches = [
+            match
+            for match in matches
+            if sentence_match.start() <= match.start() < sentence_match.end()
+        ]
+        if len(sentence_matches) < threshold:
+            continue
+        first = sentence_matches[0]
+        issues.append(
+            _issue(
+                text,
+                first.start(),
+                first.end(),
+                pattern,
+                occurrence_spans=[
+                    (match.start(), match.end()) for match in sentence_matches
+                ],
             )
         )
     return issues
@@ -224,6 +370,10 @@ def lint_text(
         issues.extend(_uniform_length_issue(text, masked, patterns))
     if not skills or "style-guide-vi" in skills:
         issues.extend(_pronoun_issues(text, masked, patterns))
+        issues.extend(_terminology_consistency_issues(text, masked, patterns))
+        issues.extend(_percentage_consistency_issues(text, masked, patterns))
+    if not skills or "translationese-cleaner-vi" in skills:
+        issues.extend(_administrative_stack_issues(text, masked, patterns))
     unique: dict[tuple[str, int, int], dict[str, Any]] = {}
     for issue in issues:
         key = (issue["pattern_id"], issue["line"], issue["column"])

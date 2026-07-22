@@ -70,9 +70,9 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           </div>
-          <p className="font-bold text-base text-emerald-950">Không phát hiện tín hiệu bất thường!</p>
+          <p className="font-bold text-base text-emerald-950">Không tìm thấy tín hiệu trong bộ quy tắc hiện tại.</p>
           <p className="text-xs text-emerald-700 mt-1 max-w-md mx-auto leading-relaxed">
-            Văn bản diễn đạt mượt mà, tự nhiên và tuân thủ tốt các kỹ năng rà soát đã chọn.
+            Văn bản vẫn nên được người viết rà lại theo ngữ cảnh.
           </p>
         </div>
       ) : (
@@ -203,4 +203,3 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
     </div>
   );
 };
-

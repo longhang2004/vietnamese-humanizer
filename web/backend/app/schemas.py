@@ -13,6 +13,13 @@ class LintRequest(BaseModel):
     skills: list[str] | None = None
 
 
+class IssueOccurrence(BaseModel):
+    line: int
+    column: int
+    excerpt: str
+    matched_text: str
+
+
 class IssueItem(BaseModel):
     pattern_id: str
     finding_type: str
@@ -24,6 +31,7 @@ class IssueItem(BaseModel):
     excerpt: str
     message: str
     suggestion: str
+    occurrences: list[IssueOccurrence]
 
 
 class LintSummary(BaseModel):

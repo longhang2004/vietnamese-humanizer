@@ -50,6 +50,30 @@ def test_lint_text_valid(client):
     assert any(i["pattern_id"] == "VI-HUM-L02" for i in data["issues"])
 
 
+def test_lint_aggregates_occurrences_into_one_finding(client):
+    payload = {
+        "text": (
+            "Một quyết định được thực hiện bởi ban quản lý. "
+            "Thay đổi được triển khai bởi đội kỹ thuật."
+        ),
+        "skills": ["translationese-cleaner-vi"],
+    }
+    response = client.post("/api/lint", json=payload)
+
+    assert response.status_code == 200
+    data = response.json()
+    findings = [item for item in data["issues"] if item["pattern_id"] == "VI-TRA-S03"]
+    assert len(findings) == 1
+    assert data["summary"]["total"] == 1
+    assert len(findings[0]["occurrences"]) == 2
+    first = findings[0]["occurrences"][0]
+    assert (findings[0]["line"], findings[0]["column"], findings[0]["excerpt"]) == (
+        first["line"],
+        first["column"],
+        first["excerpt"],
+    )
+
+
 def test_lint_text_invalid_skills(client):
     payload = {
         "text": "Một văn bản kiểm tra.",

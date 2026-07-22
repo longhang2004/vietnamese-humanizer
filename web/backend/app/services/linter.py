@@ -29,6 +29,7 @@ def run_linter(text: str, skills: list[str] | None = None) -> LintResponse:
             excerpt=item["excerpt"],
             message=item["message"],
             suggestion=item["suggestion"],
+            occurrences=item["occurrences"],
         )
         issues.append(issue)
         ftype = item["finding_type"]

@@ -53,7 +53,7 @@ def test_console_entry_modules_expose_main() -> None:
 
 def test_repository_resources_are_loaded() -> None:
     location = data_location("patterns", ROOT)
-    assert len(pattern_index(location)) == 40
+    assert len(pattern_index(location)) == 43
 
 
 def test_pyproject_packages_official_import_and_resources() -> None:

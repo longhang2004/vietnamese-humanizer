@@ -68,6 +68,38 @@
 - Exceptions:
   - Khi giữa chủ ngữ và vị ngữ có thành phần chen, chú thích hoặc mệnh đề phụ.
 
+## VI-GRA-C05: `cap-tu-noi-khong-khop`
+
+- Skill: `grammar-checker-vi`
+- Finding type: `error`
+- Scope / aggregation: `sentence` / `single`
+- Severity / confidence: `medium` / `high`
+- False-positive risk: `low`
+- Tóm tắt: Dùng "không những/không chỉ ... nhưng còn" thay vì cặp tương ứng "... mà còn".
+- Rewrite strategy:
+  - Đổi "nhưng còn" thành "mà còn", hoặc viết lại hai vế bằng một cấu trúc song song khác.
+- Good examples:
+  - `clean_rewrite`: Phương án không những tiết kiệm chi phí mà còn rút ngắn thời gian xử lý.
+  - `clean_rewrite`: Công cụ nhanh và dễ sử dụng.
+- Exceptions:
+  - Trích dẫn nguyên văn hoặc nội dung đang phân tích chính cấu trúc này.
+
+## VI-GRA-C06: `vi-vay-nen`
+
+- Skill: `grammar-checker-vi`
+- Finding type: `preference`
+- Scope / aggregation: `phrase` / `single`
+- Severity / confidence: `low` / `high`
+- False-positive risk: `medium`
+- Tóm tắt: Dùng đồng thời "vì vậy" và "nên" khi một từ nối đã đủ thể hiện quan hệ kết quả.
+- Rewrite strategy:
+  - Giữ "vì vậy" hoặc "nên" tùy cấu trúc câu và nhịp văn bản.
+- Good examples:
+  - `clean_rewrite`: Vì vậy, công ty sẽ áp dụng phương án mới.
+  - `clean_rewrite`: Máy hết pin nên dữ liệu chưa được đồng bộ.
+- Exceptions:
+  - Lời thoại cần giữ nguyên khẩu ngữ hoặc trích dẫn nguyên văn.
+
 ## VI-GRA-L01: `lap-tu-lien-tiep`
 
 - Skill: `grammar-checker-vi`
@@ -689,4 +721,20 @@
 - Exceptions:
   - Khi "gói hỗ trợ" hoặc "sự hỗ trợ" là danh mục, quyền lợi hay đối tượng đang được phân tích.
 
-Tổng cộng: **40 pattern**.
+## VI-TRA-S05: `cum-hanh-chinh-day-dac`
+
+- Skill: `translationese-cleaner-vi`
+- Finding type: `warning`
+- Scope / aggregation: `sentence` / `count`
+- Severity / confidence: `medium` / `medium`
+- False-positive risk: `medium`
+- Tóm tắt: Một câu chồng nhiều lớp diễn đạt hành chính thay cho các động từ trực tiếp.
+- Rewrite strategy:
+  - Nêu chủ thể và dùng động từ chính như "rà soát", "đánh giá" hoặc "kiểm tra"; đổi "nhằm mục đích" thành "để" khi nghĩa không đổi.
+- Good examples:
+  - `clean_rewrite`: Nhóm rà soát và đánh giá hệ thống.
+  - `clean_rewrite`: Nhóm đánh giá rồi kiểm tra hệ thống.
+- Exceptions:
+  - Văn bản pháp lý cần giữ nguyên tên thủ tục hoặc trích dẫn biểu mẫu chính thức.
+
+Tổng cộng: **43 pattern**.

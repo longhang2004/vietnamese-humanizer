@@ -1,5 +1,5 @@
-import React from "react";
-import { IssueItem, PatternItem } from "../lib/types";
+import React, { useState } from "react";
+import { IssueItem, IssueOccurrence, PatternItem } from "../lib/types";
 
 interface IssueCardProps {
   issue: IssueItem;
@@ -8,6 +8,35 @@ interface IssueCardProps {
 }
 
 export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPattern }) => {
+  const [showOccurrences, setShowOccurrences] = useState(false);
+  const occurrences: IssueOccurrence[] = issue.occurrences?.length
+    ? issue.occurrences
+    : [
+        {
+          line: issue.line,
+          column: issue.column,
+          excerpt: issue.excerpt,
+          matched_text: "",
+        },
+      ];
+
+  const renderExcerpt = (occurrence: IssueOccurrence) => {
+    const index = occurrence.matched_text
+      ? occurrence.excerpt.indexOf(occurrence.matched_text)
+      : -1;
+    if (index < 0) return occurrence.excerpt;
+    const end = index + occurrence.matched_text.length;
+    return (
+      <>
+        {occurrence.excerpt.slice(0, index)}
+        <mark className="bg-amber-200/70 text-inherit rounded-sm px-0.5">
+          {occurrence.excerpt.slice(index, end)}
+        </mark>
+        {occurrence.excerpt.slice(end)}
+      </>
+    );
+  };
+
   const getSeverityBadge = (severity: string) => {
     switch (severity.toLowerCase()) {
       case "high":
@@ -50,9 +79,17 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
           >
             {issue.pattern_id}
           </button>
-          <span className="text-xs text-slate-400 font-mono">
-            Line {issue.line}:{issue.column}
-          </span>
+          <span className="text-xs text-slate-400 font-mono">Dòng {issue.line}:{issue.column}</span>
+          {occurrences.length > 1 && (
+            <button
+              type="button"
+              aria-expanded={showOccurrences}
+              onClick={() => setShowOccurrences((current) => !current)}
+              className="text-[11px] font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 px-2 py-0.5 rounded-md border border-sky-200/80 transition-colors"
+            >
+              {occurrences.length} vị trí
+            </button>
+          )}
           <span className="text-xs text-slate-500 font-medium">
             • {getFindingTypeLabel(issue.finding_type)}
           </span>
@@ -69,8 +106,26 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
 
       {/* Excerpt Code Box */}
       <div className="my-2.5 bg-slate-50/80 p-3 rounded-lg border-l-3 border-sky-500 text-xs sm:text-sm font-mono text-slate-800 leading-relaxed overflow-x-auto">
-        &quot;{issue.excerpt}&quot;
+        &quot;{renderExcerpt(occurrences[0])}&quot;
       </div>
+
+      {showOccurrences && occurrences.length > 1 && (
+        <ol className="mb-3 space-y-2" aria-label="Các vị trí phát hiện">
+          {occurrences.map((occurrence, index) => (
+            <li
+              key={`${occurrence.line}-${occurrence.column}-${index}`}
+              className="rounded-lg border border-slate-200/80 bg-slate-50/60 p-2.5"
+            >
+              <div className="mb-1 text-[11px] font-mono font-semibold text-slate-500">
+                Dòng {occurrence.line}:{occurrence.column}
+              </div>
+              <div className="text-xs sm:text-sm font-mono text-slate-700 leading-relaxed">
+                &quot;{renderExcerpt(occurrence)}&quot;
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
 
       {/* Main Issue Explanation */}
       <p className="text-xs sm:text-sm text-slate-700 font-medium mb-2 leading-relaxed">{issue.message}</p>
@@ -107,4 +162,3 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
     </div>
   );
 };
-

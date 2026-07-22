@@ -141,7 +141,7 @@ def test_generated_pattern_docs_are_stable_and_complete() -> None:
     expected = render(ROOT / "patterns")
     actual = (ROOT / "docs" / "generated-patterns.md").read_text(encoding="utf-8")
     assert actual == expected
-    assert "**40 pattern**" in actual
+    assert "**43 pattern**" in actual
     assert "Finding type:" in actual
     assert "Scope / aggregation:" in actual
     assert "False-positive risk:" in actual
@@ -220,8 +220,8 @@ def test_public_docs_preserve_core_product_facts() -> None:
         "assets/donate-vietqr.png",
     )
     count_facts = (
-        (ROOT / "README.md", ("40 patterns", "100 examples", "30 benchmark cases")),
-        (ROOT / "README.vi.md", ("40 pattern", "100 example", "30 benchmark case")),
+        (ROOT / "README.md", ("43 patterns", "100 examples", "30 benchmark cases")),
+        (ROOT / "README.vi.md", ("43 pattern", "100 example", "30 benchmark case")),
     )
 
     for document, document_count_facts in count_facts:
