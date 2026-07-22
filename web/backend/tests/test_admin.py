@@ -1,7 +1,49 @@
+from types import SimpleNamespace
+from unittest.mock import Mock
+
+import pytest
+
 from app.config import settings
+from app.db.database import get_db
+from app.main import app
+from app.routers import admin
 
 
-def test_admin_unauthorized(client):
+@pytest.mark.parametrize(
+    ("method", "path", "json_body"),
+    [
+        ("GET", "/api/admin/contributions", None),
+        (
+            "PATCH",
+            "/api/admin/contributions/missing-id",
+            {"status": "approved", "review_note": "Không được xử lý"},
+        ),
+        ("GET", "/api/admin/contributions/export?status=approved", None),
+    ],
+)
+def test_admin_disabled_returns_503_before_authentication_or_database_access(
+    client, db_session, method, path, json_body
+):
+    database_dependency_entered = False
+
+    def tracked_get_db():
+        nonlocal database_dependency_entered
+        database_dependency_entered = True
+        yield db_session
+
+    app.dependency_overrides[get_db] = tracked_get_db
+
+    response = client.request(method, path, json=json_body)
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Capability is disabled."}
+    assert database_dependency_entered is False
+
+
+def test_admin_unauthorized(client, monkeypatch):
+    monkeypatch.setattr(settings, "ADMIN_API_ENABLED", True)
+    monkeypatch.setattr(settings, "ADMIN_API_KEY", "a" * 32)
+
     response = client.get("/api/admin/contributions")
     assert response.status_code == 401
 
@@ -10,7 +52,9 @@ def test_admin_unauthorized(client):
 
 
 def test_admin_flow(client, monkeypatch):
-    admin_key = "secret_admin_test_key"
+    admin_key = "secret-admin-test-key-at-least-32"
+    monkeypatch.setattr(settings, "CONTRIBUTIONS_ENABLED", True)
+    monkeypatch.setattr(settings, "ADMIN_API_ENABLED", True)
     monkeypatch.setattr(settings, "ADMIN_API_KEY", admin_key)
     headers = {"X-Admin-Key": admin_key}
 
@@ -49,3 +93,27 @@ def test_admin_flow(client, monkeypatch):
     export_data = export_resp.json()
     assert len(export_data) >= 1
     assert any(item["id"] == contrib_id for item in export_data)
+
+
+def test_admin_authentication_uses_compare_digest(client, monkeypatch):
+    admin_key = "constant-time-admin-key-at-least-32"
+    compare_digest = Mock(return_value=False)
+    monkeypatch.setattr(settings, "ADMIN_API_ENABLED", True)
+    monkeypatch.setattr(settings, "ADMIN_API_KEY", admin_key)
+    monkeypatch.setattr(
+        admin,
+        "secrets",
+        SimpleNamespace(compare_digest=compare_digest),
+        raising=False,
+    )
+
+    response = client.get(
+        "/api/admin/contributions",
+        headers={"X-Admin-Key": "wrong_key"},
+    )
+
+    assert response.status_code == 401
+    assert response.json() == {
+        "detail": "Unauthorized: X-Admin-Key header missing or invalid."
+    }
+    compare_digest.assert_called_once_with("wrong_key", admin_key)

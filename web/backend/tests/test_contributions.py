@@ -1,7 +1,36 @@
+from app.config import settings
+from app.db.database import get_db
+from app.db.models import Contribution
 from app.limiter import limiter
+from app.main import app
 
 
-def test_contribution_without_consent(client):
+def test_contribution_disabled_returns_503_before_database_access(client, db_session):
+    database_dependency_entered = False
+
+    def tracked_get_db():
+        nonlocal database_dependency_entered
+        database_dependency_entered = True
+        yield db_session
+
+    app.dependency_overrides[get_db] = tracked_get_db
+    payload = {
+        "input_text": "Văn bản không được lưu khi tính năng bị tắt.",
+        "suggestion": "Không lưu văn bản này.",
+        "skill": "humanizer-vi",
+        "consent": True,
+    }
+
+    response = client.post("/api/contributions", json=payload)
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Capability is disabled."}
+    assert database_dependency_entered is False
+    assert db_session.query(Contribution).count() == 0
+
+
+def test_contribution_without_consent(client, monkeypatch):
+    monkeypatch.setattr(settings, "CONTRIBUTIONS_ENABLED", True)
     payload = {
         "input_text": "Cơ quan chức năng tiến hành kiểm tra.",
         "suggestion": "Nhà chức trách kiểm tra.",
@@ -13,7 +42,8 @@ def test_contribution_without_consent(client):
     assert "consent=true" in response.json()["detail"]
 
 
-def test_contribution_success(client):
+def test_contribution_success(client, monkeypatch):
+    monkeypatch.setattr(settings, "CONTRIBUTIONS_ENABLED", True)
     payload = {
         "input_text": "Trong bối cảnh không ngừng phát triển...",
         "context": "Văn bản doanh nghiệp",
@@ -31,7 +61,8 @@ def test_contribution_success(client):
     assert "Cảm ơn đóng góp" in data["message"]
 
 
-def test_contribution_invalid_skill(client):
+def test_contribution_invalid_skill(client, monkeypatch):
+    monkeypatch.setattr(settings, "CONTRIBUTIONS_ENABLED", True)
     payload = {
         "input_text": "Văn bản mẫu",
         "suggestion": "Văn bản sửa",
@@ -43,7 +74,8 @@ def test_contribution_invalid_skill(client):
     assert "Kỹ năng không hợp lệ" in response.json()["detail"]
 
 
-def test_contribution_rate_limit(client):
+def test_contribution_rate_limit(client, monkeypatch):
+    monkeypatch.setattr(settings, "CONTRIBUTIONS_ENABLED", True)
     limiter.enabled = True
     payload = {
         "input_text": "Văn bản thử rate limit",

@@ -1,8 +1,10 @@
 import json
+import secrets
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from app.capabilities import require_admin_enabled
 from app.config import settings
 from app.db.database import get_db
 from app.schemas import AdminContributionItem, AdminContributionPatch
@@ -16,7 +18,8 @@ router = APIRouter(prefix="/api/admin", tags=["Admin"])
 
 
 def verify_admin_key(x_admin_key: str | None = Header(None, alias="X-Admin-Key")):
-    if not x_admin_key or x_admin_key != settings.ADMIN_API_KEY:
+    admin_key = settings.ADMIN_API_KEY
+    if not x_admin_key or not admin_key or not secrets.compare_digest(x_admin_key, admin_key):
         raise HTTPException(
             status_code=401,
             detail="Unauthorized: X-Admin-Key header missing or invalid.",
@@ -26,7 +29,7 @@ def verify_admin_key(x_admin_key: str | None = Header(None, alias="X-Admin-Key")
 @router.get(
     "/contributions",
     response_model=list[AdminContributionItem],
-    dependencies=[Depends(verify_admin_key)],
+    dependencies=[Depends(require_admin_enabled), Depends(verify_admin_key)],
 )
 def list_contributions_admin(
     status: str = Query("pending"),
@@ -58,7 +61,7 @@ def list_contributions_admin(
 @router.patch(
     "/contributions/{contrib_id}",
     response_model=AdminContributionItem,
-    dependencies=[Depends(verify_admin_key)],
+    dependencies=[Depends(require_admin_enabled), Depends(verify_admin_key)],
 )
 def patch_contribution_admin(
     contrib_id: str,
@@ -93,7 +96,7 @@ def patch_contribution_admin(
 
 @router.get(
     "/contributions/export",
-    dependencies=[Depends(verify_admin_key)],
+    dependencies=[Depends(require_admin_enabled), Depends(verify_admin_key)],
 )
 def export_contributions_admin(
     status: str = Query("approved"),
