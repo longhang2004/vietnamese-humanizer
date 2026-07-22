@@ -48,7 +48,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 675,
-        alt: "Vietnamese Writing Skills v0.3.0 Banner",
+        alt: "Vietnamese Writing Skills banner",
       },
     ],
   },
@@ -81,7 +81,6 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Vietnamese Writing Skills",
-  alternateName: "Vietnamese Humanizer & Linter",
   url: siteUrl,
   applicationCategory: "BusinessApplication",
   operatingSystem: "All",
@@ -124,9 +123,6 @@ export default function RootLayout({
                 <span className="font-extrabold text-slate-900 tracking-tight text-base sm:text-lg group-hover:text-sky-600 transition-colors">
                   Vietnamese Writing Skills
                 </span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-sky-50 text-sky-700 border border-sky-200/60 self-start sm:self-auto">
-                  v0.4.0
-                </span>
               </div>
             </Link>
 
@@ -159,10 +155,6 @@ export default function RootLayout({
         {/* Footer */}
         <footer className="bg-white border-t border-slate-200/80 py-8 mt-16 text-center text-xs text-slate-500">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-semibold text-slate-700">Vietnamese Writing Skills & Humanizer v0.4.0</span>
-            </div>
             <p className="text-slate-400 max-w-2xl text-center md:text-right">
               Công cụ nhận diện tín hiệu văn phong cho người viết và biên tập viên. Không chấm điểm xác suất AI, không suy đoán tác giả.
             </p>
