@@ -1,6 +1,9 @@
+import importlib
+import importlib.metadata
 import tomllib
 from pathlib import Path
 
+import pytest
 import yaml
 
 import vietnamese_writing_skills
@@ -18,8 +21,22 @@ from vietnamese_writing_skills.core.patterns import pattern_index
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_package_import_and_version() -> None:
-    assert vietnamese_writing_skills.__version__ == "0.4.1"
+def test_runtime_version_is_derived_from_distribution_metadata(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    expected_version = "test-version-from-metadata"
+
+    def metadata_version(distribution_name: str) -> str:
+        assert distribution_name == "vietnamese-writing-skills"
+        return expected_version
+
+    try:
+        with monkeypatch.context() as patch:
+            patch.setattr(importlib.metadata, "version", metadata_version)
+            reloaded_package = importlib.reload(vietnamese_writing_skills)
+            assert reloaded_package.__version__ == expected_version
+    finally:
+        importlib.reload(vietnamese_writing_skills)
 
 
 def test_console_entry_modules_expose_main() -> None:
