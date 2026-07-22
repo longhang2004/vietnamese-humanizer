@@ -47,7 +47,7 @@ An agent does not need to rewrite every input. It should decline to guess when t
 
 ## Run the web app locally
 
-Python 3.11+, Node.js 20+, and npm are required. From a source checkout, the primary quickstart is:
+Python 3.11+, Node.js 20.9+, and npm are required. From a source checkout, the primary quickstart is:
 
 ```bash
 python3 scripts/dev.py demo

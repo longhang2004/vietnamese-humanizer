@@ -12,12 +12,12 @@ services:
         sync: false
       - key: ADMIN_API_KEY
         sync: false
+      - key: REWRITE_ENABLED
+        value: "false"
       - key: CONTRIBUTIONS_ENABLED
         value: "true"
       - key: ADMIN_API_ENABLED
         value: "true"
-      - key: LINT_MAX_CHARS
-        value: "20000"
       - key: DATABASE_URL
         fromDatabase:
           name: vietnamese-writing-skills-db

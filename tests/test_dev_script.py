@@ -176,9 +176,21 @@ def test_doctor_reports_every_failed_prerequisite(tmp_path):
     assert dev.doctor(services) == 1
     report = services.output.getvalue()
     assert "Python 3.11" in report
-    assert "Node 20" in report
+    assert "Node 20.9" in report
     assert "npm" in report
     assert "3000" in report
+
+
+def test_doctor_requires_node_20_9_or_newer(tmp_path):
+    def old_node(argv, **_kwargs):
+        if argv[0] == "node":
+            return SimpleNamespace(returncode=0, stdout="v20.8.1", stderr="")
+        return _completed()
+
+    services = _services(tmp_path, run=old_node)
+
+    assert dev.doctor(services) == 1
+    assert "Node 20.9 or newer is required." in services.output.getvalue()
 
 
 def test_setup_creates_venv_installs_both_editables_and_frontend(tmp_path):

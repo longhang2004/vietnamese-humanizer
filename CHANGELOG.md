@@ -6,6 +6,27 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-07-22
+
+### Added
+
+- Added fail-closed capability controls for rewrite, contribution storage, and admin routes, with effective public capabilities exposed by the health endpoint.
+- Added a native `doctor`/`setup`/`demo`/`check`/`smoke` workflow and expanded web integration CI across core and packaged resources.
+- Added contributor conduct, ownership, and maintainer documentation for safe local setup and deployment.
+
+### Changed
+
+- Made root package metadata the runtime version authority and aligned backend dependency mirrors, OpenAPI, health, lint responses, and deployment configuration.
+- Made the frontend capability-aware while retaining Vercel Analytics without adding custom events or text-derived telemetry.
+- Made contribution and admin enablement explicit in the Render blueprint while keeping rewrite explicitly disabled.
+- Upgraded the frontend to Next.js 16 and ESLint flat config, pinning patched transitive image/CSS processors to resolve production dependency advisories before release.
+
+### Fixed
+
+- Fixed the stale `0.2.0` production dependency pin and added a release-consistency gate.
+- Ensured disabled write routes return stable `503` responses before body parsing, provider calls, authentication, or database access.
+- Prevented provider exception details from leaking to rewrite clients and made admin-key comparison Unicode-safe and constant-time.
+
 ## [0.4.1] - 2026-07-22
 
 ### Added

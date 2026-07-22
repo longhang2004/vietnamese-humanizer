@@ -482,9 +482,14 @@ def doctor(services: Services) -> int:
         problems.append("Python 3.11 or newer is required.")
 
     node_version = _tool_version(services, ["node", "--version"])
-    node_match = re.fullmatch(r"v?(\d+)(?:\.\d+){0,2}", node_version or "")
-    if node_match is None or int(node_match.group(1)) < 20:
-        problems.append("Node 20 or newer is required.")
+    node_match = re.fullmatch(r"v?(\d+)(?:\.(\d+))?(?:\.\d+)?", node_version or "")
+    node_parts = (
+        (int(node_match.group(1)), int(node_match.group(2) or 0))
+        if node_match
+        else None
+    )
+    if node_parts is None or node_parts < (20, 9):
+        problems.append("Node 20.9 or newer is required.")
 
     try:
         npm_version = _tool_version(services, _npm_argv(services, "--version"))
