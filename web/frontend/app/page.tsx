@@ -51,32 +51,44 @@ export default function HomePage() {
   const detectedPatternIds = lintResult?.issues.map((i) => i.pattern_id);
 
   return (
-    <div>
+    <div className="space-y-6">
+      {/* Top Banner Disclaimer */}
       <Disclaimer />
 
-      <Editor skills={skills} onLint={handleLint} loading={loading} />
+      {/* Main Workspace */}
+      <div className="grid grid-cols-1 gap-6">
+        <Editor skills={skills} onLint={handleLint} loading={loading} />
 
-      {errorMsg && (
-        <div className="bg-red-50 border border-red-200 text-red-900 p-4 rounded-lg text-sm mb-6">
-          <p className="font-bold">❌ Lỗi kiểm tra văn phong:</p>
-          <p className="mt-1">{errorMsg}</p>
-        </div>
-      )}
+        {errorMsg && (
+          <div className="bg-rose-50 border border-rose-200/80 text-rose-950 p-4 rounded-xl text-xs sm:text-sm flex items-start space-x-3 shadow-sm">
+            <div className="flex-shrink-0 w-6 h-6 text-rose-600 mt-0.5">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div>
+              <p className="font-bold text-rose-950">Lỗi kiểm tra văn phong:</p>
+              <p className="mt-0.5 text-rose-800 leading-relaxed">{errorMsg}</p>
+            </div>
+          </div>
+        )}
 
-      {lintResult && (
-        <>
-          <IssueList
-            summary={lintResult.summary}
-            issues={lintResult.issues}
-            patterns={patterns}
-          />
+        {lintResult && (
+          <div className="space-y-8 animate-in fade-in duration-300">
+            <IssueList
+              summary={lintResult.summary}
+              issues={lintResult.issues}
+              patterns={patterns}
+            />
 
-          <RewritePanel
-            originalText={currentText}
-            issueIds={detectedPatternIds}
-          />
-        </>
-      )}
+            <RewritePanel
+              originalText={currentText}
+              issueIds={detectedPatternIds}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+

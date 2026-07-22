@@ -7,7 +7,7 @@
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-🌐 **Live Web Application**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/)
+🌐 **Live Web Application**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/) *(v0.4.0 with Anti-Slop editorial aesthetics, Plus Jakarta Sans & JetBrains Mono typography)*
 
 Tools for editing Vietnamese prose without changing its facts. They help make writing clearer, more natural, and consistent with its context.
 

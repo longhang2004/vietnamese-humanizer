@@ -103,49 +103,68 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col">
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-xl">✍️</span>
-              <span className="font-bold text-gray-900 text-base sm:text-lg">
-                Vietnamese Writing Skills
-              </span>
-              <span className="text-xs bg-brand-100 text-brand-800 px-2 py-0.5 rounded font-mono font-semibold">
-                v0.3.1
-              </span>
+      <body className="min-h-[100dvh] flex flex-col bg-slate-50/60 text-slate-900 font-sans antialiased selection:bg-sky-100 selection:text-sky-900">
+        {/* Frosted Glass Header */}
+        <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-200/80 transition-all">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 via-sky-500 to-emerald-500 flex items-center justify-center text-white shadow-sm shadow-sky-500/20 group-hover:scale-105 transition-transform">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                <span className="font-extrabold text-slate-900 tracking-tight text-base sm:text-lg group-hover:text-sky-600 transition-colors">
+                  Vietnamese Writing Skills
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-sky-50 text-sky-700 border border-sky-200/60 self-start sm:self-auto">
+                  v0.4.0
+                </span>
+              </div>
             </Link>
 
-            <nav className="flex items-center space-x-4 text-xs sm:text-sm font-medium">
-              <Link href="/" className="text-gray-700 hover:text-brand-600 transition-colors">
-                Rà soát văn phong
+            {/* Top Navigation Links */}
+            <nav className="flex items-center space-x-3 text-xs sm:text-sm font-medium">
+              <Link
+                href="/"
+                className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-100/80 transition-all"
+              >
+                Soát văn phong
               </Link>
               <Link
                 href="/contribute"
-                className="px-3 py-1.5 bg-brand-50 text-brand-700 hover:bg-brand-100 rounded-md border border-brand-200 transition-colors"
+                className="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-semibold shadow-sm shadow-sky-600/20 active:scale-[0.98] transition-all flex items-center space-x-1.5"
               >
-                + Đóng góp case
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span>Góp mẫu văn bản</span>
               </Link>
             </nav>
           </div>
         </header>
 
-        <main className="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Main Content Area */}
+        <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {children}
         </main>
 
-        <footer className="bg-white border-t border-gray-200 py-6 mt-12 text-center text-xs text-gray-500">
-          <div className="max-w-6xl mx-auto px-4">
-            <p>
-              Vietnamese Writing Skills — Bộ công cụ Agent Skills và linter văn phong tiếng Việt (v0.3.1).
-            </p>
-            <p className="mt-1 text-gray-400">
-              Công cụ nêu tín hiệu hỗ trợ người viết review. Không phải AI-detector, không chấm điểm xác suất tác giả.
+        {/* Footer */}
+        <footer className="bg-white border-t border-slate-200/80 py-8 mt-16 text-center text-xs text-slate-500">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-semibold text-slate-700">Vietnamese Writing Skills & Humanizer v0.4.0</span>
+            </div>
+            <p className="text-slate-400 max-w-2xl text-center md:text-right">
+              Công cụ nhận diện tín hiệu văn phong cho người viết và biên tập viên. Không chấm điểm xác suất AI, không suy đoán tác giả.
             </p>
           </div>
         </footer>

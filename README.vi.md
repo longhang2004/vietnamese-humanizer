@@ -7,7 +7,7 @@
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-🌐 **Phiên bản web**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/)
+🌐 **Phiên bản web**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/) *(Phiên bản 0.4.0 giao diện Anti-Slop, chuẩn hóa font Plus Jakarta Sans & JetBrains Mono)*
 
 Bộ công cụ này biên tập tiếng Việt mà không làm thay đổi dữ kiện. Mục tiêu là giúp văn bản đầu vào rõ hơn, tự nhiên hơn và hợp với ngữ cảnh.
 

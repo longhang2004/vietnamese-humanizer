@@ -1,8 +1,10 @@
+[Tiếng Việt](SECURITY.vi.md) | **English**
+
 # Security Policy
 
 ## Supported versions
 
-Before the first public package release, apply security fixes to `main`. After v0.2.0 is published, the latest 0.2.x release receives security fixes until this document lists a newer supported series.
+Before the first public package release, security fixes are applied directly to `main`. After v0.2.0 is published, the latest 0.2.x release receives security fixes until this document lists a newer supported series.
 
 ## Report a vulnerability privately
 

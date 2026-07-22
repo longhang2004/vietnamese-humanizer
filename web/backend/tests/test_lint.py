@@ -14,7 +14,7 @@ def test_lint_text_valid(client):
     response = client.post("/api/lint", json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert data["version"] == "0.3.1"
+    assert data["version"] == "0.4.0"
     assert "summary" in data
     assert data["summary"]["total"] >= 1
     assert any(i["pattern_id"] == "VI-HUM-L02" for i in data["issues"])

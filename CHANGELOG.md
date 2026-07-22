@@ -1,59 +1,72 @@
+[Tiếng Việt](CHANGELOG.vi.md) | **English**
+
 # Changelog
 
-Tuân theo Keep a Changelog ở mức cấu trúc, chưa cam kết Semantic Versioning trước bản 1.0.
+Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed before v1.0.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-22
+
+### Added
+
+- Redesigned the entire Web UI (Next.js Frontend) following Anti-Slop (`taste-skill`) and Design System (`ui-ux-pro-max-skill`) principles.
+- Integrated modern Google Fonts: `Plus Jakarta Sans` (sans-serif) and `JetBrains Mono` (monospace).
+- Added real-time character/word counter, quick text clear button, and sample text loader.
+- Interactive Skill Selector Cards and visual finding list with severity badges, monospace tags, and rewrite suggestions.
+- Pattern detail modal with backdrop blur (`backdrop-blur-sm`).
+- Standardized all UI microcopy according to `vietnamese-writing-skills` guidelines for clear, natural Vietnamese.
+
 ### Fixed
 
-- Truyền repository context rõ ràng cho bước tạo GitHub Release khi job không checkout source.
+- Explicitly pass repository context to GitHub Release workflow steps when checkout is disabled.
 
 ### Changed
 
-- Biên tập lại tài liệu công khai bằng giọng văn tự nhiên, trực tiếp hơn.
+- Refactored public documentation for direct and natural phrasing.
 
 ## [0.3.1] - 2026-07-22
 
 ### Added
 
-- Tích hợp Vercel Analytics (`@vercel/analytics`) theo dõi lượng truy cập web app.
-- Cập nhật PyPI release workflow hỗ trợ `skip-existing: true` chống lỗi 400 khi file đã tồn tại trên PyPI.
+- Integrated Vercel Analytics (`@vercel/analytics`) for web app visitor tracking.
+- Updated PyPI release workflow with `skip-existing: true` to prevent HTTP 400 errors when files exist on PyPI.
 
 ## [0.3.0] - 2026-07-22
 
 ### Added
 
-- Web Application "Vietnamese Writing Skills" (`web/`): bao gồm FastAPI Backend và Next.js Frontend.
-- Tích hợp Gemini AI (`gemini-2.5-flash`) cho tính năng Gợi ý viết lại tự nhiên và bảo toàn dữ kiện.
-- Cơ sở dữ liệu Staging (PostgreSQL / Neon) để lưu vết các case đóng góp từ cộng đồng.
-- Tối ưu hóa SEO toàn diện (Detailed SEO Standard): OpenGraph banner, Twitter card, Favicon, JSON-LD Schema và Canonical metadata.
-- Ghi nhận Contributor mới: **Lê Ngọc Phương Thư** (`lengocphuongthuct2006@gmail.com`) — Tác giả đề xuất và lên ý tưởng phiên bản Web App.
+- Web Application "Vietnamese Writing Skills" (`web/`): includes FastAPI Backend and Next.js Frontend.
+- Integrated Gemini AI (`gemini-2.5-flash`) for experimental natural rewrites and fact preservation.
+- Staging database (PostgreSQL / Neon) to record community contribution cases.
+- Comprehensive SEO optimization: OpenGraph banner, Twitter card, Favicon, JSON-LD Schema, and Canonical metadata.
+- Contributor acknowledgment: **Lê Ngọc Phương Thư** (`lengocphuongthuct2006@gmail.com`) — Ideated and proposed the Web App version.
 
 ## [0.2.0] - 2026-07-21
 
 ### Added
 
-- JSON Schema và validator cho 100 example đã agent-audit preservation, gồm output mode, gold rewrite/classification và review provenance.
-- Finding taxonomy, scope và aggregation cho toàn bộ 40 pattern.
-- Pattern example modes và generated docs hiển thị mode của từng good example.
-- Expected output mode, manual review schema, blocker rate, multi-reviewer summary và unreviewed count cho benchmark.
-- Package `vietnamese_writing_skills`, sáu console commands và wheel resources.
-- Tài liệu công khai song ngữ Anh–Việt cho README và hướng dẫn đóng góp.
-- Mục ủng hộ dự án bằng mã VietQR trong cả hai README.
-- Workflow phát hành theo tag với artifact dùng chung, GitHub Release và PyPI Trusted Publishing qua OIDC.
-- Chính sách báo cáo lỗ hổng và cấu hình Dependabot cho Python cùng GitHub Actions.
-- Python 3.11–3.14 CI matrix, kiểm artifact bằng Twine và smoke test đủ sáu console command.
+- JSON Schema and validator for 100 agent-audited preservation examples, including output mode, gold rewrite/classification, and review provenance.
+- Finding taxonomy, scope, and aggregation for all 40 patterns.
+- Pattern example modes and generated docs displaying the mode of each good example.
+- Expected output mode, manual review schema, blocker rate, multi-reviewer summary, and unreviewed count for benchmarks.
+- `vietnamese_writing_skills` package, six console commands, and wheel resources.
+- Bilingual English–Vietnamese documentation for README and contribution guides.
+- VietQR donation support section in both READMEs.
+- Tag-triggered release workflow with shared artifacts, GitHub Release, and PyPI Trusted Publishing via OIDC.
+- Vulnerability reporting policy and Dependabot configuration for Python and GitHub Actions.
+- Python 3.11–3.14 CI matrix, Twine artifact checking, and smoke tests for all six console commands.
 
 ### Changed
 
-- Hoàn tất semantic preservation audit; loại bỏ context ẩn và không tự chọn chủ thể, phạm vi hoặc năm còn mơ hồ.
-- Linter xuất error, warning, preference và heuristic cùng confidence, scope và summary theo loại.
-- `scripts/` chỉ còn wrapper tương thích; logic importable chuyển vào `src/`.
-- README dùng repository URL thật và giải thích repository, product, distribution và import name.
-- Generated docs hiển thị đầy đủ taxonomy, strategy, exceptions và false-positive risk.
-- Bổ sung metadata package, project URLs và classifier Python 3.11–3.14.
-- Chuyển các hạng mục 0.2 chưa hoàn tất trong roadmap sang nhóm 0.2.x / Post-0.2.
+- Completed semantic preservation audit; removed hidden context and avoided unverified subject, scope, or year assumptions.
+- Linter outputs error, warning, preference, and heuristic with confidence, scope, and summary by type.
+- `scripts/` converted to legacy wrappers; importable logic moved to `src/`.
+- README updated with canonical repository URL explaining repository, product, distribution, and import names.
+- Generated docs display full taxonomy, strategy, exceptions, and false-positive risk.
+- Added package metadata, project URLs, and Python 3.11–3.14 classifiers.
+- Moved unfinished 0.2 roadmap items to 0.2.x / Post-0.2 series.
 
 ## [0.1.0] - 2026-07-20
 
-MVP đầu tiên sẵn sàng cho review công khai.
+Initial MVP ready for public review.
