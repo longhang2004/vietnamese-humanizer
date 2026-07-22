@@ -19,6 +19,7 @@ benchmarks/results/*
 .claude/
 agent/
 skills-lock.json
+.superpowers/
 
 
 # Node / frontend
