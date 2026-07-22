@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -24,6 +25,16 @@ def test_release_contract_is_consistent() -> None:
     )
 
     assert result.returncode == 0, result.stderr
+
+
+def test_backend_preview_resolves_core_from_repository() -> None:
+    backend_project = tomllib.loads(
+        (ROOT / "web" / "backend" / "pyproject.toml").read_text(encoding="utf-8")
+    )
+
+    assert backend_project["tool"]["uv"]["sources"]["vietnamese-writing-skills"] == {
+        "path": "../.."
+    }
 
 
 def write_release_files(
