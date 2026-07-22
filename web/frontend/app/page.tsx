@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useCapabilities } from "../components/CapabilityNav";
 import { Disclaimer } from "../components/Disclaimer";
 import { Editor } from "../components/Editor";
 import { IssueList } from "../components/IssueList";
@@ -9,6 +10,7 @@ import { fetchPatterns, fetchSkills, lintText } from "../lib/api";
 import { LintResponse, PatternItem, SkillItem } from "../lib/types";
 
 export default function HomePage() {
+  const capabilities = useCapabilities();
   const [skills, setSkills] = useState<SkillItem[]>([]);
   const [patterns, setPatterns] = useState<PatternItem[]>([]);
   const [currentText, setCurrentText] = useState<string>("");
@@ -81,14 +83,15 @@ export default function HomePage() {
               patterns={patterns}
             />
 
-            <RewritePanel
-              originalText={currentText}
-              issueIds={detectedPatternIds}
-            />
+            {capabilities.rewrite && (
+              <RewritePanel
+                originalText={currentText}
+                issueIds={detectedPatternIds}
+              />
+            )}
           </div>
         )}
       </div>
     </div>
   );
 }
-

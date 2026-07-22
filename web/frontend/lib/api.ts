@@ -1,6 +1,7 @@
 import {
   ContributionRequest,
   ContributionResponse,
+  HealthResponse,
   LintResponse,
   PatternsResponse,
   RewriteResponse,
@@ -9,6 +10,7 @@ import {
 
 const rawBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 const API_BASE = rawBase.replace(/\/+$/, "");
+let healthRequest: Promise<HealthResponse> | null = null;
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -24,6 +26,15 @@ async function handleResponse<T>(res: Response): Promise<T> {
     throw new Error(errorDetail);
   }
   return res.json();
+}
+
+export async function fetchHealth(): Promise<HealthResponse> {
+  if (!healthRequest) {
+    healthRequest = fetch(`${API_BASE}/api/health`).then((res) =>
+      handleResponse<HealthResponse>(res)
+    );
+  }
+  return healthRequest;
 }
 
 export async function lintText(text: string, skills?: string[]): Promise<LintResponse> {

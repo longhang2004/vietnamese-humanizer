@@ -26,6 +26,15 @@ export interface LintResponse {
   issues: IssueItem[];
 }
 
+export interface HealthResponse {
+  status: string;
+  version: string;
+  capabilities: {
+    rewrite: boolean;
+    contributions: boolean;
+  };
+}
+
 export interface PatternItem {
   id: string;
   name: string;
