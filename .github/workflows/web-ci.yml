@@ -71,7 +71,7 @@ jobs:
         working-directory: web/frontend
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "20"
       - run: npm ci
@@ -93,7 +93,7 @@ jobs:
           cache-dependency-path: |
             pyproject.toml
             web/backend/pyproject.toml
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "20"
           cache: npm
