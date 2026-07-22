@@ -15,7 +15,7 @@ dependencies = [
   "slowapi>=0.1.9",
   "sqlalchemy>=2.0.30",
   "psycopg2-binary>=2.9.9",
-  "vietnamese-writing-skills>=0.2.0",
+  "vietnamese-writing-skills==0.4.1",
   "google-genai>=0.1.1",
 ]
 
