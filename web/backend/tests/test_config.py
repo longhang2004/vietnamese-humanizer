@@ -1,3 +1,4 @@
+import os
 from unittest.mock import patch
 
 from fastapi import HTTPException
@@ -13,6 +14,31 @@ from app.capabilities import (
 )
 from app.config import Settings, settings
 from app.main import app
+
+CAPABILITY_ENV_VARS = (
+    "REWRITE_ENABLED",
+    "CONTRIBUTIONS_ENABLED",
+    "ADMIN_API_ENABLED",
+    "GEMINI_API_KEY",
+    "ADMIN_API_KEY",
+)
+
+
+def test_capability_test_state_isolated_from_process_environment():
+    assert all(os.getenv(name) is None for name in CAPABILITY_ENV_VARS)
+    assert settings.REWRITE_ENABLED is False
+    assert settings.CONTRIBUTIONS_ENABLED is False
+    assert settings.ADMIN_API_ENABLED is False
+    assert settings.GEMINI_API_KEY is None
+    assert settings.ADMIN_API_KEY is None
+
+
+def test_isolated_default_lifespan_does_not_initialize_database():
+    with patch("app.main.Base.metadata.create_all") as create_all:
+        with TestClient(app):
+            pass
+
+    create_all.assert_not_called()
 
 
 def test_capability_settings_default_to_disabled_without_secrets():

@@ -1,4 +1,5 @@
 from collections.abc import Generator
+import os
 from unittest.mock import MagicMock, patch
 
 from fastapi.testclient import TestClient
@@ -7,6 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
+from app.config import settings
 from app.db import models  # noqa: F401 - registers models on Base.metadata
 from app.db.database import Base, get_db
 from app.limiter import limiter
@@ -20,6 +22,40 @@ test_engine = create_engine(
     poolclass=StaticPool,
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
+
+_MISSING_ENV_VALUE = object()
+_CAPABILITY_DEFAULTS = {
+    "REWRITE_ENABLED": False,
+    "CONTRIBUTIONS_ENABLED": False,
+    "ADMIN_API_ENABLED": False,
+    "GEMINI_API_KEY": None,
+    "ADMIN_API_KEY": None,
+}
+
+
+@pytest.fixture(autouse=True)
+def isolate_capability_settings():
+    original_environment = {
+        name: os.environ.get(name, _MISSING_ENV_VALUE) for name in _CAPABILITY_DEFAULTS
+    }
+    original_settings = {
+        name: getattr(settings, name) for name in _CAPABILITY_DEFAULTS
+    }
+
+    for name, default in _CAPABILITY_DEFAULTS.items():
+        os.environ.pop(name, None)
+        setattr(settings, name, default)
+
+    try:
+        yield
+    finally:
+        for name, value in original_settings.items():
+            setattr(settings, name, value)
+        for name, value in original_environment.items():
+            if value is _MISSING_ENV_VALUE:
+                os.environ.pop(name, None)
+            else:
+                os.environ[name] = value
 
 
 @pytest.fixture(autouse=True)
