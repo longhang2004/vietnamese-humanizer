@@ -3,8 +3,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     FRONTEND_ORIGIN: str = "http://localhost:3000"
+    REWRITE_ENABLED: bool = False
+    CONTRIBUTIONS_ENABLED: bool = False
+    ADMIN_API_ENABLED: bool = False
     GEMINI_API_KEY: str | None = None
-    ADMIN_API_KEY: str = "change_this_secret_admin_key"
+    ADMIN_API_KEY: str | None = None
     DATABASE_URL: str = "sqlite:///./dev.db"
     LINT_MAX_CHARS: int = 20000
 

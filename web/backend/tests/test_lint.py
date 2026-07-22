@@ -1,5 +1,7 @@
 from vietnamese_writing_skills import __version__
 
+from app.main import app
+
 
 def test_health_endpoint(client):
     response = client.get("/api/health")
@@ -7,6 +9,18 @@ def test_health_endpoint(client):
     data = response.json()
     assert data["status"] == "ok"
     assert data["version"] == __version__
+    assert data["capabilities"] == {
+        "rewrite": False,
+        "contributions": False,
+    }
+
+
+def test_optional_routes_remain_mounted_when_capabilities_are_disabled():
+    paths = app.openapi()["paths"]
+
+    assert "/api/rewrite" in paths
+    assert "/api/contributions" in paths
+    assert "/api/admin/contributions" in paths
 
 
 def test_api_surfaces_expose_core_runtime_version(client):

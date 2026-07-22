@@ -7,6 +7,7 @@ from slowapi.errors import RateLimitExceeded
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from vietnamese_writing_skills import __version__
 
+from app.capabilities import validate_capability_settings
 from app.config import settings
 from app.db import models  # noqa: F401 - ensure models are registered with Base
 from app.db.database import Base, engine
@@ -16,8 +17,9 @@ from app.routers import admin, contributions, health, lint, patterns, rewrite
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize DB tables on startup
-    Base.metadata.create_all(bind=engine)
+    validate_capability_settings()
+    if settings.CONTRIBUTIONS_ENABLED or settings.ADMIN_API_ENABLED:
+        Base.metadata.create_all(bind=engine)
     yield
 
 
