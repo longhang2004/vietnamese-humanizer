@@ -15,9 +15,21 @@ def read_project_version(path: Path) -> str:
         return tomllib.load(file)["project"]["version"]
 
 
-def main() -> int:
-    root_version = read_project_version(ROOT / "pyproject.toml")
-    backend_pyproject = ROOT / "web" / "backend" / "pyproject.toml"
+def core_dependencies(dependencies: list[str]) -> list[str]:
+    return [
+        dependency
+        for dependency in dependencies
+        if dependency.startswith(PACKAGE_NAME)
+        and (
+            len(dependency) == len(PACKAGE_NAME)
+            or dependency[len(PACKAGE_NAME)] in " [<>=!~;@"
+        )
+    ]
+
+
+def main(root: Path = ROOT) -> int:
+    root_version = read_project_version(root / "pyproject.toml")
+    backend_pyproject = root / "web" / "backend" / "pyproject.toml"
     backend_version = read_project_version(backend_pyproject)
 
     with backend_pyproject.open("rb") as file:
@@ -25,7 +37,7 @@ def main() -> int:
     expected_dependency = f"{PACKAGE_NAME}=={root_version}"
 
     requirements = (
-        ROOT / "web" / "backend" / "requirements.txt"
+        root / "web" / "backend" / "requirements.txt"
     ).read_text(encoding="utf-8").splitlines()
 
     errors = []
@@ -34,11 +46,11 @@ def main() -> int:
             f"backend version is {backend_version!r}; expected {root_version!r} "
             "from root pyproject.toml"
         )
-    if expected_dependency not in backend_dependencies:
+    if core_dependencies(backend_dependencies) != [expected_dependency]:
         errors.append(
             f"backend pyproject dependency must be {expected_dependency!r}"
         )
-    if expected_dependency not in requirements:
+    if core_dependencies(requirements) != [expected_dependency]:
         errors.append(
             f"backend requirements dependency must be {expected_dependency!r}"
         )
