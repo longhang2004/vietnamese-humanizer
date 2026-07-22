@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+from vietnamese_writing_skills import __version__
 
 from app.config import settings
 from app.db import models  # noqa: F401 - ensure models are registered with Base
@@ -23,7 +24,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Vietnamese Writing Skills API",
     description="Web API service for Vietnamese writing style analysis and skills",
-    version="0.4.0",
+    version=__version__,
     lifespan=lifespan,
 )
 

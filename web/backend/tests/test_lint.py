@@ -1,9 +1,25 @@
+from vietnamese_writing_skills import __version__
+
+
 def test_health_endpoint(client):
     response = client.get("/api/health")
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ok"
-    assert "version" in data
+    assert data["version"] == __version__
+
+
+def test_api_surfaces_expose_core_runtime_version(client):
+    health_response = client.get("/api/health")
+    lint_response = client.post(
+        "/api/lint",
+        json={"text": "Một văn bản kiểm tra.", "skills": ["humanizer-vi"]},
+    )
+    openapi_response = client.get("/openapi.json")
+
+    assert health_response.json()["version"] == __version__
+    assert lint_response.json()["version"] == __version__
+    assert openapi_response.json()["info"]["version"] == __version__
 
 
 def test_lint_text_valid(client):
@@ -14,7 +30,7 @@ def test_lint_text_valid(client):
     response = client.post("/api/lint", json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert data["version"] == "0.4.1"
+    assert data["version"] == __version__
     assert "summary" in data
     assert data["summary"]["total"] >= 1
     assert any(i["pattern_id"] == "VI-HUM-L02" for i in data["issues"])
