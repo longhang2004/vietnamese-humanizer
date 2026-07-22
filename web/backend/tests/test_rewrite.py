@@ -24,6 +24,23 @@ def test_rewrite_disabled_returns_503_before_provider_call(client, monkeypatch):
     provider.assert_not_called()
 
 
+def test_rewrite_disabled_rejects_malformed_json_before_parsing_or_provider_call(
+    client, monkeypatch
+):
+    provider = Mock()
+    monkeypatch.setattr("app.routers.rewrite.generate_rewrite", provider)
+
+    response = client.post(
+        "/api/rewrite",
+        content=b'{"text":',
+        headers={"Content-Type": "application/json"},
+    )
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Capability is disabled."}
+    provider.assert_not_called()
+
+
 def test_rewrite_missing_gemini_key(client, monkeypatch):
     monkeypatch.setattr(settings, "REWRITE_ENABLED", True)
     monkeypatch.setattr(settings, "GEMINI_API_KEY", None)

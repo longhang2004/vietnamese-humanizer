@@ -1,11 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.capabilities import require_rewrite_enabled
+from app.capabilities import capability_route_class, require_rewrite_enabled
 from app.limiter import limiter
 from app.schemas import VALID_SKILLS, RewriteRequest, RewriteResponse
 from app.services.rewriter import GeminiKeyMissingError, generate_rewrite
 
-router = APIRouter(prefix="/api", tags=["Rewrite"])
+router = APIRouter(
+    prefix="/api",
+    tags=["Rewrite"],
+    route_class=capability_route_class(require_rewrite_enabled),
+)
 
 
 @router.post(

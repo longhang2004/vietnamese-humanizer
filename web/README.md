@@ -20,7 +20,7 @@ Sao chép `web/backend/.env.example` thành `web/backend/.env` và `web/frontend
 
 | Tính năng | Biến cấu hình | Hành vi |
 | --- | --- | --- |
-| Lint và metadata | `FRONTEND_ORIGIN`, `LINT_MAX_CHARS` | Luôn bật. Backend xử lý text để trả finding; mã nguồn dự án không biến input lint thành contribution. |
+| Lint và metadata | `FRONTEND_ORIGIN` | Luôn bật. Request có giới hạn cố định 20.000 ký tự; khả năng cấu hình giới hạn này được để lại cho giai đoạn sau. Backend xử lý text để trả finding; mã nguồn dự án không biến input lint thành contribution. |
 | Viết lại | `REWRITE_ENABLED=true`, `GEMINI_API_KEY` không rỗng | Mặc định tắt. Text viết lại được gửi tới tích hợp Gemini; output luôn cần người dùng review. |
 | Nhận đóng góp | `CONTRIBUTIONS_ENABLED=true` | Mặc định tắt. Submission được lưu để maintainer review, không tự động thành corpus hay dữ liệu huấn luyện. |
 | Admin | `ADMIN_API_ENABLED=true`, `ADMIN_API_KEY` | Mặc định tắt. Key phải không phải placeholder, dài tối thiểu 32 ký tự và được gửi qua header `X-Admin-Key`. |

@@ -29,7 +29,7 @@ All optional backend capabilities fail closed. Configure them in `web/backend/.e
 
 | Capability | Default | Required configuration | Data boundary |
 | --- | --- | --- | --- |
-| Deterministic lint and metadata | On | `LINT_MAX_CHARS` optionally changes the 20,000-character request limit. `FRONTEND_ORIGIN` sets the allowed frontend origin. | The backend processes request text and returns findings. Project code does not turn lint input into a contribution. |
+| Deterministic lint and metadata | On | Requests have a fixed 20,000-character limit; making this configurable is deferred. `FRONTEND_ORIGIN` sets the allowed frontend origin. | The backend processes request text and returns findings. Project code does not turn lint input into a contribution. |
 | Rewrite | Off | Set `REWRITE_ENABLED=true` and provide a non-empty `GEMINI_API_KEY`. | Rewrite text is sent to the configured Gemini integration. The response remains unreviewed. Do not enable this for sensitive text without evaluating the provider's current terms. |
 | Contributions | Off | Set `CONTRIBUTIONS_ENABLED=true`. | Submissions are stored for maintainer review. They do not automatically become corpus or training data. Adding material to `examples/` or `benchmarks/` requires a manual pull request and review. |
 | Admin review | Off | Set `ADMIN_API_ENABLED=true` and use a non-placeholder `ADMIN_API_KEY` of at least 32 characters. Send it in `X-Admin-Key`. | Admin routes list, update, and export staged contributions. Export does not write repository corpus files. |
