@@ -4,7 +4,7 @@ description: Kiểm tra và áp dụng nhất quán style guide tiếng Việt c
 license: MIT
 metadata:
   language: vi
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Style guide tiếng Việt

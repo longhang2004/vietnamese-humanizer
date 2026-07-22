@@ -4,7 +4,7 @@ description: Kiểm tra chính tả, dấu câu, khoảng trắng, cấu trúc c
 license: MIT
 metadata:
   language: vi
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Kiểm tra ngữ pháp tiếng Việt

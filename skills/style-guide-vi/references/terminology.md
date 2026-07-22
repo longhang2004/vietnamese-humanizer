@@ -4,4 +4,6 @@ Lập glossary với các cột: khái niệm, dạng ưu tiên, biến thể tr
 
 Giữ tiếng Anh khi đó là tên API, identifier, tên sản phẩm hoặc thuật ngữ ngành chưa có bản dịch ổn định. Lần đầu có thể giải thích tiếng Việt trong ngoặc, sau đó dùng nhất quán.
 
+Không cảnh báo một từ viết tắt ở lần xuất hiện mà ngay trước nó đã có cụm giải thích, ví dụ "thỏa thuận mức dịch vụ (SLA)". Vẫn review các lần dùng acronym độc lập khi glossary và đối tượng đọc chưa làm nó rõ nghĩa.
+
 Không thay từ chỉ để tránh lặp. Trong tài liệu kỹ thuật, lặp đúng thuật ngữ thường rõ hơn luân phiên từ đồng nghĩa.

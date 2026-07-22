@@ -155,17 +155,16 @@ def test_example_with_explicit_context_is_valid(tmp_path: Path) -> None:
     assert errors_for(tmp_path, example) == []
 
 
-def test_release_corpus_has_100_reviewed_unique_examples() -> None:
+def test_release_corpus_has_103_reviewed_unique_examples() -> None:
     rows, errors = validate_examples(ROOT / "examples" / "examples.jsonl", SCHEMA, PATTERN_IDS)
     assert errors == []
-    assert len(rows) == 100
-    assert len({row["id"] for row in rows}) == 100
+    assert len(rows) == 103
+    assert len({row["id"] for row in rows}) == 103
     assert all(row["gold_output_mode"] for row in rows)
     assert all(row["preservation_review"]["status"] == "agent-reviewed" for row in rows)
-    assert all(
-        row["preservation_review"]["reviewer_id"] == "codex-semantic-audit-01"
-        for row in rows
-    )
+    assert {
+        row["preservation_review"]["reviewer_id"] for row in rows
+    } == {"codex-semantic-audit-01", "codex-semantic-audit-02"}
     assert all(
         "meaning_preserved" not in row and "facts_preserved" not in row for row in rows
     )

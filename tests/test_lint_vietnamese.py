@@ -1,7 +1,13 @@
+import importlib
 import json
 from pathlib import Path
 
+import pytest
+import yaml
+
 from vietnamese_writing_skills.cli.lint import lint_file, lint_text, main, mask_protected
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def ids(text: str, skill: str | None = None) -> list[str]:
@@ -33,14 +39,42 @@ def test_density_pattern_needs_two_occurrences() -> None:
     once = "Công cụ đóng vai trò quan trọng trong việc kiểm tra dữ liệu."
     twice = once + "\nNhóm đóng vai trò chính trong việc rà soát kết quả."
     assert "VI-HUM-L01" not in ids(once, "humanizer-vi")
-    assert "VI-HUM-L01" in ids(twice, "humanizer-vi")
+    findings = [
+        issue
+        for issue in lint_text(twice, {"humanizer-vi"})
+        if issue["pattern_id"] == "VI-HUM-L01"
+    ]
+    assert len(findings) == 1
+    assert len(findings[0]["occurrences"]) == 2
 
 
 def test_sequence_pattern_needs_three_sentences() -> None:
     two = "Nhóm sửa lỗi. Nhóm viết test."
     three = two + " Nhóm cập nhật tài liệu."
     assert "VI-HUM-S01" not in ids(two, "humanizer-vi")
-    assert "VI-HUM-S01" in ids(three, "humanizer-vi")
+    findings = [
+        issue
+        for issue in lint_text(three, {"humanizer-vi"})
+        if issue["pattern_id"] == "VI-HUM-S01"
+    ]
+    assert len(findings) == 1
+    assert len(findings[0]["occurrences"]) == 3
+
+
+def test_variance_detector_emits_one_finding_without_catalog_duplicate() -> None:
+    text = (
+        "Nhóm ghi nhận yêu cầu trong buổi sáng. "
+        "Nhóm kiểm tra dữ liệu trong buổi trưa. "
+        "Nhóm cập nhật kết quả trong buổi chiều. "
+        "Nhóm gửi thông báo kết quả trong buổi tối. "
+        "Nhóm lưu lại biên bản trong ngày mai."
+    )
+    findings = [
+        issue
+        for issue in lint_text(text, {"humanizer-vi"})
+        if issue["pattern_id"] == "VI-HUM-S04"
+    ]
+    assert len(findings) == 1
 
 
 def test_pronoun_document_consistency_is_found() -> None:
@@ -142,6 +176,42 @@ def test_common_nouns_in_lowercase_do_not_trigger_capitalization() -> None:
     assert "VI-STY-C01" not in ids(text, "style-guide-vi")
 
 
+def test_sentence_scoped_patterns_do_not_cross_sentence_boundaries() -> None:
+    grammar = "Không chỉ nhanh. Nhưng còn dễ dùng."
+    humanizer = "Trong bối cảnh nhiều biến động. Hệ thống không ngừng phát triển."
+
+    assert "VI-GRA-C05" not in ids(grammar, "grammar-checker-vi")
+    assert "VI-HUM-L02" not in ids(humanizer, "humanizer-vi")
+
+
+def test_redundant_connector_allows_optional_comma() -> None:
+    assert "VI-GRA-C06" in ids("Ông đến muộn. Vì vậy, nên cuộc họp bị hoãn.")
+
+
+def test_administrative_threshold_is_scoped_to_each_sentence() -> None:
+    text = (
+        "Việc thực hiện công tác rà soát đã hoàn tất. "
+        "Đánh giá được tiến hành vào hôm qua."
+    )
+    assert "VI-TRA-S05" not in ids(text, "translationese-cleaner-vi")
+
+
+def test_explained_acronym_is_not_reported() -> None:
+    text = "Thỏa thuận mức dịch vụ (SLA) sẽ được rà trong cuộc họp."
+    assert "VI-STY-T02" not in ids(text, "style-guide-vi")
+
+
+def test_new_rules_ignore_protected_content() -> None:
+    text = """```text
+Không những nhanh nhưng còn dễ dùng. Vì vậy nên đổi.
+Việc thực hiện công tác được tiến hành nhằm mục đích kiểm tra.
+```
+Giữ `Vì vậy nên` làm ví dụ, xem https://example.com/vi_vay_nen và biến vi_vay_nen.
+"""
+    protected_ids = {"VI-GRA-C05", "VI-GRA-C06", "VI-TRA-S05"}
+    assert protected_ids.isdisjoint(ids(text))
+
+
 def test_excerpt_contains_the_match_instead_of_only_the_line_start() -> None:
     text = "Mở đầu " + "rất dài " * 20 + "Giải Pháp" + " ở cuối câu."
     issue = next(
@@ -152,6 +222,44 @@ def test_excerpt_contains_the_match_instead_of_only_the_line_start() -> None:
     assert len(issue["excerpt"]) <= 100
     assert "Giải Pháp" in issue["excerpt"]
     assert issue["occurrences"][0]["matched_text"] == "Giải Pháp"
+
+
+def test_excerpt_remains_bounded_when_match_is_longer_than_limit() -> None:
+    text = "Không chỉ " + "rất dài " * 14 + "nhưng còn hữu ích."
+    issue = next(issue for issue in lint_text(text) if issue["pattern_id"] == "VI-GRA-C05")
+
+    assert len(issue["excerpt"]) <= 100
+    assert len(issue["occurrences"][0]["matched_text"]) > 100
+
+
+def test_catalog_examples_match_runtime_contract(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    lint_module = importlib.import_module("vietnamese_writing_skills.cli.lint")
+    records: list[tuple[Path, dict]] = []
+    for path in sorted((ROOT / "patterns").glob("*.yml")):
+        document = yaml.safe_load(path.read_text(encoding="utf-8"))
+        records.extend((path, pattern) for pattern in document["patterns"])
+
+    index = {pattern["id"]: pattern for _, pattern in records}
+    monkeypatch.setattr(lint_module, "iter_patterns", lambda _directory: iter(records))
+    monkeypatch.setattr(lint_module, "pattern_index", lambda _directory=None: index)
+
+    for _, pattern in records:
+        pattern_id = pattern["id"]
+        skill = {pattern["skill"]}
+        bad_text = "\n".join(example["text"] for example in pattern["bad_examples"])
+        bad_ids = {issue["pattern_id"] for issue in lint_module.lint_text(bad_text, skill)}
+        assert pattern_id in bad_ids, f"{pattern_id} không bắt bad_examples trong catalog"
+
+        for example in pattern["good_examples"]:
+            good_ids = {
+                issue["pattern_id"]
+                for issue in lint_module.lint_text(example["text"], skill)
+            }
+            assert pattern_id not in good_ids, (
+                f"{pattern_id} báo nhầm good_example: {example['text']}"
+            )
 
 
 def test_lexical_reduplication_is_not_reported() -> None:

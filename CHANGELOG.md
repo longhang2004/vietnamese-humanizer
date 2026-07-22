@@ -6,6 +6,23 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-07-22
+
+### Added
+
+- Added an executable catalog contract covering all 43 rules, plus examples and benchmark cases for mismatched conjunctions, redundant result connectors, and dense administrative phrasing.
+- Added focused regression coverage for sentence boundaries, protected content, aggregation modes, explained acronyms, and long excerpts.
+
+### Changed
+
+- Updated all four Vietnamese skills to `0.2.1` with concise guidance for the corrected rules while keeping YAML catalogs authoritative.
+- Expanded the reviewed corpus to 103 examples and the benchmark set to 33 cases.
+
+### Fixed
+
+- Prevented sentence-scoped grammar and humanizer patterns from matching across sentence boundaries, and recognized the comma variant of “vì vậy, nên”.
+- Suppressed acronym warnings at an explicit first-use definition and enforced the 100-character excerpt limit even for longer matches.
+
 ## [0.4.3] - 2026-07-22
 
 ### Added

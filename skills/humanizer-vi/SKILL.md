@@ -4,7 +4,7 @@ description: Biên tập văn bản tiếng Việt máy móc, sáo rỗng hoặc
 license: MIT
 metadata:
   language: vi
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Humanizer tiếng Việt

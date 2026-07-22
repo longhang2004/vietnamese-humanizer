@@ -31,6 +31,7 @@ SPECIAL_PATTERN_IDS = {
     "VI-STY-N02",
     "VI-STY-P01",
     "VI-STY-T01",
+    "VI-STY-T02",
     "VI-TRA-S05",
 }
 
@@ -82,6 +83,12 @@ def _excerpt(text: str, start: int, end: int, limit: int = 100) -> str:
         return excerpt
 
     matched_length = max(1, relative_end - relative_start)
+    if matched_length > limit:
+        matched = excerpt[relative_start:relative_end].strip()
+        left_length = (limit - 1) // 2
+        right_length = limit - 1 - left_length
+        return matched[:left_length] + "…" + matched[-right_length:]
+
     context_budget = max(0, limit - min(matched_length, limit) - 2)
     left_context = min(relative_start, context_budget // 2)
     right_context = min(len(excerpt) - relative_end, context_budget - left_context)
@@ -324,6 +331,33 @@ def _percentage_consistency_issues(
     ]
 
 
+def _acronym_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-STY-T02"]
+    issues: list[dict[str, Any]] = []
+    for match in _signal_matches(masked, pattern):
+        is_parenthesized = (
+            match.start() > 0
+            and match.end() < len(masked)
+            and masked[match.start() - 1] == "("
+            and masked[match.end()] == ")"
+        )
+        sentence_start = max(
+            masked.rfind(".", 0, match.start()),
+            masked.rfind("!", 0, match.start()),
+            masked.rfind("?", 0, match.start()),
+            masked.rfind("\n", 0, match.start()),
+        )
+        expansion = masked[sentence_start + 1 : match.start() - 1]
+        is_first_definition = is_parenthesized and len(WORD_RE.findall(expansion)) >= 2
+        if not is_first_definition:
+            issues.append(_issue(text, match.start(), match.end(), pattern))
+    return issues
+
+
 def _administrative_stack_issues(
     text: str,
     masked: str,
@@ -372,6 +406,7 @@ def lint_text(
         issues.extend(_pronoun_issues(text, masked, patterns))
         issues.extend(_terminology_consistency_issues(text, masked, patterns))
         issues.extend(_percentage_consistency_issues(text, masked, patterns))
+        issues.extend(_acronym_issues(text, masked, patterns))
     if not skills or "translationese-cleaner-vi" in skills:
         issues.extend(_administrative_stack_issues(text, masked, patterns))
     unique: dict[tuple[str, int, int], dict[str, Any]] = {}

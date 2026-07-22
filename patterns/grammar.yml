@@ -298,6 +298,8 @@ patterns:
     reason: Chưa rõ lo ngại việc dừng hay việc sao lưu.
   - text: Lan báo Mai đã nghỉ. Điều này khiến quản lý bất ngờ.
     reason: Chưa rõ ai nghỉ và sự việc nào gây bất ngờ.
+  - text: Bản nháp bị ghi đè khi đồng bộ. Điều này cần được làm rõ.
+    reason: Chưa rõ cần làm rõ việc ghi đè hay cơ chế đồng bộ.
   good_examples:
   - mode: clean_rewrite
     text: Việc máy chủ dừng giữa lúc sao lưu làm nhóm lo ngại.
@@ -358,7 +360,7 @@ patterns:
   summary: Dùng "không những/không chỉ ... nhưng còn" thay vì cặp tương ứng "... mà còn".
   signals:
     regex:
-    - \b(?:không những|không chỉ)\b.{0,160}\bnhưng còn\b
+    - \b(?:không những|không chỉ)\b[^.!?\n]{0,160}\bnhưng còn\b
   why_it_matters: Hai vế của cặp quan hệ từ không tương ứng làm cấu trúc câu thiếu cân đối.
   rewrite_strategy:
   - Đổi "nhưng còn" thành "mà còn", hoặc viết lại hai vế bằng một cấu trúc song song khác.
@@ -390,8 +392,8 @@ patterns:
   confidence: high
   summary: Dùng đồng thời "vì vậy" và "nên" khi một từ nối đã đủ thể hiện quan hệ kết quả.
   signals:
-    phrases:
-    - vì vậy nên
+    regex:
+    - \bvì vậy\s*,?\s+nên\b
   why_it_matters: Hai từ nối cùng chức năng làm câu nặng mà không bổ sung quan hệ logic.
   rewrite_strategy:
   - Giữ "vì vậy" hoặc "nên" tùy cấu trúc câu và nhịp văn bản.

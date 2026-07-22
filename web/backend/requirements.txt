@@ -5,4 +5,4 @@ slowapi>=0.1.9
 sqlalchemy>=2.0.30
 psycopg2-binary>=2.9.9
 google-genai>=0.1.1
-vietnamese-writing-skills==0.4.3
+vietnamese-writing-skills==0.4.4

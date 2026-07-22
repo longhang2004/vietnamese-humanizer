@@ -49,7 +49,7 @@ patterns:
   summary: Câu mở bằng "trong bối cảnh không ngừng phát triển" nhưng không nêu thay đổi cụ thể.
   signals:
     regex:
-    - \btrong bối cảnh\b.{0,60}\b(?:không ngừng|ngày càng) phát triển\b
+    - \btrong bối cảnh\b[^.!?\n]{0,60}\b(?:không ngừng|ngày càng) phát triển\b
   why_it_matters: Lời dẫn chiếm chỗ nhưng không giúp người đọc biết điều gì đã thay đổi.
   rewrite_strategy:
   - Nêu thay đổi, mốc thời gian hoặc áp lực cụ thể; nếu không có thì bỏ lời dẫn.

@@ -26,4 +26,4 @@ Runner không tính inter-rater agreement. Agreement cần đủ overlap giữa 
 
 Báo điểm theo skill, domain, register và pattern khi cỡ mẫu cho phép. Luôn tách blocker rate khỏi average. Không quy đổi điểm thành xác suất văn bản do AI tạo.
 
-Repository chưa có human-reviewed baseline. Corpus hiện chỉ có provenance `agent-reviewed`; validator kiểm cấu trúc và quan hệ metadata, nhưng không chứng minh semantic equivalence. Benchmark hỗ trợ regression dữ liệu và chuẩn hóa quy trình review. Nó không chứng minh hiệu quả ngoài 30 case.
+Repository chưa có human-reviewed baseline. Corpus hiện chỉ có provenance `agent-reviewed`; validator kiểm cấu trúc và quan hệ metadata, nhưng không chứng minh semantic equivalence. Benchmark hỗ trợ regression dữ liệu và chuẩn hóa quy trình review. Nó không chứng minh hiệu quả ngoài 33 case.

@@ -56,7 +56,7 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 def test_benchmark_loader_reads_all_cases() -> None:
     cases, errors = load_cases(ROOT / "benchmarks" / "cases", PATTERN_IDS)
     assert errors == []
-    assert len(cases) == 30
+    assert len(cases) == 33
     assert all(
         "context" in case and "blockers" in case and "expected_output_mode" in case
         for case in cases
@@ -134,7 +134,7 @@ def test_summary_averages_blocker_rate_and_unreviewed_count() -> None:
     assert summary["blocker_rate"] == 0.5
     assert summary["reviewers"] == 2
     assert summary["reviewed_cases"] == 1
-    assert summary["unreviewed_cases"] == 29
+    assert summary["unreviewed_cases"] == 32
 
 
 def test_generated_pattern_docs_are_stable_and_complete() -> None:
@@ -156,17 +156,17 @@ def test_generated_pattern_docs_are_stable_and_complete() -> None:
 def test_example_count_and_domain_distribution() -> None:
     examples = load_jsonl(ROOT / "examples" / "examples.jsonl")
     counts = Counter(example["domain"] for example in examples)
-    assert len(examples) == 100
+    assert len(examples) == 103
     assert counts == {
         "technical": 15,
-        "work-email": 15,
+        "work-email": 17,
         "blog": 15,
         "academic": 10,
         "product-description": 10,
         "marketing": 10,
         "customer-support": 10,
         "social-media": 10,
-        "administrative": 5,
+        "administrative": 6,
     }
 
 
@@ -220,8 +220,8 @@ def test_public_docs_preserve_core_product_facts() -> None:
         "assets/donate-vietqr.png",
     )
     count_facts = (
-        (ROOT / "README.md", ("43 patterns", "100 examples", "30 benchmark cases")),
-        (ROOT / "README.vi.md", ("43 pattern", "100 example", "30 benchmark case")),
+        (ROOT / "README.md", ("43 patterns", "103 examples", "33 benchmark cases")),
+        (ROOT / "README.vi.md", ("43 pattern", "103 example", "33 benchmark case")),
     )
 
     for document, document_count_facts in count_facts:

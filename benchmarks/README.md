@@ -1,6 +1,6 @@
 # Benchmark
 
-Bộ benchmark gồm 30 case đa miền, tách theo bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+Bộ benchmark gồm 33 case đa miền, tách theo bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
 
 Mỗi case có input, context, constraints, expected output mode, must-preserve, must-not-add và blockers. Case không nên sửa dùng `no_change` và có thể để `expected_patterns` rỗng. Không gán pattern giả chỉ để buộc agent thay đổi câu.
 

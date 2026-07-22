@@ -4,7 +4,7 @@ description: Làm sạch văn phong tiếng Việt dịch sát từ tiếng Anh,
 license: MIT
 metadata:
   language: vi
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Làm sạch văn phong dịch Anh-Việt
