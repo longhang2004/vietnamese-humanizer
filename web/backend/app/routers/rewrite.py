@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 
+from app.capabilities import require_rewrite_enabled
 from app.limiter import limiter
 from app.schemas import VALID_SKILLS, RewriteRequest, RewriteResponse
 from app.services.rewriter import GeminiKeyMissingError, generate_rewrite
@@ -7,7 +8,11 @@ from app.services.rewriter import GeminiKeyMissingError, generate_rewrite
 router = APIRouter(prefix="/api", tags=["Rewrite"])
 
 
-@router.post("/rewrite", response_model=RewriteResponse)
+@router.post(
+    "/rewrite",
+    response_model=RewriteResponse,
+    dependencies=[Depends(require_rewrite_enabled)],
+)
 @limiter.limit("5/minute")
 def rewrite_endpoint(request: Request, body: RewriteRequest):
     if not body.text.strip():
@@ -23,5 +28,8 @@ def rewrite_endpoint(request: Request, body: RewriteRequest):
         return generate_rewrite(text=body.text, skill=body.skill, issue_ids=body.issue_ids)
     except GeminiKeyMissingError as e:
         raise HTTPException(status_code=503, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Lỗi xử lý Gemini: {e!s}")
+    except Exception:
+        raise HTTPException(
+            status_code=500,
+            detail="Không thể xử lý yêu cầu viết lại.",
+        ) from None
