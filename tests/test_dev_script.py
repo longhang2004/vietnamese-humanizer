@@ -72,6 +72,8 @@ def _services(tmp_path, **overrides):
         "remove_tree": lambda _path: None,
         "temporary_directory": temporary_directory,
         "windows_job_factory": lambda: None,
+        "windows_resume_process": lambda _process: None,
+        "register_process": lambda processes, process: processes.append(process),
         "output": io.StringIO(),
         "python_version": (3, 13, 0),
         "platform_name": "posix",
@@ -552,7 +554,11 @@ def test_windows_servers_use_new_process_groups_without_start_new_session(tmp_pa
 
     assert dev.demo(services, skip_setup=True) == 0
     assert all("start_new_session" not in call[1] for call in popen_calls)
-    assert all(call[1]["creationflags"] == dev.WINDOWS_NEW_PROCESS_GROUP for call in popen_calls)
+    assert all(
+        call[1]["creationflags"]
+        == dev.WINDOWS_NEW_PROCESS_GROUP | dev.WINDOWS_CREATE_SUSPENDED
+        for call in popen_calls
+    )
     assert [job.assigned for job in jobs] == [[101], [202]]
 
 
@@ -587,6 +593,198 @@ def test_windows_job_creation_failure_does_not_start_a_child(tmp_path):
         dev._start_servers(services)
 
     assert popen_calls == []
+
+
+def test_windows_popen_failure_after_job_creation_closes_handle(tmp_path):
+    job = FakeWindowsJob()
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        windows_job_factory=lambda: job,
+        popen=lambda *_args, **_kwargs: (_ for _ in ()).throw(OSError("spawn failed")),
+    )
+
+    with pytest.raises(OSError, match="spawn failed"):
+        dev._start_servers(services)
+
+    assert job.close_calls == 1
+
+
+def test_windows_second_child_failure_cleans_first_child_and_current_job(tmp_path):
+    first_process = FakeProcess(701)
+    jobs = [FakeWindowsJob(), FakeWindowsJob()]
+    pending_jobs = iter(jobs)
+    popen_calls = 0
+    stopped = []
+
+    def popen(*_args, **_kwargs):
+        nonlocal popen_calls
+        popen_calls += 1
+        if popen_calls == 2:
+            raise OSError("second spawn failed")
+        return first_process
+
+    def stop(process):
+        stopped.append(process.pid)
+        process._dev_windows_job.close()
+
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        windows_job_factory=lambda: next(pending_jobs),
+        popen=popen,
+        stop_process=stop,
+    )
+
+    with pytest.raises(OSError, match="second spawn failed"):
+        dev._start_servers(services)
+
+    assert stopped == [701]
+    assert [job.close_calls for job in jobs] == [1, 1]
+
+
+def test_windows_keyboard_interrupt_during_assignment_cleans_current_child_and_job(tmp_path):
+    process = FakeProcess(702)
+    job = FakeWindowsJob(assign_error=KeyboardInterrupt())
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        windows_job_factory=lambda: job,
+        popen=lambda *_args, **_kwargs: process,
+    )
+
+    with pytest.raises(KeyboardInterrupt):
+        dev._start_servers(services)
+
+    assert job.close_calls == 1
+    assert process.kill_calls == 1
+    assert len(process.wait_calls) == 1
+
+
+def test_windows_child_is_suspended_assigned_registered_then_resumed(tmp_path):
+    events = []
+    process = FakeProcess(703)
+
+    class OrderedJob(FakeWindowsJob):
+        def assign(self, assigned_process):
+            events.append("assign")
+            super().assign(assigned_process)
+
+    job = OrderedJob()
+
+    def popen(_argv, **kwargs):
+        assert kwargs["creationflags"] & dev.WINDOWS_CREATE_SUSPENDED
+        events.append("popen")
+        return process
+
+    def register(processes, registered_process):
+        events.append("register")
+        processes.append(registered_process)
+
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        windows_job_factory=lambda: job,
+        windows_resume_process=lambda _process: events.append("resume"),
+        register_process=register,
+        popen=popen,
+    )
+
+    processes = dev._start_servers(services)
+
+    assert events[:4] == ["popen", "assign", "register", "resume"]
+    assert processes[0] is process
+    dev._cleanup_servers(services, processes)
+
+
+def test_windows_resume_interrupt_is_cleaned_from_registered_children(tmp_path):
+    process = FakeProcess(707)
+    stopped = []
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        windows_job_factory=FakeWindowsJob,
+        windows_resume_process=lambda _process: (_ for _ in ()).throw(
+            KeyboardInterrupt()
+        ),
+        popen=lambda *_args, **_kwargs: process,
+        stop_process=lambda current: stopped.append(current.pid),
+    )
+
+    with pytest.raises(KeyboardInterrupt):
+        dev._start_servers(services)
+
+    assert stopped == [707]
+
+
+def test_windows_resume_helper_closes_every_opened_thread_handle():
+    events = []
+
+    class ThreadApi:
+        def thread_ids(self, pid):
+            events.append(("enumerate", pid))
+            return [11, 12]
+
+        def open_thread(self, thread_id):
+            events.append(("open", thread_id))
+            return thread_id + 100
+
+        def resume_thread(self, handle):
+            events.append(("resume", handle))
+
+        def close(self, handle):
+            events.append(("close", handle))
+
+    dev._resume_windows_process(FakeProcess(704), api=ThreadApi())
+
+    assert events == [
+        ("enumerate", 704),
+        ("open", 11),
+        ("resume", 111),
+        ("close", 111),
+        ("open", 12),
+        ("resume", 112),
+        ("close", 112),
+    ]
+
+
+def test_posix_registration_baseexception_cleans_returned_child(tmp_path):
+    process = FakeProcess(705)
+    stopped = []
+    services = _services(
+        tmp_path,
+        popen=lambda *_args, **_kwargs: process,
+        register_process=lambda _processes, _process: (_ for _ in ()).throw(
+            KeyboardInterrupt()
+        ),
+        stop_process=lambda current: stopped.append(current.pid),
+    )
+
+    with pytest.raises(KeyboardInterrupt):
+        dev._start_servers(services)
+
+    assert stopped == [705]
+
+
+def test_deferred_interrupt_is_preserved_when_registration_also_fails(tmp_path):
+    process = FakeProcess(706)
+    stopped = []
+
+    def interrupted_registration(_processes, _process):
+        signal.raise_signal(signal.SIGINT)
+        raise OSError("registration failed after interrupt")
+
+    services = _services(
+        tmp_path,
+        popen=lambda *_args, **_kwargs: process,
+        register_process=interrupted_registration,
+        stop_process=lambda current: stopped.append(current.pid),
+    )
+
+    with pytest.raises(KeyboardInterrupt):
+        dev._start_servers(services)
+
+    assert stopped == [706]
 
 
 def test_demo_installs_signal_cleanup_before_starting_children(tmp_path, monkeypatch):

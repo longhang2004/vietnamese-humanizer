@@ -24,6 +24,7 @@ BACKEND_PORT = 8000
 FRONTEND_PORT = 3000
 SMOKE_TIMEOUT_SECONDS = 60.0
 WINDOWS_NEW_PROCESS_GROUP = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0x00000200)
+WINDOWS_CREATE_SUSPENDED = getattr(subprocess, "CREATE_SUSPENDED", 0x00000004)
 _VENV_VERSION_CHECK = "import sys; raise SystemExit(sys.version_info < (3, 11))"
 _PACKAGE_VERSION_CHECK = (
     "import pathlib, tomllib, vietnamese_writing_skills; "
@@ -81,6 +82,18 @@ class _ExtendedLimitInformation(ctypes.Structure):
     ]
 
 
+class _ThreadEntry32(ctypes.Structure):
+    _fields_ = [
+        ("dwSize", ctypes.c_uint32),
+        ("cntUsage", ctypes.c_uint32),
+        ("th32ThreadID", ctypes.c_uint32),
+        ("th32OwnerProcessID", ctypes.c_uint32),
+        ("tpBasePri", ctypes.c_long),
+        ("tpDeltaPri", ctypes.c_long),
+        ("dwFlags", ctypes.c_uint32),
+    ]
+
+
 class _CtypesWindowsJobApi:
     _KILL_ON_JOB_CLOSE = 0x00002000
     _EXTENDED_LIMIT_INFORMATION_CLASS = 9
@@ -135,6 +148,71 @@ class _CtypesWindowsJobApi:
             self._raise_last_error("close")
 
 
+class _CtypesWindowsThreadApi:
+    _SNAP_THREADS = 0x00000004
+    _THREAD_SUSPEND_RESUME = 0x0002
+    _NO_MORE_FILES = 18
+    _INVALID_HANDLE = ctypes.c_void_p(-1).value
+
+    def __init__(self) -> None:
+        if os.name != "nt":
+            raise DevError("Windows thread APIs are only available on Windows.")
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.CreateToolhelp32Snapshot.argtypes = [ctypes.c_uint32, ctypes.c_uint32]
+        kernel32.CreateToolhelp32Snapshot.restype = ctypes.c_void_p
+        kernel32.Thread32First.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+        kernel32.Thread32First.restype = ctypes.c_int
+        kernel32.Thread32Next.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+        kernel32.Thread32Next.restype = ctypes.c_int
+        kernel32.OpenThread.argtypes = [ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
+        kernel32.OpenThread.restype = ctypes.c_void_p
+        kernel32.ResumeThread.argtypes = [ctypes.c_void_p]
+        kernel32.ResumeThread.restype = ctypes.c_uint32
+        kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
+        kernel32.CloseHandle.restype = ctypes.c_int
+        self.kernel32 = kernel32
+
+    def _raise_last_error(self, action: str) -> None:
+        error = ctypes.get_last_error()
+        raise OSError(error, f"Could not {action} Windows process thread")
+
+    def thread_ids(self, process_id: int) -> list[int]:
+        snapshot = self.kernel32.CreateToolhelp32Snapshot(self._SNAP_THREADS, 0)
+        if snapshot == self._INVALID_HANDLE:
+            self._raise_last_error("enumerate")
+        entry = _ThreadEntry32()
+        entry.dwSize = ctypes.sizeof(entry)
+        thread_ids = []
+        try:
+            if not self.kernel32.Thread32First(snapshot, ctypes.byref(entry)):
+                self._raise_last_error("read")
+            while True:
+                if entry.th32OwnerProcessID == process_id:
+                    thread_ids.append(entry.th32ThreadID)
+                if self.kernel32.Thread32Next(snapshot, ctypes.byref(entry)):
+                    continue
+                if ctypes.get_last_error() != self._NO_MORE_FILES:
+                    self._raise_last_error("continue enumerating")
+                return thread_ids
+        finally:
+            if not self.kernel32.CloseHandle(snapshot):
+                self._raise_last_error("close thread snapshot for")
+
+    def open_thread(self, thread_id: int) -> int:
+        handle = self.kernel32.OpenThread(self._THREAD_SUSPEND_RESUME, False, thread_id)
+        if not handle:
+            self._raise_last_error("open")
+        return int(handle)
+
+    def resume_thread(self, handle: int) -> None:
+        if self.kernel32.ResumeThread(handle) == 0xFFFFFFFF:
+            self._raise_last_error("resume")
+
+    def close(self, handle: int) -> None:
+        if not self.kernel32.CloseHandle(handle):
+            self._raise_last_error("close")
+
+
 @dataclass
 class WindowsJob:
     api: Any
@@ -183,6 +261,31 @@ def _create_windows_job(*, api: Any | None = None) -> WindowsJob:
             ) from exc
         raise DevError(f"Could not configure Windows Job Object: {exc}") from exc
     return job
+
+
+def _resume_windows_process(process: Any, *, api: Any | None = None) -> None:
+    active_api = api or _CtypesWindowsThreadApi()
+    try:
+        thread_ids = active_api.thread_ids(process.pid)
+    except OSError as exc:
+        raise DevError(f"Could not enumerate suspended Windows process threads: {exc}") from exc
+    if not thread_ids:
+        raise DevError(f"Suspended Windows process {process.pid} has no resumable thread.")
+    for thread_id in thread_ids:
+        try:
+            thread_handle = active_api.open_thread(thread_id)
+        except OSError as exc:
+            raise DevError(f"Could not open suspended Windows process thread: {exc}") from exc
+        try:
+            active_api.resume_thread(thread_handle)
+        except OSError as exc:
+            raise DevError(f"Could not resume suspended Windows process thread: {exc}") from exc
+        finally:
+            active_api.close(thread_handle)
+
+
+def _register_process(processes: list[Any], process: Any) -> None:
+    processes.append(process)
 
 
 def _http_request(
@@ -308,6 +411,8 @@ class Services:
     remove_tree: Callable[[Path], None] = shutil.rmtree
     temporary_directory: Callable[[], AbstractContextManager[Path]] = _temporary_directory
     windows_job_factory: Callable[[], WindowsJob] = _create_windows_job
+    windows_resume_process: Callable[[Any], None] = _resume_windows_process
+    register_process: Callable[[list[Any], Any], None] = _register_process
     output: TextIO = field(default_factory=lambda: sys.stdout)
     python_version: tuple[int, int, int] = field(
         default_factory=lambda: tuple(sys.version_info[:3])
@@ -547,6 +652,47 @@ def _discard_unmanaged_windows_child(process: Any, job: WindowsJob) -> None:
         raise DevError(f"Could not close unassigned Windows Job Object: {close_error}")
 
 
+@contextmanager
+def _defer_shutdown_signals() -> Iterator[None]:
+    pending_signals = []
+    previous_handlers = {}
+    caught_error: BaseException | None = None
+
+    def defer(signum: int, _frame: Any) -> None:
+        pending_signals.append(signum)
+
+    try:
+        for signum in (signal.SIGINT, signal.SIGTERM):
+            previous_handlers[signum] = signal.getsignal(signum)
+            signal.signal(signum, defer)
+        try:
+            yield
+        except BaseException as exc:
+            caught_error = exc
+    finally:
+        for signum, handler in previous_handlers.items():
+            signal.signal(signum, handler)
+    if pending_signals:
+        raise KeyboardInterrupt from caught_error
+    if caught_error is not None:
+        raise caught_error.with_traceback(caught_error.__traceback__)
+
+
+def _cleanup_unregistered_process(
+    services: Services,
+    process: Any | None,
+    windows_job: WindowsJob | None,
+) -> None:
+    if process is None:
+        if windows_job is not None:
+            windows_job.close()
+        return
+    if windows_job is not None:
+        _discard_unmanaged_windows_child(process, windows_job)
+    else:
+        services.stop_process(process)
+
+
 def _start_servers(services: Services) -> list[Any]:
     root = services.root
     environment = os.environ.copy()
@@ -591,42 +737,49 @@ def _start_servers(services: Services) -> list[Any]:
     try:
         process_group_options: dict[str, Any]
         if services.platform_name == "nt":
-            process_group_options = {"creationflags": WINDOWS_NEW_PROCESS_GROUP}
+            process_group_options = {
+                "creationflags": WINDOWS_NEW_PROCESS_GROUP | WINDOWS_CREATE_SUSPENDED
+            }
         else:
             process_group_options = {"start_new_session": True}
         for argv, cwd in commands:
             windows_job: WindowsJob | None = None
-            if services.platform_name == "nt":
-                try:
-                    windows_job = services.windows_job_factory()
-                except Exception as exc:
-                    raise DevError(f"Could not create Windows Job Object: {exc}") from exc
+            process: Any | None = None
+            registered = False
             try:
-                process = services.popen(
-                    argv,
-                    cwd=cwd,
-                    env=environment,
-                    shell=False,
-                    **process_group_options,
-                )
+                with _defer_shutdown_signals():
+                    if services.platform_name == "nt":
+                        try:
+                            windows_job = services.windows_job_factory()
+                        except Exception as exc:
+                            raise DevError(f"Could not create Windows Job Object: {exc}") from exc
+                    process = services.popen(
+                        argv,
+                        cwd=cwd,
+                        env=environment,
+                        shell=False,
+                        **process_group_options,
+                    )
+                    if windows_job is not None:
+                        try:
+                            windows_job.assign(process)
+                        except Exception as exc:
+                            raise DevError(f"Could not assign Windows Job Object: {exc}") from exc
+                        process._dev_windows_job = windows_job
+                    services.register_process(processes, process)
+                    registered = True
+                    if windows_job is not None:
+                        services.windows_resume_process(process)
             except BaseException:
-                if windows_job is not None:
-                    windows_job.close()
-                raise
-            if windows_job is not None:
-                try:
-                    windows_job.assign(process)
-                except Exception as exc:
+                if not registered:
                     try:
-                        _discard_unmanaged_windows_child(process, windows_job)
+                        _cleanup_unregistered_process(services, process, windows_job)
                     except Exception as cleanup_exc:
-                        raise DevError(
-                            f"Could not assign Windows Job Object: {exc}; "
-                            f"cleanup failed: {cleanup_exc}"
-                        ) from exc
-                    raise DevError(f"Could not assign Windows Job Object: {exc}") from exc
-                process._dev_windows_job = windows_job
-            processes.append(process)
+                        _print(
+                            services,
+                            f"Warning: could not clean unregistered server process: {cleanup_exc}",
+                        )
+                raise
     except BaseException:
         _cleanup_servers(services, processes)
         raise
