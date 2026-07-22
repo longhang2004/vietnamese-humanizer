@@ -33,9 +33,11 @@ Bộ quy tắc này áp dụng trong không gian của dự án và khi một ng
 
 ## Báo cáo và thực thi
 
-Nếu GitHub hiển thị [biểu mẫu báo cáo riêng của repository](https://github.com/longhang2004/vietnamese-humanizer/security/advisories/new), hãy dùng biểu mẫu đó và bắt đầu tiêu đề bằng `[Code of Conduct]`. Liên kết này không khẳng định một cài đặt GitHub cụ thể đang bật. Nếu không có biểu mẫu, hãy mở một [issue tối giản](https://github.com/longhang2004/vietnamese-humanizer/issues/new/choose) để nhờ `@longhang2004` trao đổi riêng. Không ghi chi tiết sự việc, thông tin cá nhân hay tài liệu nhạy cảm trong issue công khai.
+Dự án hiện chưa công bố hộp thư riêng dành cho báo cáo ứng xử. Với hành vi lạm dụng xảy ra trên GitHub, hãy dùng [biểu mẫu Report Abuse riêng của GitHub](https://support.github.com/contact/report-abuse). Tuyến này gửi báo cáo cho GitHub, không phải hộp thư của maintainer dự án.
 
-Maintainer sẽ xem xét báo cáo công bằng và thiện chí. Phản hồi có thể từ nhắc nhở hay cảnh cáo riêng, giới hạn tham gia tạm thời, đến cấm tham gia vĩnh viễn nếu hành vi sai phạm kéo dài hoặc nghiêm trọng. Maintainer có xung đột lợi ích không được tự quyết định việc thực thi.
+Để yêu cầu dự án tiếp nhận, hãy mở một [issue tối giản](https://github.com/longhang2004/vietnamese-humanizer/issues/new/choose) và nhờ `@longhang2004` cung cấp cách trao đổi riêng. Không ghi chi tiết sự việc, thông tin cá nhân hay tài liệu nhạy cảm trong issue công khai.
+
+Maintainer sẽ xem xét công bằng và thiện chí các báo cáo ứng xử mà họ nhận được. Phản hồi có thể từ nhắc nhở hay cảnh cáo riêng, giới hạn tham gia tạm thời, đến cấm tham gia vĩnh viễn nếu hành vi sai phạm kéo dài hoặc nghiêm trọng. Maintainer có xung đột lợi ích không được tự quyết định việc thực thi.
 
 ## Ghi nguồn
 

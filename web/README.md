@@ -22,11 +22,11 @@ Sao chép `web/backend/.env.example` thành `web/backend/.env` và `web/frontend
 | --- | --- | --- |
 | Lint và metadata | `FRONTEND_ORIGIN`, `LINT_MAX_CHARS` | Luôn bật. Backend xử lý text để trả finding; mã nguồn dự án không biến input lint thành contribution. |
 | Viết lại | `REWRITE_ENABLED=true`, `GEMINI_API_KEY` không rỗng | Mặc định tắt. Text viết lại được gửi tới tích hợp Gemini; output luôn cần người dùng review. |
-| Nhận đóng góp | `CONTRIBUTIONS_ENABLED=true`, `DATABASE_URL` | Mặc định tắt. Submission được lưu để maintainer review, không tự động thành corpus hay dữ liệu huấn luyện. |
-| Admin | `ADMIN_API_ENABLED=true`, `DATABASE_URL`, `ADMIN_API_KEY` | Mặc định tắt. Key phải không phải placeholder, dài tối thiểu 32 ký tự và được gửi qua header `X-Admin-Key`. |
+| Nhận đóng góp | `CONTRIBUTIONS_ENABLED=true` | Mặc định tắt. Submission được lưu để maintainer review, không tự động thành corpus hay dữ liệu huấn luyện. |
+| Admin | `ADMIN_API_ENABLED=true`, `ADMIN_API_KEY` | Mặc định tắt. Key phải không phải placeholder, dài tối thiểu 32 ký tự và được gửi qua header `X-Admin-Key`. |
 | Frontend | `NEXT_PUBLIC_API_BASE_URL`; tùy chọn `NEXT_PUBLIC_SITE_URL` | Chọn backend URL và metadata base URL. |
 
-Nếu một flag bị tắt, route tương ứng trả `503`. Bật rewrite mà thiếu key, hoặc bật admin với key ngắn/placeholder, là cấu hình không hợp lệ và backend không khởi động.
+Nếu một flag bị tắt, route tương ứng trả `503`. Bật rewrite mà thiếu key, hoặc bật admin với key ngắn/placeholder, là cấu hình không hợp lệ và backend không khởi động. Startup không bắt buộc khai báo `DATABASE_URL`; giá trị hiệu lực khi bỏ trống là SQLite local `sqlite:///./dev.db`. Cấu hình deploy nên đặt `DATABASE_URL` tới một cơ sở dữ liệu được quản lý, lưu trữ bền vững thay vì dựa vào file SQLite local.
 
 Khi cần chạy từng service sau khi đã setup:
 

@@ -27,10 +27,10 @@ Copy `.env.example` to `.env` for manual backend runs. All three optional featur
 | --- | --- | --- |
 | Lint and metadata | Optional `FRONTEND_ORIGIN` and `LINT_MAX_CHARS` | Always available. The default request limit is 20,000 characters. |
 | Rewrite | `REWRITE_ENABLED=true` and non-empty `GEMINI_API_KEY` | Text is sent to the configured Gemini integration; the generated result is marked unreviewed. |
-| Contributions | `CONTRIBUTIONS_ENABLED=true` and `DATABASE_URL` | Stores submissions for review only. A submission does not automatically become corpus or training data. |
-| Admin | `ADMIN_API_ENABLED=true`, `DATABASE_URL`, and `ADMIN_API_KEY` | The key must be non-placeholder and at least 32 characters. Clients send it as `X-Admin-Key`. |
+| Contributions | `CONTRIBUTIONS_ENABLED=true` | Stores submissions for review only. A submission does not automatically become corpus or training data. |
+| Admin | `ADMIN_API_ENABLED=true` and `ADMIN_API_KEY` | The key must be non-placeholder and at least 32 characters. Clients send it as `X-Admin-Key`. |
 
-Disabled capability routes return `503`. Invalid enabled rewrite/admin configuration fails backend startup. Admin export returns approved staged records but never writes `examples/` or `benchmarks/`.
+Disabled capability routes return `503`. Invalid enabled rewrite/admin key configuration fails backend startup. `DATABASE_URL` is not required by startup validation: when omitted, the effective default is local SQLite at `sqlite:///./dev.db`. Deployments should set `DATABASE_URL` to durable, managed database storage rather than rely on the local SQLite file. Admin export returns approved staged records but never writes `examples/` or `benchmarks/`.
 
 The checked-in Render blueprint explicitly enables contributions and admin but does not set `REWRITE_ENABLED=true`. A provider key by itself therefore does not enable rewrite. The blueprint documents intended project configuration; it does not verify live deployment settings.
 

@@ -33,9 +33,11 @@ This Code applies in project spaces and when someone officially represents the p
 
 ## Reporting and enforcement
 
-If GitHub presents the repository's [private report form](https://github.com/longhang2004/vietnamese-humanizer/security/advisories/new), use it and begin the report title with `[Code of Conduct]`. This link does not assert that a particular GitHub setting is enabled. If the form is unavailable, open a [minimal issue](https://github.com/longhang2004/vietnamese-humanizer/issues/new/choose) asking `@longhang2004` for a private follow-up. Do not put incident details, personal information, or sensitive documents in a public issue.
+The project does not currently publish a dedicated private conduct inbox. For abuse occurring on GitHub, use GitHub's official private [Report Abuse form](https://support.github.com/contact/report-abuse). This route reports to GitHub; it is not a project-maintainer inbox.
 
-Maintainers will review reports fairly and in good faith. Responses may range from a private correction or warning, through a temporary restriction, to a permanent ban when there is sustained or severe misconduct. A maintainer who has a conflict of interest must not make the enforcement decision alone.
+To request follow-up from the project, open a [minimal issue](https://github.com/longhang2004/vietnamese-humanizer/issues/new/choose) asking `@longhang2004` for a private way to continue. Do not put incident details, personal information, or sensitive documents in the public issue.
+
+Maintainers will review conduct reports that reach them fairly and in good faith. Responses may range from a private correction or warning, through a temporary restriction, to a permanent ban when there is sustained or severe misconduct. A maintainer who has a conflict of interest must not make the enforcement decision alone.
 
 ## Attribution
 

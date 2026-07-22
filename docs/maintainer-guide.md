@@ -31,12 +31,12 @@ All optional backend capabilities fail closed. Configure them in `web/backend/.e
 | --- | --- | --- | --- |
 | Deterministic lint and metadata | On | `LINT_MAX_CHARS` optionally changes the 20,000-character request limit. `FRONTEND_ORIGIN` sets the allowed frontend origin. | The backend processes request text and returns findings. Project code does not turn lint input into a contribution. |
 | Rewrite | Off | Set `REWRITE_ENABLED=true` and provide a non-empty `GEMINI_API_KEY`. | Rewrite text is sent to the configured Gemini integration. The response remains unreviewed. Do not enable this for sensitive text without evaluating the provider's current terms. |
-| Contributions | Off | Set `CONTRIBUTIONS_ENABLED=true` and configure `DATABASE_URL`. | Submissions are stored for maintainer review. They do not automatically become corpus or training data. Adding material to `examples/` or `benchmarks/` requires a manual pull request and review. |
-| Admin review | Off | Set `ADMIN_API_ENABLED=true`, configure `DATABASE_URL`, and use a non-placeholder `ADMIN_API_KEY` of at least 32 characters. Send it in `X-Admin-Key`. | Admin routes list, update, and export staged contributions. Export does not write repository corpus files. |
+| Contributions | Off | Set `CONTRIBUTIONS_ENABLED=true`. | Submissions are stored for maintainer review. They do not automatically become corpus or training data. Adding material to `examples/` or `benchmarks/` requires a manual pull request and review. |
+| Admin review | Off | Set `ADMIN_API_ENABLED=true` and use a non-placeholder `ADMIN_API_KEY` of at least 32 characters. Send it in `X-Admin-Key`. | Admin routes list, update, and export staged contributions. Export does not write repository corpus files. |
 | Frontend API target | Local example | Set `NEXT_PUBLIC_API_BASE_URL` in `web/frontend/.env.local`. | The browser sends API requests to this backend URL. |
 | Frontend canonical URL | Deployment default | `NEXT_PUBLIC_SITE_URL` optionally changes the metadata base URL. | This affects generated page metadata, not backend capability gates. |
 
-`web/backend/render.yaml` explicitly enables contributions and admin and obtains `DATABASE_URL` from its declared database. It does not enable rewrite, so a configured `GEMINI_API_KEY` alone does not expose that route. Treat the checked-in blueprint as project configuration, not proof of the state or security properties of any live deployment.
+Startup validation does not require an explicit `DATABASE_URL`. If it is omitted, the effective setting is local SQLite at `sqlite:///./dev.db`. That default supports local development; a deployment should set `DATABASE_URL` to durable, managed database storage. `web/backend/render.yaml` does so by obtaining the URL from its declared database. The blueprint also explicitly enables contributions and admin but does not enable rewrite, so a configured `GEMINI_API_KEY` alone does not expose that route. Treat the checked-in blueprint as project configuration, not proof of the state or security properties of any live deployment.
 
 ## Analytics and sensitive text
 
@@ -72,4 +72,4 @@ For a release, also follow the checklist in `CONTRIBUTING.md`: confirm CI, verif
 
 ## Security and community reports
 
-Follow `SECURITY.md` for vulnerability reports and `CODE_OF_CONDUCT.md` for conduct reports. Their private-report links are conditional because a link in this repository does not prove that a GitHub setting is enabled. If a private form is unavailable, ask `@longhang2004` for a private follow-up using a minimal public issue without sensitive details.
+Follow `SECURITY.md` for vulnerability reports and `CODE_OF_CONDUCT.md` for conduct reports. The project does not currently publish a dedicated private conduct inbox. For abuse on GitHub, use GitHub's official Report Abuse form; to request project follow-up, ask `@longhang2004` for a private way to continue using a minimal public issue without sensitive details.
