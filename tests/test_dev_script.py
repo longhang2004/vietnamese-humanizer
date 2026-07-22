@@ -8,6 +8,8 @@ from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from vietnamese_writing_skills.cli import dev
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,6 +71,7 @@ def _services(tmp_path, **overrides):
         "stop_process": lambda _process: None,
         "remove_tree": lambda _path: None,
         "temporary_directory": temporary_directory,
+        "windows_job_factory": lambda: None,
         "output": io.StringIO(),
         "python_version": (3, 13, 0),
         "platform_name": "posix",
@@ -137,6 +140,16 @@ def test_setup_creates_venv_installs_both_editables_and_frontend(tmp_path):
     assert all(call[1]["shell"] is False for call in calls)
 
 
+def test_setup_rejects_python_310_before_touching_the_environment(tmp_path):
+    calls = []
+    services = _services(tmp_path, run=_tool_runner(calls), python_version=(3, 10, 14))
+
+    with pytest.raises(dev.DevError, match="Python 3.11"):
+        dev.setup(services)
+
+    assert calls == []
+
+
 def test_setup_reuses_an_existing_venv(tmp_path):
     venv_python = tmp_path / ".venv" / "bin" / "python"
     venv_python.parent.mkdir(parents=True)
@@ -189,19 +202,27 @@ def test_venv_executables_are_platform_aware(tmp_path):
 
 
 def test_check_runs_core_backend_and_frontend_command_set(tmp_path):
-    dist = tmp_path / "dist"
-    dist.mkdir()
-    wheel = dist / "package.whl"
-    source = dist / "package.tar.gz"
-    wheel.touch()
-    source.touch()
     calls = []
-    services = _services(tmp_path, run=_tool_runner(calls))
+
+    def run(argv, **kwargs):
+        calls.append((argv, kwargs))
+        if argv[:3] == [sys.executable, "-m", "build"]:
+            output = Path(argv[-1])
+            output.mkdir(parents=True)
+            (output / "package.whl").touch()
+            (output / "package.tar.gz").touch()
+        return _completed()
+
+    services = _services(tmp_path, run=run)
 
     assert dev.check(services) == 0
 
     commands = [call[0] for call in calls]
-    assert commands[:9] == [
+    package_root = tmp_path / "package-check"
+    dist = package_root / "dist"
+    wheel = dist / "package.whl"
+    source = dist / "package.tar.gz"
+    assert commands[:8] == [
         [sys.executable, "-m", "ruff", "check", "."],
         [sys.executable, "-m", "pytest"],
         [sys.executable, "scripts/check_release_consistency.py"],
@@ -210,10 +231,10 @@ def test_check_runs_core_backend_and_frontend_command_set(tmp_path):
         [sys.executable, "scripts/validate_examples.py"],
         [sys.executable, "scripts/run_benchmarks.py", "--validate-only"],
         [sys.executable, "scripts/generate_pattern_docs.py", "--check"],
-        [sys.executable, "-m", "build"],
     ]
+    assert commands[8] == [sys.executable, "-m", "build", "--outdir", str(dist)]
     assert commands[9] == [sys.executable, "-m", "twine", "check", str(source), str(wheel)]
-    isolated = tmp_path / "package-check" / "wheel-venv"
+    isolated = package_root / "wheel-venv"
     isolated_python = isolated / "bin" / "python"
     assert commands[10] == [sys.executable, "-m", "venv", str(isolated)]
     assert commands[11] == [str(isolated_python), "-m", "pip", "install", str(wheel)]
@@ -265,6 +286,9 @@ class FakeProcess:
         self.wait_calls.append(timeout)
         return 0
 
+    def kill(self):
+        self.kill_calls = getattr(self, "kill_calls", 0) + 1
+
 
 def test_stop_process_reaps_leader_and_confirms_posix_group_extinction(monkeypatch):
     signals = []
@@ -315,19 +339,139 @@ def test_stop_process_escalates_until_posix_group_is_extinct(monkeypatch):
     assert len(process.wait_calls) == 2
 
 
-def test_stop_process_uses_taskkill_and_reaps_on_windows():
-    process = FakeProcess(505)
-    calls = []
+class FakeWindowsJob:
+    def __init__(self, *, assign_error=None, close_error=None):
+        self.assign_error = assign_error
+        self.close_error = close_error
+        self.assigned = []
+        self.close_calls = 0
 
-    dev._stop_process(
-        process,
-        platform_name="nt",
-        run=lambda argv, **kwargs: calls.append((argv, kwargs)) or _completed(),
+    def assign(self, process):
+        self.assigned.append(process.pid)
+        if self.assign_error:
+            raise self.assign_error
+
+    def close(self):
+        self.close_calls += 1
+        if self.close_error:
+            raise self.close_error
+
+
+class FakeWindowsJobApi:
+    def __init__(
+        self,
+        *,
+        create_error=None,
+        configure_error=None,
+        assign_error=None,
+        close_failures=0,
+    ):
+        self.create_error = create_error
+        self.configure_error = configure_error
+        self.assign_error = assign_error
+        self.close_failures = close_failures
+        self.calls = []
+
+    def create(self):
+        self.calls.append(("create",))
+        if self.create_error:
+            raise self.create_error
+        return 91
+
+    def configure_kill_on_close(self, handle):
+        self.calls.append(("configure", handle))
+        if self.configure_error:
+            raise self.configure_error
+
+    def assign(self, handle, process_handle):
+        self.calls.append(("assign", handle, process_handle))
+        if self.assign_error:
+            raise self.assign_error
+
+    def close(self, handle):
+        self.calls.append(("close", handle))
+        if self.close_failures:
+            self.close_failures -= 1
+            raise OSError("close failed")
+
+
+def test_windows_job_is_configured_assigned_and_closed_without_leaking():
+    api = FakeWindowsJobApi()
+    process = FakeProcess(505)
+    process._handle = 1234
+
+    job = dev._create_windows_job(api=api)
+    job.assign(process)
+    job.close()
+    job.close()
+
+    assert api.calls == [
+        ("create",),
+        ("configure", 91),
+        ("assign", 91, 1234),
+        ("close", 91),
+    ]
+
+
+def test_windows_job_configuration_failure_closes_the_handle():
+    api = FakeWindowsJobApi(configure_error=OSError("configure failed"))
+
+    with pytest.raises(dev.DevError, match="configure"):
+        dev._create_windows_job(api=api)
+
+    assert api.calls == [("create",), ("configure", 91), ("close", 91)]
+
+
+def test_windows_job_creation_failure_has_no_handle_to_leak():
+    api = FakeWindowsJobApi(create_error=OSError("create failed"))
+
+    with pytest.raises(dev.DevError, match="create"):
+        dev._create_windows_job(api=api)
+
+    assert api.calls == [("create",)]
+
+
+def test_windows_job_configuration_failure_retries_handle_close():
+    api = FakeWindowsJobApi(
+        configure_error=OSError("configure failed"),
+        close_failures=1,
     )
 
-    assert calls[0][0] == ["taskkill", "/PID", "505", "/T", "/F"]
-    assert calls[0][1]["shell"] is False
-    assert process.wait_calls
+    with pytest.raises(dev.DevError, match="configure"):
+        dev._create_windows_job(api=api)
+
+    assert api.calls[-2:] == [("close", 91), ("close", 91)]
+
+
+def test_windows_job_retries_a_transient_close_failure_without_leaking():
+    api = FakeWindowsJobApi(close_failures=1)
+    job = dev._create_windows_job(api=api)
+
+    job.close()
+
+    assert api.calls[-2:] == [("close", 91), ("close", 91)]
+
+
+def test_stop_process_closes_persistent_windows_job_after_leader_exit():
+    process = FakeProcess(505)
+    process.poll = lambda: 0
+    job = FakeWindowsJob()
+    process._dev_windows_job = job
+
+    dev._stop_process(process, platform_name="nt")
+
+    assert job.close_calls == 1
+    assert len(process.wait_calls) == 1
+
+
+def test_stop_process_reaps_windows_leader_when_job_close_fails():
+    process = FakeProcess(506)
+    process._dev_windows_job = FakeWindowsJob(close_error=OSError("close failed"))
+
+    with pytest.raises(dev.DevError, match="close"):
+        dev._stop_process(process, platform_name="nt")
+
+    assert len(process.wait_calls) == 1
 
 
 def _server_services(tmp_path, *, request, sleep=lambda _seconds: None, monotonic=lambda: 0):
@@ -402,10 +546,47 @@ def test_windows_servers_use_new_process_groups_without_start_new_session(tmp_pa
         tmp_path, request=request, sleep=lambda _seconds: (_ for _ in ()).throw(KeyboardInterrupt)
     )
     services.platform_name = "nt"
+    jobs = [FakeWindowsJob(), FakeWindowsJob()]
+    pending_jobs = iter(jobs)
+    services.windows_job_factory = lambda: next(pending_jobs)
 
     assert dev.demo(services, skip_setup=True) == 0
     assert all("start_new_session" not in call[1] for call in popen_calls)
     assert all(call[1]["creationflags"] == dev.WINDOWS_NEW_PROCESS_GROUP for call in popen_calls)
+    assert [job.assigned for job in jobs] == [[101], [202]]
+
+
+def test_windows_assignment_failure_closes_job_kills_and_reaps_child(tmp_path):
+    process = FakeProcess(606)
+    job = FakeWindowsJob(assign_error=OSError("assign failed"))
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        popen=lambda *_args, **_kwargs: process,
+        windows_job_factory=lambda: job,
+    )
+
+    with pytest.raises(dev.DevError, match="assign"):
+        dev._start_servers(services)
+
+    assert job.close_calls == 1
+    assert process.kill_calls == 1
+    assert len(process.wait_calls) == 1
+
+
+def test_windows_job_creation_failure_does_not_start_a_child(tmp_path):
+    popen_calls = []
+    services = _services(
+        tmp_path,
+        platform_name="nt",
+        popen=lambda *_args, **_kwargs: popen_calls.append(True),
+        windows_job_factory=lambda: (_ for _ in ()).throw(OSError("create failed")),
+    )
+
+    with pytest.raises(dev.DevError, match="create"):
+        dev._start_servers(services)
+
+    assert popen_calls == []
 
 
 def test_demo_installs_signal_cleanup_before_starting_children(tmp_path, monkeypatch):

@@ -1,4 +1,5 @@
 import argparse
+import ctypes
 import json
 import os
 import re
@@ -42,6 +43,146 @@ _PACKAGE_DATA_CHECK = (
 
 class DevError(RuntimeError):
     pass
+
+
+class _IoCounters(ctypes.Structure):
+    _fields_ = [
+        ("ReadOperationCount", ctypes.c_ulonglong),
+        ("WriteOperationCount", ctypes.c_ulonglong),
+        ("OtherOperationCount", ctypes.c_ulonglong),
+        ("ReadTransferCount", ctypes.c_ulonglong),
+        ("WriteTransferCount", ctypes.c_ulonglong),
+        ("OtherTransferCount", ctypes.c_ulonglong),
+    ]
+
+
+class _BasicLimitInformation(ctypes.Structure):
+    _fields_ = [
+        ("PerProcessUserTimeLimit", ctypes.c_longlong),
+        ("PerJobUserTimeLimit", ctypes.c_longlong),
+        ("LimitFlags", ctypes.c_uint32),
+        ("MinimumWorkingSetSize", ctypes.c_size_t),
+        ("MaximumWorkingSetSize", ctypes.c_size_t),
+        ("ActiveProcessLimit", ctypes.c_uint32),
+        ("Affinity", ctypes.c_size_t),
+        ("PriorityClass", ctypes.c_uint32),
+        ("SchedulingClass", ctypes.c_uint32),
+    ]
+
+
+class _ExtendedLimitInformation(ctypes.Structure):
+    _fields_ = [
+        ("BasicLimitInformation", _BasicLimitInformation),
+        ("IoInfo", _IoCounters),
+        ("ProcessMemoryLimit", ctypes.c_size_t),
+        ("JobMemoryLimit", ctypes.c_size_t),
+        ("PeakProcessMemoryUsed", ctypes.c_size_t),
+        ("PeakJobMemoryUsed", ctypes.c_size_t),
+    ]
+
+
+class _CtypesWindowsJobApi:
+    _KILL_ON_JOB_CLOSE = 0x00002000
+    _EXTENDED_LIMIT_INFORMATION_CLASS = 9
+
+    def __init__(self) -> None:
+        if os.name != "nt":
+            raise DevError("Windows Job Objects are only available on Windows.")
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.CreateJobObjectW.argtypes = [ctypes.c_void_p, ctypes.c_wchar_p]
+        kernel32.CreateJobObjectW.restype = ctypes.c_void_p
+        kernel32.SetInformationJobObject.argtypes = [
+            ctypes.c_void_p,
+            ctypes.c_int,
+            ctypes.c_void_p,
+            ctypes.c_uint32,
+        ]
+        kernel32.SetInformationJobObject.restype = ctypes.c_int
+        kernel32.AssignProcessToJobObject.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+        kernel32.AssignProcessToJobObject.restype = ctypes.c_int
+        kernel32.CloseHandle.argtypes = [ctypes.c_void_p]
+        kernel32.CloseHandle.restype = ctypes.c_int
+        self.kernel32 = kernel32
+
+    def _raise_last_error(self, action: str) -> None:
+        error = ctypes.get_last_error()
+        raise OSError(error, f"Could not {action} Windows Job Object")
+
+    def create(self) -> int:
+        handle = self.kernel32.CreateJobObjectW(None, None)
+        if not handle:
+            self._raise_last_error("create")
+        return int(handle)
+
+    def configure_kill_on_close(self, handle: int) -> None:
+        information = _ExtendedLimitInformation()
+        information.BasicLimitInformation.LimitFlags = self._KILL_ON_JOB_CLOSE
+        configured = self.kernel32.SetInformationJobObject(
+            handle,
+            self._EXTENDED_LIMIT_INFORMATION_CLASS,
+            ctypes.byref(information),
+            ctypes.sizeof(information),
+        )
+        if not configured:
+            self._raise_last_error("configure")
+
+    def assign(self, handle: int, process_handle: int) -> None:
+        if not self.kernel32.AssignProcessToJobObject(handle, process_handle):
+            self._raise_last_error("assign process to")
+
+    def close(self, handle: int) -> None:
+        if not self.kernel32.CloseHandle(handle):
+            self._raise_last_error("close")
+
+
+@dataclass
+class WindowsJob:
+    api: Any
+    handle: int
+    closed: bool = False
+
+    def assign(self, process: Any) -> None:
+        process_handle = getattr(process, "_handle", None)
+        if process_handle is None:
+            raise DevError("Could not assign process to Windows Job Object: missing handle.")
+        try:
+            self.api.assign(self.handle, process_handle)
+        except OSError as exc:
+            raise DevError(f"Could not assign process to Windows Job Object: {exc}") from exc
+
+    def close(self) -> None:
+        if self.closed:
+            return
+        last_error: OSError | None = None
+        for _attempt in range(2):
+            try:
+                self.api.close(self.handle)
+            except OSError as exc:
+                last_error = exc
+            else:
+                self.closed = True
+                return
+        raise DevError(f"Could not close Windows Job Object: {last_error}") from last_error
+
+
+def _create_windows_job(*, api: Any | None = None) -> WindowsJob:
+    active_api = api or _CtypesWindowsJobApi()
+    try:
+        handle = active_api.create()
+    except OSError as exc:
+        raise DevError(f"Could not create Windows Job Object: {exc}") from exc
+    job = WindowsJob(active_api, handle)
+    try:
+        active_api.configure_kill_on_close(handle)
+    except OSError as exc:
+        try:
+            job.close()
+        except DevError as close_exc:
+            raise DevError(
+                f"Could not configure or close Windows Job Object: {exc}; {close_exc}"
+            ) from exc
+        raise DevError(f"Could not configure Windows Job Object: {exc}") from exc
+    return job
 
 
 def _http_request(
@@ -110,29 +251,40 @@ def _stop_process_posix(process: Any, grace_seconds: float) -> None:
 
 def _stop_process_windows(
     process: Any,
-    run: Callable[..., Any],
     grace_seconds: float,
 ) -> None:
-    run(
-        ["taskkill", "/PID", str(process.pid), "/T", "/F"],
-        capture_output=True,
-        text=True,
-        check=False,
-        shell=False,
-    )
-    if not _reap_process(process, grace_seconds):
+    job = getattr(process, "_dev_windows_job", None)
+    close_error: Exception | None = None
+    if job is None:
+        close_error = DevError("Windows server process has no persistent Job Object.")
+    else:
+        try:
+            job.close()
+        except Exception as exc:
+            close_error = exc
+
+    if close_error is not None and process.poll() is None:
+        with suppress(OSError):
+            process.kill()
+    leader_reaped = _reap_process(process, grace_seconds)
+    if not leader_reaped:
+        with suppress(OSError):
+            process.kill()
+        leader_reaped = _reap_process(process, grace_seconds)
+    if not leader_reaped:
         raise DevError(f"Could not reap Windows server process {process.pid}.")
+    if close_error is not None:
+        raise DevError(f"Could not close Windows Job Object: {close_error}") from close_error
 
 
 def _stop_process(
     process: Any,
     *,
     platform_name: str = os.name,
-    run: Callable[..., Any] = subprocess.run,
     grace_seconds: float = 5.0,
 ) -> None:
     if platform_name == "nt":
-        _stop_process_windows(process, run, grace_seconds)
+        _stop_process_windows(process, grace_seconds)
     else:
         _stop_process_posix(process, grace_seconds)
 
@@ -155,6 +307,7 @@ class Services:
     stop_process: Callable[[Any], None] = _stop_process
     remove_tree: Callable[[Path], None] = shutil.rmtree
     temporary_directory: Callable[[], AbstractContextManager[Path]] = _temporary_directory
+    windows_job_factory: Callable[[], WindowsJob] = _create_windows_job
     output: TextIO = field(default_factory=lambda: sys.stdout)
     python_version: tuple[int, int, int] = field(
         default_factory=lambda: tuple(sys.version_info[:3])
@@ -230,6 +383,8 @@ def _run_checked(services: Services, argv: list[str], *, cwd: Path) -> None:
 
 
 def setup(services: Services) -> int:
+    if services.python_version < (3, 11, 0):
+        raise DevError("Python 3.11 or newer is required to create the development environment.")
     venv = services.root / ".venv"
     venv_python = _venv_python(services.root, services.platform_name)
     create_venv = not venv_python.is_file()
@@ -274,9 +429,14 @@ def setup(services: Services) -> int:
     return 0
 
 
-def _run_package_checks(services: Services, python: str) -> None:
+def _run_package_checks(
+    services: Services,
+    python: str,
+    artifacts_directory: Path,
+    temporary_root: Path,
+) -> None:
     root = services.root
-    artifacts = sorted(path for path in (root / "dist").glob("*") if path.is_file())
+    artifacts = sorted(path for path in artifacts_directory.iterdir() if path.is_file())
     wheels = [path for path in artifacts if path.suffix == ".whl"]
     if not artifacts or not wheels:
         raise DevError("Package build did not produce both checkable artifacts and a wheel.")
@@ -286,50 +446,45 @@ def _run_package_checks(services: Services, python: str) -> None:
         [python, "-m", "twine", "check", *(str(path) for path in artifacts)],
         cwd=root,
     )
-    with services.temporary_directory() as temporary_root:
-        isolated_venv = temporary_root / "wheel-venv"
-        isolated_python = _venv_entrypoint(
-            isolated_venv, "python", services.platform_name
-        )
-        _run_checked(
-            services,
-            [python, "-m", "venv", str(isolated_venv)],
-            cwd=root,
-        )
-        _run_checked(
-            services,
-            [str(isolated_python), "-m", "pip", "install", *(str(path) for path in wheels)],
-            cwd=root,
-        )
-        _run_checked(
-            services,
-            [str(isolated_python), "-c", _PACKAGE_VERSION_CHECK],
-            cwd=root,
-        )
-        entrypoints = (
-            "viet-writing-lint",
-            "viet-writing-validate-skills",
-            "viet-writing-validate-patterns",
-            "viet-writing-validate-examples",
-            "viet-writing-benchmark",
-            "viet-writing-generate-docs",
-        )
-        for entrypoint in entrypoints:
-            executable = _venv_entrypoint(
-                isolated_venv, entrypoint, services.platform_name
-            )
-            _run_checked(services, [str(executable), "--help"], cwd=root)
-        lint = _venv_entrypoint(isolated_venv, "viet-writing-lint", services.platform_name)
-        _run_checked(
-            services,
-            [str(lint), "tests/fixtures/natural_article.md"],
-            cwd=root,
-        )
-        _run_checked(
-            services,
-            [str(isolated_python), "-c", _PACKAGE_DATA_CHECK],
-            cwd=root,
-        )
+    isolated_venv = temporary_root / "wheel-venv"
+    isolated_python = _venv_entrypoint(isolated_venv, "python", services.platform_name)
+    _run_checked(
+        services,
+        [python, "-m", "venv", str(isolated_venv)],
+        cwd=root,
+    )
+    _run_checked(
+        services,
+        [str(isolated_python), "-m", "pip", "install", *(str(path) for path in wheels)],
+        cwd=root,
+    )
+    _run_checked(
+        services,
+        [str(isolated_python), "-c", _PACKAGE_VERSION_CHECK],
+        cwd=root,
+    )
+    entrypoints = (
+        "viet-writing-lint",
+        "viet-writing-validate-skills",
+        "viet-writing-validate-patterns",
+        "viet-writing-validate-examples",
+        "viet-writing-benchmark",
+        "viet-writing-generate-docs",
+    )
+    for entrypoint in entrypoints:
+        executable = _venv_entrypoint(isolated_venv, entrypoint, services.platform_name)
+        _run_checked(services, [str(executable), "--help"], cwd=root)
+    lint = _venv_entrypoint(isolated_venv, "viet-writing-lint", services.platform_name)
+    _run_checked(
+        services,
+        [str(lint), "tests/fixtures/natural_article.md"],
+        cwd=root,
+    )
+    _run_checked(
+        services,
+        [str(isolated_python), "-c", _PACKAGE_DATA_CHECK],
+        cwd=root,
+    )
 
 
 def check(services: Services) -> int:
@@ -346,11 +501,22 @@ def check(services: Services) -> int:
         ([python, "scripts/validate_examples.py"], root),
         ([python, "scripts/run_benchmarks.py", "--validate-only"], root),
         ([python, "scripts/generate_pattern_docs.py", "--check"], root),
-        ([python, "-m", "build"], root),
     ]
     for argv, cwd in root_commands:
         _run_checked(services, argv, cwd=cwd)
-    _run_package_checks(services, python)
+    with services.temporary_directory() as package_root:
+        artifacts_directory = package_root / "dist"
+        _run_checked(
+            services,
+            [python, "-m", "build", "--outdir", str(artifacts_directory)],
+            cwd=root,
+        )
+        _run_package_checks(
+            services,
+            python,
+            artifacts_directory,
+            package_root,
+        )
 
     remaining_commands = [
         ([python, "-m", "ruff", "check", "."], backend),
@@ -363,6 +529,22 @@ def check(services: Services) -> int:
         _run_checked(services, argv, cwd=cwd)
     _print(services, "All repository checks passed.")
     return 0
+
+
+def _discard_unmanaged_windows_child(process: Any, job: WindowsJob) -> None:
+    close_error: Exception | None = None
+    try:
+        job.close()
+    except Exception as exc:
+        close_error = exc
+    if process.poll() is None:
+        with suppress(OSError):
+            process.kill()
+    reaped = _reap_process(process, 5.0)
+    if not reaped:
+        raise DevError(f"Could not reap unassigned Windows process {process.pid}.")
+    if close_error is not None:
+        raise DevError(f"Could not close unassigned Windows Job Object: {close_error}")
 
 
 def _start_servers(services: Services) -> list[Any]:
@@ -413,15 +595,38 @@ def _start_servers(services: Services) -> list[Any]:
         else:
             process_group_options = {"start_new_session": True}
         for argv, cwd in commands:
-            processes.append(
-                services.popen(
+            windows_job: WindowsJob | None = None
+            if services.platform_name == "nt":
+                try:
+                    windows_job = services.windows_job_factory()
+                except Exception as exc:
+                    raise DevError(f"Could not create Windows Job Object: {exc}") from exc
+            try:
+                process = services.popen(
                     argv,
                     cwd=cwd,
                     env=environment,
                     shell=False,
                     **process_group_options,
                 )
-            )
+            except BaseException:
+                if windows_job is not None:
+                    windows_job.close()
+                raise
+            if windows_job is not None:
+                try:
+                    windows_job.assign(process)
+                except Exception as exc:
+                    try:
+                        _discard_unmanaged_windows_child(process, windows_job)
+                    except Exception as cleanup_exc:
+                        raise DevError(
+                            f"Could not assign Windows Job Object: {exc}; "
+                            f"cleanup failed: {cleanup_exc}"
+                        ) from exc
+                    raise DevError(f"Could not assign Windows Job Object: {exc}") from exc
+                process._dev_windows_job = windows_job
+            processes.append(process)
     except BaseException:
         _cleanup_servers(services, processes)
         raise
