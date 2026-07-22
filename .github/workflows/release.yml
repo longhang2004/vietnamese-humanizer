@@ -69,4 +69,7 @@ jobs:
           gh release create "$GITHUB_REF_NAME" dist/*
           --repo "$GITHUB_REPOSITORY"
           --verify-tag
-          --generate-notes
+          --generate-notes ||
+          gh release upload "$GITHUB_REF_NAME" dist/*
+          --repo "$GITHUB_REPOSITORY"
+          --clobber

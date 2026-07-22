@@ -45,7 +45,19 @@ This edit removes only the announcement. The input already states the Redis mech
 
 An agent does not need to rewrite every input. It should decline to guess when the subject, scope, date, or level of obligation is unclear.
 
-## Install Agent Skills from the repository
+## Install Agent Skills
+
+The fastest way to add these skills to an AI agent (such as Cursor, Claude Code, Antigravity, Windsurf, or VS Code) is using `npx skills`:
+
+```bash
+# Add all 4 skills from this repository
+npx skills add longhang2004/vietnamese-humanizer
+
+# Or add a specific skill (e.g. humanizer-vi)
+npx skills add longhang2004/vietnamese-humanizer --skill humanizer-vi
+```
+
+Alternatively, install manually from a git checkout:
 
 ```bash
 git clone https://github.com/longhang2004/vietnamese-humanizer.git

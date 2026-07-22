@@ -6,6 +6,17 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-07-22
+
+### Added
+
+- Added `npx skills add` installation support and updated public documentation in `README.md` and `README.vi.md`.
+- Added local agent skill installation artifacts (`.agents/`, `.claude/`, `agent/`, `skills-lock.json`) to `.gitignore`.
+
+### Fixed
+
+- Handled pre-existing GitHub Releases gracefully in Release CI workflow using `gh release upload --clobber`.
+
 ## [0.4.0] - 2026-07-22
 
 ### Added

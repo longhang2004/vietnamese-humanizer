@@ -45,7 +45,19 @@ Bản viết lại chỉ bỏ phần thông báo. Cơ chế Redis đã có trong
 
 Agent không cần viết lại mọi input. Khi chủ thể, phạm vi, ngày tháng hoặc mức độ nghĩa vụ còn mơ hồ, không đoán là cách xử lý đúng.
 
-## Cài Agent Skills từ repository
+## Cài Agent Skills
+
+Cách nhanh nhất để thêm các skill này vào AI agent (như Cursor, Claude Code, Antigravity, Windsurf, VS Code) là dùng `npx skills`:
+
+```bash
+# Thêm toàn bộ 4 skill từ repository
+npx skills add longhang2004/vietnamese-humanizer
+
+# Hoặc chỉ thêm một skill cụ thể (ví dụ: humanizer-vi)
+npx skills add longhang2004/vietnamese-humanizer --skill humanizer-vi
+```
+
+Hoặc cài thủ công từ source checkout:
 
 ```bash
 git clone https://github.com/longhang2004/vietnamese-humanizer.git

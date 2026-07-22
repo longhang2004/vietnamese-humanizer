@@ -15,6 +15,11 @@ benchmarks/results/*
 # CodeGraph local index and generated agent rules
 .codegraph/
 .cursor/
+.agents/
+.claude/
+agent/
+skills-lock.json
+
 
 # Node / frontend
 node_modules/
