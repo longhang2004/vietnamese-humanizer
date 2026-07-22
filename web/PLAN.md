@@ -1,5 +1,7 @@
 # Kế hoạch: Web app "Vietnamese Writing Skills"
 
+> **Tài liệu lịch sử (historical):** Đây là kế hoạch ban đầu, không phải runtime authority. Các số phiên bản, model, dependency, lệnh deploy và tiêu chí bên dưới ghi lại giả định tại thời điểm soạn thảo. Hãy dùng `pyproject.toml`, `web/backend/pyproject.toml`, `web/backend/app/config.py`, cấu hình deploy hiện tại và `web/README.md` làm nguồn thực thi hiện hành.
+
 Tài liệu này mô tả kiến trúc và phạm vi cho phần web (`web/`) trong monorepo `vietnamese-humanizer`. Mục tiêu: một trang web để *kiểm tra* (check) và *gợi ý sửa* văn phong tiếng Việt, dựa trên chính package, patterns và skills của repo — nhưng **không** làm ảnh hưởng tới mục đích gốc (bộ Agent Skills + linter deterministic + corpus/benchmark có review).
 
 ## Nguyên tắc bất di bất dịch (đọc trước khi code)

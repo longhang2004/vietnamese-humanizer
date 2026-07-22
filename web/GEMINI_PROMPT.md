@@ -1,5 +1,7 @@
 # Prompt cho Gemini: Thực thi Web App
 
+> **Tài liệu lịch sử (historical):** Prompt này ghi lại yêu cầu của lần triển khai web ban đầu; không dùng nó làm runtime authority hay chạy lại như một task hiện tại. Các số phiên bản, model, dependency, phạm vi file và lệnh bên dưới là ví dụ lịch sử. Hãy dùng manifest, mã nguồn, cấu hình deploy hiện tại và `web/README.md` để xác định hành vi hiện hành.
+
 Đây là prompt để giao cho Gemini thực thi. Đọc `PLAN.md` trước khi dùng prompt này.
 
 ---

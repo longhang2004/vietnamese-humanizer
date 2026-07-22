@@ -7,7 +7,7 @@
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-🌐 **Phiên bản web**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/) *(Phiên bản 0.4.0 giao diện Anti-Slop, chuẩn hóa font Plus Jakarta Sans & JetBrains Mono)*
+🌐 **Phiên bản web**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/)
 
 Bộ công cụ này biên tập tiếng Việt mà không làm thay đổi dữ kiện. Mục tiêu là giúp văn bản đầu vào rõ hơn, tự nhiên hơn và hợp với ngữ cảnh.
 
@@ -44,6 +44,18 @@ Bản viết lại chỉ bỏ phần thông báo. Cơ chế Redis đã có trong
 - `no_change`: Input đã phù hợp. Không sửa chỉ để tạo ra khác biệt.
 
 Agent không cần viết lại mọi input. Khi chủ thể, phạm vi, ngày tháng hoặc mức độ nghĩa vụ còn mơ hồ, không đoán là cách xử lý đúng.
+
+## Chạy web app trên máy cá nhân
+
+Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và npm. Từ source checkout, lệnh khởi động chính là:
+
+```bash
+python3 scripts/dev.py demo
+```
+
+Lệnh này kiểm tra điều kiện trên máy, tạo hoặc sửa `.venv`, cài package phát triển cho root và backend, chạy `npm ci`, rồi khởi động backend và frontend. Có thể chạy lại lệnh này. Mở `http://localhost:3000`; nhấn Ctrl-C để dừng cả hai server.
+
+Demo local chủ động tắt tính năng viết lại, nhận đóng góp và quản trị. Linter vẫn hoạt động mà không cần credential của nhà cung cấp hay cơ sở dữ liệu. Xem [hướng dẫn web](web/README.md) để biết biến môi trường theo tính năng và [hướng dẫn maintainer](docs/maintainer-guide.md) để kiểm tra repository, phát hành.
 
 ## Cài Agent Skills
 
@@ -159,7 +171,7 @@ python scripts/generate_pattern_docs.py
 
 ## Đóng góp
 
-Đọc [CONTRIBUTING.vi.md](CONTRIBUTING.vi.md), [mục lục tài liệu](docs/README.md) và [hướng dẫn viết pattern](docs/pattern-authoring-guide.md). Example mới phải có đủ input và context để kiểm chứng, nêu phần phải giữ cùng phần cấm thêm, chọn output mode và ghi đúng nguồn gốc đánh giá. Pattern mới cần taxonomy, phạm vi, cách aggregation, ngoại lệ, test và ví dụ không tự thêm dữ kiện.
+Đọc [CONTRIBUTING.vi.md](CONTRIBUTING.vi.md), [Bộ quy tắc ứng xử](CODE_OF_CONDUCT.vi.md), [mục lục tài liệu](docs/README.md) và [hướng dẫn viết pattern](docs/pattern-authoring-guide.md). Example mới phải có đủ input và context để kiểm chứng, nêu phần phải giữ cùng phần cấm thêm, chọn output mode và ghi đúng nguồn gốc đánh giá. Pattern mới cần taxonomy, phạm vi, cách aggregation, ngoại lệ, test và ví dụ không tự thêm dữ kiện.
 
 ## Giới hạn
 

@@ -1,120 +1,61 @@
-# Web App "Vietnamese Writing Skills"
+# Web app Vietnamese Writing Skills
 
-Trang web ứng dụng hỗ trợ **kiểm tra tín hiệu văn phong** và **gợi ý gọt giũa tiếng Việt**, sử dụng trực tiếp bộ package `vietnamese-writing-skills` và tích hợp Gemini API cho tính năng viết lại thử nghiệm.
+Web app cung cấp linter deterministic, danh mục pattern và các tính năng viết lại, nhận đóng góp có thể bật riêng. Linter nêu tín hiệu để người viết review; ứng dụng không chấm xác suất AI hay suy đoán tác giả.
 
----
+## Chạy local
 
-## ⚠️ Nguyên tắc cốt lõi
-
-1. **Không phân loại tác giả, không AI-probability score**: Trang web nêu các tín hiệu bề mặt giúp người viết tự review, **KHÔNG** chấm điểm hay kết luận "X% do AI viết".
-2. **Deterministic Check vs Generative Rewrite**:
-   - `/api/lint`: Chạy quy tắc linter deterministic của package gốc.
-   - `/api/rewrite`: Gọi Gemini API sinh bản gợi ý, **BẮT BUỘC** đi kèm nhãn `review_status: unreviewed` và disclaimer.
-3. **Bảo tồn Corpus**: Đóng góp case của người dùng (`POST /api/contributions`) được lưu vào CSDL Staging (`contributions`), **KHÔNG** tự động ghi vào các file JSONL corpus (`examples/` hay `benchmarks/`).
-4. **Thiết kế Anti-Slop & Chuẩn văn phong tiếng Việt (v0.4.0)**:
-   - Giao diện biên tập hiện đại sử dụng bộ font `Plus Jakarta Sans` (nội dung/tiêu đề) và `JetBrains Mono` (mã pattern, dòng/cột).
-   - Microcopy và nhãn UI tuân thủ 100% quy chuẩn diễn đạt tự nhiên, trực tiếp và câu chủ động của `vietnamese-writing-skills`.
-
----
-
-## Cấu trúc thư mục
-
-```
-web/
-├── PLAN.md                   # Tài liệu kế hoạch chi tiết
-├── GEMINI_PROMPT.md          # Prompt chỉ dẫn thực thi
-├── README.md                 # Hướng dẫn này
-├── backend/                  # FastAPI backend service
-│   ├── api/index.py          # Entry point cho Vercel Serverless Function
-│   ├── vercel.json           # Cấu hình Vercel Python Function
-│   ├── app/                  # Mã nguồn FastAPI app, config, schemas, DB, routers
-│   ├── tests/                # Pytest riêng cho backend
-│   ├── pyproject.toml        # Dependencies backend
-│   ├── requirements.txt      # Cho Serverless / Render deployment
-│   └── render.yaml           # Render Blueprint (nếu dùng Render)
-└── frontend/                 # Next.js App Router frontend
-    ├── app/                  # Pages (/ và /contribute)
-    ├── components/           # UI Components (Editor, IssueList, RewritePanel, ...)
-    ├── lib/                  # Fetch API client & TypeScript types
-    └── package.json          # Dependencies Next.js & Tailwind
-```
-
----
-
-## 🚀 Hướng dẫn chạy Local Development
-
-### 1. Khởi chạy Backend (FastAPI)
+Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và npm. Từ root repository, chạy:
 
 ```bash
-# 1. Cài đặt package gốc ở chế độ editable
-pip install -e .
-
-# 2. Chuyển vào thư mục backend và cài đặt dependencies
-cd web/backend
-pip install -e .
-
-# 3. Tạo file cấu hình môi trường
-cp .env.example .env
-
-# 4. Khởi chạy Uvicorn server
-uvicorn app.main:app --reload --port 8000
+python3 scripts/dev.py demo
 ```
 
-- API Health Check: `http://localhost:8000/api/health`
-- OpenAPI Documentation: `http://localhost:8000/docs`
+Đây là quickstart chính. Lệnh tự kiểm tra điều kiện, tạo hoặc sửa `.venv`, cài dependency bằng pip và `npm ci`, sau đó chạy backend tại `http://localhost:8000` và frontend tại `http://localhost:3000`. Có thể chạy lại setup; nhấn Ctrl-C để dừng cả hai server.
 
-#### Chạy Tests Backend:
+Demo chủ động đặt `REWRITE_ENABLED=false`, `CONTRIBUTIONS_ENABLED=false` và `ADMIN_API_ENABLED=false`. Vì vậy, luồng local mặc định chỉ cần linter, không cần API key hay database. Dùng `python3 scripts/dev.py smoke` để setup, khởi động hai server, kiểm tra health/frontend/lint rồi tự dừng.
+
+## Bật từng tính năng khi chạy thủ công
+
+Sao chép `web/backend/.env.example` thành `web/backend/.env` và `web/frontend/.env.local.example` thành `web/frontend/.env.local`, sau đó chỉ bật tính năng cần dùng.
+
+| Tính năng | Biến cấu hình | Hành vi |
+| --- | --- | --- |
+| Lint và metadata | `FRONTEND_ORIGIN`, `LINT_MAX_CHARS` | Luôn bật. Backend xử lý text để trả finding; mã nguồn dự án không biến input lint thành contribution. |
+| Viết lại | `REWRITE_ENABLED=true`, `GEMINI_API_KEY` không rỗng | Mặc định tắt. Text viết lại được gửi tới tích hợp Gemini; output luôn cần người dùng review. |
+| Nhận đóng góp | `CONTRIBUTIONS_ENABLED=true`, `DATABASE_URL` | Mặc định tắt. Submission được lưu để maintainer review, không tự động thành corpus hay dữ liệu huấn luyện. |
+| Admin | `ADMIN_API_ENABLED=true`, `DATABASE_URL`, `ADMIN_API_KEY` | Mặc định tắt. Key phải không phải placeholder, dài tối thiểu 32 ký tự và được gửi qua header `X-Admin-Key`. |
+| Frontend | `NEXT_PUBLIC_API_BASE_URL`; tùy chọn `NEXT_PUBLIC_SITE_URL` | Chọn backend URL và metadata base URL. |
+
+Nếu một flag bị tắt, route tương ứng trả `503`. Bật rewrite mà thiếu key, hoặc bật admin với key ngắn/placeholder, là cấu hình không hợp lệ và backend không khởi động.
+
+Khi cần chạy từng service sau khi đã setup:
 
 ```bash
 cd web/backend
-pytest
+../../.venv/bin/python -m uvicorn app.main:app --reload --port 8000
 ```
 
----
-
-### 2. Khởi chạy Frontend (Next.js)
-
 ```bash
-# 1. Chuyển vào thư mục frontend
 cd web/frontend
-
-# 2. Cài đặt npm dependencies
-npm install
-
-# 3. Tạo file cấu hình môi trường local
-cp .env.local.example .env.local
-
-# 4. Khởi chạy dev server
 npm run dev
 ```
 
-Trang web sẽ sẵn sàng tại `http://localhost:3000`.
+## Dữ liệu đóng góp và analytics
 
----
+Database contribution chỉ là vùng staging. Việc duyệt hoặc export không ghi vào `examples/` hay `benchmarks/`; muốn đưa nội dung vào corpus vẫn phải chuẩn hóa, bỏ dữ liệu nhạy cảm, review và mở pull request theo `CONTRIBUTING.vi.md`.
 
-## 🚢 Hướng dẫn Deploy CẢ Frontend + Backend lên Vercel + Neon PostgreSQL
+Wave 1 giữ dependency Vercel Analytics và render `<Analytics />`. Mã nguồn dự án không gửi custom event, user ID, văn bản document/lint/rewrite/contribution hay thuộc tính suy ra từ văn bản qua custom analytics event. Không suy rộng phát biểu này thành cam kết về retention của nhà cung cấp, log hosting, mã hóa, APM hay cấu hình của một deployment.
 
-### Bước 1: Tạo Database trên Neon.tech
-1. Đăng nhập [Neon.tech](https://neon.tech) -> Tạo Project mới.
-2. Sao chép chuỗi kết nối **Connection String** (dạng `postgresql://user:password@ep-xyz.neon.tech/neondb?sslmode=require`).
+## Deploy và kiểm tra
 
-### Bước 2: Deploy Backend (FastAPI) lên Vercel
-1. Đăng nhập Vercel -> Chọn **Add New...** -> **Project**.
-2. Chọn repository `vietnamese-humanizer`.
-3. Đặt tên project (ví dụ: `vietnamese-writing-skills-api`).
-4. **Root Directory**: Chọn `web/backend`.
-5. **Environment Variables**:
-   - `DATABASE_URL`: *(Dán Connection String từ Neon ở Bước 1)*
-   - `GEMINI_API_KEY`: Key Gemini API của bạn.
-   - `ADMIN_API_KEY`: Chuỗi secret key bảo vệ các route `/api/admin/*`.
-   - `FRONTEND_ORIGIN`: URL domain frontend Vercel (hoặc `*`).
-6. Bấm **Deploy**. Vercel sẽ tự động build Python backend và cấp URL (ví dụ `https://vietnamese-writing-skills-api.vercel.app`).
+`web/backend/render.yaml` là cấu hình Render hiện có: nó bật contribution/admin và nhận `DATABASE_URL` từ database đã khai báo, nhưng không bật rewrite. Frontend dùng `NEXT_PUBLIC_API_BASE_URL` để chọn backend. Các file này không chứng minh trạng thái hay thuộc tính bảo mật của deployment đang chạy.
 
-### Bước 3: Deploy Frontend (Next.js) lên Vercel
-1. Trên Vercel -> Chọn **Add New...** -> **Project**.
-2. Chọn lại repository `vietnamese-humanizer`.
-3. Đặt tên project (ví dụ: `vietnamese-writing-skills-web`).
-4. **Root Directory**: Chọn `web/frontend`.
-5. **Environment Variables**:
-   - `NEXT_PUBLIC_API_BASE_URL`: `https://vietnamese-writing-skills-api.vercel.app` *(URL Backend vừa deploy ở Bước 2)*.
-6. Bấm **Deploy**. Trang web hoàn chỉnh sẽ hoạt động tại URL frontend.
+Từ root repository:
+
+```bash
+python3 scripts/dev.py check
+python3 scripts/dev.py smoke --skip-setup
+git diff --check
+```
+
+Xem [hướng dẫn maintainer](../docs/maintainer-guide.md) để biết nội dung từng quality gate và quy trình review contribution.

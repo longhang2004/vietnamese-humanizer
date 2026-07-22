@@ -7,7 +7,7 @@
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-🌐 **Live Web Application**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/) *(v0.4.0 with Anti-Slop editorial aesthetics, Plus Jakarta Sans & JetBrains Mono typography)*
+🌐 **Live Web Application**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/)
 
 Tools for editing Vietnamese prose without changing its facts. They help make writing clearer, more natural, and consistent with its context.
 
@@ -44,6 +44,18 @@ This edit removes only the announcement. The input already states the Redis mech
 - `no_change`: The input is already suitable. Do not change it merely for variety.
 
 An agent does not need to rewrite every input. It should decline to guess when the subject, scope, date, or level of obligation is unclear.
+
+## Run the web app locally
+
+Python 3.11+, Node.js 20+, and npm are required. From a source checkout, the primary quickstart is:
+
+```bash
+python3 scripts/dev.py demo
+```
+
+The command checks the local prerequisites, creates or repairs `.venv`, installs the root and backend development packages, runs `npm ci`, and starts the backend and frontend. It is safe to run again. Open `http://localhost:3000`; press Ctrl-C to stop both servers.
+
+The local demo intentionally disables rewrite, contribution, and admin capabilities. Lint remains available without provider credentials or a database. See the [web guide](web/README.md) for capability-specific environment variables and the [maintainer guide](docs/maintainer-guide.md) for repository checks and release work.
 
 ## Install Agent Skills
 
@@ -159,7 +171,7 @@ python scripts/generate_pattern_docs.py
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md), the [documentation index](docs/README.md), and the [pattern authoring guide](docs/pattern-authoring-guide.md). New examples need enough input and context for verification, explicit preservation and no-addition constraints, an output mode, and accurate review provenance. New patterns need a taxonomy, scope, aggregation behavior, exceptions, tests, and examples that add no facts.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), the [Code of Conduct](CODE_OF_CONDUCT.md), the [documentation index](docs/README.md), and the [pattern authoring guide](docs/pattern-authoring-guide.md). New examples need enough input and context for verification, explicit preservation and no-addition constraints, an output mode, and accurate review provenance. New patterns need a taxonomy, scope, aggregation behavior, exceptions, tests, and examples that add no facts.
 
 ## Limitations
 
