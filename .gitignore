@@ -25,6 +25,7 @@ skills-lock.json
 # Node / frontend
 node_modules/
 .next/
+*.tsbuildinfo
 .vercel/
 web/frontend/.env*.local
 
