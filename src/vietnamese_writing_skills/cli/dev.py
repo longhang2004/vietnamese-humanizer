@@ -2,23 +2,42 @@ import argparse
 import json
 import os
 import re
+import shutil
 import signal
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.request
 from collections.abc import Callable, Iterator
-from contextlib import contextmanager
+from contextlib import AbstractContextManager, contextmanager, suppress
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, TextIO
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-HOST = "127.0.0.1"
+SERVER_HOST = "127.0.0.1"
+PUBLIC_HOST = "localhost"
 BACKEND_PORT = 8000
 FRONTEND_PORT = 3000
 SMOKE_TIMEOUT_SECONDS = 60.0
+WINDOWS_NEW_PROCESS_GROUP = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0x00000200)
+_VENV_VERSION_CHECK = "import sys; raise SystemExit(sys.version_info < (3, 11))"
+_PACKAGE_VERSION_CHECK = (
+    "import pathlib, tomllib, vietnamese_writing_skills; "
+    "expected = tomllib.loads(pathlib.Path('pyproject.toml').read_text())"
+    "['project']['version']; "
+    "assert vietnamese_writing_skills.__version__ == expected"
+)
+_PACKAGE_DATA_CHECK = (
+    "from importlib.resources import files; "
+    "root = files('vietnamese_writing_skills').joinpath('data'); "
+    "assert root.joinpath('patterns/schema.json').is_file(); "
+    "assert root.joinpath('examples/schema.json').is_file(); "
+    "assert root.joinpath('benchmarks/case.schema.json').is_file(); "
+    "assert root.joinpath('skills/humanizer-vi/SKILL.md').is_file()"
+)
 
 
 class DevError(RuntimeError):
@@ -47,22 +66,81 @@ def _port_available(host: str, port: int) -> bool:
     return True
 
 
-def _stop_process(process: Any) -> None:
-    process_running = process.poll() is None
-    try:
-        os.killpg(process.pid, signal.SIGTERM)
-    except ProcessLookupError:
-        return
-    if not process_running:
-        return
-    try:
-        process.wait(timeout=5)
-    except subprocess.TimeoutExpired:
+def _group_is_extinct(process_group: int, deadline: float) -> bool:
+    while True:
         try:
-            os.killpg(process.pid, signal.SIGKILL)
+            os.killpg(process_group, 0)
         except ProcessLookupError:
-            return
-        process.wait(timeout=5)
+            return True
+        if time.monotonic() >= deadline:
+            return False
+        time.sleep(min(0.05, max(0.0, deadline - time.monotonic())))
+
+
+def _reap_process(process: Any, timeout: float) -> bool:
+    try:
+        process.wait(timeout=max(0.0, timeout))
+    except subprocess.TimeoutExpired:
+        return False
+    return True
+
+
+def _stop_process_posix(process: Any, grace_seconds: float) -> None:
+    deadline = time.monotonic() + grace_seconds
+    with suppress(ProcessLookupError):
+        os.killpg(process.pid, signal.SIGTERM)
+
+    leader_reaped = _reap_process(process, deadline - time.monotonic())
+    group_extinct = _group_is_extinct(process.pid, deadline)
+    if not group_extinct:
+        with suppress(ProcessLookupError):
+            os.killpg(process.pid, signal.SIGKILL)
+        kill_deadline = time.monotonic() + grace_seconds
+        if not leader_reaped:
+            leader_reaped = _reap_process(process, kill_deadline - time.monotonic())
+        group_extinct = _group_is_extinct(process.pid, kill_deadline)
+
+    if not leader_reaped:
+        leader_reaped = _reap_process(process, grace_seconds)
+    if not leader_reaped:
+        raise DevError(f"Could not reap server process {process.pid}.")
+    if not group_extinct:
+        raise DevError(f"Could not stop server process group {process.pid}.")
+
+
+def _stop_process_windows(
+    process: Any,
+    run: Callable[..., Any],
+    grace_seconds: float,
+) -> None:
+    run(
+        ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+        capture_output=True,
+        text=True,
+        check=False,
+        shell=False,
+    )
+    if not _reap_process(process, grace_seconds):
+        raise DevError(f"Could not reap Windows server process {process.pid}.")
+
+
+def _stop_process(
+    process: Any,
+    *,
+    platform_name: str = os.name,
+    run: Callable[..., Any] = subprocess.run,
+    grace_seconds: float = 5.0,
+) -> None:
+    if platform_name == "nt":
+        _stop_process_windows(process, run, grace_seconds)
+    else:
+        _stop_process_posix(process, grace_seconds)
+
+
+@contextmanager
+def _temporary_directory() -> Iterator[Path]:
+    with tempfile.TemporaryDirectory(prefix="viet-writing-package-") as directory:
+        yield Path(directory)
 
 
 @dataclass
@@ -75,10 +153,13 @@ class Services:
     sleep: Callable[[float], None] = time.sleep
     port_available: Callable[[str, int], bool] = _port_available
     stop_process: Callable[[Any], None] = _stop_process
+    remove_tree: Callable[[Path], None] = shutil.rmtree
+    temporary_directory: Callable[[], AbstractContextManager[Path]] = _temporary_directory
     output: TextIO = field(default_factory=lambda: sys.stdout)
     python_version: tuple[int, int, int] = field(
         default_factory=lambda: tuple(sys.version_info[:3])
     )
+    platform_name: str = os.name
 
 
 def _print(services: Services, message: str) -> None:
@@ -116,7 +197,7 @@ def doctor(services: Services) -> int:
         problems.append("npm is required.")
 
     for port in (BACKEND_PORT, FRONTEND_PORT):
-        if not services.port_available(HOST, port):
+        if not services.port_available(SERVER_HOST, port):
             problems.append(f"Port {port} is already in use.")
 
     if problems:
@@ -127,12 +208,20 @@ def doctor(services: Services) -> int:
     return 0
 
 
-def _venv_python(root: Path) -> Path:
+def _venv_python(root: Path, platform_name: str) -> Path:
+    if platform_name == "nt":
+        return root / ".venv" / "Scripts" / "python.exe"
     return root / ".venv" / "bin" / "python"
 
 
+def _venv_entrypoint(venv: Path, name: str, platform_name: str) -> Path:
+    if platform_name == "nt":
+        return venv / "Scripts" / f"{name}.exe"
+    return venv / "bin" / name
+
+
 def _python_for(services: Services) -> str:
-    venv_python = _venv_python(services.root)
+    venv_python = _venv_python(services.root, services.platform_name)
     return str(venv_python) if venv_python.is_file() else sys.executable
 
 
@@ -141,8 +230,25 @@ def _run_checked(services: Services, argv: list[str], *, cwd: Path) -> None:
 
 
 def setup(services: Services) -> int:
-    venv_python = _venv_python(services.root)
-    if not venv_python.is_file():
+    venv = services.root / ".venv"
+    venv_python = _venv_python(services.root, services.platform_name)
+    create_venv = not venv_python.is_file()
+    if venv_python.is_file():
+        try:
+            version_check = services.run(
+                [str(venv_python), "-c", _VENV_VERSION_CHECK],
+                cwd=services.root,
+                capture_output=True,
+                text=True,
+                check=False,
+                shell=False,
+            )
+        except OSError:
+            version_check = None
+        if version_check is None or version_check.returncode != 0:
+            services.remove_tree(venv)
+            create_venv = True
+    if create_venv:
         _run_checked(
             services,
             [sys.executable, "-m", "venv", str(services.root / ".venv")],
@@ -159,6 +265,7 @@ def setup(services: Services) -> int:
             ".[dev]",
             "-e",
             "web/backend[dev]",
+            "twine>=5,<7",
         ],
         cwd=services.root,
     )
@@ -167,12 +274,70 @@ def setup(services: Services) -> int:
     return 0
 
 
+def _run_package_checks(services: Services, python: str) -> None:
+    root = services.root
+    artifacts = sorted(path for path in (root / "dist").glob("*") if path.is_file())
+    wheels = [path for path in artifacts if path.suffix == ".whl"]
+    if not artifacts or not wheels:
+        raise DevError("Package build did not produce both checkable artifacts and a wheel.")
+
+    _run_checked(
+        services,
+        [python, "-m", "twine", "check", *(str(path) for path in artifacts)],
+        cwd=root,
+    )
+    with services.temporary_directory() as temporary_root:
+        isolated_venv = temporary_root / "wheel-venv"
+        isolated_python = _venv_entrypoint(
+            isolated_venv, "python", services.platform_name
+        )
+        _run_checked(
+            services,
+            [python, "-m", "venv", str(isolated_venv)],
+            cwd=root,
+        )
+        _run_checked(
+            services,
+            [str(isolated_python), "-m", "pip", "install", *(str(path) for path in wheels)],
+            cwd=root,
+        )
+        _run_checked(
+            services,
+            [str(isolated_python), "-c", _PACKAGE_VERSION_CHECK],
+            cwd=root,
+        )
+        entrypoints = (
+            "viet-writing-lint",
+            "viet-writing-validate-skills",
+            "viet-writing-validate-patterns",
+            "viet-writing-validate-examples",
+            "viet-writing-benchmark",
+            "viet-writing-generate-docs",
+        )
+        for entrypoint in entrypoints:
+            executable = _venv_entrypoint(
+                isolated_venv, entrypoint, services.platform_name
+            )
+            _run_checked(services, [str(executable), "--help"], cwd=root)
+        lint = _venv_entrypoint(isolated_venv, "viet-writing-lint", services.platform_name)
+        _run_checked(
+            services,
+            [str(lint), "tests/fixtures/natural_article.md"],
+            cwd=root,
+        )
+        _run_checked(
+            services,
+            [str(isolated_python), "-c", _PACKAGE_DATA_CHECK],
+            cwd=root,
+        )
+
+
 def check(services: Services) -> int:
     python = _python_for(services)
     root = services.root
     frontend = root / "web" / "frontend"
     backend = root / "web" / "backend"
-    commands = [
+    root_commands = [
         ([python, "-m", "ruff", "check", "."], root),
         ([python, "-m", "pytest"], root),
         ([python, "scripts/check_release_consistency.py"], root),
@@ -182,13 +347,19 @@ def check(services: Services) -> int:
         ([python, "scripts/run_benchmarks.py", "--validate-only"], root),
         ([python, "scripts/generate_pattern_docs.py", "--check"], root),
         ([python, "-m", "build"], root),
+    ]
+    for argv, cwd in root_commands:
+        _run_checked(services, argv, cwd=cwd)
+    _run_package_checks(services, python)
+
+    remaining_commands = [
         ([python, "-m", "ruff", "check", "."], backend),
         ([python, "-m", "pytest"], backend),
         (["npm", "run", "lint"], frontend),
         (["npm", "exec", "tsc", "--", "--noEmit"], frontend),
         (["npm", "run", "build"], frontend),
     ]
-    for argv, cwd in commands:
+    for argv, cwd in remaining_commands:
         _run_checked(services, argv, cwd=cwd)
     _print(services, "All repository checks passed.")
     return 0
@@ -202,6 +373,8 @@ def _start_servers(services: Services) -> list[Any]:
             "REWRITE_ENABLED": "false",
             "CONTRIBUTIONS_ENABLED": "false",
             "ADMIN_API_ENABLED": "false",
+            "FRONTEND_ORIGIN": f"http://{PUBLIC_HOST}:{FRONTEND_PORT}",
+            "NEXT_PUBLIC_API_BASE_URL": f"http://{PUBLIC_HOST}:{BACKEND_PORT}",
         }
     )
     commands = [
@@ -212,7 +385,7 @@ def _start_servers(services: Services) -> list[Any]:
                 "uvicorn",
                 "app.main:app",
                 "--host",
-                HOST,
+                SERVER_HOST,
                 "--port",
                 str(BACKEND_PORT),
             ],
@@ -225,7 +398,7 @@ def _start_servers(services: Services) -> list[Any]:
                 "dev",
                 "--",
                 "--hostname",
-                HOST,
+                SERVER_HOST,
                 "--port",
                 str(FRONTEND_PORT),
             ],
@@ -234,6 +407,11 @@ def _start_servers(services: Services) -> list[Any]:
     ]
     processes = []
     try:
+        process_group_options: dict[str, Any]
+        if services.platform_name == "nt":
+            process_group_options = {"creationflags": WINDOWS_NEW_PROCESS_GROUP}
+        else:
+            process_group_options = {"start_new_session": True}
         for argv, cwd in commands:
             processes.append(
                 services.popen(
@@ -241,7 +419,7 @@ def _start_servers(services: Services) -> list[Any]:
                     cwd=cwd,
                     env=environment,
                     shell=False,
-                    start_new_session=True,
+                    **process_group_options,
                 )
             )
     except BaseException:
@@ -340,19 +518,22 @@ def demo(services: Services, *, skip_setup: bool = False) -> int:
             deadline = services.monotonic() + SMOKE_TIMEOUT_SECONDS
             _wait_for(
                 services,
-                f"http://{HOST}:{BACKEND_PORT}/api/health",
+                f"http://{PUBLIC_HOST}:{BACKEND_PORT}/api/health",
                 deadline,
                 processes,
                 predicate=_healthy,
             )
             _wait_for(
                 services,
-                f"http://{HOST}:{FRONTEND_PORT}/",
+                f"http://{PUBLIC_HOST}:{FRONTEND_PORT}/",
                 deadline,
                 processes,
                 predicate=_successful,
             )
-            _print(services, f"Demo ready at http://{HOST}:{FRONTEND_PORT}/ (Ctrl-C to stop).")
+            _print(
+                services,
+                f"Demo ready at http://{PUBLIC_HOST}:{FRONTEND_PORT}/ (Ctrl-C to stop).",
+            )
             while _servers_running(processes):
                 services.sleep(0.25)
             raise DevError("A local server exited unexpectedly.")
@@ -376,14 +557,14 @@ def smoke(services: Services, *, skip_setup: bool = False) -> int:
             deadline = services.monotonic() + SMOKE_TIMEOUT_SECONDS
             _wait_for(
                 services,
-                f"http://{HOST}:{BACKEND_PORT}/api/health",
+                f"http://{PUBLIC_HOST}:{BACKEND_PORT}/api/health",
                 deadline,
                 processes,
                 predicate=_healthy,
             )
             _wait_for(
                 services,
-                f"http://{HOST}:{FRONTEND_PORT}/",
+                f"http://{PUBLIC_HOST}:{FRONTEND_PORT}/",
                 deadline,
                 processes,
                 predicate=_successful,
@@ -392,7 +573,7 @@ def smoke(services: Services, *, skip_setup: bool = False) -> int:
                 {"text": "Trong bài viết này, chúng ta sẽ cùng tìm hiểu cách viết rõ hơn."}
             ).encode()
             status, body = services.request(
-                f"http://{HOST}:{BACKEND_PORT}/api/lint",
+                f"http://{PUBLIC_HOST}:{BACKEND_PORT}/api/lint",
                 method="POST",
                 payload=payload,
                 timeout=_remaining(services, deadline),

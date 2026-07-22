@@ -17,12 +17,12 @@ def test_dev_script_exists_as_repository_entrypoint():
     assert (ROOT / "scripts" / "dev.py").is_file()
 
 
-def test_dev_script_help_lists_all_commands():
+def test_dev_script_help_lists_all_commands_from_an_unrelated_cwd(tmp_path):
     environment = os.environ.copy()
     environment.pop("PYTHONPATH", None)
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "dev.py"), "--help"],
-        cwd=ROOT,
+        cwd=tmp_path,
         capture_output=True,
         text=True,
         check=False,
@@ -52,6 +52,12 @@ def _tool_runner(calls):
 
 
 def _services(tmp_path, **overrides):
+    @contextmanager
+    def temporary_directory():
+        path = tmp_path / "package-check"
+        path.mkdir(exist_ok=True)
+        yield path
+
     values = {
         "root": tmp_path,
         "run": _tool_runner([]),
@@ -61,8 +67,11 @@ def _services(tmp_path, **overrides):
         "sleep": lambda _seconds: None,
         "port_available": lambda _host, _port: True,
         "stop_process": lambda _process: None,
+        "remove_tree": lambda _path: None,
+        "temporary_directory": temporary_directory,
         "output": io.StringIO(),
         "python_version": (3, 13, 0),
+        "platform_name": "posix",
     }
     values.update(overrides)
     return dev.Services(**values)
@@ -121,6 +130,7 @@ def test_setup_creates_venv_installs_both_editables_and_frontend(tmp_path):
         ".[dev]",
         "-e",
         "web/backend[dev]",
+        "twine>=5,<7",
     ]
     assert calls[2][0] == ["npm", "ci"]
     assert calls[2][1]["cwd"] == tmp_path / "web" / "frontend"
@@ -136,55 +146,188 @@ def test_setup_reuses_an_existing_venv(tmp_path):
 
     assert dev.setup(services) == 0
 
+    assert calls[0][0] == [
+        str(venv_python),
+        "-c",
+        "import sys; raise SystemExit(sys.version_info < (3, 11))",
+    ]
     assert all(call[0][1:4] != ["-m", "venv", str(tmp_path / ".venv")] for call in calls)
 
 
+def test_setup_recreates_an_existing_python_310_venv(tmp_path):
+    venv_python = tmp_path / ".venv" / "bin" / "python"
+    venv_python.parent.mkdir(parents=True)
+    venv_python.touch()
+    calls = []
+    removed = []
+
+    def run(argv, **kwargs):
+        calls.append((argv, kwargs))
+        if argv[:2] == [str(venv_python), "-c"]:
+            return SimpleNamespace(returncode=1, stdout="", stderr="")
+        return _completed()
+
+    services = _services(
+        tmp_path,
+        run=run,
+        remove_tree=lambda path: removed.append(path),
+    )
+
+    assert dev.setup(services) == 0
+    assert removed == [tmp_path / ".venv"]
+    assert [sys.executable, "-m", "venv", str(tmp_path / ".venv")] in [
+        call[0] for call in calls
+    ]
+
+
+def test_venv_executables_are_platform_aware(tmp_path):
+    assert dev._venv_python(tmp_path, "posix") == tmp_path / ".venv" / "bin" / "python"
+    assert dev._venv_python(tmp_path, "nt") == tmp_path / ".venv" / "Scripts" / "python.exe"
+    assert dev._venv_entrypoint(tmp_path / "wheel", "viet-writing-lint", "nt") == (
+        tmp_path / "wheel" / "Scripts" / "viet-writing-lint.exe"
+    )
+
+
 def test_check_runs_core_backend_and_frontend_command_set(tmp_path):
+    dist = tmp_path / "dist"
+    dist.mkdir()
+    wheel = dist / "package.whl"
+    source = dist / "package.tar.gz"
+    wheel.touch()
+    source.touch()
     calls = []
     services = _services(tmp_path, run=_tool_runner(calls))
 
     assert dev.check(services) == 0
 
     commands = [call[0] for call in calls]
-    assert [sys.executable, "-m", "ruff", "check", "."] in commands
-    assert [sys.executable, "-m", "pytest"] in commands
-    assert [sys.executable, "scripts/check_release_consistency.py"] in commands
-    assert [sys.executable, "scripts/validate_skills.py"] in commands
-    assert [sys.executable, "scripts/validate_patterns.py"] in commands
-    assert [sys.executable, "scripts/validate_examples.py"] in commands
-    assert [sys.executable, "scripts/run_benchmarks.py", "--validate-only"] in commands
-    assert [sys.executable, "scripts/generate_pattern_docs.py", "--check"] in commands
-    assert [sys.executable, "-m", "build"] in commands
-    assert ["npm", "run", "lint"] in commands
-    assert ["npm", "exec", "tsc", "--", "--noEmit"] in commands
-    assert ["npm", "run", "build"] in commands
-    backend_pytest = [
-        call for call in calls if call[0] == [sys.executable, "-m", "pytest"]
+    assert commands[:9] == [
+        [sys.executable, "-m", "ruff", "check", "."],
+        [sys.executable, "-m", "pytest"],
+        [sys.executable, "scripts/check_release_consistency.py"],
+        [sys.executable, "scripts/validate_skills.py"],
+        [sys.executable, "scripts/validate_patterns.py"],
+        [sys.executable, "scripts/validate_examples.py"],
+        [sys.executable, "scripts/run_benchmarks.py", "--validate-only"],
+        [sys.executable, "scripts/generate_pattern_docs.py", "--check"],
+        [sys.executable, "-m", "build"],
     ]
-    assert {call[1]["cwd"] for call in backend_pytest} == {
-        tmp_path,
-        tmp_path / "web" / "backend",
-    }
+    assert commands[9] == [sys.executable, "-m", "twine", "check", str(source), str(wheel)]
+    isolated = tmp_path / "package-check" / "wheel-venv"
+    isolated_python = isolated / "bin" / "python"
+    assert commands[10] == [sys.executable, "-m", "venv", str(isolated)]
+    assert commands[11] == [str(isolated_python), "-m", "pip", "install", str(wheel)]
+    assert commands[12][:2] == [str(isolated_python), "-c"]
+    assert "__version__" in commands[12][2]
+    expected_entrypoints = [
+        "viet-writing-lint",
+        "viet-writing-validate-skills",
+        "viet-writing-validate-patterns",
+        "viet-writing-validate-examples",
+        "viet-writing-benchmark",
+        "viet-writing-generate-docs",
+    ]
+    assert commands[13:19] == [
+        [str(isolated / "bin" / entrypoint), "--help"] for entrypoint in expected_entrypoints
+    ]
+    assert commands[19] == [
+        str(isolated / "bin" / "viet-writing-lint"),
+        "tests/fixtures/natural_article.md",
+    ]
+    assert commands[20][:2] == [str(isolated_python), "-c"]
+    assert "patterns/schema.json" in commands[20][2]
+    assert commands[21:] == [
+        [sys.executable, "-m", "ruff", "check", "."],
+        [sys.executable, "-m", "pytest"],
+        ["npm", "run", "lint"],
+        ["npm", "exec", "tsc", "--", "--noEmit"],
+        ["npm", "run", "build"],
+    ]
+    assert [call[1]["cwd"] for call in calls[:21]] == [tmp_path] * 21
+    assert [call[1]["cwd"] for call in calls[21:23]] == [
+        tmp_path / "web" / "backend"
+    ] * 2
+    assert [call[1]["cwd"] for call in calls[23:]] == [
+        tmp_path / "web" / "frontend"
+    ] * 3
     assert all(call[1]["shell"] is False for call in calls)
 
 
 class FakeProcess:
     def __init__(self, pid):
         self.pid = pid
+        self.wait_calls = []
 
     def poll(self):
         return None
 
+    def wait(self, timeout):
+        self.wait_calls.append(timeout)
+        return 0
 
-def test_stop_process_terminates_the_process_group_after_parent_exit(monkeypatch):
+
+def test_stop_process_reaps_leader_and_confirms_posix_group_extinction(monkeypatch):
     signals = []
     process = FakeProcess(303)
     process.poll = lambda: 0
-    monkeypatch.setattr(dev.os, "killpg", lambda pid, signum: signals.append((pid, signum)))
 
-    dev._stop_process(process)
+    def kill_group(pid, signum):
+        signals.append((pid, signum))
+        if signum == 0:
+            raise ProcessLookupError
 
-    assert signals == [(303, signal.SIGTERM)]
+    monkeypatch.setattr(dev.os, "killpg", kill_group)
+
+    dev._stop_process(process, platform_name="posix", grace_seconds=0)
+
+    assert signals == [(303, signal.SIGTERM), (303, 0)]
+    assert len(process.wait_calls) == 1
+
+
+def test_stop_process_escalates_until_posix_group_is_extinct(monkeypatch):
+    process = FakeProcess(404)
+
+    def wait(timeout):
+        process.wait_calls.append(timeout)
+        if len(process.wait_calls) == 1:
+            raise subprocess.TimeoutExpired("server", timeout)
+        return 0
+
+    process.wait = wait
+    sent = []
+    probes = iter([True, True, False])
+    clock = Clock()
+
+    def kill_group(pid, signum):
+        if signum == 0:
+            if next(probes):
+                return
+            raise ProcessLookupError
+        sent.append((pid, signum))
+
+    monkeypatch.setattr(dev.os, "killpg", kill_group)
+    monkeypatch.setattr(dev.time, "monotonic", clock.monotonic)
+    monkeypatch.setattr(dev.time, "sleep", clock.sleep)
+
+    dev._stop_process(process, platform_name="posix", grace_seconds=1)
+
+    assert sent == [(404, signal.SIGTERM), (404, signal.SIGKILL)]
+    assert len(process.wait_calls) == 2
+
+
+def test_stop_process_uses_taskkill_and_reaps_on_windows():
+    process = FakeProcess(505)
+    calls = []
+
+    dev._stop_process(
+        process,
+        platform_name="nt",
+        run=lambda argv, **kwargs: calls.append((argv, kwargs)) or _completed(),
+    )
+
+    assert calls[0][0] == ["taskkill", "/PID", "505", "/T", "/F"]
+    assert calls[0][1]["shell"] is False
+    assert process.wait_calls
 
 
 def _server_services(tmp_path, *, request, sleep=lambda _seconds: None, monotonic=lambda: 0):
@@ -243,7 +386,26 @@ def test_demo_starts_with_argv_lists_and_cleans_up_both_servers_on_interrupt(tmp
     ]
     assert all(call[1]["shell"] is False for call in popen_calls)
     assert all(call[1]["start_new_session"] is True for call in popen_calls)
+    assert popen_calls[0][1]["env"]["FRONTEND_ORIGIN"] == "http://localhost:3000"
+    assert popen_calls[1][1]["env"]["NEXT_PUBLIC_API_BASE_URL"] == "http://localhost:8000"
+    assert "http://localhost:3000" in services.output.getvalue()
     assert stopped == [202, 101]
+
+
+def test_windows_servers_use_new_process_groups_without_start_new_session(tmp_path):
+    def request(url, **_kwargs):
+        if url.endswith("/api/health"):
+            return 200, b'{"status":"ok"}'
+        return 200, b"home"
+
+    services, popen_calls, _stopped = _server_services(
+        tmp_path, request=request, sleep=lambda _seconds: (_ for _ in ()).throw(KeyboardInterrupt)
+    )
+    services.platform_name = "nt"
+
+    assert dev.demo(services, skip_setup=True) == 0
+    assert all("start_new_session" not in call[1] for call in popen_calls)
+    assert all(call[1]["creationflags"] == dev.WINDOWS_NEW_PROCESS_GROUP for call in popen_calls)
 
 
 def test_demo_installs_signal_cleanup_before_starting_children(tmp_path, monkeypatch):
