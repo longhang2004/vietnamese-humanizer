@@ -7,6 +7,8 @@ from vietnamese_writing_skills.core.patterns import pattern_index
 from app.config import settings
 from app.schemas import RewriteResponse
 
+REWRITE_MODELS = ("gemini-2.5-flash", "gemini-2.5-flash-lite")
+
 
 class GeminiKeyMissingError(Exception):
     """Raised when GEMINI_API_KEY is not configured."""
@@ -50,12 +52,14 @@ def generate_rewrite(
         "Bạn là biên tập viên tiếng Việt. Sửa văn bản theo hướng dẫn skill và danh sách issue, "
         "nhưng BẮT BUỘC bảo toàn: dữ kiện, số liệu, tên riêng, "
         "mức độ chắc chắn, thuật ngữ chuyên môn. "
-        "Không thêm ví dụ/nguồn/metric mới. Trả lại chỉ văn bản đã sửa, không giải thích."
+        "Không thêm ví dụ/nguồn/metric mới. "
+        "Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. "
+        "Trả lại chỉ văn bản đã sửa, không giải thích."
     )
 
     user_prompt = f"""\
 [Skill Guidelines]
-{skill_content[:2000]}
+{skill_content}
 
 [Detected Issues & Strategies]
 {strategies_text}
@@ -67,7 +71,8 @@ def generate_rewrite(
     # 5. Call Gemini API using google-genai SDK
     client = genai.Client(api_key=settings.GEMINI_API_KEY)
     response = None
-    for model_name in ["gemini-2.5-flash", "gemini-2.0-flash"]:
+    last_error: Exception | None = None
+    for model_name in REWRITE_MODELS:
         try:
             response = client.models.generate_content(
                 model=model_name,
@@ -78,12 +83,14 @@ def generate_rewrite(
                 ),
             )
             if response and response.text:
+                last_error = None
                 break
-        except Exception as e:
-            if model_name == "gemini-2.0-flash":
-                raise e
+        except Exception as exc:
+            last_error = exc
+    if last_error is not None and (response is None or not response.text):
+        raise last_error
 
-    rewrite_text = response.text.strip() if response.text else text
+    rewrite_text = response.text.strip() if response and response.text else text
 
     return RewriteResponse(
         rewrite=rewrite_text,

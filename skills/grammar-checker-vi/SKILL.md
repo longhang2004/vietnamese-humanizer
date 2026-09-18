@@ -45,6 +45,15 @@ Các lỗi thường gặp và ngoại lệ nằm ở [common errors](references
 - Không kết luận câu lạ là sai khi thiếu ngữ cảnh.
 - Không tuyên bố văn bản do AI tạo hoặc hướng dẫn lách detector.
 
+## Cách chọn mức can thiệp
+
+Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn một mức:
+
+- **Giữ nguyên**: câu đã đúng nghĩa, hoặc tín hiệu catalog không đủ chắc.
+- **Viết lại**: lỗi có quy tắc và cách sửa đủ chắc, không đổi dữ kiện.
+- **Góp ý**: câu mơ hồ; nêu vị trí và lựa chọn.
+- **Cần tác giả quyết định**: cách hiểu làm đổi nghĩa, gồm thành phần bổ nghĩa gắn sai chủ thể.
+
 ## Đầu ra
 
 Nếu người dùng yêu cầu bản sạch, trả văn bản đã sửa. Nếu yêu cầu review, ghi vị trí, loại lỗi, đề xuất và độ chắc chắn. Với câu cần tác giả quyết định, giữ nguyên trong bản sạch và nêu riêng. Xem [examples](references/examples.md).

@@ -48,6 +48,15 @@ Nếu một metaphor tiếng Anh có nhiều cách hiểu, dùng diễn đạt t
 - Không tuyên bố đoạn văn do máy dịch hay AI tạo.
 - Không tối ưu cho detector.
 
+## Cách chọn mức can thiệp
+
+Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn một mức:
+
+- **Giữ nguyên**: cấu trúc chuyên môn, pháp lý hoặc thuật ngữ đã ổn.
+- **Viết lại**: translationese có thể gọt mà không đổi mệnh đề, điều kiện hay mức chắc chắn.
+- **Góp ý**: metaphor hoặc thuật ngữ cần xác minh.
+- **Cần tác giả quyết định**: nhiều cách hiểu hợp lý làm đổi nghĩa.
+
 ## Đầu ra
 
 Mặc định trả bản tiếng Việt đã sửa. Nếu người dùng cần review, liệt kê theo ba nhóm: cấu trúc dịch sát, thuật ngữ cần xác minh và chỗ giữ nguyên có chủ đích. Xem [examples](references/examples.md).

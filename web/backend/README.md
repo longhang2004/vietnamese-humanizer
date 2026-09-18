@@ -25,7 +25,7 @@ Copy `.env.example` to `.env` for manual backend runs. All three optional featur
 
 | Capability | Required variables | Notes |
 | --- | --- | --- |
-| Lint and metadata | Optional `FRONTEND_ORIGIN` | Always available. The request limit is fixed at 20,000 characters; configurability is deferred. |
+| Lint and metadata | Optional `FRONTEND_ORIGIN` | Always available. The request limit is fixed at 20,000 characters; configurability is deferred. `TRUSTED_PROXY_HOSTS` defaults to loopback and accepts IP or CIDR; private peers are not trusted unless listed or `TRUST_PRIVATE_PROXIES=true`. The client IP is the first untrusted hop walking `X-Forwarded-For` right-to-left. |
 | Rewrite | `REWRITE_ENABLED=true` and non-empty `GEMINI_API_KEY` | Text is sent to the configured Gemini integration; the generated result is marked unreviewed. |
 | Contributions | `CONTRIBUTIONS_ENABLED=true` | Stores submissions for review only. A submission does not automatically become corpus or training data. |
 | Admin | `ADMIN_API_ENABLED=true` and `ADMIN_API_KEY` | The key must be non-placeholder and at least 32 characters. Clients send it as `X-Admin-Key`. |

@@ -47,6 +47,15 @@ Khi hai quy tắc xung đột, thứ tự ưu tiên là yêu cầu trực tiếp
 - Không biến consistency review thành viết lại giọng tác giả.
 - Không suy đoán văn bản do AI tạo hoặc tối ưu cho detector.
 
+## Cách chọn mức can thiệp
+
+Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn một mức:
+
+- **Giữ nguyên**: đã đúng style guide, glossary, hoặc “bạn” và “người dùng” chỉ khác vai trò.
+- **Viết lại**: chuẩn hóa hình thức mà không đổi giá trị, thuật ngữ hay xưng hô đã chọn.
+- **Góp ý**: biến thể cần người viết xem lại.
+- **Cần tác giả quyết định**: xung đột xưng hô hoặc glossary chưa có dạng ưu tiên.
+
 ## Đầu ra
 
 Với tài liệu ngắn, trả bản đã chuẩn hóa và ghi vài quyết định quan trọng. Với corpus nhiều file, trả bảng quy tắc đã dùng, danh sách ngoại lệ và các chỗ cần chủ sở hữu quyết định. Xem [examples](references/examples.md).

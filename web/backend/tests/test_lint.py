@@ -1,5 +1,8 @@
+from fastapi.testclient import TestClient
 from vietnamese_writing_skills import __version__
 
+from app.config import settings
+from app.limiter import limiter
 from app.main import app
 
 
@@ -93,3 +96,83 @@ def test_lint_text_empty(client):
     }
     response = client.post("/api/lint", json=payload)
     assert response.status_code == 400
+
+
+def _enable_lint_rate_limit(monkeypatch):
+    monkeypatch.setattr(
+        "app.routers.lint.run_linter",
+        lambda **_kwargs: {
+            "version": "0.4.6",
+            "summary": {
+                "total": 0,
+                "error": 0,
+                "warning": 0,
+                "preference": 0,
+                "heuristic": 0,
+                "note": "test",
+            },
+            "issues": [],
+        },
+    )
+    limiter.enabled = True
+    storage = getattr(limiter, "_storage", None)
+    inner = getattr(storage, "storage", None) if storage is not None else None
+    if isinstance(inner, dict):
+        inner.clear()
+    return limiter
+
+
+def test_lint_rate_limit_ignores_untrusted_forwarded_for(client, monkeypatch):
+    limiter = _enable_lint_rate_limit(monkeypatch)
+    payload = {"text": "Một văn bản kiểm tra."}
+    statuses = []
+    for index in range(32):
+        response = client.post(
+            "/api/lint",
+            json=payload,
+            headers={"X-Forwarded-For": f"198.51.100.{index}"},
+        )
+        statuses.append(response.status_code)
+
+    assert statuses.count(200) == 30
+    assert statuses.count(429) == 2
+    limiter.enabled = False
+
+
+def test_lint_rate_limit_ignores_xff_from_undeclared_private_peer(monkeypatch):
+    limiter = _enable_lint_rate_limit(monkeypatch)
+    monkeypatch.setattr(settings, "TRUSTED_PROXY_HOSTS", "127.0.0.1,localhost,::1")
+    payload = {"text": "Một văn bản kiểm tra."}
+    statuses = []
+    with TestClient(app, client=("10.0.0.8", 50000)) as private_client:
+        for index in range(32):
+            response = private_client.post(
+                "/api/lint",
+                json=payload,
+                headers={"X-Forwarded-For": f"198.51.100.{index}"},
+            )
+            statuses.append(response.status_code)
+
+    assert statuses.count(200) == 30
+    assert statuses.count(429) == 2
+    limiter.enabled = False
+
+
+def test_lint_rate_limit_uses_client_before_trusted_proxy_hops(monkeypatch):
+    limiter = _enable_lint_rate_limit(monkeypatch)
+    monkeypatch.setattr(settings, "TRUSTED_PROXY_HOSTS", "127.0.0.1,10.0.0.0/8")
+    monkeypatch.setattr(settings, "TRUST_PRIVATE_PROXIES", False)
+    payload = {"text": "Một văn bản kiểm tra."}
+    statuses = []
+    with TestClient(app, client=("127.0.0.1", 50000)) as proxy_client:
+        for index in range(32):
+            response = proxy_client.post(
+                "/api/lint",
+                json=payload,
+                headers={"X-Forwarded-For": f"198.51.100.{index}, 10.0.0.3"},
+            )
+            statuses.append(response.status_code)
+
+    assert statuses.count(200) == 32
+    assert statuses.count(429) == 0
+    limiter.enabled = False

@@ -70,7 +70,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 sm:p-6 mb-8 transition-all">
+    <form onSubmit={handleSubmit} autoComplete="off" className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 sm:p-6 mb-8 transition-all">
       {/* Editor Header Bar */}
       <div className="flex flex-wrap justify-between items-center gap-2 mb-3">
         <label htmlFor="editor-input" className="block text-sm font-bold text-slate-800 tracking-tight flex items-center gap-2">
@@ -140,15 +140,22 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
           {activeSkills.map((skill) => {
             const isSelected = selectedSkills.includes(skill.id);
             return (
-              <div
+              <label
                 key={skill.id}
-                onClick={() => handleToggleSkill(skill.id)}
                 className={`p-3.5 rounded-xl border text-xs cursor-pointer transition-all duration-200 select-none ${
                   isSelected
                     ? "bg-sky-50/70 border-sky-300/80 text-sky-950 shadow-sm"
                     : "bg-slate-50/50 border-slate-200/70 text-slate-600 hover:bg-slate-100/60 hover:border-slate-300"
                 }`}
               >
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  checked={isSelected}
+                  onChange={() => handleToggleSkill(skill.id)}
+                  name="skills"
+                  value={skill.id}
+                />
                 <div className="flex items-start space-x-3">
                   <div
                     className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center transition-all ${
@@ -168,7 +175,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
                     <span className="text-slate-500 leading-normal block mt-1">{skill.when_to_use}</span>
                   </div>
                 </div>
-              </div>
+              </label>
             );
           })}
         </div>

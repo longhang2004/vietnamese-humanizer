@@ -218,7 +218,7 @@ Dùng FastAPI dependency kiểm tra header; sai/thiếu → HTTP 401.
 ### Rate limit (slowapi — áp dụng NGAY từ đầu cho MỌI endpoint)
 - Tạo `app/limiter.py`: `Limiter(key_func=get_remote_address)`. Gắn vào app, thêm exception handler cho `RateLimitExceeded` (trả 429).
 - Ngưỡng: lint 30/phút, patterns+skills 60/phút, rewrite 5/phút, contributions 3/phút. Admin không cần limit (đã có auth).
-- Trên Render (sau proxy), cấu hình đọc IP thật từ `X-Forwarded-For` (dùng `ProxyHeadersMiddleware` của uvicorn hoặc trusted hosts).
+- Trên Render (sau proxy), khai báo IP/CIDR proxy thật trong `TRUSTED_PROXY_HOSTS`. Middleware duyệt `X-Forwarded-For` từ phải sang trái, bỏ hop đã tin, rồi lấy client. Mặc định không tin toàn bộ dải private.
 
 ## Frontend — yêu cầu UX
 

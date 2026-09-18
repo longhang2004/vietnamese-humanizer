@@ -1,4 +1,8 @@
+import importlib
 import os
+import sys
+import types
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -14,6 +18,7 @@ from app.capabilities import (
 )
 from app.config import Settings, settings
 from app.main import app
+from app.proxy import forwarded_client_host, proxy_peer_is_trusted
 
 CAPABILITY_ENV_VARS = (
     "REWRITE_ENABLED",
@@ -48,6 +53,65 @@ def test_capability_settings_default_to_disabled_without_secrets():
     assert config.ADMIN_API_ENABLED is False
     assert config.GEMINI_API_KEY is None
     assert config.ADMIN_API_KEY is None
+    assert config.TRUSTED_PROXY_HOSTS == "127.0.0.1,localhost,::1"
+    assert config.TRUST_PRIVATE_PROXIES is False
+
+
+def test_testclient_peer_is_not_a_trusted_proxy_by_default(monkeypatch):
+    monkeypatch.setattr(settings, "TRUSTED_PROXY_HOSTS", "127.0.0.1,localhost,::1")
+    monkeypatch.setattr(settings, "TRUST_PRIVATE_PROXIES", False)
+    assert proxy_peer_is_trusted("testclient") is False
+    assert proxy_peer_is_trusted("127.0.0.1") is True
+    assert proxy_peer_is_trusted("10.0.0.4") is False
+    assert proxy_peer_is_trusted("10.0.0.8") is False
+
+
+def test_trusted_proxy_hosts_accept_cidr(monkeypatch):
+    monkeypatch.setattr(settings, "TRUSTED_PROXY_HOSTS", "10.0.0.0/8")
+    monkeypatch.setattr(settings, "TRUST_PRIVATE_PROXIES", False)
+    assert proxy_peer_is_trusted("10.0.0.8") is True
+    assert proxy_peer_is_trusted("192.168.0.9") is False
+
+
+def test_forwarded_client_skips_trusted_hops(monkeypatch):
+    monkeypatch.setattr(settings, "TRUSTED_PROXY_HOSTS", "127.0.0.1,10.0.0.0/8")
+    monkeypatch.setattr(settings, "TRUST_PRIVATE_PROXIES", False)
+    assert forwarded_client_host("127.0.0.1", "8.8.8.8, 10.0.0.3") == "8.8.8.8"
+    assert forwarded_client_host("8.8.8.8", "198.51.100.1") == "8.8.8.8"
+
+
+def test_proxy_imports_on_uvicorn_without_private_trusted_hosts(monkeypatch):
+    stub = types.ModuleType("uvicorn.middleware.proxy_headers")
+
+    class ProxyHeadersMiddleware:
+        def __init__(self, app, trusted_hosts="127.0.0.1"):
+            self.app = app
+
+    stub.ProxyHeadersMiddleware = ProxyHeadersMiddleware
+    original = sys.modules.get("app.proxy")
+    monkeypatch.setitem(sys.modules, "uvicorn.middleware.proxy_headers", stub)
+    sys.modules.pop("app.proxy", None)
+    try:
+        module = importlib.import_module("app.proxy")
+        monkeypatch.setattr(module.settings, "TRUSTED_PROXY_HOSTS", "127.0.0.1,10.0.0.0/8")
+        monkeypatch.setattr(module.settings, "TRUST_PRIVATE_PROXIES", False)
+        assert module.proxy_peer_is_trusted("127.0.0.1") is True
+        assert module.proxy_peer_is_trusted("10.0.0.8") is True
+        assert module.forwarded_client_host("127.0.0.1", "8.8.8.8, 10.0.0.3") == "8.8.8.8"
+    finally:
+        if original is not None:
+            sys.modules["app.proxy"] = original
+
+
+def test_declared_uvicorn_minimum_remains_0_30():
+    pyproject = (Path(__file__).resolve().parents[1] / "pyproject.toml").read_text(
+        encoding="utf-8"
+    )
+    requirements = (Path(__file__).resolve().parents[1] / "requirements.txt").read_text(
+        encoding="utf-8"
+    )
+    assert '"uvicorn>=0.30.0"' in pyproject
+    assert "uvicorn>=0.30.0" in requirements
 
 
 def test_rewrite_can_be_enabled_with_a_gemini_key():

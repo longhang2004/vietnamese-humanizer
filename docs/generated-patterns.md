@@ -93,12 +93,34 @@
 - False-positive risk: `medium`
 - Tóm tắt: Dùng đồng thời "vì vậy" và "nên" khi một từ nối đã đủ thể hiện quan hệ kết quả.
 - Rewrite strategy:
-  - Giữ "vì vậy" hoặc "nên" tùy cấu trúc câu và nhịp văn bản.
+  - Giữ "vì vậy" hoặc "nên" khi cả hai cùng chỉ kết quả. Nếu "nên" đang khuyên một hành động, giữ nguyên.
 - Good examples:
   - `clean_rewrite`: Vì vậy, công ty sẽ áp dụng phương án mới.
   - `clean_rewrite`: Máy hết pin nên dữ liệu chưa được đồng bộ.
+  - `no_change`: Vì vậy, nên sao lưu dữ liệu trước khi nâng cấp.
+    - Reason: "nên" ở đây là lời khuyên, không phải từ nối kết quả thừa.
+  - `no_change`: Vì vậy, nên chọn người có kinh nghiệm.
+    - Reason: "nên" khuyên một hành động; "có" trong "có kinh nghiệm" không phải trợ từ kết quả.
+  - `no_change`: Vì vậy, nên nghỉ. Tôi sẽ quay lại.
+    - Reason: Không đọc trợ từ ở câu sau để kết luận "nên" thừa.
+  - `no_change`: Vì vậy, nên chọn người đã làm việc ở đây.
+    - Reason: "đã" nằm trong mệnh đề bổ nghĩa, không biến "nên" thành liên từ kết quả thừa.
+  - `no_change`: Vì vậy, nên chọn máy được bảo hành.
+    - Reason: "được" trong "được bảo hành" không đủ để kết luận "nên" thừa.
+  - `no_change`: Vì vậy, nên mua máy đang giảm giá.
+    - Reason: Không đủ chắc "nên" là liên từ kết quả chỉ vì động từ không nằm trong danh sách có sẵn.
+  - `no_change`: Vì vậy, nên thuê người đã có kinh nghiệm.
+    - Reason: "nên thuê" là lời khuyên; "đã" nằm trong mệnh đề bổ nghĩa.
+  - `no_change`: Vì vậy, nên ưu tiên máy được bảo hành.
+    - Reason: Giữ nguyên khi không tách được vai trò khuyến nghị và liên từ kết quả.
+  - `no_change`: Vì vậy, nên công bố bản đã duyệt.
+    - Reason: "công bố" là động từ; không suy chủ ngữ từ âm tiết "công".
+  - `no_change`: Vì vậy, nên công nhận người đã đóng góp.
+    - Reason: "công nhận" là động từ khuyến nghị, không phải chủ ngữ "công ty".
+  - `no_change`: Vì vậy, nên dự thi khi đã chuẩn bị kỹ.
+    - Reason: "dự thi" là động từ; không suy chủ ngữ từ âm tiết "dự".
 - Exceptions:
-  - Lời thoại cần giữ nguyên khẩu ngữ hoặc trích dẫn nguyên văn.
+  - Khi "nên" mang nghĩa khuyến nghị; lời thoại cần giữ nguyên khẩu ngữ hoặc trích dẫn nguyên văn. Nếu không tách được hai vai trò, giữ nguyên.
 
 ## VI-GRA-L01: `lap-tu-lien-tiep`
 
@@ -113,8 +135,12 @@
 - Good examples:
   - `clean_rewrite`: Nhóm sẽ gửi kết quả vào chiều nay.
   - `clean_rewrite`: Hệ thống đang khởi động lại.
+  - `no_change`: Người người, nhà nhà đều hướng về quê.
+    - Reason: Phép lặp có nghĩa, không phải lỗi gõ.
+  - `no_change`: Bạn cứ từ từ đọc báo cáo.
+    - Reason: Từ láy "từ từ" nằm trong exclude_phrases.
 - Exceptions:
-  - Phép lặp biểu cảm, lời thoại, thơ hoặc ví dụ đang phân tích chính từ đó.
+  - Phép lặp biểu cảm, từ láy, lời thoại, thơ hoặc ví dụ đang phân tích chính từ đó.
 
 ## VI-GRA-L02: `chuan-doan-sai-chinh-ta`
 
@@ -177,8 +203,10 @@
 - Good examples:
   - `clean_rewrite`: Bản A đã duyệt, bản B còn chờ.
   - `clean_rewrite`: Lưu ý: không tắt máy.
+  - `no_change`: Gửi hotro@example.com hoặc xem README.md tại TP.HCM.
+    - Reason: Email, tên tệp và viết tắt giữ dấu chấm sát chữ.
 - Exceptions:
-  - Số thập phân, URL, email, phiên bản, code và identifier.
+  - Số thập phân, URL, email, phiên bản, code, identifier, tên tệp và viết tắt như TP.HCM.
 
 ## VI-GRA-P03: `dau-cau-lap`
 
@@ -197,6 +225,35 @@
     - Reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
 - Exceptions:
   - Hội thoại, mạng xã hội, trích dẫn và văn chương dùng dấu lặp có chủ đích.
+
+## VI-GRA-P04: `ngoac-khong-can`
+
+- Skill: `grammar-checker-vi`
+- Finding type: `preference`
+- Scope / aggregation: `document` / `single`
+- Severity / confidence: `low` / `medium`
+- False-positive risk: `medium`
+- Tóm tắt: Ngoặc hoặc dấu nháy mở/đóng không cân; cần người viết kiểm tra, không tự đoán chỗ đóng.
+- Rewrite strategy:
+  - Đánh dấu để người viết kiểm tra. Không tự thêm dấu đóng hay đổi vị trí ngoặc.
+- Good examples:
+  - `no_change`: Báo cáo “quý 3” vẫn chưa đóng.
+  - `no_change`: Xem [hướng dẫn](https://example.com/docs).
+    - Reason: Link Markdown cân ngoặc; URL không được che mất dấu đóng.
+  - `no_change`: Truy cập "https://example.com" để đọc thêm.
+    - Reason: URL trong ngoặc kép không được nuốt dấu đóng.
+  - `no_change`: Truy cập “https://example.com” để đọc thêm.
+    - Reason: URL trong ngoặc kép cong không được nuốt dấu đóng.
+  - `no_change`: Xem https://example.com/a(b) để biết thêm.
+    - Reason: Ngoặc thuộc đường dẫn URL phải được che cùng nhau.
+  - `no_change`: Kết nối http://[::1]:8000/ để thử.
+    - Reason: Ngoặc vuông của IPv6 thuộc URL, không phải ngoặc thiếu cặp.
+  - `no_change`: 1) Mở ứng dụng. 2) Chọn báo cáo.
+    - Reason: Dấu đóng trong ký hiệu đánh số không phải ngoặc đơn cần cặp.
+  - `review_comment`: Cần người viết kiểm tra ngoặc đơn, không tự thêm dấu đóng.
+    - Reason: Không tự đoán vị trí đóng.
+- Exceptions:
+  - Code, biểu thức, emoji, và trích đoạn cố ý để mở.
 
 ## VI-HUM-D01: `mo-bai-thong-bao-noi-dung`
 
@@ -314,7 +371,7 @@
 - Scope / aggregation: `paragraph` / `sequence`
 - Severity / confidence: `medium` / `medium`
 - False-positive risk: `medium`
-- Tóm tắt: Nhiều câu liên tiếp mở bằng "Việc" tạo nhịp đều và che chủ thể thực hiện.
+- Tóm tắt: Nhiều câu liên tiếp trong cùng đoạn mở bằng cùng một từ, tạo nhịp đều.
 - Rewrite strategy:
   - Đưa chủ thể hoặc động từ lên đầu; gộp câu khi chúng cùng một chủ thể.
 - Good examples:
@@ -324,6 +381,8 @@
     - Reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
 - Exceptions:
   - Khi "việc" gọi tên một hành vi đã được định nghĩa trong văn bản pháp lý hoặc phân tích.
+  - Danh sách có chủ đích (gạch đầu dòng, đánh số) dùng cùng chủ thể.
+  - Tín hiệu nằm ở các đoạn khác nhau.
 
 ## VI-HUM-S02: `khong-chi-ma-con-lap`
 
@@ -358,8 +417,14 @@
     - Reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   - `clean_rewrite`: Nhóm sửa lỗi, cập nhật tài liệu và qua đó tạo ra giá trị.
     - Reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - `no_change`: Nhóm lưu log, đồng thời gửi cảnh báo. Qua đó quy trình rõ hơn. Từ đó chất lượng tăng.
+    - Reason: Mỗi đoạn chỉ có một từ nối; không gộp tín hiệu xuyên đoạn.
+  - `no_change`: - Nhóm lưu log, đồng thời gửi cảnh báo. - Qua đó, quy trình rõ hơn. - Từ đó, chất lượng tăng.
+    - Reason: Danh sách có chủ đích; không gộp tín hiệu giữa các mục.
 - Exceptions:
-  - Trong lập luận dài khi mỗi từ nối biểu thị một quan hệ khác nhau và chính xác.
+  - Khi phép đối sánh là trọng tâm lập luận và không bị lặp trong đoạn.
+  - Tín hiệu nằm ở các đoạn khác nhau.
+  - Danh sách có chủ đích (gạch đầu dòng, đánh số).
 
 ## VI-HUM-S04: `do-dai-cau-dong-deu`
 
@@ -488,8 +553,10 @@
   - `clean_rewrite`: Bạn chọn gói rồi xác nhận địa chỉ.
     - Context: Style guide quy định gọi độc giả là “bạn”.
   - `needs_author_decision`: Cần xác nhận “chúng ta” có bao gồm người đọc hay chỉ phía “chúng tôi” trước khi sửa câu.
+  - `no_change`: Bạn có thể mời người dùng mới vào workspace.
+    - Reason: Bạn gọi độc giả, còn người dùng là đối tượng được nói tới.
 - Exceptions:
-  - Khi "người dùng" là đối tượng phân tích còn "bạn" là lời gọi trực tiếp, hoặc trích dẫn nhiều người nói.
+  - Khi "người dùng" hoặc "khách hàng" là đối tượng phân tích còn "bạn" là lời gọi trực tiếp, hoặc trích dẫn nhiều người nói. Không suy ra thiếu nhất quán chỉ vì hai cụm cùng xuất hiện.
 
 ## VI-STY-P02: `chung-ta-ep-dong-thuan`
 
@@ -542,8 +609,10 @@
     - Context: Glossary định nghĩa SLA là “thỏa thuận mức dịch vụ”.
   - `clean_rewrite`: Mục tiêu thời gian khôi phục (RTO) được dùng để quyết định phương án khôi phục.
     - Context: Glossary định nghĩa RTO là “mục tiêu thời gian khôi phục”.
+  - `no_change`: Thỏa thuận mức dịch vụ (SLA) được nêu ở đầu. SLA vẫn được rà trong cuộc họp.
+    - Reason: Lần xuất hiện sau đã có định nghĩa trước đó trong cùng tài liệu.
 - Exceptions:
-  - Từ viết tắt quen thuộc với độc giả, tên sản phẩm, đơn vị, code, bảng glossary hoặc nội dung chuyên gia.
+  - Từ viết tắt quen thuộc với độc giả, tên sản phẩm, đơn vị, code, bảng glossary, nội dung chuyên gia, hoặc acronym đã được giải thích trước đó trong cùng tài liệu.
 
 ## VI-TRA-L01: `mo-khoa-tiem-nang`
 
@@ -737,4 +806,4 @@
 - Exceptions:
   - Văn bản pháp lý cần giữ nguyên tên thủ tục hoặc trích dẫn biểu mẫu chính thức.
 
-Tổng cộng: **43 pattern**.
+Tổng cộng: **44 pattern**.

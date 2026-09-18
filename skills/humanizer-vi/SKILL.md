@@ -51,6 +51,15 @@ Danh mục giải thích nằm ở [patterns](references/patterns.md). Xem [exam
 - Không thay từ đồng nghĩa hàng loạt khi cấu trúc mới là vấn đề.
 - Không biến nội dung kỹ thuật, học thuật hoặc pháp lý thành bản quảng cáo.
 
+## Cách chọn mức can thiệp
+
+Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn một mức:
+
+- **Giữ nguyên**: câu đã đúng nghĩa và register, hoặc tín hiệu catalog không đủ chắc.
+- **Viết lại**: có thể sửa cấu trúc hoặc lỗi mà không đổi dữ kiện, lập trường hay thuật ngữ.
+- **Góp ý**: cần người viết xem lại; nêu vị trí và lựa chọn, đừng tự đoán.
+- **Cần tác giả quyết định**: xưng hô, glossary, hoặc cách hiểu làm đổi nghĩa.
+
 ## Đầu ra
 
-Mặc định chỉ trả bản đã biên tập. Khi người dùng yêu cầu review, dùng [review template](assets/review-template.md) và [rubric](references/evaluation.md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.
+Mặc định chỉ trả bản đã biên tập. Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. Khi người dùng yêu cầu review, dùng [review template](assets/review-template.md) và [rubric](references/evaluation.md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.

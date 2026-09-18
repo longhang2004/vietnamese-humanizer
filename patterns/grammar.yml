@@ -59,8 +59,11 @@ patterns:
     text: Bản A đã duyệt, bản B còn chờ.
   - mode: clean_rewrite
     text: 'Lưu ý: không tắt máy.'
+  - mode: no_change
+    text: Gửi hotro@example.com hoặc xem README.md tại TP.HCM.
+    reason: Email, tên tệp và viết tắt giữ dấu chấm sát chữ.
   exceptions:
-  - Số thập phân, URL, email, phiên bản, code và identifier.
+  - Số thập phân, URL, email, phiên bản, code, identifier, tên tệp và viết tắt như TP.HCM.
   false_positive_risk: medium
   tags:
   - dau-cau
@@ -138,8 +141,14 @@ patterns:
     text: Nhóm sẽ gửi kết quả vào chiều nay.
   - mode: clean_rewrite
     text: Hệ thống đang khởi động lại.
+  - mode: no_change
+    text: Người người, nhà nhà đều hướng về quê.
+    reason: Phép lặp có nghĩa, không phải lỗi gõ.
+  - mode: no_change
+    text: Bạn cứ từ từ đọc báo cáo.
+    reason: Từ láy "từ từ" nằm trong exclude_phrases.
   exceptions:
-  - Phép lặp biểu cảm, lời thoại, thơ hoặc ví dụ đang phân tích chính từ đó.
+  - Phép lặp biểu cảm, từ láy, lời thoại, thơ hoặc ví dụ đang phân tích chính từ đó.
   false_positive_risk: low
   tags:
   - lap-tu
@@ -396,7 +405,7 @@ patterns:
     - \bvì vậy\s*,?\s+nên\b
   why_it_matters: Hai từ nối cùng chức năng làm câu nặng mà không bổ sung quan hệ logic.
   rewrite_strategy:
-  - Giữ "vì vậy" hoặc "nên" tùy cấu trúc câu và nhịp văn bản.
+  - Giữ "vì vậy" hoặc "nên" khi cả hai cùng chỉ kết quả. Nếu "nên" đang khuyên một hành động, giữ nguyên.
   bad_examples:
   - text: Vì vậy nên công ty sẽ áp dụng phương án mới.
     reason: Một từ nối đã đủ dẫn kết quả.
@@ -407,10 +416,96 @@ patterns:
     text: Vì vậy, công ty sẽ áp dụng phương án mới.
   - mode: clean_rewrite
     text: Máy hết pin nên dữ liệu chưa được đồng bộ.
+  - mode: no_change
+    text: Vì vậy, nên sao lưu dữ liệu trước khi nâng cấp.
+    reason: '"nên" ở đây là lời khuyên, không phải từ nối kết quả thừa.'
+  - mode: no_change
+    text: Vì vậy, nên chọn người có kinh nghiệm.
+    reason: '"nên" khuyên một hành động; "có" trong "có kinh nghiệm" không phải trợ từ kết quả.'
+  - mode: no_change
+    text: Vì vậy, nên nghỉ. Tôi sẽ quay lại.
+    reason: Không đọc trợ từ ở câu sau để kết luận "nên" thừa.
+  - mode: no_change
+    text: Vì vậy, nên chọn người đã làm việc ở đây.
+    reason: '"đã" nằm trong mệnh đề bổ nghĩa, không biến "nên" thành liên từ kết quả thừa.'
+  - mode: no_change
+    text: Vì vậy, nên chọn máy được bảo hành.
+    reason: '"được" trong "được bảo hành" không đủ để kết luận "nên" thừa.'
+  - mode: no_change
+    text: Vì vậy, nên mua máy đang giảm giá.
+    reason: Không đủ chắc "nên" là liên từ kết quả chỉ vì động từ không nằm trong danh sách có sẵn.
+  - mode: no_change
+    text: Vì vậy, nên thuê người đã có kinh nghiệm.
+    reason: '"nên thuê" là lời khuyên; "đã" nằm trong mệnh đề bổ nghĩa.'
+  - mode: no_change
+    text: Vì vậy, nên ưu tiên máy được bảo hành.
+    reason: Giữ nguyên khi không tách được vai trò khuyến nghị và liên từ kết quả.
+  - mode: no_change
+    text: Vì vậy, nên công bố bản đã duyệt.
+    reason: '"công bố" là động từ; không suy chủ ngữ từ âm tiết "công".'
+  - mode: no_change
+    text: Vì vậy, nên công nhận người đã đóng góp.
+    reason: '"công nhận" là động từ khuyến nghị, không phải chủ ngữ "công ty".'
+  - mode: no_change
+    text: Vì vậy, nên dự thi khi đã chuẩn bị kỹ.
+    reason: '"dự thi" là động từ; không suy chủ ngữ từ âm tiết "dự".'
   exceptions:
-  - Lời thoại cần giữ nguyên khẩu ngữ hoặc trích dẫn nguyên văn.
+  - Khi "nên" mang nghĩa khuyến nghị; lời thoại cần giữ nguyên khẩu ngữ hoặc trích dẫn nguyên văn.
+    Nếu không tách được hai vai trò, giữ nguyên.
   false_positive_risk: medium
   tags:
   - quan-he-tu
   - thua-tu
+  min_occurrences: 1
+- id: VI-GRA-P04
+  name: ngoac-khong-can
+  skill: grammar-checker-vi
+  category: punctuation
+  finding_type: preference
+  scope: document
+  aggregation: single
+  severity: low
+  confidence: medium
+  summary: Ngoặc hoặc dấu nháy mở/đóng không cân; cần người viết kiểm tra, không tự đoán chỗ đóng.
+  signals:
+    regex:
+    - '[“”«»()\[\]]'
+  why_it_matters: Dấu không cân làm mơ hồ phạm vi trích dẫn hoặc bổ ngữ.
+  rewrite_strategy:
+  - Đánh dấu để người viết kiểm tra. Không tự thêm dấu đóng hay đổi vị trí ngoặc.
+  bad_examples:
+  - text: Báo cáo “quý 3 vẫn chưa đóng.
+    reason: Có dấu nháy mở mà thiếu dấu đóng.
+  - text: Xem phụ lục (bảng 2 trước khi gửi.
+    reason: Ngoặc đơn mở chưa được đóng.
+  good_examples:
+  - mode: no_change
+    text: Báo cáo “quý 3” vẫn chưa đóng.
+  - mode: no_change
+    text: Xem [hướng dẫn](https://example.com/docs).
+    reason: Link Markdown cân ngoặc; URL không được che mất dấu đóng.
+  - mode: no_change
+    text: 'Truy cập "https://example.com" để đọc thêm.'
+    reason: URL trong ngoặc kép không được nuốt dấu đóng.
+  - mode: no_change
+    text: Truy cập “https://example.com” để đọc thêm.
+    reason: URL trong ngoặc kép cong không được nuốt dấu đóng.
+  - mode: no_change
+    text: Xem https://example.com/a(b) để biết thêm.
+    reason: Ngoặc thuộc đường dẫn URL phải được che cùng nhau.
+  - mode: no_change
+    text: "Kết nối http://[::1]:8000/ để thử."
+    reason: Ngoặc vuông của IPv6 thuộc URL, không phải ngoặc thiếu cặp.
+  - mode: no_change
+    text: "1) Mở ứng dụng.\n2) Chọn báo cáo."
+    reason: Dấu đóng trong ký hiệu đánh số không phải ngoặc đơn cần cặp.
+  - mode: review_comment
+    text: Cần người viết kiểm tra ngoặc đơn, không tự thêm dấu đóng.
+    reason: Không tự đoán vị trí đóng.
+  exceptions:
+  - Code, biểu thức, emoji, và trích đoạn cố ý để mở.
+  false_positive_risk: medium
+  tags:
+  - dau-cau
+  - ngoac
   min_occurrences: 1

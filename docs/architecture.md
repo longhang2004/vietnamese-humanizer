@@ -12,7 +12,7 @@ Các file YAML trong `patterns/` lưu tín hiệu có thể kiểm tra hoặc g�
 
 ## Example corpus
 
-`examples/examples.jsonl` lưu 100 cặp input/output. Mỗi dòng có `context`, `must_preserve`, `must_not_add` và `preservation_review`. Context tách khỏi input để reviewer biết output được phép dùng dữ kiện nào. Cách này tránh các giải thích mơ hồ như “chi tiết đã có trong bài”. JSON Schema kiểm cấu trúc và tham chiếu pattern, không tự chứng minh bảo toàn ngữ nghĩa.
+`examples/examples.jsonl` lưu 103 cặp input/output. Mỗi dòng có `context`, `must_preserve`, `must_not_add` và `preservation_review`. Context tách khỏi input để reviewer biết output được phép dùng dữ kiện nào. Cách này tránh các giải thích mơ hồ như “chi tiết đã có trong bài”. JSON Schema kiểm cấu trúc và tham chiếu pattern, không tự chứng minh bảo toàn ngữ nghĩa.
 
 ## Python package
 

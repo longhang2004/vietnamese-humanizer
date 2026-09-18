@@ -6,6 +6,21 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+## [0.4.6] - 2026-09-18
+
+### Fixed
+
+- Chỉ tin header proxy từ IP/CIDR trong allowlist, tự triển khai không dùng API nội bộ của uvicorn nên `uvicorn>=0.30.0` vẫn import được; duyệt `X-Forwarded-For` từ phải sang trái để nhiều proxy không gom quota của client.
+- Linter: ngoặc kép cong, fence bốn backtick, và gom HUM-S01/S03 theo đoạn, kể cả mục list với HUM-S03.
+- Giảm báo nhầm `vì vậy nên` khi là lời khuyên (chỉ cảnh báo khi có cụm chủ ngữ đầy đủ như `công ty`/`dữ liệu`/`cuộc họp` kèm vị ngữ kết quả; cụm động từ hoặc trường hợp chưa chắc được giữ nguyên), từ láy như “người người” và “từ từ”, email/tên tệp/viết tắt, `bạn` với `người dùng`, acronym đã giải thích, link Markdown, URL trong ngoặc kép ASCII/cong, URL có ngoặc đơn hoặc ngoặc IPv6, khoảng trắng Unicode sau URL, và ký hiệu đánh số.
+- Panel viết lại không giữ kết quả của văn bản A sau khi lint văn bản B.
+- CORS trên Render cho phép origin Vercel đang công bố.
+
+### Changed
+
+- Next.js 16.3.x (sharp/postcss đã vá); rewrite Gemini gửi đủ skill và fallback `gemini-2.5-flash-lite`.
+- Catalog 44 pattern và 40 benchmark case, thêm fixture `no_change`.
+
 ## [0.4.5] - 2026-07-25
 
 ### Fixed

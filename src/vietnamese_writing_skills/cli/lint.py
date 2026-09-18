@@ -13,23 +13,85 @@ from typing import Any
 from vietnamese_writing_skills.core.paths import data_location, repository_root
 from vietnamese_writing_skills.core.patterns import iter_patterns, pattern_index
 
-FENCE_RE = re.compile(r"^\s*(```|~~~)")
+FENCE_RE = re.compile(r"^(\s*)([`~]{3,})(.*)$")
 INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
-URL_RE = re.compile(r"(?:https?://|www\.)\S+", flags=re.IGNORECASE)
+URL_START_RE = re.compile(r"(?:https?://|www\.)", flags=re.IGNORECASE)
+EMAIL_RE = re.compile(r"\b[\w.+-]+@[\w.-]+\.\w+\b")
+FILENAME_RE = re.compile(
+    r"\b[\w.-]+\.(?:md|txt|yml|yaml|json|py|ts|tsx|js|jsx|mjs|cjs|html|css|"
+    r"pdf|docx|xlsx|csv|png|jpg|jpeg|gif|svg|webp|zip|toml|ini|cfg|sh|bat|"
+    r"exe|dll|so|rs|go|java|kt|rb|php|xml|env|lock)\b",
+    flags=re.IGNORECASE,
+)
+ABBREV_RE = re.compile(r"\b(?:TP|P|Q|TT|GS|PGS|TS|ThS|BS|CN)\.[A-Za-zÀ-ỹĐđ.]+")
 IDENTIFIER_RE = re.compile(r"\b(?:[A-Za-z_][A-Za-z0-9_]*_[A-Za-z0-9_]+|[A-Za-z]+::[A-Za-z:]+)\b")
 SENTENCE_RE = re.compile(r"[^.!?\n]+[.!?]?", flags=re.UNICODE)
 WORD_RE = re.compile(r"[\wÀ-ỹĐđ]+", flags=re.UNICODE)
+LIST_PREFIX_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+")
 # Ký tự nguyên âm tiếng Việt có dấu (uppercase) — viết tắt thật không chứa các ký tự này
 _VIETNAMESE_VOWEL_MARKS_RE = re.compile(
     r"[ÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÈÉẺẼẸÊẾỀỂỄỆÌÍỈĨỊÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÙÚỦŨỤƯỨỪỬỮỰỲÝỶỸỴ]"
 )
+SMART_QUOTE_OPEN = "\u201c"
+SMART_QUOTE_CLOSE = "\u201d"
+URL_STOP_CHARS = frozenset("<>\"'«»") | {SMART_QUOTE_OPEN, SMART_QUOTE_CLOSE}
 PRONOUN_GROUPS = (
-    ("bạn", "quý khách", "người dùng", "khách hàng"),
+    ("bạn", "quý khách"),
     ("tôi", "chúng tôi", "chúng ta"),
 )
+RESULT_AUXILIARIES = {"sẽ", "đã", "đang", "bị", "được", "phải", "là", "chưa"}
+RESULT_SUBJECTS = (
+    ("công", "ty"),
+    ("dữ", "liệu"),
+    ("cuộc", "họp"),
+)
+REPEATED_FUNCTION_WORDS = {
+    "sẽ",
+    "đã",
+    "đang",
+    "là",
+    "được",
+    "bị",
+    "của",
+    "và",
+    "hoặc",
+    "nhưng",
+    "thì",
+    "mà",
+    "cho",
+    "với",
+    "trong",
+    "không",
+    "có",
+    "các",
+    "những",
+    "một",
+    "khi",
+    "nếu",
+    "để",
+    "rằng",
+    "vì",
+    "rất",
+    "cũng",
+    "vẫn",
+    "phải",
+    "cần",
+    "nên",
+    "hay",
+    "này",
+    "đó",
+    "từ",
+    "đến",
+    "tại",
+    "do",
+    "bởi",
+}
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
 FINDING_TYPES = ("error", "warning", "preference", "heuristic")
 SPECIAL_PATTERN_IDS = {
+    "VI-GRA-C06",
+    "VI-GRA-L01",
+    "VI-GRA-P04",
     "VI-HUM-S01",
     "VI-HUM-S04",
     "VI-STY-N02",
@@ -40,31 +102,84 @@ SPECIAL_PATTERN_IDS = {
 }
 
 
+def _blank_keep_newlines(line: str) -> str:
+    return "".join("\n" if char == "\n" else " " for char in line)
+
+
 def mask_protected(text: str) -> str:
     """Che nội dung không nên lint nhưng giữ nguyên newline và vị trí ký tự."""
     output: list[str] = []
     in_fence = False
-    fence_marker = ""
+    fence_char = ""
+    fence_length = 0
     for line in text.splitlines(keepends=True):
         fence = FENCE_RE.match(line)
-        if fence and (not in_fence or line.lstrip().startswith(fence_marker)):
-            marker = fence.group(1)
-            output.append("".join("\n" if char == "\n" else " " for char in line))
-            if in_fence:
-                in_fence = False
-                fence_marker = ""
-            else:
+        if fence:
+            marker = fence.group(2)
+            info = fence.group(3)
+            if not in_fence:
+                output.append(_blank_keep_newlines(line))
                 in_fence = True
-                fence_marker = marker
-            continue
+                fence_char = marker[0]
+                fence_length = len(marker)
+                continue
+            if (
+                marker[0] == fence_char
+                and len(marker) >= fence_length
+                and info.strip() == ""
+            ):
+                output.append(_blank_keep_newlines(line))
+                in_fence = False
+                fence_char = ""
+                fence_length = 0
+                continue
         if in_fence:
-            output.append("".join("\n" if char == "\n" else " " for char in line))
+            output.append(_blank_keep_newlines(line))
             continue
-        masked = line
-        for expression in (INLINE_CODE_RE, URL_RE, IDENTIFIER_RE):
+        masked = INLINE_CODE_RE.sub(lambda match: " " * len(match.group(0)), line)
+        masked = _mask_urls(masked)
+        for expression in (
+            EMAIL_RE,
+            FILENAME_RE,
+            ABBREV_RE,
+            IDENTIFIER_RE,
+        ):
             masked = expression.sub(lambda match: " " * len(match.group(0)), masked)
         output.append(masked)
     return "".join(output)
+
+
+def _url_end(text: str, body_start: int) -> int:
+    index = body_start
+    depth = 0
+    while index < len(text):
+        char = text[index]
+        if char.isspace() or char in URL_STOP_CHARS:
+            break
+        if char == "[":
+            close = text.find("]", index + 1)
+            if close != -1 and ":" in text[index + 1 : close]:
+                index = close + 1
+                continue
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            if depth == 0:
+                break
+            depth -= 1
+        elif char == "]" and depth == 0:
+            break
+        index += 1
+    return index
+
+
+def _mask_urls(text: str) -> str:
+    chars = list(text)
+    for match in URL_START_RE.finditer(text):
+        end = _url_end(text, match.end())
+        for index in range(match.start(), end):
+            chars[index] = " "
+    return "".join(chars)
 
 
 def _location(text: str, start: int) -> tuple[int, int]:
@@ -161,6 +276,55 @@ def _signal_matches(masked: str, pattern: dict[str, Any]) -> list[re.Match[str]]
     return [unique[key] for key in sorted(unique)]
 
 
+def _paragraph_ranges(text: str) -> list[tuple[int, int]]:
+    ranges: list[tuple[int, int]] = []
+    start = 0
+    for match in re.finditer(r"\n[ \t]*\n", text):
+        ranges.append((start, match.start()))
+        start = match.end()
+    ranges.append((start, len(text)))
+    return [
+        (span_start, span_end)
+        for span_start, span_end in ranges
+        if text[span_start:span_end].strip()
+    ]
+
+
+def _line_at(text: str, index: int) -> str:
+    line_start = text.rfind("\n", 0, index) + 1
+    line_end = text.find("\n", index)
+    if line_end < 0:
+        line_end = len(text)
+    return text[line_start:line_end]
+
+
+def _is_list_item(text: str, index: int) -> bool:
+    return bool(LIST_PREFIX_RE.match(_line_at(text, index)))
+
+
+def _emit_catalog_group(
+    text: str,
+    pattern: dict[str, Any],
+    ordered: list[re.Match[str]],
+) -> list[dict[str, Any]]:
+    threshold = pattern.get("min_occurrences", 1)
+    if len(ordered) < threshold:
+        return []
+    aggregation = pattern.get("aggregation", "single")
+    if aggregation == "single":
+        return [_issue(text, match.start(), match.end(), pattern) for match in ordered]
+    first = ordered[0]
+    return [
+        _issue(
+            text,
+            first.start(),
+            first.end(),
+            pattern,
+            occurrence_spans=[(match.start(), match.end()) for match in ordered],
+        )
+    ]
+
+
 def _catalog_issues(
     text: str,
     masked: str,
@@ -168,29 +332,25 @@ def _catalog_issues(
     skills: set[str] | None,
 ) -> list[dict[str, Any]]:
     issues: list[dict[str, Any]] = []
+    paragraph_ranges = _paragraph_ranges(masked)
     for _, pattern in iter_patterns(pattern_dir):
         if skills and pattern["skill"] not in skills:
             continue
         if pattern["id"] in SPECIAL_PATTERN_IDS:
             continue
         ordered = _signal_matches(masked, pattern)
-        threshold = pattern.get("min_occurrences", 1)
-        if len(ordered) < threshold:
+        if pattern.get("scope") == "paragraph":
+            for start, end in paragraph_ranges:
+                local = [match for match in ordered if start <= match.start() < end]
+                if pattern["id"] == "VI-HUM-S03":
+                    local = [
+                        match
+                        for match in local
+                        if not _is_list_item(masked, match.start())
+                    ]
+                issues.extend(_emit_catalog_group(text, pattern, local))
             continue
-        aggregation = pattern.get("aggregation", "single")
-        if aggregation == "single":
-            issues.extend(_issue(text, match.start(), match.end(), pattern) for match in ordered)
-            continue
-        first = ordered[0]
-        issues.append(
-            _issue(
-                text,
-                first.start(),
-                first.end(),
-                pattern,
-                occurrence_spans=[(match.start(), match.end()) for match in ordered],
-            )
-        )
+        issues.extend(_emit_catalog_group(text, pattern, ordered))
     return issues
 
 
@@ -210,26 +370,34 @@ def _repeated_opening_issues(
 ) -> list[dict[str, Any]]:
     sentences = _sentences(masked)
     issues: list[dict[str, Any]] = []
-    for index in range(len(sentences) - 2):
-        window = sentences[index : index + 3]
-        openings = [words[0].casefold() for _, words in window]
-        if len(set(openings)) != 1:
-            continue
-        match = window[0][0]
-        issues.append(
-            _issue(
-                text,
-                match.start(),
-                match.end(),
-                patterns["VI-HUM-S01"],
-                f"Ba câu liên tiếp cùng mở đầu bằng “{openings[0]}”.",
-                "Đổi chủ thể hoặc gộp câu nếu quan hệ giữa các ý cho phép.",
-                occurrence_spans=[
-                    (sentence_match.start(), sentence_match.start() + len(words[0]))
-                    for sentence_match, words in window
-                ],
+    for paragraph_start, paragraph_end in _paragraph_ranges(masked):
+        local = [
+            item
+            for item in sentences
+            if paragraph_start <= item[0].start() < paragraph_end
+        ]
+        for index in range(len(local) - 2):
+            window = local[index : index + 3]
+            if all(_is_list_item(masked, sentence_match.start()) for sentence_match, _ in window):
+                continue
+            openings = [words[0].casefold() for _, words in window]
+            if len(set(openings)) != 1:
+                continue
+            match = window[0][0]
+            issues.append(
+                _issue(
+                    text,
+                    match.start(),
+                    match.end(),
+                    patterns["VI-HUM-S01"],
+                    f"Ba câu liên tiếp cùng mở đầu bằng “{openings[0]}”.",
+                    "Đổi chủ thể hoặc gộp câu nếu quan hệ giữa các ý cho phép.",
+                    occurrence_spans=[
+                        (sentence_match.start(), sentence_match.start() + len(words[0]))
+                        for sentence_match, words in window
+                    ],
+                )
             )
-        )
     return issues
 
 
@@ -363,19 +531,25 @@ def _is_emphasis_context(masked: str, match: re.Match[str]) -> bool:
 
 def _is_in_quoted_text(text: str, match: re.Match[str]) -> bool:
     """Kiểm tra xem match có nằm trong ngoặc kép/quote không."""
-    # Đếm số ngoặc kép trước match
-    before = text[:match.start()]
-    # Hỗ trợ cả " (ASCII) và " " (smart quotes)
-    ascii_quote_count = before.count('"')
-    smart_open_count = before.count('"')
-    smart_close_count = before.count('"')
-    
-    # Nếu có ASCII quotes, check parity
-    if ascii_quote_count > 0 and ascii_quote_count % 2 == 1:
+    before = text[: match.start()]
+    if before.count('"') % 2 == 1:
         return True
-    
-    # Nếu có smart quotes, check balance
-    return smart_open_count > smart_close_count
+    return before.count(SMART_QUOTE_OPEN) > before.count(SMART_QUOTE_CLOSE)
+
+
+def _acronym_definition_offsets(masked: str) -> dict[str, int]:
+    defined: dict[str, int] = {}
+    for match in re.finditer(
+        r"\b[\wÀ-ỹĐđ]+(?:\s+[\wÀ-ỹĐđ]+){1,12}\s+\(([A-ZĐ]{3,6})\)",
+        masked,
+    ):
+        defined.setdefault(match.group(1), match.start(1))
+    for match in re.finditer(
+        r"\b([A-ZĐ]{3,6})\s+\((?:[\wÀ-ỹĐđ]+(?:\s+[\wÀ-ỹĐđ]+)+)\)",
+        masked,
+    ):
+        defined.setdefault(match.group(1), match.start(1))
+    return defined
 
 
 def _acronym_issues(
@@ -384,6 +558,7 @@ def _acronym_issues(
     patterns: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     pattern = patterns["VI-STY-T02"]
+    defined = _acronym_definition_offsets(masked)
     issues: list[dict[str, Any]] = []
     for match in _signal_matches(masked, pattern):
         word = match.group(0)
@@ -395,6 +570,9 @@ def _acronym_issues(
             continue
         # Từ nằm trong ngoặc kép (quote, slogan) → skip
         if _is_in_quoted_text(text, match):
+            continue
+        defined_at = defined.get(word)
+        if defined_at is not None and match.start() >= defined_at:
             continue
         is_parenthesized = (
             match.start() > 0
@@ -412,6 +590,131 @@ def _acronym_issues(
         is_first_definition = is_parenthesized and len(WORD_RE.findall(expansion)) >= 2
         if not is_first_definition:
             issues.append(_issue(text, match.start(), match.end(), pattern))
+    return issues
+
+
+def _sentence_tail(masked: str, start: int) -> str:
+    tail = masked[start:]
+    cut = len(tail)
+    for separator in ".!?\n":
+        index = tail.find(separator)
+        if 0 <= index < cut:
+            cut = index
+    return tail[:cut]
+
+
+def _redundant_connector_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-GRA-C06"]
+    issues: list[dict[str, Any]] = []
+    for match in re.finditer(r"\bvì vậy\s*,?\s+nên\b", masked, flags=re.IGNORECASE):
+        words = WORD_RE.findall(_sentence_tail(masked, match.end()))[:6]
+        lowered = [word.casefold() for word in words]
+        subject_length = next(
+            (
+                len(subject)
+                for subject in RESULT_SUBJECTS
+                if tuple(lowered[: len(subject)]) == subject
+            ),
+            0,
+        )
+        if not subject_length:
+            continue
+        predicate = lowered[subject_length:]
+        if not any(word in RESULT_AUXILIARIES for word in predicate[:4]):
+            continue
+        issues.append(_issue(text, match.start(), match.end(), pattern))
+    return issues
+
+
+def _repeated_word_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-GRA-L01"]
+    issues: list[dict[str, Any]] = []
+    for match in _signal_matches(masked, pattern):
+        word = match.group(1) if match.lastindex else match.group(0).split()[0]
+        if word.casefold() not in REPEATED_FUNCTION_WORDS:
+            continue
+        issues.append(_issue(text, match.start(), match.end(), pattern))
+    return issues
+
+
+def _balance_scan_text(masked: str) -> str:
+    lines: list[str] = []
+    for line in masked.splitlines(keepends=True):
+        match = LIST_PREFIX_RE.match(line)
+        if not match:
+            lines.append(line)
+            continue
+        prefix = "".join(" " if char in ".)" else char for char in line[: match.end()])
+        lines.append(prefix + line[match.end() :])
+    return "".join(lines)
+
+
+def _first_unbalanced_delimiter(text: str, opener: str, closer: str) -> int:
+    if opener == closer:
+        stack: list[int] = []
+        for index, char in enumerate(text):
+            if char != opener:
+                continue
+            if stack:
+                stack.pop()
+            else:
+                stack.append(index)
+        return stack[0] if stack else -1
+
+    stack = []
+    extra_closer = -1
+    for index, char in enumerate(text):
+        if char == opener:
+            stack.append(index)
+        elif char == closer:
+            if stack:
+                stack.pop()
+            elif extra_closer < 0:
+                extra_closer = index
+    if stack:
+        start = stack[0]
+        if extra_closer < 0 or start < extra_closer:
+            return start
+    return extra_closer
+
+
+def _unbalanced_delimiter_issues(
+    text: str,
+    masked: str,
+    patterns: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    pattern = patterns["VI-GRA-P04"]
+    scanned = _balance_scan_text(masked)
+    issues: list[dict[str, Any]] = []
+    checks = (
+        ('"', '"', 'Ngoặc kép ASCII " không cân.'),
+        (SMART_QUOTE_OPEN, SMART_QUOTE_CLOSE, "Ngoặc kép cong “ ” không cân."),
+        ("«", "»", "Ngoặc kép « » không cân."),
+        ("(", ")", "Ngoặc đơn không cân."),
+        ("[", "]", "Ngoặc vuông không cân."),
+    )
+    for opener, closer, message in checks:
+        start = _first_unbalanced_delimiter(scanned, opener, closer)
+        if start < 0:
+            continue
+        issues.append(
+            _issue(
+                text,
+                start,
+                start + 1,
+                pattern,
+                message,
+                "Đánh dấu để người viết kiểm tra; không tự thêm dấu đóng.",
+            )
+        )
     return issues
 
 
@@ -459,6 +762,10 @@ def lint_text(
     if not skills or "humanizer-vi" in skills:
         issues.extend(_repeated_opening_issues(text, masked, patterns))
         issues.extend(_uniform_length_issue(text, masked, patterns))
+    if not skills or "grammar-checker-vi" in skills:
+        issues.extend(_redundant_connector_issues(text, masked, patterns))
+        issues.extend(_repeated_word_issues(text, masked, patterns))
+        issues.extend(_unbalanced_delimiter_issues(text, masked, patterns))
     if not skills or "style-guide-vi" in skills:
         issues.extend(_pronoun_issues(text, masked, patterns))
         issues.extend(_terminology_consistency_issues(text, masked, patterns))

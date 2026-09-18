@@ -9,7 +9,8 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str | None = None
     ADMIN_API_KEY: str | None = None
     DATABASE_URL: str = "sqlite:///./dev.db"
-    LINT_MAX_CHARS: int = 20000
+    TRUSTED_PROXY_HOSTS: str = "127.0.0.1,localhost,::1"
+    TRUST_PRIVATE_PROXIES: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env",

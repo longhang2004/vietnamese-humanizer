@@ -70,6 +70,40 @@ def test_rewrite_with_gemini_key(client, monkeypatch, mock_gemini):
     }
 
 
+def test_rewrite_sends_full_skill_prompt_to_supported_model(monkeypatch, mock_gemini):
+    from app.services.rewriter import generate_rewrite
+
+    monkeypatch.setattr(settings, "GEMINI_API_KEY", "dummy_test_key")
+    generate_rewrite("Trong bối cảnh không ngừng phát triển.", "humanizer-vi")
+
+    kwargs = mock_gemini.models.generate_content.call_args.kwargs
+    prompt = kwargs["contents"]
+    assert kwargs["model"] == "gemini-2.5-flash"
+    assert "Anti-goals" in prompt
+    assert "Đầu ra" in prompt
+    assert "gemini-2.0-flash" not in str(kwargs)
+
+
+def test_rewrite_fallback_skips_retired_flash(monkeypatch, mock_gemini):
+    from unittest.mock import MagicMock
+
+    from app.services.rewriter import generate_rewrite
+
+    monkeypatch.setattr(settings, "GEMINI_API_KEY", "dummy_test_key")
+    success = MagicMock()
+    success.text = "Bản viết lại."
+    mock_gemini.models.generate_content.side_effect = [RuntimeError("unavailable"), success]
+
+    generate_rewrite("Trong bối cảnh không ngừng phát triển.")
+
+    models = [
+        call.kwargs["model"] for call in mock_gemini.models.generate_content.call_args_list
+    ]
+    assert models[0] == "gemini-2.5-flash"
+    assert "gemini-2.0-flash" not in models
+    assert models[-1].startswith("gemini-2.5")
+
+
 def test_rewrite_provider_failure_does_not_expose_exception_details(client, monkeypatch):
     secret = "gemini-secret-token"
     raw_fragment = "[Original Text] confidential customer fragment"

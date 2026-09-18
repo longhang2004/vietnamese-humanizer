@@ -5,5 +5,6 @@
 - Dấu phẩy không đứng giữa chủ ngữ và vị ngữ chỉ vì chủ ngữ dài.
 - Dùng dấu hai chấm để giới thiệu phần giải thích hoặc liệt kê có quan hệ rõ.
 - Ngoặc và dấu nháy phải cân; giữ kiểu dấu nháy theo style guide của tài liệu.
+- Nếu ngoặc hoặc dấu nháy không cân, đánh dấu để người viết kiểm tra. Không tự thêm dấu đóng hay đoán vị trí.
 - Với số thập phân và ngày tháng, làm theo quy ước domain thay vì thay hàng loạt.
 - Không đặt dấu phẩy theo mọi nhịp ngắt của câu tiếng Anh.

@@ -7,7 +7,7 @@ services:
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: FRONTEND_ORIGIN
-        value: https://vietnamese-writing-skills.vercel.app
+        value: https://vietnamese-humanizer-g1o9.vercel.app,https://vietnamese-writing-skills.vercel.app
       - key: GEMINI_API_KEY
         sync: false
       - key: ADMIN_API_KEY

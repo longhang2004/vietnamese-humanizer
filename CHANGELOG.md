@@ -6,6 +6,21 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.4.6] - 2026-09-18
+
+### Fixed
+
+- Trusted reverse-proxy headers only from an explicit IP/CIDR allowlist implemented without uvicorn private APIs, so `uvicorn>=0.30.0` still imports; `X-Forwarded-For` is walked right-to-left so intermediate proxies do not share client quota.
+- Lint engine: curly quotes, four-backtick fences, and paragraph-scoped HUM-S01/S03 aggregation, including list items for HUM-S03.
+- False positives on `vì vậy nên` advice (only flag when a full subject such as `công ty`/`dữ liệu`/`cuộc họp` is followed by a result predicate; unknown or verbal compounds stay clean), reduplication like “người người” and “từ từ”, email/filename/abbreviation spacing, `bạn` vs `người dùng`, previously defined acronyms, Markdown links, quoted URLs (ASCII and curly), URLs with parentheses or IPv6 brackets, Unicode spaces after URLs, and numbered-list markers.
+- Rewrite panel no longer keeps text A’s suggestion after linting text B.
+- Render CORS allowlist now includes the published Vercel origin.
+
+### Changed
+
+- Next.js 16.3.x (patched sharp/postcss); Gemini rewrite sends the full skill prompt and falls back to `gemini-2.5-flash-lite`.
+- Catalog is 44 patterns and 40 benchmark cases, with more `no_change` fixtures.
+
 ## [0.4.5] - 2026-07-25
 
 ### Fixed

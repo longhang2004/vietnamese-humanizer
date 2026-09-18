@@ -27,9 +27,12 @@ patterns:
     context: Style guide quy định gọi độc giả là “bạn”.
   - mode: needs_author_decision
     text: Cần xác nhận “chúng ta” có bao gồm người đọc hay chỉ phía “chúng tôi” trước khi sửa câu.
+  - mode: no_change
+    text: Bạn có thể mời người dùng mới vào workspace.
+    reason: Bạn gọi độc giả, còn người dùng là đối tượng được nói tới.
   exceptions:
-  - Khi "người dùng" là đối tượng phân tích còn "bạn" là lời gọi trực tiếp, hoặc trích dẫn nhiều người
-    nói.
+  - Khi "người dùng" hoặc "khách hàng" là đối tượng phân tích còn "bạn" là lời gọi trực tiếp, hoặc trích dẫn nhiều người
+    nói. Không suy ra thiếu nhất quán chỉ vì hai cụm cùng xuất hiện.
   false_positive_risk: high
   tags:
   - dai-tu
@@ -290,9 +293,12 @@ patterns:
   - mode: clean_rewrite
     text: Mục tiêu thời gian khôi phục (RTO) được dùng để quyết định phương án khôi phục.
     context: Glossary định nghĩa RTO là “mục tiêu thời gian khôi phục”.
+  - mode: no_change
+    text: Thỏa thuận mức dịch vụ (SLA) được nêu ở đầu. SLA vẫn được rà trong cuộc họp.
+    reason: Lần xuất hiện sau đã có định nghĩa trước đó trong cùng tài liệu.
   exceptions:
-  - Từ viết tắt quen thuộc với độc giả, tên sản phẩm, đơn vị, code, bảng glossary hoặc nội dung chuyên
-    gia.
+  - Từ viết tắt quen thuộc với độc giả, tên sản phẩm, đơn vị, code, bảng glossary, nội dung chuyên
+    gia, hoặc acronym đã được giải thích trước đó trong cùng tài liệu.
   false_positive_risk: high
   tags:
   - viet-tat

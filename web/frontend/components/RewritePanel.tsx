@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { rewriteText } from "../lib/api";
 import { RewriteResponse } from "../lib/types";
 
@@ -10,31 +10,44 @@ interface RewritePanelProps {
 export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueIds }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<RewriteResponse | null>(null);
+  const [resultSource, setResultSource] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+  const requestGeneration = useRef(0);
+  const visibleResult = resultSource === originalText ? result : null;
+  const visibleError = resultSource === originalText ? errorMsg : null;
+  const visibleLoading = resultSource === originalText && loading;
 
   const handleRewrite = async () => {
     if (!originalText.trim()) return;
+    const generation = ++requestGeneration.current;
     setLoading(true);
     setErrorMsg(null);
     setCopied(false);
+    setResult(null);
+    setResultSource(originalText);
     try {
       const res = await rewriteText(originalText, "humanizer-vi", issueIds);
+      if (generation !== requestGeneration.current) return;
       setResult(res);
+      setResultSource(originalText);
     } catch (err: unknown) {
+      if (generation !== requestGeneration.current) return;
       if (err instanceof Error) {
         setErrorMsg(err.message);
       } else {
         setErrorMsg("Đã xảy ra lỗi không xác định khi gọi gợi ý viết lại.");
       }
     } finally {
-      setLoading(false);
+      if (generation === requestGeneration.current) {
+        setLoading(false);
+      }
     }
   };
 
   const handleCopy = () => {
-    if (!result?.rewrite) return;
-    navigator.clipboard.writeText(result.rewrite);
+    if (!visibleResult?.rewrite) return;
+    navigator.clipboard.writeText(visibleResult.rewrite);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -57,10 +70,10 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
         <button
           type="button"
           onClick={handleRewrite}
-          disabled={loading || !originalText.trim()}
+          disabled={visibleLoading || !originalText.trim()}
           className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-emerald-600/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none active:scale-[0.98] transition-all flex items-center space-x-2"
         >
-          {loading ? (
+          {visibleLoading ? (
             <>
               <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -79,20 +92,20 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
         </button>
       </div>
 
-      {errorMsg && (
+      {visibleError && (
         <div className="p-3.5 bg-amber-50 border border-amber-200/80 text-amber-900 rounded-xl text-xs mb-4">
-          <span className="font-bold">Lưu ý hệ thống:</span> {errorMsg}
+          <span className="font-bold">Lưu ý hệ thống:</span> {visibleError}
         </div>
       )}
 
-      {result && (
+      {visibleResult && (
         <div className="mt-4 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
             <div className="flex items-center space-x-2">
               <span className="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-mono font-bold rounded-full border border-amber-200 uppercase tracking-wider">
-                {result.review_status}
+                {visibleResult.review_status}
               </span>
-              <span className="text-xs text-slate-500 italic">{result.disclaimer}</span>
+              <span className="text-xs text-slate-500 italic">{visibleResult.disclaimer}</span>
             </div>
 
             <button
@@ -132,7 +145,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
                 <span className="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Cần tác giả duyệt</span>
               </span>
               <p className="whitespace-pre-wrap text-emerald-950 font-medium leading-relaxed font-sans">
-                {result.rewrite}
+                {visibleResult.rewrite}
               </p>
             </div>
           </div>

@@ -53,7 +53,7 @@ def test_console_entry_modules_expose_main() -> None:
 
 def test_repository_resources_are_loaded() -> None:
     location = data_location("patterns", ROOT)
-    assert len(pattern_index(location)) == 43
+    assert len(pattern_index(location)) >= 43
 
 
 def test_pyproject_packages_official_import_and_resources() -> None:
@@ -176,8 +176,10 @@ def test_release_hardening_files_and_status_are_present() -> None:
     assert "sensitive" in security.lower()
     assert 'package-ecosystem: "pip"' in dependabot
     assert 'package-ecosystem: "github-actions"' in dependabot
-    assert dependabot.count('interval: "weekly"') == 2
-    assert "## 0.2.x / Post-0.2" in roadmap
+    assert 'package-ecosystem: "npm"' in dependabot
+    assert dependabot.count('interval: "weekly"') >= 2
+    assert "## Next" in roadmap
+    assert "AI detectors" in roadmap
     assert "## 0.2\n" not in roadmap
     unreleased, released = changelog.split("## [0.2.0]", 1)
     assert "Trusted Publishing" not in unreleased

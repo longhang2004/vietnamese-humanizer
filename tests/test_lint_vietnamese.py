@@ -295,6 +295,184 @@ def test_quoted_acronyms_are_not_reported() -> None:
     assert "VI-STY-T02" not in ids('"JUST DO IT" là slogan Nike.', "style-guide-vi")
     assert "VI-STY-T02" not in ids('"HELLO WORLD" trong code.', "style-guide-vi")
     assert "VI-STY-T02" not in ids('Slogan "KEEP CALM" đã nổi tiếng.', "style-guide-vi")
+    assert "VI-STY-T02" not in ids("Slogan “KEEP CALM” đã nổi tiếng.", "style-guide-vi")
+
+
+def test_previously_defined_acronym_is_not_reported_later() -> None:
+    text = (
+        "Thỏa thuận mức dịch vụ (SLA) được nêu ở đầu tài liệu. "
+        "SLA vẫn được rà trong cuộc họp."
+    )
+    assert "VI-STY-T02" not in ids(text, "style-guide-vi")
+
+
+def test_nested_four_backtick_fence_is_ignored() -> None:
+    text = """Trước.
+
+````markdown
+```text
+Nhóm sẽ sẽ gửi báo cáo.
+```
+````
+
+Sau.
+"""
+    assert "VI-GRA-L01" not in ids(text, "grammar-checker-vi")
+
+
+def test_density_signals_do_not_span_paragraphs_or_lists() -> None:
+    split = (
+        "Nhóm lưu log, đồng thời gửi cảnh báo.\n\n"
+        "Qua đó quy trình rõ hơn.\n\n"
+        "Từ đó chất lượng tăng."
+    )
+    listed = (
+        "- Nhóm lưu log, đồng thời gửi cảnh báo.\n"
+        "- Qua đó, quy trình rõ hơn.\n"
+        "- Từ đó, chất lượng tăng."
+    )
+    together = (
+        "Hệ thống lưu log, đồng thời gửi cảnh báo, qua đó giúp nhóm phản hồi, "
+        "từ đó nâng cao chất lượng."
+    )
+    assert "VI-HUM-S03" not in ids(split, "humanizer-vi")
+    assert "VI-HUM-S03" not in ids(listed, "humanizer-vi")
+    assert "VI-HUM-S03" in ids(together, "humanizer-vi")
+
+
+def test_repeated_opening_does_not_span_paragraphs_or_lists() -> None:
+    split = (
+        "Chúng tôi cập nhật phần mềm.\n\n"
+        "Chúng tôi kiểm tra dữ liệu.\n\n"
+        "Chúng tôi gửi báo cáo."
+    )
+    listed = (
+        "- Chúng tôi cập nhật phần mềm.\n"
+        "- Chúng tôi kiểm tra dữ liệu.\n"
+        "- Chúng tôi gửi báo cáo."
+    )
+    prose = (
+        "Chúng tôi cập nhật phần mềm. "
+        "Chúng tôi kiểm tra dữ liệu. "
+        "Chúng tôi gửi báo cáo."
+    )
+    assert "VI-HUM-S01" not in ids(split, "humanizer-vi")
+    assert "VI-HUM-S01" not in ids(listed, "humanizer-vi")
+    assert "VI-HUM-S01" in ids(prose, "humanizer-vi")
+
+
+def test_nen_as_advice_is_not_redundant_connector() -> None:
+    for text in (
+        "Vì vậy, nên sao lưu dữ liệu trước khi nâng cấp.",
+        "Vì vậy, nên chọn người có kinh nghiệm.",
+        "Vì vậy, nên dùng máy có quạt.",
+        "Vì vậy, nên nghỉ. Tôi sẽ quay lại.",
+        "Vì vậy, nên chọn người đã làm việc ở đây.",
+        "Vì vậy, nên chọn máy được bảo hành.",
+        "Vì vậy, nên mua máy đang giảm giá.",
+        "Vì vậy, nên thuê người đã có kinh nghiệm.",
+        "Vì vậy, nên ưu tiên máy được bảo hành.",
+        "Vì vậy, nên công bố bản đã duyệt.",
+        "Vì vậy, nên công nhận người đã đóng góp.",
+        "Vì vậy, nên dự thi khi đã chuẩn bị kỹ.",
+    ):
+        assert "VI-GRA-C06" not in ids(text, "grammar-checker-vi"), text
+    assert "VI-GRA-C06" in ids(
+        "Vì vậy nên công ty sẽ áp dụng phương án mới.",
+        "grammar-checker-vi",
+    )
+
+
+def test_meaningful_reduplication_is_not_a_typo() -> None:
+    assert "VI-GRA-L01" not in ids(
+        "Người người, nhà nhà đều hướng về quê.",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-L01" not in ids("Bạn cứ từ từ đọc báo cáo.", "grammar-checker-vi")
+    assert "VI-GRA-L01" in ids("Nhóm sẽ sẽ gửi báo cáo.", "grammar-checker-vi")
+
+
+def test_email_filename_and_abbreviation_keep_dot_spacing() -> None:
+    text = "Gửi hotro@example.com hoặc xem README.md tại TP.HCM."
+    assert "VI-GRA-P02" not in ids(text, "grammar-checker-vi")
+
+
+def test_addressee_and_user_role_are_not_treated_as_inconsistent() -> None:
+    text = (
+        "Bạn có thể mời người dùng mới vào workspace. "
+        "Người dùng sẽ nhận email. Bạn xác nhận danh sách."
+    )
+    assert "VI-STY-P01" not in ids(text, "style-guide-vi")
+
+
+def test_unbalanced_quotes_are_flagged_without_inventing_a_close() -> None:
+    findings = [
+        issue
+        for issue in lint_text('Báo cáo “quý 3 vẫn chưa đóng.', {"grammar-checker-vi"})
+        if issue["pattern_id"] == "VI-GRA-P04"
+    ]
+    assert len(findings) == 1
+    assert "VI-GRA-P04" not in ids(
+        "Báo cáo “quý 3” vẫn chưa đóng.",
+        "grammar-checker-vi",
+    )
+
+
+def test_markdown_links_quoted_urls_and_list_markers_are_not_unbalanced() -> None:
+    assert "VI-GRA-P04" not in ids(
+        "Xem [hướng dẫn](https://example.com/docs).",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-P04" not in ids(
+        'Truy cập "https://example.com" để đọc thêm.',
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-P04" not in ids(
+        "Truy cập “https://example.com” để đọc thêm.",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-P04" not in ids(
+        "Xem https://example.com/a(b) để biết thêm.",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-P04" not in ids(
+        "1) Mở ứng dụng.\n2) Chọn báo cáo.",
+        "grammar-checker-vi",
+    )
+    text = "Xem [hướng dẫn](https://example.com/docs)."
+    masked = mask_protected(text)
+    assert masked[text.index("(")] == "("
+    assert masked[text.rindex(")")] == ")"
+
+
+def test_ipv6_url_brackets_are_masked_together() -> None:
+    text = "Kết nối http://[::1]:8000/ để thử."
+    assert "VI-GRA-P04" not in ids(text, "grammar-checker-vi")
+    masked = mask_protected(text)
+    opening = text.index("[")
+    closing = text.index("]")
+    assert masked[opening] == " "
+    assert masked[closing] == " "
+
+
+def test_unicode_space_after_url_does_not_swallow_following_words() -> None:
+    for space in ("\u00a0", "\u202f", " "):
+        text = f"Xem https://example.com{space}sẽ sẽ chạy."
+        assert "VI-GRA-L01" in ids(text, "grammar-checker-vi"), repr(space)
+
+
+def test_unbalanced_delimiters_follow_scan_order() -> None:
+    findings = [
+        issue
+        for issue in lint_text(
+            "Vui lòng xem (bảng 1).\nPhụ lục (bảng 2 chưa đóng.",
+            {"grammar-checker-vi"},
+        )
+        if issue["pattern_id"] == "VI-GRA-P04"
+    ]
+    assert len(findings) == 1
+    assert findings[0]["line"] == 2
+    assert "VI-GRA-P04" in ids(")quý 3(", "grammar-checker-vi")
 
 
 def test_common_tech_acronyms_are_excluded() -> None:

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request
 
 from app.capabilities import capability_route_class, require_rewrite_enabled
 from app.limiter import limiter
@@ -12,11 +12,7 @@ router = APIRouter(
 )
 
 
-@router.post(
-    "/rewrite",
-    response_model=RewriteResponse,
-    dependencies=[Depends(require_rewrite_enabled)],
-)
+@router.post("/rewrite", response_model=RewriteResponse)
 @limiter.limit("5/minute")
 def rewrite_endpoint(request: Request, body: RewriteRequest):
     if not body.text.strip():

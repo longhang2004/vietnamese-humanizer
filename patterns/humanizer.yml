@@ -227,10 +227,10 @@ patterns:
   aggregation: sequence
   severity: medium
   confidence: medium
-  summary: Nhiều câu liên tiếp mở bằng "Việc" tạo nhịp đều và che chủ thể thực hiện.
+  summary: Nhiều câu liên tiếp trong cùng đoạn mở bằng cùng một từ, tạo nhịp đều.
   signals:
     regex:
-    - (?m)^\s*Việc\s+
+    - (?m)^\s*\S+
   why_it_matters: Danh hóa liên tiếp làm đoạn nặng và khiến hành động khó nhìn thấy.
   rewrite_strategy:
   - Đưa chủ thể hoặc động từ lên đầu; gộp câu khi chúng cùng một chủ thể.
@@ -248,6 +248,8 @@ patterns:
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
   exceptions:
   - Khi "việc" gọi tên một hành vi đã được định nghĩa trong văn bản pháp lý hoặc phân tích.
+  - Danh sách có chủ đích (gạch đầu dòng, đánh số) dùng cùng chủ thể.
+  - Tín hiệu nằm ở các đoạn khác nhau.
   false_positive_risk: medium
   tags:
   - danh-hoa
@@ -316,8 +318,16 @@ patterns:
   - mode: clean_rewrite
     text: Nhóm sửa lỗi, cập nhật tài liệu và qua đó tạo ra giá trị.
     reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - mode: no_change
+    text: "Nhóm lưu log, đồng thời gửi cảnh báo.\n\nQua đó quy trình rõ hơn.\n\nTừ đó chất lượng tăng."
+    reason: Mỗi đoạn chỉ có một từ nối; không gộp tín hiệu xuyên đoạn.
+  - mode: no_change
+    text: "- Nhóm lưu log, đồng thời gửi cảnh báo.\n- Qua đó, quy trình rõ hơn.\n- Từ đó, chất lượng tăng."
+    reason: Danh sách có chủ đích; không gộp tín hiệu giữa các mục.
   exceptions:
-  - Trong lập luận dài khi mỗi từ nối biểu thị một quan hệ khác nhau và chính xác.
+  - Khi phép đối sánh là trọng tâm lập luận và không bị lặp trong đoạn.
+  - Tín hiệu nằm ở các đoạn khác nhau.
+  - Danh sách có chủ đích (gạch đầu dòng, đánh số).
   false_positive_risk: medium
   tags:
   - tu-noi

@@ -35,6 +35,7 @@ export default function HomePage() {
     setCurrentText(text);
     setLoading(true);
     setErrorMsg(null);
+    setLintResult(null);
     try {
       const res = await lintText(text, selectedSkills);
       setLintResult(res);
@@ -85,6 +86,7 @@ export default function HomePage() {
 
             {capabilities.rewrite && (
               <RewritePanel
+                key={currentText}
                 originalText={currentText}
                 issueIds={detectedPatternIds}
               />

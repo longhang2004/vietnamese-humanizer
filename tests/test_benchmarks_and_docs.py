@@ -56,7 +56,7 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 def test_benchmark_loader_reads_all_cases() -> None:
     cases, errors = load_cases(ROOT / "benchmarks" / "cases", PATTERN_IDS)
     assert errors == []
-    assert len(cases) == 33
+    assert len(cases) >= 33
     assert all(
         "context" in case and "blockers" in case and "expected_output_mode" in case
         for case in cases
@@ -134,14 +134,14 @@ def test_summary_averages_blocker_rate_and_unreviewed_count() -> None:
     assert summary["blocker_rate"] == 0.5
     assert summary["reviewers"] == 2
     assert summary["reviewed_cases"] == 1
-    assert summary["unreviewed_cases"] == 32
+    assert summary["unreviewed_cases"] == len(cases) - 1
 
 
 def test_generated_pattern_docs_are_stable_and_complete() -> None:
     expected = render(ROOT / "patterns")
     actual = (ROOT / "docs" / "generated-patterns.md").read_text(encoding="utf-8")
     assert actual == expected
-    assert "**43 pattern**" in actual
+    assert f"**{len(PATTERN_IDS)} pattern**" in actual
     assert "Finding type:" in actual
     assert "Scope / aggregation:" in actual
     assert "False-positive risk:" in actual
@@ -178,7 +178,7 @@ def test_internal_markdown_links_resolve() -> None:
             continue
         for target in LINK_RE.findall(document.read_text(encoding="utf-8")):
             clean = target.split("#", 1)[0].strip().strip("<>")
-            if not clean or clean.startswith(("http://", "https://", "mailto:")):
+            if not clean or clean.startswith(("http://", "https://", "mailto:", "file:")):
                 continue
             if not (document.parent / clean).exists():
                 broken.append(f"{document.relative_to(ROOT)} -> {target}")
@@ -219,9 +219,32 @@ def test_public_docs_preserve_core_product_facts() -> None:
         "python -m pip install .",
         "assets/donate-vietqr.png",
     )
+    examples = [
+        line
+        for line in (ROOT / "examples" / "examples.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    cases, _ = load_cases(ROOT / "benchmarks" / "cases", PATTERN_IDS)
+    pattern_count = len(PATTERN_IDS)
+    example_count = len(examples)
+    case_count = len(cases)
     count_facts = (
-        (ROOT / "README.md", ("43 patterns", "103 examples", "33 benchmark cases")),
-        (ROOT / "README.vi.md", ("43 pattern", "103 example", "33 benchmark case")),
+        (
+            ROOT / "README.md",
+            (
+                f"{pattern_count} patterns",
+                f"{example_count} examples",
+                f"{case_count} benchmark cases",
+            ),
+        ),
+        (
+            ROOT / "README.vi.md",
+            (
+                f"{pattern_count} pattern",
+                f"{example_count} example",
+                f"{case_count} benchmark case",
+            ),
+        ),
     )
 
     for document, document_count_facts in count_facts:

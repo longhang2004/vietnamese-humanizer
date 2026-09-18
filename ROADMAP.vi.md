@@ -2,24 +2,26 @@
 
 # Lộ trình phát triển (Roadmap)
 
-## 0.2.x / Post-0.2
+Đã giao đến 0.4.x: bốn skill, linter deterministic, API/frontend và corpus example đã review. Đợt tới nên giảm báo nhầm còn lại và có đánh giá của người bản ngữ trước khi thêm pattern.
 
-- Tổ chức đánh giá với người bản ngữ từ nhiều vùng miền và lĩnh vực chuyên môn.
-- Đo mức độ đồng thuận cho bộ benchmark, lưu vết các điểm chưa thống nhất thay vì áp đặt một đáp án duy nhất.
-- Bổ sung thuật ngữ theo ngành (domain glossary) và các đoạn văn bản dài hơn (long-form fixtures).
-- Hiệu chỉnh ngưỡng phát hiện của linter bằng dữ liệu corpus có bản quyền/giấy phép rõ ràng.
+## Tiếp theo
 
-## 0.3
+- Tổ chức đánh giá với người bản ngữ từ nhiều vùng miền và lĩnh vực; lưu vết chỗ chưa thống nhất thay vì áp một đáp án.
+- Tiếp tục thêm case `no_change` cho rule dễ bắt nhầm, kèm case thật sự cần sửa của cùng rule.
+- Bổ sung glossary theo ngành và fixture nhiều đoạn.
+- Hiệu chỉnh ngưỡng bằng corpus có giấy phép rõ.
 
-- Hỗ trợ đọc file cấu hình phong cách (style guide config) của dự án trực tiếp qua CLI.
-- Thêm kết quả đánh giá đối sánh (baseline benchmark) từ nhiều mô hình AI và người đánh giá độc lập.
-- Thống kê tỷ lệ chính xác (precision metrics) theo từng mẫu pattern, ngành nghề và văn phong.
-- Khảo sát giải pháp xử lý văn bản song ngữ và phụ đề phim/video.
+## Sau đó
+
+- Hỗ trợ style guide của dự án qua CLI.
+- Thêm baseline từ nhiều mô hình và người đánh giá độc lập.
+- Thống kê precision theo pattern, ngành và văn phong.
+- Khảo sát văn bản song ngữ và phụ đề.
 
 ## 1.0
 
-- Ổn định cấu trúc dữ liệu (schema) và chính sách quản lý phiên bản.
-- Công bố bộ dữ liệu kiểm thử đã qua đánh giá chéo liên chủ thể.
-- Phổ biến tài liệu hướng dẫn tích hợp dành cho các agent client khác nhau.
+- Ổn định schema và chính sách phiên bản.
+- Công bố benchmark đã đánh giá chéo liên chủ thể.
+- Tài liệu tích hợp cho các agent client khác nhau.
 
-*Lộ trình phát triển không chứa hạng mục tối ưu hóa để vượt các bộ lọc AI detector.*
+*Lộ trình không chứa hạng mục tối ưu hóa để vượt AI detector.*
