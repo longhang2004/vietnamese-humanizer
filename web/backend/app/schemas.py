@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 VALID_SKILLS = {
@@ -76,14 +78,33 @@ class SkillsResponse(BaseModel):
     skills: list[SkillItem]
 
 
+OutputMode = Literal["clean_rewrite", "review_comment", "needs_author_decision", "no_change"]
+
+
+class RewriteStyle(BaseModel):
+    channel: Literal["auto", "document", "email", "chat", "spoken_script"] = "auto"
+    register_name: Literal["preserve", "formal", "professional", "friendly", "conversational"] = (
+        Field("preserve", alias="register")
+    )
+    audience: str = Field("", max_length=300)
+    relationship: str = Field("", max_length=300)
+    pronouns: str = Field("", max_length=200)
+    edit_level: Literal["light", "moderate", "deep"] = "light"
+    reduce_hype: bool = False
+
+
 class RewriteRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=20000)
     skill: str = "humanizer-vi"
     issue_ids: list[str] | None = None
+    context: str = Field("", max_length=5000)
+    style: RewriteStyle = Field(default_factory=RewriteStyle)
 
 
 class RewriteResponse(BaseModel):
     rewrite: str
+    output_mode: OutputMode = "clean_rewrite"
+    comments: list[str] = Field(default_factory=list)
     review_status: str = "unreviewed"
     disclaimer: str = "Gợi ý do model sinh, cần người đọc kiểm chứng bảo toàn dữ kiện."
 

@@ -70,8 +70,29 @@ export interface SkillsResponse {
   skills: SkillItem[];
 }
 
+export interface RewriteStyle {
+  channel: "auto" | "document" | "email" | "chat" | "spoken_script";
+  register: "preserve" | "formal" | "professional" | "friendly" | "conversational";
+  audience: string;
+  relationship: string;
+  pronouns: string;
+  edit_level: "light" | "moderate" | "deep";
+  reduce_hype: boolean;
+}
+
+export interface RewriteOptions {
+  context?: string;
+  style?: RewriteStyle;
+}
+
+export type RewriteOutputMode =
+  | "clean_rewrite" | "review_comment" | "needs_author_decision" | "no_change";
+
 export interface RewriteResponse {
   rewrite: string;
+  // Optional during rollout against an older backend.
+  output_mode?: RewriteOutputMode;
+  comments?: string[];
   review_status: string;
   disclaimer: string;
 }

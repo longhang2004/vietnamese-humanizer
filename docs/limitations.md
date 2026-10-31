@@ -8,7 +8,8 @@
 - Validator kiểm cấu trúc, tham chiếu, output mode, gold rules và review provenance. Nó không thể chứng minh semantic equivalence hoặc semantic preservation tự động.
 - Cách tách câu dựa trên dấu câu đơn giản, chưa xử lý hết viết tắt, danh sách và tài liệu hỗn hợp.
 - CLI bảo vệ fenced code, inline code, URL và một số identifier, nhưng chưa parse mọi ngôn ngữ markup.
-- Benchmark có 40 case và chưa có independently-reviewed baseline từ nhiều reviewer bản ngữ. Chỉ sau review thật, điểm mới có giá trị cho so sánh trong phạm vi case đã lấy mẫu.
-- Dự án tập trung văn viết. Văn nói, phụ đề, thơ và nội dung sáng tạo cần tiêu chí khác.
+- Benchmark có 70 case; 30 case dài mới do agent tự viết theo 15 cặp, chưa được human review. Bộ này chưa có independently-reviewed baseline từ nhiều reviewer bản ngữ. Chỉ sau review thật, điểm mới có giá trị cho so sánh trong phạm vi case đã lấy mẫu.
+- Dự án tập trung văn viết, có hướng dẫn thử nghiệm cho chat và kịch bản đọc thành tiếng. Chưa đánh giá chất lượng âm thanh, lời nói tự phát, phụ đề, thơ hoặc nội dung sáng tạo.
+- Chọn profile và nạp reference giúp chỉ định mục tiêu rõ hơn, chưa chứng minh model thực hiện đúng. Structured output chỉ kiểm hình thức và phân loại kết quả, không tự xác minh bảo toàn nghĩa.
 
 Không dùng số phát hiện của linter để kỷ luật người viết, xác minh gian lận hoặc xác định tác giả là người hay AI. Không dùng benchmark nhỏ này để khẳng định chất lượng chung cho mọi loại tiếng Việt.

@@ -2,6 +2,8 @@
 
 Web app cung cấp linter deterministic, danh mục pattern và các tính năng viết lại, nhận đóng góp có thể bật riêng. Linter nêu tín hiệu để người viết review; ứng dụng không chấm xác suất AI hay suy đoán tác giả.
 
+Khi rewrite được bật, mục tùy chọn cho chọn kênh, giọng, người đọc, quan hệ, xưng hô, mức sửa và context. Mặc định giữ giọng gốc và sửa nhẹ. Giảm cường điệu cần được chọn riêng. Kết quả có thể là bản sửa, giữ nguyên, góp ý hoặc câu hỏi cần tác giả quyết định; hai loại cuối không có nút sao chép như văn bản thay thế. Xem [hợp đồng API rewrite](backend/README.md#rewrite-context-and-output-modes).
+
 ## Chạy local
 
 Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và npm. Từ root repository, chạy:

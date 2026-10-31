@@ -68,6 +68,21 @@ def test_benchmark_loader_reads_all_cases() -> None:
     assert modes["BENCH-GRA-006"] == "no_change"
 
 
+def test_long_naturalness_cases_cover_preservation_and_editorial_decisions() -> None:
+    cases = load_jsonl(ROOT / "benchmarks" / "cases" / "naturalness.jsonl")
+    assert len(cases) == 30
+    assert all(150 <= len(case["input"].split()) <= 500 for case in cases)
+    assert all("\n\n" in case["input"] for case in cases)
+    assert {case["expected_output_mode"] for case in cases} == {
+        "clean_rewrite",
+        "no_change",
+        "review_comment",
+        "needs_author_decision",
+    }
+    assert any(case.get("style", {}).get("reduce_hype") for case in cases)
+    assert any(case.get("style", {}).get("channel") == "spoken_script" for case in cases)
+
+
 def test_benchmark_missing_context_is_reported(tmp_path: Path) -> None:
     case = {
         "id": "BENCH-HUM-999",
@@ -82,9 +97,7 @@ def test_benchmark_missing_context_is_reported(tmp_path: Path) -> None:
 def test_manual_review_is_validated(tmp_path: Path) -> None:
     path = tmp_path / "reviews.jsonl"
     write_jsonl(path, [review("BENCH-HUM-001")])
-    rows, errors = validate_results(
-        path, REVIEW_SCHEMA, {"BENCH-HUM-001": "clean_rewrite"}
-    )
+    rows, errors = validate_results(path, REVIEW_SCHEMA, {"BENCH-HUM-001": "clean_rewrite"})
     assert len(rows) == 1
     assert errors == []
 
@@ -198,9 +211,7 @@ def test_public_docs_link_both_languages() -> None:
         assert f"]({english.name})" in vietnamese.read_text(encoding="utf-8")
 
     assert "](CONTRIBUTING.md)" in (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "](CONTRIBUTING.vi.md)" in (ROOT / "README.vi.md").read_text(
-        encoding="utf-8"
-    )
+    assert "](CONTRIBUTING.vi.md)" in (ROOT / "README.vi.md").read_text(encoding="utf-8")
 
 
 def test_public_docs_preserve_core_product_facts() -> None:

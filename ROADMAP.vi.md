@@ -2,13 +2,13 @@
 
 # Lộ trình phát triển (Roadmap)
 
-Đã giao đến 0.4.x: bốn skill, linter deterministic, API/frontend và corpus example đã review. Đợt tới nên giảm báo nhầm còn lại và có đánh giá của người bản ngữ trước khi thêm pattern.
+Đã giao đến 0.5.0: bốn skill, linter deterministic, API/frontend, hướng dẫn văn phong và hội thoại, lựa chọn context/giọng khi rewrite, cùng 70 benchmark có 30 case dài theo cặp. Corpus hiện được agent rà soát; đợt tới cần đánh giá độc lập của người bản ngữ và giảm báo nhầm còn lại trước khi thêm pattern.
 
 ## Tiếp theo
 
 - Tổ chức đánh giá với người bản ngữ từ nhiều vùng miền và lĩnh vực; lưu vết chỗ chưa thống nhất thay vì áp một đáp án.
 - Tiếp tục thêm case `no_change` cho rule dễ bắt nhầm, kèm case thật sự cần sửa của cùng rule.
-- Bổ sung glossary theo ngành và fixture nhiều đoạn.
+- Bổ sung glossary theo ngành và fixture nhiều đoạn được reviewer độc lập đánh giá.
 - Hiệu chỉnh ngưỡng bằng corpus có giấy phép rõ.
 
 ## Sau đó

@@ -4,6 +4,7 @@ import {
   HealthResponse,
   LintResponse,
   PatternsResponse,
+  RewriteOptions,
   RewriteResponse,
   SkillsResponse,
 } from "./types";
@@ -59,12 +60,13 @@ export async function fetchSkills(): Promise<SkillsResponse> {
 export async function rewriteText(
   text: string,
   skill: string = "humanizer-vi",
-  issueIds?: string[]
+  issueIds?: string[],
+  options: RewriteOptions = {}
 ): Promise<RewriteResponse> {
   const res = await fetch(`${API_BASE}/api/rewrite`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, skill, issue_ids: issueIds }),
+    body: JSON.stringify({ text, skill, issue_ids: issueIds, ...options }),
   });
   return handleResponse<RewriteResponse>(res);
 }

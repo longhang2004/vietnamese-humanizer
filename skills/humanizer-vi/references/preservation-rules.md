@@ -16,3 +16,5 @@ Bản sửa thất bại nếu bịa dữ kiện hoặc đổi số, tên riêng
 - Chỉ dùng context được cung cấp rõ. Không dựa vào brief hoặc phần bài không nằm trong dữ liệu.
 
 Nếu mục tiêu tự nhiên xung đột với bảo toàn, chọn bảo toàn và báo điểm chưa thể sửa.
+
+Khi tác giả chủ động cho phép giảm cường điệu, có thể giảm lớp tính từ đánh giá hoặc đồng cảm công thức. Ghi rõ quyền này trong ngữ cảnh đánh giá; trên web dùng lựa chọn `reduce_hype`. Quyền đó không cho phép sửa số, phạm vi, nghĩa vụ, mức chắc chắn hoặc thêm bằng chứng cho một lời quảng cáo. Nếu cần bỏ cả nhận định, dùng góp ý hoặc xin tác giả quyết định.

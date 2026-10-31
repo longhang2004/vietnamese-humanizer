@@ -28,7 +28,13 @@ def rewrite_endpoint(request: Request, body: RewriteRequest):
         )
 
     try:
-        return generate_rewrite(text=body.text, skill=body.skill, issue_ids=body.issue_ids)
+        return generate_rewrite(
+            text=body.text,
+            skill=body.skill,
+            issue_ids=body.issue_ids,
+            context=body.context,
+            style=body.style,
+        )
     except GeminiKeyMissingError as e:
         raise HTTPException(status_code=503, detail=str(e)) from e
     except Exception:

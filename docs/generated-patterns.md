@@ -320,11 +320,12 @@
 - Rewrite strategy:
   - Xác định hành động thật rồi đưa động từ đó lên làm vị ngữ chính.
   - Giữ mức độ quan trọng nếu văn bản có căn cứ cho đánh giá ấy.
+  - Chỉ nêu hành động cụ thể khi input hoặc context đã có; thiếu thông tin thì góp ý hoặc giữ nguyên, không thay bằng một cụm trừu tượng khác.
 - Good examples:
-  - `clean_rewrite`: Tính năng này quan trọng đối với việc cải thiện hiệu suất.
-    - Reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
-  - `clean_rewrite`: Người quản lý có vai trò then chốt đối với việc duy trì tiến độ.
-    - Reason: Giữ các dữ kiện đã có và chỉ sửa cấu trúc mục tiêu.
+  - `review_comment`: Cần nêu rõ tính năng cải thiện mặt nào của hiệu suất nếu muốn viết cụ thể hơn; câu hiện tại chỉ khẳng định vai trò quan trọng.
+    - Reason: Không bịa cơ chế hoặc chỉ đổi sang một cụm trừu tượng tương đương.
+  - `no_change`: Người quản lý đóng vai trò then chốt trong việc duy trì tiến độ.
+    - Reason: Có thể giữ khi văn bản đang phân tích vai trò và chưa cung cấp hành động cụ thể; một tín hiệu đơn lẻ không buộc phải sửa.
 - Exceptions:
   - Khi văn bản thực sự phân tích vai trò của một người, bộ phận hoặc chức năng.
 

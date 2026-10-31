@@ -26,4 +26,12 @@ Runner không tính inter-rater agreement. Agreement cần đủ overlap giữa 
 
 Báo điểm theo skill, domain, register và pattern khi cỡ mẫu cho phép. Luôn tách blocker rate khỏi average. Không quy đổi điểm thành xác suất văn bản do AI tạo.
 
-Repository chưa có human-reviewed baseline. Corpus hiện chỉ có provenance `agent-reviewed`; validator kiểm cấu trúc và quan hệ metadata, nhưng không chứng minh semantic equivalence. Benchmark hỗ trợ regression dữ liệu và chuẩn hóa quy trình review. Nó không chứng minh hiệu quả ngoài 40 case.
+Repository chưa có human-reviewed baseline. Corpus hiện chỉ có provenance `agent-reviewed`; validator kiểm cấu trúc và quan hệ metadata, nhưng không chứng minh semantic equivalence. Benchmark hỗ trợ regression dữ liệu và chuẩn hóa quy trình review. Nó không chứng minh hiệu quả ngoài 70 case.
+
+## So sánh văn phong trên đoạn dài
+
+Ba mươi case trong `cases/naturalness.jsonl` là 15 cặp tình huống tự viết, có bản cần giữ nguyên để kiểm sửa quá tay. Giữ cả cặp trong cùng tập development hoặc test; báo số cặp cùng số case. Trường `style` là ngữ cảnh sinh đầu ra, không phải nhãn để reviewer suy đoán đáp án. Các nhãn expected mode do agent đặt vẫn cần reviewer kiểm tra.
+
+Để so sánh hai phiên bản prompt, tạo output cho cùng input/context/style và cố định phiên bản model cùng cấu hình sinh. Nhờ ít nhất hai reviewer đọc độc lập; giấu tên hệ thống, xáo vị trí A/B và cho phép hòa. Kiểm blocker trước, rồi chấm naturalness, preservation và register fit riêng. Một câu đúng ngữ pháp vẫn có thể không hợp quan hệ người gửi–người nhận. Không lấy độ ngắn, số issue giảm hoặc việc đổi nhiều chữ làm thước đo tự nhiên.
+
+Lưu lựa chọn A/B/hòa và lý do trong notes của kết quả review, cùng mã batch và quy tắc xáo thứ tự. Không tự tạo điểm thay người thật. Trước khi báo agreement, cần thiết kế overlap và cách xử lý bất đồng như phần nhiều reviewer ở trên.

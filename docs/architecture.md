@@ -6,6 +6,8 @@ Repository tách dữ liệu ngôn ngữ, logic deterministic và quy trình rev
 
 Bốn thư mục trong `skills/` chứa quy trình ra quyết định và kiến thức biên tập. `SKILL.md` giữ hướng dẫn cốt lõi; reference chỉ nạp khi cần. Agent hoặc reviewer thực hiện bản viết lại vì quyết định sửa cần xét mục đích, độc giả, register, thuật ngữ, chỗ mơ hồ và dữ kiện của toàn văn bản.
 
+Web rewrite nhận context và profile tùy chọn. Backend nạp `SKILL.md` cùng danh sách reference cố định theo skill; humanizer thêm hướng dẫn hội thoại khi chọn chat/kịch bản nói hoặc giọng hội thoại, và workflow dài khi sửa sâu. Đường dẫn reference không lấy từ request. Kết quả model được parse theo schema, chuẩn hóa `no_change` về nguyên văn input và tách comments khỏi replacement text. Đây là kiểm tra giao thức, không phải kiểm chứng bảo toàn ngữ nghĩa.
+
 ## Pattern data
 
 Các file YAML trong `patterns/` lưu tín hiệu có thể kiểm tra hoặc gợi ý review. JSON Schema bắt buộc `finding_type`, `scope` và `aggregation`. Catalog không phải từ điển lỗi. Dù heuristic có regex ổn định, reviewer vẫn phải đánh giá tác động trong đoạn hoặc toàn tài liệu.

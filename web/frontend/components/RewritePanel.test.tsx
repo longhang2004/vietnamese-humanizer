@@ -60,3 +60,56 @@ test("ignores a late rewrite response after the input has changed", async () => 
   await Promise.resolve();
   expect(container.textContent).not.toContain("Bản viết lại trễ của A");
 });
+
+test("sends the selected voice, relationship and context", async () => {
+  const user = userEvent.setup();
+  vi.mocked(rewriteText).mockResolvedValue({
+    rewrite: "Bạn gửi bản nháp giúp mình.", output_mode: "clean_rewrite", comments: [],
+    review_status: "unreviewed", disclaimer: "Cần duyệt",
+  });
+  render(<RewritePanel originalText="Vui lòng gửi bản nháp." />);
+  await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
+  await user.selectOptions(screen.getByLabelText("Kênh sử dụng"), "chat");
+  await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
+  await user.type(screen.getByLabelText("Quan hệ giao tiếp"), "Đồng nghiệp cùng nhóm");
+  await user.type(screen.getByLabelText("Cách xưng hô"), "mình–bạn");
+  await user.type(screen.getByLabelText("Ngữ cảnh bổ sung"), "Hạn là 15:00");
+  await user.click(screen.getByRole("checkbox"));
+  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
+  expect(rewriteText).toHaveBeenCalledWith("Vui lòng gửi bản nháp.", "humanizer-vi", undefined, {
+    context: "Hạn là 15:00",
+    style: expect.objectContaining({
+      channel: "chat", register: "friendly", relationship: "Đồng nghiệp cùng nhóm",
+      pronouns: "mình–bạn", reduce_hype: true,
+    }),
+  });
+});
+
+test.each(["review_comment", "needs_author_decision"] as const)(
+  "%s displays comments without offering to copy a replacement", async (output_mode) => {
+    const user = userEvent.setup();
+    vi.mocked(rewriteText).mockResolvedValue({
+      rewrite: "This must never be offered as a replacement.", output_mode,
+      comments: ["Ai là người duyệt bản nháp?"], review_status: "unreviewed", disclaimer: "Cần duyệt",
+    });
+    render(<RewritePanel originalText="Họ sẽ duyệt bản nháp." />);
+    await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
+    expect(await screen.findByText("Ai là người duyệt bản nháp?")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Sao chép kết quả/i })).not.toBeInTheDocument();
+    expect(screen.queryByText("This must never be offered as a replacement.")).not.toBeInTheDocument();
+  }
+);
+
+test("changing the profile invalidates an in-flight result", async () => {
+  const user = userEvent.setup();
+  let resolveRewrite!: (value: Awaited<ReturnType<typeof rewriteText>>) => void;
+  vi.mocked(rewriteText).mockImplementation(() => new Promise((resolve) => { resolveRewrite = resolve; }));
+  render(<RewritePanel originalText="Văn bản cần sửa." />);
+  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
+  await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
+  await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
+  resolveRewrite({ rewrite: "Bản theo profile cũ", review_status: "unreviewed", disclaimer: "Cần duyệt" });
+  await Promise.resolve();
+  expect(screen.queryByText("Bản theo profile cũ")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /Viết lại bằng Gemini/i })).toBeEnabled();
+});

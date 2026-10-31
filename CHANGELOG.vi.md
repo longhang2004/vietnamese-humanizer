@@ -6,6 +6,19 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-31
+
+### Added
+
+- Hướng dẫn mạch thông tin, kết hợp từ, lược chủ ngữ, phép lặp và sắc thái; ghi nguồn đọc có tác giả; tách hướng dẫn chat và kịch bản nói.
+- Rewrite nhận context và profile tùy chọn, nạp reference phù hợp, trả output mode để tách nhận xét khỏi văn bản thay thế.
+- Thêm 30 benchmark dài do agent tự viết theo 15 cặp, nâng tổng số lên 70. Chưa có baseline được người thật đánh giá.
+
+### Changed
+
+- Rà lại sáu ví dụ corpus để tránh chỉ đổi từ đồng nghĩa, ghi rõ quyền giảm cường điệu và chuyển nhận định quảng cáo thiếu căn cứ sang góp ý.
+- Client rewrite cần đọc `output_mode`: góp ý và câu hỏi cho tác giả trả `rewrite` rỗng cùng `comments`. Web đã xử lý cả bốn mode.
+
 ## [0.4.6] - 2026-09-18
 
 ### Fixed

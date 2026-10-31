@@ -102,7 +102,7 @@ def _enable_lint_rate_limit(monkeypatch):
     monkeypatch.setattr(
         "app.routers.lint.run_linter",
         lambda **_kwargs: {
-            "version": "0.4.6",
+            "version": __version__,
             "summary": {
                 "total": 0,
                 "error": 0,

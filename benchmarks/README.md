@@ -1,6 +1,10 @@
 # Benchmark
 
-Bộ benchmark gồm 40 case đa miền, tách theo bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+Bộ benchmark gồm 70 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+
+`cases/naturalness.jsonl` bổ sung 30 case dài 150–500 đơn vị tách bằng khoảng trắng (không phải đếm từ bằng word segmentation), theo 15 cặp: bản phù hợp cần giữ nguyên và bản có vấn đề cần sửa/góp ý/hỏi tác giả. Trường `style` tùy chọn dùng cùng các lựa chọn với API rewrite. Tất cả tài liệu mới do coding agent tự viết; chưa có human review hoặc điểm baseline. Đây là bộ nhỏ có cặp phụ thuộc, không phải 30 mẫu độc lập đại diện tiếng Việt.
+
+Khi chạy một case qua API, chuyển `input` thành `text`, giữ nguyên `context` và `style`, đồng thời đưa yêu cầu biên tập trong `constraints` vào context. Không đưa expected mode, blocker hoặc evaluation notes vào prompt sinh. Khi chia development/test, giữ cả cặp trong cùng một phần.
 
 Mỗi case có input, context, constraints, expected output mode, must-preserve, must-not-add và blockers. Case không nên sửa dùng `no_change` và có thể để `expected_patterns` rỗng. Không gán pattern giả chỉ để buộc agent thay đổi câu.
 

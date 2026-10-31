@@ -1,10 +1,10 @@
 ---
 name: humanizer-vi
-description: Biên tập văn bản tiếng Việt máy móc, sáo rỗng hoặc đều giọng để câu chữ tự nhiên, rõ và đúng ngữ cảnh. Dùng khi người dùng yêu cầu làm văn bản bớt khuôn mẫu, chỉnh giọng hoặc bảo toàn giọng tác giả; không dùng để suy đoán tác giả là AI, lách detector, sửa thuần ngữ pháp hay biến văn bản chuyên môn thành văn nói.
+description: Biên tập tiếng Việt sáo, máy móc, đều nhịp hoặc lệch giọng để tự nhiên, rõ và hợp độc giả. Dùng khi chỉnh văn phong, bảo toàn giọng tác giả, hoặc biên tập chat và kịch bản nói theo yêu cầu. Không dùng để suy đoán tác giả, lách detector hay chỉ soát lỗi ngữ pháp.
 license: MIT
 metadata:
   language: vi
-  version: "0.2.1"
+  version: "0.3.0"
 ---
 
 # Humanizer tiếng Việt
@@ -23,6 +23,14 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 
 Đọc [workflow chi tiết](references/workflow.md) cho văn bản dài hoặc khi nhiều pattern chồng nhau. Tra [register](references/registers.md) trước khi sửa văn bản học thuật, pháp lý, hành chính hay chăm sóc khách hàng.
 
+Đọc [diễn đạt tự nhiên](references/naturalness.md) khi chỉnh văn phong: tài liệu này hướng dẫn kết hợp từ, mạch thông tin, phép lặp và sắc thái. Chỉ đọc [hội thoại và kịch bản nói](references/conversational.md) khi người dùng chọn các kênh đó; văn viết gần gũi vẫn có tiêu chí riêng.
+
+## Ngữ cảnh và quyền biên tập
+
+Phân biệt kênh (tài liệu, email, chat, kịch bản nói), độc giả, quan hệ giao tiếp, xưng hô và độ trang trọng. Chọn kênh chat không có nghĩa được đổi "tôi" thành "em" hoặc thêm "ạ". Khi thiếu thông tin, giữ giọng và xưng hô hiện có.
+
+Mặc định sửa nhẹ. Chỉ sắp xếp lại đoạn khi người dùng cho phép can thiệp sâu; mọi mức đều phải giữ nội dung. Khi được yêu cầu giảm cường điệu (`reduce_hype=true` trong ứng dụng), có thể giảm tính từ quảng cáo hoặc đồng cảm công thức. Quyền này không cho phép đổi số, phạm vi, mức chắc chắn, nghĩa vụ hay lập trường tích cực thành tiêu cực. Nếu bỏ một nhận định sẽ đổi thông điệp, góp ý để tác giả quyết định.
+
 ## Bảo toàn
 
 Giữ nguyên dữ kiện, con số, tên riêng, trích dẫn, điều kiện, ngoại lệ, lập trường, thuật ngữ và mức độ chắc chắn. Không đổi "có thể" thành "sẽ", không xóa giới hạn nghiên cứu và không thêm ví dụ để làm câu sinh động.
@@ -35,7 +43,7 @@ Khi một câu mơ hồ theo nhiều cách hợp lý, giữ nguyên phần mơ h
 
 - Ưu tiên pattern làm mất thông tin hoặc làm sai register.
 - Với từ nối, lời mở đầu, danh sách ba ý và nhịp câu, xét mật độ trên cả đoạn.
-- Với lời dẫn nguồn mơ hồ, không tự bịa nguồn thay thế. Hạ tuyên bố về mức có thể chứng minh hoặc giữ nguyên và gắn cờ.
+- Với lời dẫn nguồn mơ hồ, không tự bịa nguồn thay thế hoặc âm thầm hạ mức chắc chắn. Góp ý về bằng chứng còn thiếu; chỉ thu hẹp tuyên bố khi tác giả cho phép và context đủ căn cứ.
 - Với giọng cá nhân, chỉ giữ hay tăng cá tính khi văn bản gốc đã có cơ sở. Văn bản trung lập không cần thêm "tôi".
 - Nếu đầu vào tự nhiên và phù hợp, trả lại gần như nguyên văn.
 

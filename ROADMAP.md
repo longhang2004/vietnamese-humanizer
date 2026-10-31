@@ -2,13 +2,13 @@
 
 # Roadmap
 
-Shipped through 0.4.x: four skills, a deterministic linter, web API/frontend, and a reviewed example corpus. The next cut should reduce remaining false positives and get native-speaker review before adding more patterns.
+Shipped through 0.5.0: four skills, a deterministic linter, web API/frontend, naturalness and conversational guidance, rewrite context/style controls, and 70 benchmark cases including 30 long cases in matched pairs. Corpus review is agent-based; the next cut should obtain independent native-speaker evaluation and reduce remaining false positives before adding more patterns.
 
 ## Next
 
 - Add native-speaker evaluations across regions and domains; log disagreement instead of forcing a single answer.
 - Keep expanding `no_change` cases for rules that still over-trigger, together with true positives for the same rules.
-- Add domain glossaries and longer multi-paragraph fixtures.
+- Add domain glossaries and independently reviewed multi-paragraph fixtures.
 - Calibrate thresholds on licensed, verified corpus data.
 
 ## Later

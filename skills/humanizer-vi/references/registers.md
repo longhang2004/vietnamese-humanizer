@@ -1,5 +1,7 @@
 # Register tiếng Việt
 
+Tách độ trang trọng khỏi kênh và quan hệ: email có thể thân mật, chat có thể trang trọng. "Giữ giọng gốc" là mặc định; chỉ chuyển giọng khi người dùng yêu cầu. Với xưng hô, ghi rõ người gửi, người nhận và cặp đã thống nhất thay vì suy từ chức danh hoặc tên.
+
 ## Kỹ thuật
 
 Ưu tiên độ chính xác, chủ thể rõ và thuật ngữ nhất quán. Câu bị động vẫn hợp lý khi quy trình quan trọng hơn người thao tác. Giữ nguyên code, API, command, path và identifier.
@@ -23,6 +25,10 @@ Thừa nhận vấn đề vừa đủ, rồi nêu trạng thái và bước ti�
 ## Mạng xã hội và blog
 
 Có thể giữ nhịp lệch, khẩu ngữ, câu ngắn và tiếng địa phương nếu đó là giọng thật. Không "chuẩn hóa" thành văn bản doanh nghiệp.
+
+## Văn viết gần gũi và hội thoại
+
+Văn viết gần gũi ưu tiên cách giải thích dễ theo nhưng vẫn có đoạn và mạch ý đầy đủ. Chat cần xét lượt trước, quan hệ và hành động tiếp theo. Kịch bản nói cần kiểm tra khả năng nghe hiểu sau một lượt. Tra [hướng dẫn theo kênh](conversational.md) khi người dùng chọn chat hoặc kịch bản nói; không dùng tiểu từ cuối câu để thay cho quyết định về quan hệ.
 
 ## Hành chính, pháp lý và chính sách
 

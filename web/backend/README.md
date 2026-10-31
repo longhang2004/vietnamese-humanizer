@@ -2,6 +2,33 @@
 
 This FastAPI service exposes deterministic lint and metadata endpoints. Rewrite, contribution staging, and contribution administration are separate, fail-closed capabilities.
 
+## Rewrite context and output modes
+
+`POST /api/rewrite` retains `text`, `skill`, and `issue_ids`, and accepts optional `context` (up to 5,000 characters) and `style`:
+
+```json
+{
+  "text": "Nhờ anh gửi bản nháp trước 15:00.",
+  "skill": "humanizer-vi",
+  "context": "Email nhắc công việc trong nhóm.",
+  "style": {
+    "channel": "email",
+    "register": "professional",
+    "audience": "đồng nghiệp",
+    "relationship": "đã thống nhất xưng tôi–anh",
+    "pronouns": "tôi–anh",
+    "edit_level": "light",
+    "reduce_hype": false
+  }
+}
+```
+
+Channel options: `auto`, `document`, `email`, `chat`, `spoken_script`. Register options: `preserve`, `formal`, `professional`, `friendly`, `conversational`. Editing depth: `light`, `moderate`, `deep`. Defaults are `auto`, `preserve`, `light`, and no hype reduction. Audience/relationship are limited to 300 characters each; pronouns to 200. Every depth preserves facts and commitments. Hype reduction explicitly permits softening formulaic praise/empathy, not changing scope or factual claims.
+
+Responses retain `rewrite`, `review_status`, and `disclaimer`, and add `output_mode` and `comments`. `clean_rewrite` contains replacement text; `no_change` returns the original exactly. `review_comment` and `needs_author_decision` return an empty `rewrite` and actionable `comments`. Consumers must inspect the mode before treating a result as a replacement. Invalid provider JSON or empty replacement text fails instead of masquerading as a successful unchanged result.
+
+The prompt loads repository-owned reference filenames, with conversational guidance only for relevant profiles and the long-document workflow for deep edits. Structured output validates shape, not semantic preservation. Tests mock provider calls; independent human evaluation is still required for quality claims.
+
 ## Quickstart
 
 The primary repository quickstart sets up and runs both backend and frontend with optional capabilities disabled:

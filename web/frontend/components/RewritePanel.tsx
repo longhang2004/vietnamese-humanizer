@@ -1,6 +1,18 @@
 import React, { useRef, useState } from "react";
 import { rewriteText } from "../lib/api";
-import { RewriteResponse } from "../lib/types";
+import { RewriteResponse, RewriteStyle } from "../lib/types";
+
+const DEFAULT_STYLE: RewriteStyle = {
+  channel: "auto", register: "preserve", audience: "", relationship: "", pronouns: "",
+  edit_level: "light", reduce_hype: false,
+};
+
+const MODE_LABELS = {
+  clean_rewrite: "Bản viết lại đề xuất",
+  no_change: "Văn bản phù hợp, giữ nguyên",
+  review_comment: "Nhận xét cần kiểm chứng",
+  needs_author_decision: "Cần tác giả quyết định",
+};
 
 interface RewritePanelProps {
   originalText: string;
@@ -8,15 +20,34 @@ interface RewritePanelProps {
 }
 
 export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueIds }) => {
+  const [style, setStyle] = useState<RewriteStyle>(DEFAULT_STYLE);
+  const [context, setContext] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<RewriteResponse | null>(null);
   const [resultSource, setResultSource] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
   const requestGeneration = useRef(0);
-  const visibleResult = resultSource === originalText ? result : null;
-  const visibleError = resultSource === originalText ? errorMsg : null;
-  const visibleLoading = resultSource === originalText && loading;
+  const requestKey = JSON.stringify([originalText, issueIds ?? null, context, style]);
+  const visibleResult = resultSource === requestKey ? result : null;
+  const visibleError = resultSource === requestKey ? errorMsg : null;
+  const visibleLoading = resultSource === requestKey && loading;
+  const outputMode = visibleResult?.output_mode ?? "clean_rewrite";
+  const canCopy = Boolean(visibleResult?.rewrite) &&
+    (outputMode === "clean_rewrite" || outputMode === "no_change");
+
+  const invalidateResult = () => {
+    requestGeneration.current += 1;
+    setResult(null);
+    setErrorMsg(null);
+    setLoading(false);
+    setCopied(false);
+  };
+
+  const updateStyle = (patch: Partial<RewriteStyle>) => {
+    invalidateResult();
+    setStyle((previous) => ({ ...previous, ...patch }));
+  };
 
   const handleRewrite = async () => {
     if (!originalText.trim()) return;
@@ -25,12 +56,12 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
     setErrorMsg(null);
     setCopied(false);
     setResult(null);
-    setResultSource(originalText);
+    setResultSource(requestKey);
     try {
-      const res = await rewriteText(originalText, "humanizer-vi", issueIds);
+      const res = await rewriteText(originalText, "humanizer-vi", issueIds, { context, style });
       if (generation !== requestGeneration.current) return;
       setResult(res);
-      setResultSource(originalText);
+      setResultSource(requestKey);
     } catch (err: unknown) {
       if (generation !== requestGeneration.current) return;
       if (err instanceof Error) {
@@ -45,11 +76,15 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
     }
   };
 
-  const handleCopy = () => {
-    if (!visibleResult?.rewrite) return;
-    navigator.clipboard.writeText(visibleResult.rewrite);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    if (!canCopy || !visibleResult) return;
+    try {
+      await navigator.clipboard.writeText(visibleResult.rewrite);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setErrorMsg("Chưa sao chép được. Bạn có thể chọn và sao chép văn bản trực tiếp.");
+    }
   };
 
   return (
@@ -60,10 +95,10 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
             <svg className="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
             </svg>
-            <span>Gợi ý viết lại tự nhiên (Gemini Lab)</span>
+            <span>Gợi ý viết lại tự nhiên</span>
           </h2>
           <p className="text-xs text-slate-500 mt-1 leading-normal">
-            Tạo bản diễn đạt tự nhiên dựa trên kết quả linter, giữ nguyên dữ kiện, thông số và tên riêng.
+            Chỉnh cách diễn đạt theo người đọc và ngữ cảnh, giữ nguyên nội dung cần thiết.
           </p>
         </div>
 
@@ -92,6 +127,56 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
         </button>
       </div>
 
+      <details className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+        <summary className="cursor-pointer text-sm font-semibold text-slate-800">
+          Chọn giọng và ngữ cảnh (tùy chọn)
+        </summary>
+        <p className="mt-2 text-xs text-slate-600">Mặc định giữ giọng gốc và sửa nhẹ. Chọn kênh chat không tự đổi cách xưng hô.</p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <label className="text-sm text-slate-700">Kênh sử dụng
+            <select value={style.channel} onChange={(event) => updateStyle({ channel: event.target.value as RewriteStyle["channel"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+              <option value="auto">Theo văn bản gốc</option>
+              <option value="document">Tài liệu / bài viết</option>
+              <option value="email">Email</option>
+              <option value="chat">Chat / hội thoại bằng chữ</option>
+              <option value="spoken_script">Kịch bản để đọc thành tiếng</option>
+            </select>
+          </label>
+          <label className="text-sm text-slate-700">Giọng mong muốn
+            <select value={style.register} onChange={(event) => updateStyle({ register: event.target.value as RewriteStyle["register"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+              <option value="preserve">Giữ giọng gốc</option>
+              <option value="formal">Trang trọng</option>
+              <option value="professional">Chuyên nghiệp, rõ ràng</option>
+              <option value="friendly">Văn viết gần gũi</option>
+              <option value="conversational">Giọng hội thoại</option>
+            </select>
+          </label>
+          <label className="text-sm text-slate-700">Người đọc
+            <input value={style.audience} maxLength={300} placeholder="Ví dụ: người mới dùng sản phẩm" onChange={(event) => updateStyle({ audience: event.target.value })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          </label>
+          <label className="text-sm text-slate-700">Quan hệ giao tiếp
+            <input value={style.relationship} maxLength={300} placeholder="Ví dụ: đồng nghiệp cùng nhóm" onChange={(event) => updateStyle({ relationship: event.target.value })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          </label>
+          <label className="text-sm text-slate-700">Cách xưng hô
+            <input value={style.pronouns} maxLength={200} placeholder="Để trống để giữ cách xưng hô hiện có" onChange={(event) => updateStyle({ pronouns: event.target.value })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          </label>
+          <label className="text-sm text-slate-700">Mức can thiệp
+            <select value={style.edit_level} onChange={(event) => updateStyle({ edit_level: event.target.value as RewriteStyle["edit_level"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+              <option value="light">Nhẹ: sửa cục bộ</option>
+              <option value="moderate">Vừa: gộp hoặc tách câu</option>
+              <option value="deep">Sâu: có thể sắp xếp lại đoạn</option>
+            </select>
+          </label>
+          <label className="text-sm text-slate-700 sm:col-span-2">Ngữ cảnh bổ sung
+            <textarea value={context} maxLength={5000} rows={3} placeholder="Mục đích, thông tin liên quan hoặc phần hội thoại trước đó" onChange={(event) => { invalidateResult(); setContext(event.target.value); }} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          </label>
+          <label className="flex items-start gap-2 text-sm text-slate-700 sm:col-span-2">
+            <input type="checkbox" checked={style.reduce_hype} onChange={(event) => updateStyle({ reduce_hype: event.target.checked })} className="mt-1" />
+            <span>Cho phép giảm lời khen khoa trương và đồng cảm công thức. Lựa chọn này có thể làm nhẹ cường độ cảm xúc; dữ kiện và cam kết vẫn phải giữ.</span>
+          </label>
+        </div>
+      </details>
+
       {visibleError && (
         <div className="p-3.5 bg-amber-50 border border-amber-200/80 text-amber-900 rounded-xl text-xs mb-4">
           <span className="font-bold">Lưu ý hệ thống:</span> {visibleError}
@@ -103,12 +188,12 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
           <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
             <div className="flex items-center space-x-2">
               <span className="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-mono font-bold rounded-full border border-amber-200 uppercase tracking-wider">
-                {visibleResult.review_status}
+                {visibleResult.review_status === "unreviewed" ? "Chưa kiểm chứng" : visibleResult.review_status}
               </span>
               <span className="text-xs text-slate-500 italic">{visibleResult.disclaimer}</span>
             </div>
 
-            <button
+            {canCopy && <button
               type="button"
               onClick={handleCopy}
               className="px-3 py-1 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-sm flex items-center space-x-1.5 transition-all"
@@ -128,7 +213,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
                   <span>Sao chép kết quả</span>
                 </>
               )}
-            </button>
+            </button>}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -141,12 +226,15 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
 
             <div className="p-4 bg-emerald-50/70 rounded-xl border border-emerald-200/80 text-xs sm:text-sm">
               <span className="block font-bold text-emerald-800 text-xs uppercase tracking-wider font-mono mb-2 flex items-center justify-between">
-                <span>Bản viết lại đề xuất:</span>
+                <span>{MODE_LABELS[outputMode]}:</span>
                 <span className="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Cần tác giả duyệt</span>
               </span>
-              <p className="whitespace-pre-wrap text-emerald-950 font-medium leading-relaxed font-sans">
+              {canCopy && <p className="whitespace-pre-wrap text-emerald-950 font-medium leading-relaxed font-sans">
                 {visibleResult.rewrite}
-              </p>
+              </p>}
+              {Boolean(visibleResult.comments?.length) && <ul className="list-disc pl-5 space-y-2 text-slate-800 leading-relaxed">
+                {visibleResult.comments?.map((comment, index) => <li key={index}>{comment}</li>)}
+              </ul>}
             </div>
           </div>
         </div>

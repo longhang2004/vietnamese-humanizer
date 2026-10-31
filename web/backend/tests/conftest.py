@@ -1,3 +1,4 @@
+import json
 import os
 from collections.abc import Generator
 from unittest.mock import MagicMock, patch
@@ -38,9 +39,7 @@ def isolate_capability_settings():
     original_environment = {
         name: os.environ.get(name, _MISSING_ENV_VALUE) for name in _CAPABILITY_DEFAULTS
     }
-    original_settings = {
-        name: getattr(settings, name) for name in _CAPABILITY_DEFAULTS
-    }
+    original_settings = {name: getattr(settings, name) for name in _CAPABILITY_DEFAULTS}
 
     for name, default in _CAPABILITY_DEFAULTS.items():
         os.environ.pop(name, None)
@@ -95,7 +94,13 @@ def mock_gemini():
     with patch("app.services.rewriter.genai.Client") as mock_client_cls:
         mock_client_instance = MagicMock()
         mock_response = MagicMock()
-        mock_response.text = "Bản dịch/viết lại đã được gọt giũa tự nhiên hơn."
+        mock_response.text = json.dumps(
+            {
+                "output_mode": "clean_rewrite",
+                "rewrite": "Bản dịch/viết lại đã được gọt giũa tự nhiên hơn.",
+                "comments": [],
+            }
+        )
         mock_client_instance.models.generate_content.return_value = mock_response
         mock_client_cls.return_value = mock_client_instance
         yield mock_client_instance

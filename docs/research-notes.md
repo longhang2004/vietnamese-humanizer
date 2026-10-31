@@ -2,6 +2,12 @@
 
 Truy cập nguồn ngày 20 tháng 7 năm 2026. Repository không nhập dataset hay sao chép nội dung từ các nguồn dưới đây.
 
+## Đợt đọc về văn phong ngày 31 tháng 10 năm 2026
+
+Xem [nguồn có tác giả và ghi chú vận dụng](../skills/humanizer-vi/references/sources.md): phỏng vấn Nguyễn Ngọc Tư do Hoàng Thu Phố thực hiện trên Nhân Dân/Thời Nay, bài Nam Kha ghi nhận chia sẻ của Nguyễn Khắc Cường trên Mực Tím/Tuổi Trẻ, và nghiên cứu về profile giao tiếp tiếng Việt. Ghi chú tách điều quan sát được, quyết định của dự án và giới hạn bằng chứng. Không đưa nguyên văn bài báo vào corpus hay prompt.
+
+Đợt này bổ sung hướng dẫn mạch đoạn, kết hợp từ, lược chủ ngữ, phép lặp, sắc thái và cách biên tập theo kênh. Ba mươi benchmark dài mới do coding agent tự viết theo 15 cặp đối chiếu; không phải văn bản người thật hoặc dữ liệu được các tác giả nguồn duyệt. Các cặp được xem là cùng một nhóm khi chia development/test để tránh rò nội dung.
+
 ## Agent Skills
 
 [Agent Skills specification](https://agentskills.io/specification) quy định skill là một thư mục có `SKILL.md`. Frontmatter bắt buộc `name` và `description`; tên dùng chữ thường, số, dấu gạch nối và phải trùng tên thư mục. Specification khuyến nghị `SKILL.md` dưới 500 dòng, reference tương đối và progressive disclosure. Repository specification dùng Apache-2.0 cho code và CC-BY-4.0 cho tài liệu. Dự án này chỉ áp dụng format và tự viết nội dung.

@@ -6,6 +6,19 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-31
+
+### Added
+
+- Naturalness guidance on information flow, collocation, ellipsis, repetition, and pragmatic nuance, with attributed reading notes and separate chat/spoken-script guidance.
+- Optional rewrite context and style profile, curated skill references, and structured output modes that keep review comments separate from replacement text.
+- Thirty agent-authored long benchmark cases in 15 matched pairs; benchmark total is 70. No human-reviewed quality baseline is claimed.
+
+### Changed
+
+- Revised six corpus examples to avoid superficial synonym swaps, clarify permission to reduce hype, and request author review for unsupported promotional claims.
+- Rewrite consumers must inspect `output_mode`: review comments and author decisions now return an empty `rewrite` plus `comments`. The web app handles all four modes.
+
 ## [0.4.6] - 2026-09-18
 
 ### Fixed

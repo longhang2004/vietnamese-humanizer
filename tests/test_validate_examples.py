@@ -162,12 +162,12 @@ def test_release_corpus_has_103_reviewed_unique_examples() -> None:
     assert len({row["id"] for row in rows}) == 103
     assert all(row["gold_output_mode"] for row in rows)
     assert all(row["preservation_review"]["status"] == "agent-reviewed" for row in rows)
-    assert {
-        row["preservation_review"]["reviewer_id"] for row in rows
-    } == {"codex-semantic-audit-01", "codex-semantic-audit-02"}
-    assert all(
-        "meaning_preserved" not in row and "facts_preserved" not in row for row in rows
-    )
+    assert {row["preservation_review"]["reviewer_id"] for row in rows} == {
+        "codex-semantic-audit-01",
+        "codex-semantic-audit-02",
+        "codex-naturalness-audit-20261031",
+    }
+    assert all("meaning_preserved" not in row and "facts_preserved" not in row for row in rows)
 
 
 def test_semantic_audit_regressions() -> None:
@@ -180,8 +180,7 @@ def test_semantic_audit_regressions() -> None:
     assert examples["EX-027"]["output_mode"] == "needs_author_decision"
     assert examples["EX-027"]["gold_rewrite"] is False
     assert all(
-        phrase in examples["EX-028"]["output"]
-        for phrase in ("cần thiết", "quan trọng", "hữu ích")
+        phrase in examples["EX-028"]["output"] for phrase in ("cần thiết", "quan trọng", "hữu ích")
     )
     assert examples["EX-031"]["output_mode"] == "needs_author_decision"
     assert examples["EX-031"]["gold_rewrite"] is False
@@ -194,5 +193,7 @@ def test_semantic_audit_regressions() -> None:
     assert "quan trọng" in examples["EX-046"]["output"]
     assert examples["EX-054"]["output_mode"] == "review_comment"
     assert examples["EX-054"]["gold_rewrite"] is False
-    assert "đột phá" in examples["EX-056"]["output"]
-    assert "trải nghiệm" in examples["EX-056"]["output"]
+    assert examples["EX-056"]["output_mode"] == "review_comment"
+    assert examples["EX-056"]["gold_rewrite"] is False
+    assert examples["EX-066"]["output_mode"] == "review_comment"
+    assert examples["EX-076"]["style"]["reduce_hype"] is True
