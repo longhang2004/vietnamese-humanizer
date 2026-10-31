@@ -19,6 +19,11 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 - Revised six corpus examples to avoid superficial synonym swaps, clarify permission to reduce hype, and request author review for unsupported promotional claims.
 - Rewrite consumers must inspect `output_mode`: review comments and author decisions now return an empty `rewrite` plus `comments`. The web app handles all four modes.
 
+### Fixed
+
+- Updated Next.js and frontend test tooling to patched release lines, and refreshed vulnerable transitive dependencies while retaining the CI audit gate.
+- The high/critical audit gate passes; moderate `minimatch` advisories remain in development lint tooling.
+
 ## [0.4.6] - 2026-09-18
 
 ### Fixed

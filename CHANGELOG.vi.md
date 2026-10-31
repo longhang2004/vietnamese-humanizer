@@ -19,6 +19,11 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 - Rà lại sáu ví dụ corpus để tránh chỉ đổi từ đồng nghĩa, ghi rõ quyền giảm cường điệu và chuyển nhận định quảng cáo thiếu căn cứ sang góp ý.
 - Client rewrite cần đọc `output_mode`: góp ý và câu hỏi cho tác giả trả `rewrite` rỗng cùng `comments`. Web đã xử lý cả bốn mode.
 
+### Fixed
+
+- Nâng Next.js và công cụ kiểm thử frontend lên nhánh đã vá, cập nhật dependency gián tiếp có lỗ hổng và giữ nguyên cổng kiểm tra audit trong CI.
+- Audit không còn lỗi high/critical; vẫn có cảnh báo moderate của `minimatch` trong công cụ lint phục vụ phát triển.
+
 ## [0.4.6] - 2026-09-18
 
 ### Fixed
