@@ -10,10 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND = ROOT / "web" / "frontend"
 PRODUCT_NAME = "Vietnamese Writing Skills"
-PRODUCT_TITLE = "Vietnamese Writing Skills - Rà soát & Gọt giũa Văn phong Tiếng Việt"
-PRODUCT_METADATA_TITLE = (
-    "Vietnamese Writing Skills - Công cụ Rà soát & Gọt giũa Văn phong Tiếng Việt"
-)
+PRODUCT_TITLE = "Vietnamese Writing Skills — Soát văn phong tiếng Việt"
+PRODUCT_METADATA_TITLE = PRODUCT_TITLE
 
 
 def read_root_project() -> dict[str, object]:

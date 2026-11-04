@@ -1,0 +1,172 @@
+{
+  "format": "exploratory-pilot-1",
+  "id": "PILOT-20261103-BOOK-EXCHANGE",
+  "date": "2026-11-03",
+  "base_commit": "66ea5837674284a97d4df6a569e71d9282519e05",
+  "working_tree": "Contains unreleased profile changes; not a clean reproducible snapshot.",
+  "status": "agent-authored and agent-reviewed; no human evaluation; development only",
+  "purpose": "Same-topic writing and editing experiment; not a benchmark quality baseline.",
+  "source_material": "Only linked source metadata and editorial observations are stored in the companion Markdown. No source articles were supplied to the writer.",
+  "brief": {
+    "synthetic": true,
+    "topic": "Buổi đổi sách do một thư viện giả định tổ chức",
+    "confirmed_facts": [
+      "Đơn vị tổ chức: Thư viện Góc Nhỏ",
+      "Thời gian: Chủ nhật, 09:00–11:00",
+      "Số chỗ: 20",
+      "Mỗi người mang tối đa 2 cuốn còn nguyên trang để đổi",
+      "Tham gia miễn phí",
+      "Đăng ký tại quầy thư viện trước 18:00 thứ Bảy"
+    ],
+    "unknowns": [
+      "Chưa có thông tin về hình thức đăng ký trực tuyến",
+      "Địa điểm diễn ra sự kiện chưa được nêu riêng",
+      "Không có ngày tháng cụ thể"
+    ],
+    "limitation": "The original writer prompt mixed unknown-status information with publishable facts. Keep its wording frozen when interpreting these outputs."
+  },
+  "writer": {
+    "tool": "collaboration.spawn_agent",
+    "task": "/root/same_topic_writer",
+    "fork_turns": "none",
+    "model_id": null,
+    "generation_settings": null,
+    "prompt": "Bạn là người viết thử trong một pilot biên tập tiếng Việt. Chỉ thực hiện nhiệm vụ viết bên dưới, không dùng công cụ, không đọc repo/nguồn web/skill và không ghi file. Đây là baseline, chưa có bài mẫu hoặc hướng dẫn phong cách dự án. Trả JSON gồm 4 phần tử {id, text} với id news, social, spoken, playful. Mỗi bản 70–110 đơn vị tách bằng khoảng trắng; không cố lấp đầy nếu đủ nội dung. Dùng cùng dữ kiện, điều chỉnh cấu trúc và giọng phù hợp bốn nhu cầu: news = bản tin thông tin ngắn; social = bài mời tham gia trên mạng xã hội, thân thiện; spoken = lời dẫn người tổ chức để đọc thành tiếng; playful = bài mời dí dỏm nhẹ cho người lớn, không chọc ghẹo người tham gia. Tình huống hoàn toàn giả định: Thư viện Góc Nhỏ tổ chức buổi đổi sách vào Chủ nhật, 09:00–11:00. Có 20 chỗ; mỗi người mang tối đa 2 cuốn còn nguyên trang để đổi. Tham gia miễn phí. Đăng ký tại quầy thư viện trước 18:00 thứ Bảy. Chưa có thông tin về hình thức đăng ký trực tuyến. Phải giữ đủ mọi dữ kiện được khẳng định, không thêm ngày tháng cụ thể, địa chỉ, URL, điện thoại, ưu đãi, chất lượng sách, lời hứa hoặc trải nghiệm cá nhân. Mục đích là có bản nháp thực tế để đánh giá, không cố tạo lỗi. Giữ tên 'Thư viện Góc Nhỏ'. Chỉ trả JSON hợp lệ.",
+    "source_articles_supplied": false,
+    "project_skill_supplied": false
+  },
+  "editor": {
+    "type": "AI",
+    "task": "/root",
+    "source_aware": true,
+    "method": "Manual editing after reading the cited sources and existing project guidance; not an automated call to the rewrite API."
+  },
+  "reviewer": {
+    "type": "AI",
+    "task": "/root/same_topic_review",
+    "fork_turns": "none",
+    "model_id": null,
+    "generation_settings": null,
+    "input": "Brief and A/B variants, with version identities hidden. No source articles or expected preferences supplied.",
+    "extra_preservation_instruction": "Do not invent event venue or specific calendar date. This makes the review wording more explicit than the original writer prompt.",
+    "prompt_capture": "Summary and A/B assignments retained; complete review prompt not stored verbatim.",
+    "order": "Fixed, not randomized; source-aware editor prepared the pairs.",
+    "independent_human": false
+  },
+  "baseline": [
+    {
+      "id": "news",
+      "text": "Thư viện Góc Nhỏ tổ chức buổi đổi sách vào Chủ nhật, trong khung giờ từ 09:00 đến 11:00. Buổi đổi sách có tổng cộng 20 chỗ và miễn phí tham gia. Mỗi người mang tối đa 2 cuốn sách còn nguyên trang để đổi. Người muốn tham gia cần đăng ký trực tiếp tại quầy thư viện trước 18:00 thứ Bảy. Hiện chưa có thông tin về hình thức đăng ký trực tuyến cho buổi đổi sách này."
+    },
+    {
+      "id": "social",
+      "text": "Bạn có sách muốn mang đi đổi? Chủ nhật này, mời bạn tham gia buổi đổi sách tại Thư viện Góc Nhỏ, từ 09:00 đến 11:00. Buổi đổi sách miễn phí và có 20 chỗ. Bạn mang tối đa 2 cuốn còn nguyên trang để đổi nhé. Để đăng ký, hãy ghé quầy thư viện trước 18:00 thứ Bảy. Hiện chưa có thông tin về hình thức đăng ký trực tuyến, nên bạn lưu ý địa điểm và hạn đăng ký tại quầy."
+    },
+    {
+      "id": "spoken",
+      "text": "Xin chào mọi người! Thư viện Góc Nhỏ mời mọi người tham gia buổi đổi sách vào Chủ nhật, từ 09:00 đến 11:00. Chúng ta có 20 chỗ và tham gia hoàn toàn miễn phí. Mỗi người vui lòng mang tối đa 2 cuốn sách còn nguyên trang để đổi. Nếu muốn tham gia, mọi người hãy đăng ký tại quầy thư viện trước 18:00 thứ Bảy. Hiện chưa có thông tin về đăng ký trực tuyến. Xin nhắc lại, hạn đăng ký là trước 18:00 thứ Bảy."
+    },
+    {
+      "id": "playful",
+      "text": "Nếu sách trên kệ biết lên lịch, có lẽ chúng sẽ khoanh tròn Chủ nhật! Thư viện Góc Nhỏ mời bạn đến buổi đổi sách từ 09:00 đến 11:00. Có 20 chỗ, tham gia miễn phí. Mỗi người mang tối đa 2 cuốn còn nguyên trang để đổi; phần chọn sách xin nhường bạn quyết định. Nhớ đăng ký tại quầy thư viện trước 18:00 thứ Bảy nhé. Hiện chưa có thông tin về hình thức đăng ký trực tuyến."
+    }
+  ],
+  "edited": [
+    {
+      "id": "news",
+      "text": "Thư viện Góc Nhỏ tổ chức buổi đổi sách vào Chủ nhật, trong khung giờ từ 09:00 đến 11:00. Buổi đổi sách có tổng cộng 20 chỗ và miễn phí tham gia. Mỗi người mang tối đa 2 cuốn sách còn nguyên trang để đổi. Người muốn tham gia cần đăng ký trực tiếp tại quầy thư viện trước 18:00 thứ Bảy. Hiện chưa có thông tin về hình thức đăng ký trực tuyến cho buổi đổi sách này.",
+      "output_mode": "no_change",
+      "rationale": "Bản tin đã rõ và giữ dữ kiện; không sửa chỉ để tạo khác biệt."
+    },
+    {
+      "id": "social",
+      "text": "Bạn có sách muốn mang đi đổi? Thư viện Góc Nhỏ tổ chức buổi đổi sách vào Chủ nhật, từ 09:00 đến 11:00. Có 20 chỗ, tham gia miễn phí. Bạn mang tối đa 2 cuốn còn nguyên trang để đổi nhé. Đăng ký tại quầy thư viện trước 18:00 thứ Bảy. Hiện chưa có thông tin về đăng ký trực tuyến.",
+      "output_mode": "clean_rewrite",
+      "rationale": "Bỏ suy luận địa điểm sự kiện và thời điểm Chủ nhật gần nhất; gọn phần nhắc đăng ký, giữ lời mời thân thiện."
+    },
+    {
+      "id": "spoken",
+      "text": "Thư viện Góc Nhỏ mời mọi người tham gia buổi đổi sách vào Chủ nhật, từ 9 giờ đến 11 giờ. Buổi này có hai mươi chỗ và tham gia miễn phí. Mỗi người mang tối đa hai cuốn sách còn nguyên trang để đổi. Mọi người đăng ký tại quầy thư viện trước sáu giờ chiều thứ Bảy. Hiện chưa có thông tin về đăng ký trực tuyến.",
+      "output_mode": "clean_rewrite",
+      "rationale": "Viết số/giờ để thuận tiện đọc thành tiếng, giữ đúng giá trị. Bỏ phần nhắc hạn bị lặp trong đoạn ngắn; lời chào hoặc nhắc lại vẫn có thể hợp trong kịch bản khác."
+    },
+    {
+      "id": "playful",
+      "text": "Nếu sách biết lên lịch, có lẽ chúng sẽ khoanh tròn Chủ nhật! Thư viện Góc Nhỏ tổ chức buổi đổi sách vào Chủ nhật, từ 09:00 đến 11:00. Có 20 chỗ, tham gia miễn phí. Mỗi người mang tối đa 2 cuốn còn nguyên trang để đổi. Nhớ đăng ký tại quầy thư viện trước 18:00 thứ Bảy nhé. Hiện chưa có thông tin về đăng ký trực tuyến.",
+      "output_mode": "clean_rewrite",
+      "rationale": "Giữ hình ảnh vui nhẹ, bỏ câu lựa chọn sách gượng và nhắc Chủ nhật trong phần thông tin sự kiện. Đây là lựa chọn biên tập, không phải quy tắc cấm mọi câu đùa."
+    }
+  ],
+  "ab_mapping": [
+    {
+      "id": "news",
+      "A": "baseline",
+      "B": "edited"
+    },
+    {
+      "id": "social",
+      "A": "edited",
+      "B": "baseline"
+    },
+    {
+      "id": "spoken",
+      "A": "baseline",
+      "B": "edited"
+    },
+    {
+      "id": "playful",
+      "A": "baseline",
+      "B": "edited"
+    }
+  ],
+  "reviewer_response": [
+    {
+      "id": "news",
+      "preference": "tie",
+      "preservation_issues": [],
+      "reasons": [
+        "Hai bản giống nhau, giữ đủ dữ kiện và không khẳng định có đăng ký trực tuyến.",
+        "Giọng văn rõ ràng, phù hợp bản tin; có thể giữ nguyên."
+      ]
+    },
+    {
+      "id": "social",
+      "preference": "A",
+      "preservation_issues": [
+        "B thêm địa điểm diễn ra sự kiện là tại Thư viện Góc Nhỏ; brief chỉ xác định thư viện là đơn vị tổ chức.",
+        "B dùng “Chủ nhật này”, tự xác định thời điểm gần nhất trong khi brief chỉ ghi “Chủ nhật”."
+      ],
+      "reasons": [
+        "A giữ đủ dữ kiện và không tự xác định địa điểm sự kiện.",
+        "A có lời mời thân thiện, ngắn gọn. Câu cuối của B dài và lặp lại việc đăng ký tại quầy."
+      ]
+    },
+    {
+      "id": "spoken",
+      "preference": "B",
+      "preservation_issues": [],
+      "reasons": [
+        "Cả hai giữ đủ dữ kiện; cách chuyển 18:00 thành sáu giờ chiều của B đúng nghĩa.",
+        "B viết các mốc giờ và số lượng theo cách thuận tiện để đọc thành tiếng, nhịp câu gọn.",
+        "Lời chào và phần nhắc hạn ở A vẫn phù hợp, nhưng B liền mạch hơn."
+      ]
+    },
+    {
+      "id": "playful",
+      "preference": "B",
+      "preservation_issues": [],
+      "reasons": [
+        "Cả hai giữ đủ thông tin; B nêu Chủ nhật trực tiếp trong câu thông báo sự kiện nên rõ hơn.",
+        "B giữ được nét dí dỏm nhẹ từ hình ảnh sách biết lên lịch, không chọc người tham gia.",
+        "Câu “phần chọn sách xin nhường bạn quyết định” ở A hơi gượng và không cần thiết cho lời mời."
+      ]
+    }
+  ],
+  "limitations": [
+    "One synthetic situation, four correlated variants; no held-out topics.",
+    "Writer and reviewer use inherited agent configurations; exact model identifiers and settings were not exposed by the tool.",
+    "Review is qualitative AI feedback, not an independent native-speaker quality judgment.",
+    "No randomized order, human preference study, win-rate estimate, or evidence of improvement across styles.",
+    "Do not promote these drafts into gold examples or benchmark results without separate review."
+  ]
+}

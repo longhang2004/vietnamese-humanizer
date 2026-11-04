@@ -107,9 +107,35 @@ test("changing the profile invalidates an in-flight result", async () => {
   render(<RewritePanel originalText="Văn bản cần sửa." />);
   await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
   await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
-  await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
+  await user.selectOptions(screen.getByLabelText("Loại bài viết"), "technical");
   resolveRewrite({ rewrite: "Bản theo profile cũ", review_status: "unreviewed", disclaimer: "Cần duyệt" });
   await Promise.resolve();
   expect(screen.queryByText("Bản theo profile cũ")).not.toBeInTheDocument();
   expect(screen.getByRole("button", { name: /Viết lại bằng Gemini/i })).toBeEnabled();
+});
+
+test("selecting a writing profile keeps explicit voice, channel and edit depth", async () => {
+  const user = userEvent.setup();
+  vi.mocked(rewriteText).mockResolvedValue({
+    rewrite: "Nếu mất mạng, giữ cửa sổ mở.", output_mode: "no_change", comments: [],
+    review_status: "unreviewed", disclaimer: "Cần duyệt",
+  });
+  render(<RewritePanel originalText="Nếu mất mạng, giữ cửa sổ mở." />);
+  await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
+  await user.selectOptions(screen.getByLabelText("Kênh sử dụng"), "email");
+  await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
+  await user.selectOptions(screen.getByLabelText("Mức can thiệp"), "moderate");
+  await user.selectOptions(screen.getByLabelText("Loại bài viết"), "technical");
+  expect(screen.getByLabelText("Giọng mong muốn")).toHaveValue("friendly");
+  expect(screen.getByLabelText("Kênh sử dụng")).toHaveValue("email");
+  expect(screen.getByLabelText("Mức can thiệp")).toHaveValue("moderate");
+  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
+  expect(rewriteText).toHaveBeenCalledWith(expect.any(String), "humanizer-vi", undefined, {
+    context: "", style: expect.objectContaining({
+      profile: "technical", channel: "email", register: "friendly", edit_level: "moderate",
+    }),
+  });
+  expect(await screen.findByText("Giữ nguyên văn bản:")).toBeInTheDocument();
+  await user.selectOptions(screen.getByLabelText("Loại bài viết"), "business");
+  expect(screen.queryByText("Giữ nguyên văn bản:")).not.toBeInTheDocument();
 });

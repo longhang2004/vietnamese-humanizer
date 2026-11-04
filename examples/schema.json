@@ -182,6 +182,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "profile": {
+          "enum": ["preserve", "plain", "business", "technical"]
+        },
         "channel": {
           "enum": [
             "auto",

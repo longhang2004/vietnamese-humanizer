@@ -23,6 +23,7 @@ def test_frontend_zero_state_does_not_overclaim() -> None:
         encoding="utf-8"
     )
 
-    assert "Không tìm thấy tín hiệu trong bộ quy tắc hiện tại." in issue_list
-    assert "Văn bản vẫn nên được người viết rà lại theo ngữ cảnh." in issue_list
+    assert "Chưa thấy chỗ cần lưu ý theo các quy tắc đã chọn." in issue_list
+    assert "Kết quả này không có nghĩa văn bản đã hết lỗi." in issue_list
+    assert "Bạn vẫn nên đọc lại theo ngữ cảnh." in issue_list
     assert "Văn bản diễn đạt mượt mà, tự nhiên" not in issue_list

@@ -8,6 +8,12 @@ Xem [nguồn có tác giả và ghi chú vận dụng](../skills/humanizer-vi/re
 
 Đợt này bổ sung hướng dẫn mạch đoạn, kết hợp từ, lược chủ ngữ, phép lặp, sắc thái và cách biên tập theo kênh. Ba mươi benchmark dài mới do coding agent tự viết theo 15 cặp đối chiếu; không phải văn bản người thật hoặc dữ liệu được các tác giả nguồn duyệt. Các cặp được xem là cùng một nhóm khi chia development/test để tránh rò nội dung.
 
+## Đợt khảo sát cùng chủ đề ngày 3 tháng 11 năm 2026
+
+[Learning loop](style-learning-loop.md) mô tả cách đọc nhiều nguồn có tác giả, tạo brief riêng, cho writer viết độc lập, biên tập và kiểm trên chủ đề chưa thấy. [Style catalog](style-catalog.md) tách chủ đề, thể loại, kênh, giọng và quan hệ; ghi nguồn mới về bản tin, kể chuyện, marketing, social, giáo dục và UX.
+
+[Pilot đổi sách](research/2026-11-03-same-topic-pilot.md) đã chạy một writer subagent, agent chính biên tập và một reviewer subagent với bản A/B ẩn nhãn. Dữ kiện giả định, output AI và nhận xét AI được lưu riêng khỏi corpus/benchmark. Đây là quan sát development, không phải baseline bản ngữ hoặc bằng chứng định lượng về cải thiện.
+
 ## Agent Skills
 
 [Agent Skills specification](https://agentskills.io/specification) quy định skill là một thư mục có `SKILL.md`. Frontmatter bắt buộc `name` và `description`; tên dùng chữ thường, số, dấu gạch nối và phải trùng tên thư mục. Specification khuyến nghị `SKILL.md` dưới 500 dòng, reference tương đối và progressive disclosure. Repository specification dùng Apache-2.0 cho code và CC-BY-4.0 cho tài liệu. Dự án này chỉ áp dụng format và tự viết nội dung.

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SkillItem } from "../lib/types";
+import { starterSkills } from "../lib/onboarding";
 
 interface EditorProps {
   skills: SkillItem[];
@@ -7,32 +8,12 @@ interface EditorProps {
   loading: boolean;
 }
 
-const DEFAULT_SKILLS: SkillItem[] = [
-  {
-    id: "humanizer-vi",
-    name: "Humanizer tiếng Việt",
-    when_to_use: "Văn bản có vẻ theo khuôn, sáo, đều nhịp hoặc lệch giọng",
-    when_not_to_use: "Suy đoán tác giả, lách detector, hoặc chỉ soát lỗi máy móc",
-  },
-  {
-    id: "translationese-cleaner-vi",
-    name: "Gọt dịch thuật ngữ tiếng Việt",
-    when_to_use: "Văn bản dịch thô, câu bị động khiên cưỡng, lạm dụng cấu trúc dịch tiếng Anh",
-    when_not_to_use: "Soát lỗi chính tả đơn thuần hoặc sửa văn bản đã tự nhiên",
-  },
-  {
-    id: "grammar-checker-vi",
-    name: "Soát lỗi ngữ pháp & chính tả",
-    when_to_use: "Phát hiện lỗi sai từ ngữ, sai ngữ pháp, câu thiếu chủ/vị rõ ràng",
-    when_not_to_use: "Đánh giá văn phong hay/dở hoặc quy kết văn bản do AI sinh",
-  },
-  {
-    id: "style-guide-vi",
-    name: "Quy chuẩn văn phong & báo chí",
-    when_to_use: "Rà soát tính nhất quán về thuật ngữ, xưng hô, định dạng và hành văn chuyên nghiệp",
-    when_not_to_use: "Sáng tạo nghệ thuật tự do hoặc thay thế quy chuẩn riêng của tòa soạn",
-  },
-];
+const DEFAULT_SKILLS: SkillItem[] = starterSkills.map((skill) => ({
+  id: skill.id,
+  name: skill.title,
+  when_to_use: skill.description,
+  when_not_to_use: "",
+}));
 
 const SAMPLE_TEXT = `Trong bối cảnh không ngừng phát triển, doanh nghiệp cần đổi mới. Trong bối cảnh không ngừng phát triển, thị trường yêu cầu linh hoạt. Việc thực hiện công tác kiểm tra được tổ chức bởi ban chỉ đạo nhằm nâng cao năng lực cạnh tranh.`;
 
@@ -77,7 +58,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
           <svg className="w-4 h-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
           </svg>
-          <span>Văn bản cần kiểm tra văn phong</span>
+          <span>Văn bản cần soát</span>
         </label>
         
         <div className="flex items-center space-x-3 text-xs">
@@ -111,7 +92,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
           maxLength={20000}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Dán hoặc nhập văn bản tiếng Việt để phát hiện lối viết khuôn mẫu, từ sáo rỗng hoặc cấu trúc dịch thô..."
+          placeholder="Dán hoặc nhập đoạn tiếng Việt bạn muốn soát. Bạn cũng có thể thử văn bản mẫu ở trên."
           className="w-full p-4 border border-slate-200 rounded-xl shadow-inner text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 font-sans transition-all resize-y min-h-[160px]"
         />
 
@@ -129,7 +110,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2.5">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
-            Bộ kỹ năng kiểm tra:
+            Bạn muốn kiểm tra gì?
           </span>
           <span className="text-xs text-slate-400 font-mono">
             {selectedSkills.length}/{activeSkills.length} đã chọn
@@ -139,6 +120,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {activeSkills.map((skill) => {
             const isSelected = selectedSkills.includes(skill.id);
+            const copy = starterSkills.find((item) => item.id === skill.id);
             return (
               <label
                 key={skill.id}
@@ -171,8 +153,8 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
                     )}
                   </div>
                   <div className="flex-1">
-                    <span className="font-bold block text-slate-900 text-xs sm:text-sm">{skill.name}</span>
-                    <span className="text-slate-500 leading-normal block mt-1">{skill.when_to_use}</span>
+                    <span className="font-bold block text-slate-900 text-xs sm:text-sm">{copy?.title ?? skill.name}</span>
+                    <span className="text-slate-500 leading-normal block mt-1">{copy?.description ?? skill.when_to_use}</span>
                   </div>
                 </div>
               </label>
@@ -184,7 +166,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
       {/* Action Footer */}
       <div className="flex items-center justify-between pt-2 border-t border-slate-100">
         <span className="text-xs text-slate-400 hidden sm:inline-block">
-          ⚡ Tự động rà soát theo bộ quy chuẩn Agent Skills
+          Kết quả là gợi ý để bạn đọc lại và cân nhắc sửa.
         </span>
 
         <button

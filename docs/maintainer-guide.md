@@ -63,12 +63,15 @@ Run the complete local quality gate:
 ```bash
 python3 scripts/dev.py check
 python3 scripts/dev.py smoke --skip-setup
+python3 scripts/export_user_packs.py --check
 git diff --check
 ```
 
 `check` runs root Ruff and pytest, release consistency, all data validators, benchmark validation, generated-document verification, package build and isolated wheel checks, backend Ruff and pytest, frontend lint and TypeScript, and the frontend production build.
 
 For a release, also follow the checklist in `CONTRIBUTING.md`: confirm CI, verify the version authorities and changelog, inspect the built distributions, and use the repository release workflow. Do not claim a GitHub environment, trusted publisher, branch rule, analytics setting, or deployment state without checking it in the system that owns that state.
+
+After editing skills, references, distribution metadata, or the project version, run `python3 scripts/export_user_packs.py` and commit the generated downloads with the source changes. Root CI, Web CI, and the release workflow check for drift. Releases attach a separate user-download ZIP to GitHub; only Python distributions go to PyPI. See [user distribution](user-distribution.md) for platform packaging and the ChatGPT plugin's publication status.
 
 ## Security and community reports
 

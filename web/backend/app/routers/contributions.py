@@ -23,7 +23,7 @@ def submit_contribution(request: Request, body: ContributionCreate, db: Session 
     if not body.consent:
         raise HTTPException(
             status_code=400,
-            detail="Bạn cần xác nhận đồng ý (consent=true) trước khi gửi đóng góp.",
+            detail="Bạn cần xác nhận quyền chia sẻ văn bản trước khi gửi ví dụ.",
         )
 
     if body.skill not in VALID_SKILLS:
@@ -39,5 +39,5 @@ def submit_contribution(request: Request, body: ContributionCreate, db: Session 
     return ContributionResponse(
         id=contrib.id,
         status=contrib.status,
-        message="Cảm ơn đóng góp, sẽ được maintainer xem xét.",
+        message="Đã nhận ví dụ của bạn. Nhóm duy trì sẽ xem xét trước khi thêm vào bộ dữ liệu.",
     )

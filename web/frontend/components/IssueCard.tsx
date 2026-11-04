@@ -7,6 +7,11 @@ interface IssueCardProps {
   onSelectPattern: (patternId: string) => void;
 }
 
+const SEVERITY_LABELS: Record<string, string> = {
+  high: "Cao", medium: "Vừa", low: "Thấp", error: "Lỗi",
+  warning: "Cảnh báo", heuristic: "Tham khảo", preference: "Tùy chọn",
+};
+
 export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPattern }) => {
   const [showOccurrences, setShowOccurrences] = useState(false);
   const occurrences: IssueOccurrence[] = issue.occurrences?.length
@@ -56,13 +61,13 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
   const getFindingTypeLabel = (type: string) => {
     switch (type) {
       case "error":
-        return "Lỗi ngữ pháp & chính tả";
+        return "Lỗi cần sửa";
       case "warning":
-        return "Cảnh báo văn phong";
+        return "Cần xem lại";
       case "preference":
-        return "Khuyến nghị từ ngữ";
+        return "Lựa chọn cách viết";
       case "heuristic":
-        return "Lối viết khuôn mẫu";
+        return "Tín hiệu tham khảo";
       default:
         return type;
     }
@@ -79,7 +84,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
           >
             {issue.pattern_id}
           </button>
-          <span className="text-xs text-slate-400 font-mono">Dòng {issue.line}:{issue.column}</span>
+          <span className="text-xs text-slate-400 font-mono">Dòng {issue.line}, cột {issue.column}</span>
           {occurrences.length > 1 && (
             <button
               type="button"
@@ -100,7 +105,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
             issue.severity
           )}`}
         >
-          {issue.severity}
+          {SEVERITY_LABELS[issue.severity.toLowerCase()] ?? issue.severity}
         </span>
       </div>
 
@@ -117,7 +122,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
               className="rounded-lg border border-slate-200/80 bg-slate-50/60 p-2.5"
             >
               <div className="mb-1 text-[11px] font-mono font-semibold text-slate-500">
-                Dòng {occurrence.line}:{occurrence.column}
+                Dòng {occurrence.line}, cột {occurrence.column}
               </div>
               <div className="text-xs sm:text-sm font-mono text-slate-700 leading-relaxed">
                 &quot;{renderExcerpt(occurrence)}&quot;
@@ -152,7 +157,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPa
             onClick={() => onSelectPattern(issue.pattern_id)}
             className="text-sky-600 font-bold hover:text-sky-700 hover:underline flex-shrink-0 ml-2 flex items-center space-x-1"
           >
-            <span>Chi tiết quy chuẩn</span>
+            <span>Vì sao có gợi ý này?</span>
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>

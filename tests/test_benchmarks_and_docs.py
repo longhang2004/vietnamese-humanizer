@@ -83,6 +83,19 @@ def test_long_naturalness_cases_cover_preservation_and_editorial_decisions() -> 
     assert any(case.get("style", {}).get("channel") == "spoken_script" for case in cases)
 
 
+def test_writing_profiles_include_preservation_controls_and_decision_cases() -> None:
+    cases = load_jsonl(ROOT / "benchmarks" / "cases" / "writing-profiles.jsonl")
+    assert len(cases) == 24
+    for profile in ("plain", "business", "technical"):
+        selected = [case for case in cases if case["style"]["profile"] == profile]
+        assert len(selected) == 8
+        assert sum(case["expected_output_mode"] == "no_change" for case in selected) == 4
+        assert any(case["expected_output_mode"] == "clean_rewrite" for case in selected)
+    assert {case["expected_output_mode"] for case in cases} == {
+        "clean_rewrite", "no_change", "review_comment", "needs_author_decision",
+    }
+
+
 def test_benchmark_missing_context_is_reported(tmp_path: Path) -> None:
     case = {
         "id": "BENCH-HUM-999",
@@ -148,6 +161,29 @@ def test_summary_averages_blocker_rate_and_unreviewed_count() -> None:
     assert summary["reviewers"] == 2
     assert summary["reviewed_cases"] == 1
     assert summary["unreviewed_cases"] == len(cases) - 1
+
+
+def test_profile_report_separates_systems_and_unreviewed_profiles() -> None:
+    cases = [
+        {"id": "BENCH-HUM-040", "skill": "humanizer-vi", "domain": "blog",
+         "style": {"profile": "plain"}},
+        {"id": "BENCH-HUM-041", "skill": "humanizer-vi", "domain": "blog",
+         "style": {"profile": "plain"}},
+        {"id": "BENCH-HUM-056", "skill": "humanizer-vi", "domain": "technical",
+         "style": {"profile": "technical"}},
+    ]
+    first = review("BENCH-HUM-040")
+    second = review("BENCH-HUM-040", "reviewer-02", ["changed_certainty"])
+    second["system"] = "baseline"
+    second["scores"]["naturalness"] = 1
+    summary = summarize(cases, [first, second])
+    assert summary["by_profile"] == {"plain": 2, "technical": 1}
+    systems = summary["profile_results"]["plain"]["systems"]
+    assert systems["candidate-system"]["averages"]["naturalness"] == 4
+    assert systems["baseline"]["averages"]["naturalness"] == 1
+    assert systems["baseline"]["blocker_rate"] == 1
+    assert systems["baseline"]["unreviewed_cases"] == 1
+    assert summary["profile_results"]["technical"] == {"cases": 1, "systems": {}}
 
 
 def test_generated_pattern_docs_are_stable_and_complete() -> None:

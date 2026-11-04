@@ -157,8 +157,15 @@ def test_release_workflow_is_tag_gated_and_uses_trusted_publishing() -> None:
     assert release["needs"] == "publish-pypi"
     assert release["permissions"] == {"contents": "write"}
     assert release["steps"][0] == publish["steps"][0]
-    assert "gh release create" in release["steps"][1]["run"]
-    assert '--repo "$GITHUB_REPOSITORY"' in release["steps"][1]["run"]
+    create_release = next(
+        step for step in release["steps"] if step.get("name") == "Create GitHub Release"
+    )
+    assert "gh release create" in create_release["run"]
+    assert '--repo "$GITHUB_REPOSITORY"' in create_release["run"]
+    assert "user-downloads/vietnamese-writing-skills-user-packs.zip" in create_release["run"]
+    downloads = [step["with"]["name"] for step in release["steps"]
+                 if step.get("uses") == "actions/download-artifact@v7"]
+    assert downloads == ["python-distributions", "user-downloads"]
 
 
 def test_release_hardening_files_and_status_are_present() -> None:

@@ -1,0 +1,19 @@
+VIETNAMESE WRITING SKILLS — BẮT ĐẦU SỬ DỤNG
+
+Hướng dẫn cài đặt được đối chiếu ngày 2026-11-04.
+Trang hướng dẫn: https://vietnamese-humanizer-g1o9.vercel.app/start
+
+CLAUDE
+Chọn một ZIP trong thư mục claude/. Mở Customize → Skills → thêm skill → Upload a skill, chọn ZIP và bật skill. Nếu được yêu cầu, bật Code execution and file creation trong Settings → Capabilities.
+
+GEMINI
+Chọn một ZIP trong thư mục gemini/. Trên web Gemini, mở Customize → Skills → Create → Upload, chọn ZIP, xem lại và chọn Create. Nếu tài khoản chưa có Skills, dùng yêu cầu mẫu trong yeu-cau-bien-tap.txt.
+
+CHATGPT VÀ CHATBOT KHÁC
+Mở yeu-cau-bien-tap.txt, sao chép vào cuộc trò chuyện và thay phần trong ngoặc bằng văn bản của bạn. Có thể đính kèm huong-dan-tieng-viet.md khi chatbot hỗ trợ đọc tài liệu. Yêu cầu mẫu là bản rút gọn; gói skill gồm các tài liệu tham khảo chi tiết.
+
+Bốn nhu cầu: humanizer-vi — viết tự nhiên hơn; translationese-cleaner-vi — sửa câu dịch chưa tự nhiên; grammar-checker-vi — soát lỗi tiếng Việt; style-guide-vi — giữ cách viết nhất quán.
+
+Gói trong chatgpt/ dành cho người phát hành nộp xét duyệt plugin; việc tải gói không cài plugin vào tài khoản ChatGPT.
+
+Trước khi sử dụng kết quả, đọc lại số, tên, điều kiện và cam kết. Các nền tảng và model có thể thực hiện hướng dẫn khác nhau.

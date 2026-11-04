@@ -6,6 +6,19 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+### Changed
+
+- Applied the repository's Vietnamese editing skills to web copy: plain, friendly instructions, consistent task labels, clearer review states, and a documented UI copy guide. Regenerated user downloads from the updated catalog.
+
+### Added
+
+- A `/start` page for nontechnical users with platform-specific installation steps, task selection, copyable prompts, and clipboard fallback.
+- Deterministic Claude/Gemini skill ZIPs, a ChatGPT plugin package prepared for submission, a self-contained Markdown guide, and a CI drift check. Releases attach user downloads separately from Python distributions; no public plugin listing is claimed.
+- Independent writing-profile control in the rewrite API and web UI: preserve, clear prose, work communication, and technical documentation. Profiles keep explicit channel, register, pronouns, and editing depth.
+- Focused Vietnamese profile references with original annotated examples and attributed Google, Mailchimp, and NN/g reading notes.
+- Twenty-four agent-authored profile benchmark cases in 12 matched pairs (94 total), a native-speaker review protocol, and reports grouped by profile and system. No independent quality scores are claimed.
+- A source-attributed style catalog, a same-topic learning protocol, and an actual four-variant subagent writing/editing pilot with qualitative AI review. Pilot artifacts remain outside the corpus and benchmark baseline.
+
 ## [0.5.0] - 2026-10-31
 
 ### Added

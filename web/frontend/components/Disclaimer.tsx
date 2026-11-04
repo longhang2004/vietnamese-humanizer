@@ -11,13 +11,10 @@ export const Disclaimer: React.FC = () => {
         </div>
         <div className="flex-1 text-xs sm:text-sm">
           <h3 className="font-bold text-sky-950 flex items-center gap-2">
-            <span>Phạm vi & mục đích công cụ</span>
-            <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-sky-100 text-sky-800 font-semibold border border-sky-200">
-              Biên tập viên
-            </span>
+            <span>Đọc gợi ý, giữ quyền quyết định</span>
           </h3>
           <p className="text-slate-600 mt-1 leading-relaxed">
-            Công cụ nhận diện các <strong>tín hiệu văn phong tiếng Việt</strong> giúp người viết tự kiểm tra và gọt giũa bài viết. Công cụ <strong>không</strong> đo xác suất AI, <strong>không</strong> suy đoán tác giả và <strong>không</strong> có tính năng lách kiểm duyệt. Mọi ghi nhận đều là gợi ý để tác giả tự chủ quyết định.
+            Công cụ đánh dấu những chỗ <strong>có thể cần xem lại</strong> trong cách viết tiếng Việt. Bạn cân nhắc từng gợi ý theo ngữ cảnh trước khi sửa. Công cụ không chấm xác suất AI, không xác định ai viết văn bản và không giúp vượt qua công cụ phát hiện AI.
           </p>
         </div>
       </div>

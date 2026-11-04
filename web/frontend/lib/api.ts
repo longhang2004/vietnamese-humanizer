@@ -15,7 +15,7 @@ let healthRequest: Promise<HealthResponse> | null = null;
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
-    let errorDetail = `Yêu cầu thất bại với mã lỗi HTTP ${res.status}`;
+    let errorDetail = `Chưa thực hiện được yêu cầu (HTTP ${res.status}).`;
     try {
       const data = await res.json();
       if (data.detail) {

@@ -8,6 +8,8 @@ Bốn thư mục trong `skills/` chứa quy trình ra quyết định và kiến
 
 Web rewrite nhận context và profile tùy chọn. Backend nạp `SKILL.md` cùng danh sách reference cố định theo skill; humanizer thêm hướng dẫn hội thoại khi chọn chat/kịch bản nói hoặc giọng hội thoại, và workflow dài khi sửa sâu. Đường dẫn reference không lấy từ request. Kết quả model được parse theo schema, chuẩn hóa `no_change` về nguyên văn input và tách comments khỏi replacement text. Đây là kiểm tra giao thức, không phải kiểm chứng bảo toàn ngữ nghĩa.
 
+`style.profile` chọn `preserve` (mặc định), `plain`, `business` hoặc `technical`. Backend dùng allowlist để nạp overview và đúng một reference theo profile từ tài nguyên humanizer đã đóng gói, kể cả khi skill đang chọn là grammar/style/translationese; phạm vi skill vẫn giữ nguyên. Profile độc lập với channel/register/edit_level. Frontend gửi lựa chọn này cùng style và hủy hiển thị kết quả cũ hoặc đến trễ khi người dùng đổi loại bài.
+
 ## Pattern data
 
 Các file YAML trong `patterns/` lưu tín hiệu có thể kiểm tra hoặc gợi ý review. JSON Schema bắt buộc `finding_type`, `scope` và `aggregation`. Catalog không phải từ điển lỗi. Dù heuristic có regex ổn định, reviewer vẫn phải đánh giá tác động trong đoạn hoặc toàn tài liệu.

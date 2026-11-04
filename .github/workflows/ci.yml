@@ -29,6 +29,7 @@ jobs:
       - run: python scripts/validate_examples.py
       - run: python scripts/run_benchmarks.py --validate-only
       - run: python scripts/generate_pattern_docs.py --check
+      - run: python scripts/export_user_packs.py --check
 
   package:
     runs-on: ubuntu-latest

@@ -12,6 +12,7 @@ This FastAPI service exposes deterministic lint and metadata endpoints. Rewrite,
   "skill": "humanizer-vi",
   "context": "Email nhắc công việc trong nhóm.",
   "style": {
+    "profile": "business",
     "channel": "email",
     "register": "professional",
     "audience": "đồng nghiệp",
@@ -25,9 +26,11 @@ This FastAPI service exposes deterministic lint and metadata endpoints. Rewrite,
 
 Channel options: `auto`, `document`, `email`, `chat`, `spoken_script`. Register options: `preserve`, `formal`, `professional`, `friendly`, `conversational`. Editing depth: `light`, `moderate`, `deep`. Defaults are `auto`, `preserve`, `light`, and no hype reduction. Audience/relationship are limited to 300 characters each; pronouns to 200. Every depth preserves facts and commitments. Hype reduction explicitly permits softening formulaic praise/empathy, not changing scope or factual claims.
 
+Writing profile options: `preserve` (default), `plain` (clear prose), `business` (work communication), `technical` (technical documentation). Profile guidance is loaded for any selected skill without widening that skill's task. The profile does not override channel, register, pronouns, or edit depth; `technical` with `friendly` remains valid. A business profile cannot invent missing owners or deadlines. Omitted profiles keep the existing behavior. See the [profile guide](../../skills/humanizer-vi/references/writing-profiles.md).
+
 Responses retain `rewrite`, `review_status`, and `disclaimer`, and add `output_mode` and `comments`. `clean_rewrite` contains replacement text; `no_change` returns the original exactly. `review_comment` and `needs_author_decision` return an empty `rewrite` and actionable `comments`. Consumers must inspect the mode before treating a result as a replacement. Invalid provider JSON or empty replacement text fails instead of masquerading as a successful unchanged result.
 
-The prompt loads repository-owned reference filenames, with conversational guidance only for relevant profiles and the long-document workflow for deep edits. Structured output validates shape, not semantic preservation. Tests mock provider calls; independent human evaluation is still required for quality claims.
+The prompt loads repository-owned reference filenames, with conversational guidance for chat/spoken-script channels or conversational register, the selected writing-profile reference, and the long-document workflow for deep humanizer edits. Structured output validates shape, not semantic preservation. Tests mock provider calls; independent human evaluation is still required for quality claims.
 
 ## Quickstart
 

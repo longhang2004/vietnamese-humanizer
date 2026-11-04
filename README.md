@@ -17,6 +17,8 @@ The project does not classify authorship, produce an "AI probability score," or 
 
 ## Four skills
 
+**Using ChatGPT, Claude, or Gemini without code:** open [Get started](https://vietnamese-humanizer-g1o9.vercel.app/start) to choose a task, download a skill, or copy a starter prompt. The [distribution guide](docs/user-distribution.md) covers packaging, plugin status, and updates.
+
 | Skill | Use it when | Do not use it when |
 | --- | --- | --- |
 | `humanizer-vi` | Prose feels templated, clichéd, flat in rhythm, or uneven in voice | Inferring authorship, evading detectors, or doing only mechanical proofreading |
@@ -146,9 +148,9 @@ Patterns also define `scope` and `aggregation`. Repeated sentence openings, for 
 
 ## Corpus and benchmark
 
-The catalog has 44 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 103 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 70 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints; 30 new long cases are agent-authored in 15 matched pairs. JSON Schema validates manual-review results, and a case may have several reviewers.
+The catalog has 44 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 103 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 94 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints; these include 30 long cases in 15 matched pairs and 24 writing-profile cases in 12 matched pairs. The new cases are agent-authored. JSON Schema validates manual-review results, and a case may have several reviewers.
 
-When rewrite is enabled, the web app accepts channel, register, audience, relationship, pronouns, editing depth, and context. Defaults preserve the original voice and make light edits. Reducing hype is a separate opt-in because it may soften emotional intensity. See the Vietnamese [naturalness guidance](skills/humanizer-vi/references/naturalness.md) and [attributed reading notes](skills/humanizer-vi/references/sources.md).
+When rewrite is enabled, the web app accepts writing profile (`preserve`, `plain`, `business`, `technical`), channel, register, audience, relationship, pronouns, editing depth, and context. A profile selects editorial guidance without changing the other controls. Defaults preserve the original voice and make light edits. Reducing hype is a separate opt-in because it may soften emotional intensity. See the Vietnamese [writing profiles](skills/humanizer-vi/references/writing-profiles.md), [naturalness guidance](skills/humanizer-vi/references/naturalness.md), [attributed reading notes](skills/humanizer-vi/references/sources.md), and [independent profile-review protocol](benchmarks/profile-review.md).
 
 A coding agent audited each input + context → output pair in the corpus. `agent-reviewed` does not mean reviewed by a maintainer, native speaker, or independent reviewer. The repository has no independent baseline yet. The current benchmark helps with process design and data regression; it does not establish effectiveness outside these authored cases.
 
@@ -162,6 +164,7 @@ python scripts/validate_patterns.py
 python scripts/validate_examples.py
 python scripts/run_benchmarks.py --validate-only
 python scripts/generate_pattern_docs.py --check
+python scripts/export_user_packs.py --check
 python -m build
 ```
 

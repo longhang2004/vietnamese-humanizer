@@ -63,7 +63,7 @@ def test_contribution_without_consent(client, monkeypatch):
     }
     response = client.post("/api/contributions", json=payload)
     assert response.status_code == 400
-    assert "consent=true" in response.json()["detail"]
+    assert "xác nhận quyền chia sẻ" in response.json()["detail"]
 
 
 def test_contribution_success(client, monkeypatch):
@@ -82,7 +82,7 @@ def test_contribution_success(client, monkeypatch):
     data = response.json()
     assert "id" in data
     assert data["status"] == "pending"
-    assert "Cảm ơn đóng góp" in data["message"]
+    assert "Đã nhận ví dụ" in data["message"]
 
 
 def test_contribution_invalid_skill(client, monkeypatch):

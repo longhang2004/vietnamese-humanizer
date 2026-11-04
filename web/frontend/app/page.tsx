@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { useCapabilities } from "../components/CapabilityNav";
 import { Disclaimer } from "../components/Disclaimer";
 import { Editor } from "../components/Editor";
@@ -43,7 +44,7 @@ export default function HomePage() {
       if (err instanceof Error) {
         setErrorMsg(err.message);
       } else {
-        setErrorMsg("Đã xảy ra lỗi không xác định khi kiểm tra văn bản.");
+        setErrorMsg("Chưa kiểm tra được văn bản. Bạn hãy thử lại.");
       }
       setLintResult(null);
     } finally {
@@ -55,6 +56,10 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-sky-100 bg-sky-50/70 px-5 py-4">
+        <p className="text-sm text-slate-700">Muốn dùng bộ hướng dẫn này trong ChatGPT, Claude hoặc Gemini?</p>
+        <Link href="/start" className="text-sm font-semibold text-sky-700 underline decoration-sky-200 underline-offset-4 hover:text-sky-900">Bắt đầu sử dụng →</Link>
+      </div>
       {/* Top Banner Disclaimer */}
       <Disclaimer />
 
@@ -70,7 +75,7 @@ export default function HomePage() {
               </svg>
             </div>
             <div>
-              <p className="font-bold text-rose-950">Lỗi kiểm tra văn phong:</p>
+              <p className="font-bold text-rose-950">Chưa kiểm tra được văn bản</p>
               <p className="mt-0.5 text-rose-800 leading-relaxed">{errorMsg}</p>
             </div>
           </div>

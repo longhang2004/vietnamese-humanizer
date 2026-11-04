@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { submitContribution } from "../lib/api";
 import { ContributionResponse, SkillItem } from "../lib/types";
+import { starterSkills } from "../lib/onboarding";
 
 interface ContributeFormProps {
   skills: SkillItem[];
@@ -45,7 +46,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
       if (err instanceof Error) {
         setErrorMsg(err.message);
       } else {
-        setErrorMsg("Đã xảy ra lỗi khi gửi đề xuất đóng góp.");
+        setErrorMsg("Chưa gửi được ví dụ. Bạn hãy thử lại.");
       }
     } finally {
       setLoading(false);
@@ -54,21 +55,21 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 max-w-3xl mx-auto my-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-1">Đóng góp ví dụ / Case văn phong</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-1">Góp ví dụ biên tập tiếng Việt</h2>
       <p className="text-xs text-gray-600 mb-6">
-        Các đóng góp của bạn sẽ được lưu vào cơ sở dữ liệu kiểm duyệt (staging) để maintainer rà soát trước khi đưa vào bộ corpus dữ liệu chuẩn.
+        Gửi đoạn gốc và cách sửa bạn đề xuất. Nhóm duy trì sẽ xem xét trước khi thêm ví dụ vào bộ dữ liệu của dự án.
       </p>
 
       {response && (
         <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-md text-xs mb-6">
           <p className="font-bold text-sm">✅ {response.message}</p>
-          <p className="mt-1">Mã đề xuất đóng góp của bạn: <code className="bg-emerald-100 px-1 py-0.5 rounded font-mono">{response.id}</code> (Trạng thái: {response.status})</p>
+          <p className="mt-1">Mã đóng góp: <code className="bg-emerald-100 px-1 py-0.5 rounded font-mono">{response.id}</code> · Trạng thái: {response.status === "pending" ? "Chờ xem xét" : response.status}</p>
         </div>
       )}
 
       {errorMsg && (
         <div className="p-4 bg-red-50 border border-red-200 text-red-900 rounded-md text-xs mb-6">
-          <p className="font-bold">❌ Gửi thất bại:</p>
+          <p className="font-bold">Chưa gửi được ví dụ</p>
           <p className="mt-0.5">{errorMsg}</p>
         </div>
       )}
@@ -76,7 +77,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
       <div className="space-y-4">
         <div>
           <label htmlFor="skill-select" className="block text-xs font-semibold text-gray-700 mb-1">
-            Chọn kỹ năng liên quan <span className="text-red-500">*</span>
+            Ví dụ này cần sửa gì? <span className="text-red-500">*</span>
           </label>
           <select
             id="skill-select"
@@ -86,7 +87,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
           >
             {skills.map((s) => (
               <option key={s.id} value={s.id}>
-                {s.name} ({s.id})
+                {starterSkills.find((item) => item.id === s.id)?.title ?? s.name}
               </option>
             ))}
           </select>
@@ -94,7 +95,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
 
         <div>
           <label htmlFor="input-text" className="block text-xs font-semibold text-gray-700 mb-1">
-            Văn bản gốc (Input Text) <span className="text-red-500">*</span>
+            Văn bản gốc <span className="text-red-500">*</span>
           </label>
           <textarea
             id="input-text"
@@ -103,14 +104,14 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
             maxLength={20000}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Nhập đoạn văn bản chứa câu/từ chưa tự nhiên..."
+            placeholder="Dán đoạn bạn muốn góp ý hoặc sửa lại."
             className="w-full p-3 border border-gray-300 rounded-md text-xs focus:ring-brand-500 focus:border-brand-500"
           />
         </div>
 
         <div>
           <label htmlFor="context-text" className="block text-xs font-semibold text-gray-700 mb-1">
-            Ngữ cảnh văn bản (Context - Không bắt buộc)
+            Ngữ cảnh (không bắt buộc)
           </label>
           <input
             id="context-text"
@@ -118,14 +119,14 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
             maxLength={5000}
             value={context}
             onChange={(e) => setContext(e.target.value)}
-            placeholder="Ví dụ: Báo chí chính luận, thông cáo báo chí, email công việc..."
+            placeholder="Ví dụ: email gửi đồng nghiệp để đổi lịch họp."
             className="w-full p-2.5 border border-gray-300 rounded-md text-xs focus:ring-brand-500 focus:border-brand-500"
           />
         </div>
 
         <div>
           <label htmlFor="suggestion-text" className="block text-xs font-semibold text-gray-700 mb-1">
-            Bản gọt giũa đề xuất (Suggestion) <span className="text-red-500">*</span>
+            Bản sửa bạn đề xuất <span className="text-red-500">*</span>
           </label>
           <textarea
             id="suggestion-text"
@@ -134,14 +135,14 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
             maxLength={20000}
             value={suggestion}
             onChange={(e) => setSuggestion(e.target.value)}
-            placeholder="Nhập cách diễn đạt sửa đổi tự nhiên, chuẩn mực hơn..."
+            placeholder="Dán bản đã sửa, giữ nguyên dữ kiện và ý nghĩa của đoạn gốc."
             className="w-full p-3 border border-gray-300 rounded-md text-xs focus:ring-brand-500 focus:border-brand-500"
           />
         </div>
 
         <div>
           <label htmlFor="note-text" className="block text-xs font-semibold text-gray-700 mb-1">
-            Ghi chú thêm (Note - Không bắt buộc)
+            Ghi chú (không bắt buộc)
           </label>
           <input
             id="note-text"
@@ -149,7 +150,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
             maxLength={5000}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="Lý do nên sửa, quy chuẩn tham chiếu..."
+            placeholder="Bạn sửa chỗ nào, vì sao? Có quy ước nào cần theo không?"
             className="w-full p-2.5 border border-gray-300 rounded-md text-xs focus:ring-brand-500 focus:border-brand-500"
           />
         </div>
@@ -163,7 +164,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
               className="mt-0.5 mr-2.5 rounded text-brand-600 focus:ring-brand-500"
             />
             <span>
-              Tôi xác nhận văn bản này không chứa thông tin cá nhân nhạy cảm (PII) và tôi có quyền chia sẻ ví dụ này để phục vụ nghiên cứu cộng đồng. <span className="text-red-500">*</span>
+              Tôi xác nhận văn bản không chứa thông tin cá nhân nhạy cảm và tôi có quyền chia sẻ ví dụ này cho hoạt động nghiên cứu cộng đồng. <span className="text-red-500">*</span>
             </span>
           </label>
         </div>
@@ -175,7 +176,7 @@ export const ContributeForm: React.FC<ContributeFormProps> = ({ skills }) => {
           disabled={loading || !consent || !inputText.trim() || !suggestion.trim()}
           className="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {loading ? "Đang gửi..." : "Gửi đóng góp case"}
+          {loading ? "Đang gửi..." : "Gửi ví dụ"}
         </button>
       </div>
     </form>

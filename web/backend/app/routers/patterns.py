@@ -9,30 +9,33 @@ router = APIRouter(prefix="/api", tags=["Metadata"])
 SKILLS_DATA = [
     SkillItem(
         id="humanizer-vi",
-        name="Humanizer tiếng Việt",
-        when_to_use="Văn bản có vẻ theo khuôn, sáo, đều nhịp hoặc lệch giọng",
-        when_not_to_use="Suy đoán tác giả, lách detector, hoặc chỉ soát lỗi máy móc",
+        name="Viết tự nhiên hơn",
+        when_to_use="Sửa câu sáo rỗng, máy móc hoặc lệch giọng; giữ dữ kiện và giọng tác giả.",
+        when_not_to_use=(
+            "Đoán ai viết văn bản, vượt công cụ phát hiện AI hoặc chỉ soát lỗi chính tả."
+        ),
     ),
     SkillItem(
         id="translationese-cleaner-vi",
-        name="Gọt dịch thuật ngữ tiếng Việt",
-        when_to_use="Văn bản dịch thô, câu bị động khiên cưỡng, lạm dụng cấu trúc dịch tiếng Anh",
+        name="Sửa câu dịch chưa tự nhiên",
+        when_to_use=(
+            "Sửa câu tiếng Việt dịch sát cấu trúc tiếng Anh; giữ thuật ngữ và ý nghĩa bản gốc."
+        ),
         when_not_to_use="Soát lỗi chính tả đơn thuần hoặc sửa văn bản đã tự nhiên",
     ),
     SkillItem(
         id="grammar-checker-vi",
-        name="Soát lỗi ngữ pháp & chính tả tiếng Việt",
-        when_to_use="Phát hiện lỗi sai từ ngữ, sai ngữ pháp, câu thiếu chủ/vị rõ ràng",
-        when_not_to_use="Đánh giá văn phong hay/dở hoặc quy kết văn bản do AI sinh",
+        name="Soát lỗi tiếng Việt",
+        when_to_use="Kiểm tra chính tả, dấu câu, cấu trúc câu và chỗ mơ hồ trong tiếng Việt.",
+        when_not_to_use="Đánh giá bài viết hay hay dở hoặc kết luận văn bản do AI tạo.",
     ),
     SkillItem(
         id="style-guide-vi",
-        name="Quy chuẩn văn phong & báo chí",
+        name="Giữ cách viết nhất quán",
         when_to_use=(
-            "Rà soát tính nhất quán về thuật ngữ, xưng hô,"
-            " định dạng và hành văn chuyên nghiệp"
+            "Thống nhất cách xưng hô, thuật ngữ, viết hoa, số, ngày giờ, đơn vị và định dạng."
         ),
-        when_not_to_use="Sáng tạo nghệ thuật tự do hoặc thay thế quy chuẩn riêng của tòa soạn",
+        when_not_to_use="Áp một quy ước chung thay cho quy ước riêng bạn đã cung cấp.",
     ),
 ]
 

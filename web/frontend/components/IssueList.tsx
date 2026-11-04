@@ -36,7 +36,7 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
             <svg className="w-5 h-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Kết quả rà soát văn phong</span>
+            <span>Kết quả soát văn phong</span>
           </h2>
           <p className="text-xs text-slate-500 mt-1 leading-normal">{summary.note}</p>
         </div>
@@ -70,16 +70,16 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           </div>
-          <p className="font-bold text-base text-emerald-950">Không tìm thấy tín hiệu trong bộ quy tắc hiện tại.</p>
+          <p className="font-bold text-base text-emerald-950">Chưa thấy chỗ cần lưu ý theo các quy tắc đã chọn.</p>
           <p className="text-xs text-emerald-700 mt-1 max-w-md mx-auto leading-relaxed">
-            Văn bản vẫn nên được người viết rà lại theo ngữ cảnh.
+            Kết quả này không có nghĩa văn bản đã hết lỗi. Bạn vẫn nên đọc lại theo ngữ cảnh.
           </p>
         </div>
       ) : (
         <div>
           {/* Filter Pills */}
           <div className="flex items-center space-x-2 mb-4 text-xs overflow-x-auto pb-1">
-            <span className="text-slate-400 font-medium font-mono flex-shrink-0">Lọc tín hiệu:</span>
+            <span className="text-slate-400 font-medium font-mono flex-shrink-0">Xem theo nhóm:</span>
             <button
               type="button"
               onClick={() => setFilterType("all")}
@@ -101,7 +101,7 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200/70"
                 }`}
               >
-                Khuôn mẫu ({summary.heuristic})
+                Tham khảo ({summary.heuristic})
               </button>
             )}
             {summary.warning > 0 && (
@@ -140,6 +140,7 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
             <button
               type="button"
               onClick={() => setSelectedPattern(null)}
+              aria-label="Đóng chi tiết gợi ý"
               className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition-colors font-bold"
             >
               ✕
@@ -166,7 +167,7 @@ export const IssueList: React.FC<IssueListProps> = ({ summary, issues, patterns 
                   <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                   </svg>
-                  <span>Lý do cần gọt giũa:</span>
+                  <span>Vì sao cần xem lại?</span>
                 </h4>
                 <p className="text-amber-900 mt-1 leading-relaxed">
                   {selectedPattern.why_it_matters}

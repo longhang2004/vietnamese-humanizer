@@ -54,9 +54,15 @@ export function CapabilityNav() {
 
   return (
     <nav
-      className="flex items-center space-x-3 text-xs sm:text-sm font-medium"
+      className="flex flex-wrap items-center gap-1 text-xs sm:text-sm font-medium"
       aria-label="Điều hướng chính"
     >
+      <Link
+        href="/start"
+        className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-100/80 transition-all"
+      >
+        Bắt đầu
+      </Link>
       <Link
         href="/"
         className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-100/80 transition-all"

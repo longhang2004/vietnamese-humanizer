@@ -42,7 +42,10 @@ class LintSummary(BaseModel):
     warning: int
     preference: int
     heuristic: int
-    note: str = "Số phát hiện cần review, không phải xác suất văn bản do AI tạo."
+    note: str = (
+        "Các mục dưới đây cần bạn xem lại theo ngữ cảnh; "
+        "số lượng không cho biết văn bản do ai viết."
+    )
 
 
 class LintResponse(BaseModel):
@@ -82,6 +85,7 @@ OutputMode = Literal["clean_rewrite", "review_comment", "needs_author_decision",
 
 
 class RewriteStyle(BaseModel):
+    profile: Literal["preserve", "plain", "business", "technical"] = "preserve"
     channel: Literal["auto", "document", "email", "chat", "spoken_script"] = "auto"
     register_name: Literal["preserve", "formal", "professional", "friendly", "conversational"] = (
         Field("preserve", alias="register")
@@ -106,7 +110,7 @@ class RewriteResponse(BaseModel):
     output_mode: OutputMode = "clean_rewrite"
     comments: list[str] = Field(default_factory=list)
     review_status: str = "unreviewed"
-    disclaimer: str = "Gợi ý do model sinh, cần người đọc kiểm chứng bảo toàn dữ kiện."
+    disclaimer: str = "Gợi ý do AI tạo. Hãy đối chiếu với bản gốc để kiểm tra dữ kiện và ý nghĩa."
 
 
 class ContributionCreate(BaseModel):

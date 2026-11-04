@@ -10,19 +10,19 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vietnamese-humanize
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Vietnamese Writing Skills - Rà soát & Gọt giũa Văn phong Tiếng Việt",
+    default: "Vietnamese Writing Skills — Soát văn phong tiếng Việt",
     template: "%s | Vietnamese Writing Skills",
   },
   description:
-    "Công cụ rà soát và gợi ý gọt giũa văn phong tiếng Việt cho người viết và biên tập viên. Nêu tín hiệu sáo rỗng, gọt dịch thuật ngữ và gợi ý viết lại tự nhiên.",
+    "Soát lỗi tiếng Việt, xem lại câu sáo rỗng hoặc dịch chưa tự nhiên và giữ cách viết nhất quán. Dùng trên web hoặc tải skill cho chatbot của bạn.",
   keywords: [
     "rà soát văn phong tiếng việt",
     "gọt giũa văn phong",
     "humanizer tiếng việt",
     "kiểm tra văn phong",
     "linter tiếng việt",
-    "gọt dịch thuật ngữ",
-    "quy chuẩn báo chí",
+    "sửa câu dịch chưa tự nhiên",
+    "cách viết nhất quán",
     "agent skills tiếng việt",
   ],
   authors: [{ name: "Vietnamese Writing Skills Team" }],
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Vietnamese Writing Skills - Công cụ Rà soát & Gọt giũa Văn phong Tiếng Việt",
+    title: "Vietnamese Writing Skills — Soát văn phong tiếng Việt",
     description:
-      "Công cụ trực tuyến hỗ trợ người viết và biên tập viên rà soát lỗi sáo rỗng, gọt dịch thuật ngữ và viết lại tiếng Việt tự nhiên bằng AI.",
+      "Soát lỗi tiếng Việt, xem lại câu sáo rỗng hoặc dịch chưa tự nhiên và giữ cách viết nhất quán. Dùng trên web hoặc tải skill cho chatbot của bạn.",
     url: siteUrl,
     siteName: "Vietnamese Writing Skills",
     locale: "vi_VN",
@@ -49,15 +49,15 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 675,
-        alt: "Vietnamese Writing Skills banner",
+        alt: "Vietnamese Writing Skills — công cụ soát văn phong tiếng Việt",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vietnamese Writing Skills - Công cụ Rà soát & Gọt giũa Văn phong Tiếng Việt",
+    title: "Vietnamese Writing Skills — Soát văn phong tiếng Việt",
     description:
-      "Công cụ trực tuyến hỗ trợ người viết và biên tập viên rà soát lỗi sáo rỗng, gọt dịch thuật ngữ và viết lại tiếng Việt tự nhiên bằng AI.",
+      "Soát lỗi tiếng Việt, xem lại câu sáo rỗng hoặc dịch chưa tự nhiên và giữ cách viết nhất quán. Dùng trên web hoặc tải skill cho chatbot của bạn.",
     images: ["/og-image.jpg"],
   },
   icons: {
@@ -91,7 +91,7 @@ const jsonLd = {
     priceCurrency: "VND",
   },
   description:
-    "Công cụ rà soát và gợi ý gọt giũa văn phong tiếng Việt cho người viết và biên tập viên dựa trên bộ Agent Skills.",
+    "Công cụ soát văn phong tiếng Việt, giúp người viết nhận ra chỗ cần xem lại và cân nhắc cách sửa theo ngữ cảnh.",
   inLanguage: "vi-VN",
 };
 
@@ -114,7 +114,7 @@ export default function RootLayout({
         <CapabilityProvider>
           {/* Frosted Glass Header */}
           <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-200/80 transition-all">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3 sm:flex-nowrap">
               <Link href="/" className="flex items-center space-x-3 group">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 via-sky-500 to-emerald-500 flex items-center justify-center text-white shadow-sm shadow-sky-500/20 group-hover:scale-105 transition-transform">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -141,7 +141,7 @@ export default function RootLayout({
           <footer className="bg-white border-t border-slate-200/80 py-8 mt-16 text-center text-xs text-slate-500">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-slate-400 max-w-2xl text-center md:text-right">
-                Công cụ nhận diện tín hiệu văn phong cho người viết và biên tập viên. Không chấm điểm xác suất AI, không suy đoán tác giả.
+                Gợi ý để bạn xem lại cách viết. Không chấm xác suất AI hay xác định ai viết văn bản.
               </p>
             </div>
           </footer>

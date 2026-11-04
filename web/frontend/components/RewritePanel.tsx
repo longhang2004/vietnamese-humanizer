@@ -3,14 +3,21 @@ import { rewriteText } from "../lib/api";
 import { RewriteResponse, RewriteStyle } from "../lib/types";
 
 const DEFAULT_STYLE: RewriteStyle = {
-  channel: "auto", register: "preserve", audience: "", relationship: "", pronouns: "",
+  profile: "preserve", channel: "auto", register: "preserve", audience: "", relationship: "", pronouns: "",
   edit_level: "light", reduce_hype: false,
+};
+
+const PROFILE_HINTS: Record<RewriteStyle["profile"], string> = {
+  preserve: "Giữ loại bài và giọng hiện có; chỉ sửa những chỗ cần thiết.",
+  plain: "Làm rõ mạch ý và quan hệ giữa các câu, giữ nét riêng của người viết.",
+  business: "Làm rõ việc cần làm, trách nhiệm và thời hạn đã có trong nội dung.",
+  technical: "Giữ chính xác điều kiện, thuật ngữ, code và thứ tự thao tác.",
 };
 
 const MODE_LABELS = {
   clean_rewrite: "Bản viết lại đề xuất",
-  no_change: "Văn bản phù hợp, giữ nguyên",
-  review_comment: "Nhận xét cần kiểm chứng",
+  no_change: "Giữ nguyên văn bản",
+  review_comment: "Nhận xét để bạn xem lại",
   needs_author_decision: "Cần tác giả quyết định",
 };
 
@@ -67,7 +74,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
       if (err instanceof Error) {
         setErrorMsg(err.message);
       } else {
-        setErrorMsg("Đã xảy ra lỗi không xác định khi gọi gợi ý viết lại.");
+        setErrorMsg("Chưa tạo được gợi ý viết lại. Bạn hãy thử lại.");
       }
     } finally {
       if (generation === requestGeneration.current) {
@@ -98,7 +105,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
             <span>Gợi ý viết lại tự nhiên</span>
           </h2>
           <p className="text-xs text-slate-500 mt-1 leading-normal">
-            Chỉnh cách diễn đạt theo người đọc và ngữ cảnh, giữ nguyên nội dung cần thiết.
+            Gợi ý cách diễn đạt theo người đọc và ngữ cảnh. Bạn đọc lại trước khi dùng.
           </p>
         </div>
 
@@ -131,14 +138,25 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
         <summary className="cursor-pointer text-sm font-semibold text-slate-800">
           Chọn giọng và ngữ cảnh (tùy chọn)
         </summary>
-        <p className="mt-2 text-xs text-slate-600">Mặc định giữ giọng gốc và sửa nhẹ. Chọn kênh chat không tự đổi cách xưng hô.</p>
+        <p className="mt-2 text-xs text-slate-600">Mặc định giữ giọng gốc và sửa nhẹ. Nếu muốn đổi cách xưng hô, hãy ghi rõ ở ô bên dưới, kể cả khi chọn chat.</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <label className="text-sm text-slate-700">Loại bài viết
+              <select value={style.profile} aria-describedby="writing-profile-hint" onChange={(event) => updateStyle({ profile: event.target.value as RewriteStyle["profile"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+                <option value="preserve">Theo văn bản gốc</option>
+                <option value="plain">Văn viết rõ ràng</option>
+                <option value="business">Trao đổi công việc</option>
+                <option value="technical">Tài liệu kỹ thuật</option>
+              </select>
+            </label>
+            <p id="writing-profile-hint" className="mt-1 text-xs text-slate-600">{PROFILE_HINTS[style.profile]} Bạn vẫn có thể chọn kênh, giọng và mức sửa bên dưới.</p>
+          </div>
           <label className="text-sm text-slate-700">Kênh sử dụng
             <select value={style.channel} onChange={(event) => updateStyle({ channel: event.target.value as RewriteStyle["channel"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
               <option value="auto">Theo văn bản gốc</option>
               <option value="document">Tài liệu / bài viết</option>
               <option value="email">Email</option>
-              <option value="chat">Chat / hội thoại bằng chữ</option>
+              <option value="chat">Tin nhắn / trò chuyện</option>
               <option value="spoken_script">Kịch bản để đọc thành tiếng</option>
             </select>
           </label>
@@ -172,14 +190,14 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
           </label>
           <label className="flex items-start gap-2 text-sm text-slate-700 sm:col-span-2">
             <input type="checkbox" checked={style.reduce_hype} onChange={(event) => updateStyle({ reduce_hype: event.target.checked })} className="mt-1" />
-            <span>Cho phép giảm lời khen khoa trương và đồng cảm công thức. Lựa chọn này có thể làm nhẹ cường độ cảm xúc; dữ kiện và cam kết vẫn phải giữ.</span>
+            <span>Cho phép giảm lời khen quá mức và lời đồng cảm theo khuôn. Cảm xúc có thể được diễn đạt nhẹ hơn; dữ kiện và cam kết vẫn phải giữ nguyên.</span>
           </label>
         </div>
       </details>
 
       {visibleError && (
         <div className="p-3.5 bg-amber-50 border border-amber-200/80 text-amber-900 rounded-xl text-xs mb-4">
-          <span className="font-bold">Lưu ý hệ thống:</span> {visibleError}
+          <span className="font-bold">Chưa thực hiện được:</span> {visibleError}
         </div>
       )}
 
@@ -188,7 +206,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
           <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
             <div className="flex items-center space-x-2">
               <span className="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-mono font-bold rounded-full border border-amber-200 uppercase tracking-wider">
-                {visibleResult.review_status === "unreviewed" ? "Chưa kiểm chứng" : visibleResult.review_status}
+                {visibleResult.review_status === "unreviewed" ? "Chưa được duyệt" : visibleResult.review_status}
               </span>
               <span className="text-xs text-slate-500 italic">{visibleResult.disclaimer}</span>
             </div>
@@ -203,7 +221,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
                   <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
-                  <span className="text-emerald-700 font-bold">Đã sao chép!</span>
+                  <span className="text-emerald-700 font-bold">Đã sao chép</span>
                 </>
               ) : (
                 <>

@@ -71,7 +71,7 @@ def test_rewrite_with_gemini_key(client, monkeypatch, mock_gemini):
         "output_mode": "clean_rewrite",
         "comments": [],
         "review_status": "unreviewed",
-        "disclaimer": "Gợi ý do model sinh, cần người đọc kiểm chứng bảo toàn dữ kiện.",
+        "disclaimer": "Gợi ý do AI tạo. Hãy đối chiếu với bản gốc để kiểm tra dữ kiện và ý nghĩa.",
     }
 
 
@@ -137,6 +137,7 @@ def test_rewrite_passes_context_and_profile_to_provider(client, monkeypatch, moc
     monkeypatch.setattr(settings, "REWRITE_ENABLED", True)
     monkeypatch.setattr(settings, "GEMINI_API_KEY", "test_key")
     style = {
+        "profile": "business",
         "channel": "chat",
         "register": "friendly",
         "audience": "đồng nghiệp",
@@ -175,8 +176,28 @@ def test_default_profile_keeps_conversation_reference_out(monkeypatch, mock_gemi
     prompt = mock_gemini.models.generate_content.call_args.kwargs["contents"]
     request = json.loads(prompt.split("[Editing Request JSON]\n", 1)[1])
     assert request["style"]["register"] == "preserve"
+    assert request["style"]["profile"] == "preserve"
     assert request["style"]["reduce_hype"] is False
     assert "[Reference: conversational.md]" not in prompt
+    assert "[Reference: writing-profiles.md]" not in prompt
+
+
+@pytest.mark.parametrize("skill", ["humanizer-vi", "style-guide-vi"])
+@pytest.mark.parametrize("profile", ["plain", "business", "technical"])
+def test_writing_profile_loads_only_selected_guidance(skill, profile):
+    from app.schemas import RewriteStyle
+    from app.services.rewriter import PROFILE_REFERENCES, build_rewrite_prompt
+
+    style = RewriteStyle(profile=profile, channel="email", register="friendly")
+    prompt = build_rewrite_prompt("Nhóm chưa chốt lịch.", skill, [], "", style)
+    request = json.loads(prompt.split("[Editing Request JSON]\n", 1)[1])
+    assert request["style"]["profile"] == profile
+    assert request["style"]["channel"] == "email"
+    assert request["style"]["register"] == "friendly"
+    assert request["style"]["edit_level"] == "light"
+    assert "[Reference: writing-profiles.md]" in prompt
+    for key, filename in PROFILE_REFERENCES.items():
+        assert (f"[Reference: {filename}]" in prompt) is (key == profile)
 
 
 @pytest.mark.parametrize("mode", ["review_comment", "needs_author_decision"])
@@ -239,6 +260,7 @@ def test_invalid_provider_result_fails_instead_of_pretending_success(
     [
         {"style": {"channel": "../../other-skill"}},
         {"style": {"register": "invented"}},
+        {"style": {"profile": "../../secrets"}},
         {"style": {"pronouns": "x" * 201}},
         {"context": "x" * 5001},
     ],

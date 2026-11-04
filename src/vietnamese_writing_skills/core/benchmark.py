@@ -176,10 +176,39 @@ def summarize(
         "cases": len(cases),
         "by_skill": dict(sorted(Counter(case["skill"] for case in cases).items())),
         "by_domain": dict(sorted(Counter(case["domain"] for case in cases).items())),
+        "by_profile": dict(
+            sorted(
+                Counter(case.get("style", {}).get("profile", "preserve") for case in cases).items()
+            )
+        ),
     }
     if results is None:
         return summary
     valid_rows = [row for row in results if isinstance(row.get("scores"), dict)]
+    summary.update(_review_summary(cases, valid_rows))
+    profile_results: dict[str, Any] = {}
+    for profile in summary["by_profile"]:
+        profile_cases = [
+            case for case in cases if case.get("style", {}).get("profile", "preserve") == profile
+        ]
+        case_ids = {case["id"] for case in profile_cases}
+        profile_rows = [row for row in valid_rows if row.get("case_id") in case_ids]
+        profile_results[profile] = {
+            "cases": len(profile_cases),
+            "systems": {
+                system: _review_summary(
+                    profile_cases, [row for row in profile_rows if row["system"] == system]
+                )
+                for system in sorted({row["system"] for row in profile_rows})
+            },
+        }
+    summary["profile_results"] = profile_results
+    return summary
+
+
+def _review_summary(
+    cases: list[dict[str, Any]], valid_rows: list[dict[str, Any]]
+) -> dict[str, Any]:
     reviewed_case_ids = {row.get("case_id") for row in valid_rows}
     averages = (
         {
@@ -193,12 +222,13 @@ def summarize(
         else {}
     )
     blocker_rows = sum(bool(row.get("blockers")) for row in valid_rows)
-    summary["reviews"] = len(valid_rows)
-    summary["reviewed_cases"] = len(reviewed_case_ids)
-    summary["unreviewed_cases"] = len({case["id"] for case in cases} - reviewed_case_ids)
-    summary["reviewers"] = len({row.get("reviewer_id") for row in valid_rows})
-    summary["averages"] = averages
-    summary["blocker_reviews"] = blocker_rows
-    summary["blocker_rate"] = round(blocker_rows / len(valid_rows), 4) if valid_rows else 0.0
-    summary["agreement"] = "not calculated; raw scores are retained for independent review"
-    return summary
+    return {
+        "reviews": len(valid_rows),
+        "reviewed_cases": len(reviewed_case_ids),
+        "unreviewed_cases": len({case["id"] for case in cases} - reviewed_case_ids),
+        "reviewers": len({row.get("reviewer_id") for row in valid_rows}),
+        "averages": averages,
+        "blocker_reviews": blocker_rows,
+        "blocker_rate": round(blocker_rows / len(valid_rows), 4) if valid_rows else 0.0,
+        "agreement": "not calculated; raw scores are retained for independent review",
+    }

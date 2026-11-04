@@ -4,7 +4,7 @@ description: Biên tập tiếng Việt sáo, máy móc, đều nhịp hoặc l�
 license: MIT
 metadata:
   language: vi
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # Humanizer tiếng Việt
@@ -24,6 +24,8 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 Đọc [workflow chi tiết](references/workflow.md) cho văn bản dài hoặc khi nhiều pattern chồng nhau. Tra [register](references/registers.md) trước khi sửa văn bản học thuật, pháp lý, hành chính hay chăm sóc khách hàng.
 
 Đọc [diễn đạt tự nhiên](references/naturalness.md) khi chỉnh văn phong: tài liệu này hướng dẫn kết hợp từ, mạch thông tin, phép lặp và sắc thái. Chỉ đọc [hội thoại và kịch bản nói](references/conversational.md) khi người dùng chọn các kênh đó; văn viết gần gũi vẫn có tiêu chí riêng.
+
+Khi người dùng chọn loại bài viết, đọc [writing profiles](references/writing-profiles.md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md) hoặc [tài liệu kỹ thuật](references/technical-writing.md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
 
 ## Ngữ cảnh và quyền biên tập
 
