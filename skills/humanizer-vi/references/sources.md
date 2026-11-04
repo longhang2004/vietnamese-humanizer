@@ -26,6 +26,16 @@ Ví dụ trong [plain writing](plain-writing.md), [business writing](business-wr
 
 Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho mục đích nghiên cứu. Chưa đánh giá quyền tái phân phối toàn văn của từng nguồn; không coi giấy phép MIT của dự án là giấy phép cho nội dung bên ngoài.
 
+## Nguồn bổ sung về lối viết theo khuôn
+
+Đọc ngày 04-11-2026. Phần vận dụng nằm trong [sửa lối viết theo khuôn](formulaic-prose.md); nhật ký đầy đủ ở `docs/research/2026-11-04-formulaic-prose.md` của repository. Chỉ tổng hợp bằng lời riêng, không nhập bài nguồn làm corpus.
+
+- Druck, Paredes và Smith, Graphite — [nghiên cứu gốc, 16-09-2026](https://graphite.io/research/ai-tells), cập nhật [01-10](https://graphite.io/research/ai-tells-opus-5-5-update) và [21-10-2026](https://graphite.io/research/ai-tells-gemini-4-argon-update). Tham khảo các nhóm cấu trúc và sự thay đổi theo model; cùng một họ nghiên cứu bài web, chưa kiểm chứng cho tiếng Việt. Điểm văn hoa có model chấm.
+- Bestvater và cộng sự, Pew Research Center — [How Much of the Internet Is Written With AI?](https://www.pewresearch.org/data-labs/2026/08/20/how-much-of-the-internet-is-written-with-ai/), 20-08-2026. Tham khảo giới hạn suy luận từ xu hướng trong tập lớn sang từng bài. Không dùng detector của nghiên cứu làm thước đo biên tập.
+- Steph Zinn, a16z Frontier — [The habits of AI writing](https://a16zfrontier.substack.com/p/the-habits-of-ai-writing-and-what), 22-08-2026. Tham khảo cách chọn cấu trúc theo công việc của bài và các trường hợp giữ định dạng.
+- The Base Team — [Why Your Writing Sounds Like ChatGPT](https://the-curve.basehq.com/p/why-your-writing-sounds-like-chatgpt-and-how-to-fix-it), 02-10-2026. Tham khảo đối lập, nhịp giật ngắn và bố cục social; ưu tiên mẫu giọng riêng khi được cung cấp.
+- Thảo luận Reddit [Lesser known AI writing tells](https://www.reddit.com/r/WritingWithAI/comments/1x6bpk5/lesser_known_ai_writing_tells/) và [The most frustrating AI writing habit](https://www.reddit.com/r/AIWritingLounge/comments/1xg0r3l/the_most_frustrating_ai_writing_habit_youve_had/). Dùng như phản hồi định tính về bình giải thừa, nhịp và câu kết lặp; ngày tuyệt đối chưa được xác minh từ HTML. Không suy ra xác suất nguồn gốc.
+
 ## Giới hạn vận dụng
 
 Các nguyên tắc về lược chủ ngữ, phép lặp, kết hợp từ và quyền giảm cường điệu trong [naturalness](naturalness.md) là quyết định biên tập của dự án dựa trên việc đọc và đối chiếu ví dụ, không được gán thành kết luận thực nghiệm của các nguồn trên. Hai bài báo không đủ đại diện cho văn viết Việt Nam. Cần review độc lập theo vùng miền, ngành và kênh trước khi công bố mức cải thiện.

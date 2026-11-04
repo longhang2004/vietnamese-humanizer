@@ -84,4 +84,6 @@ Nếu một câu có số liệu, đối tượng, điều kiện hoặc mức c
 
 ## Lượt đọc cuối
 
+Nếu nhiều đoạn đều dẫn ý, nhấn tầm quan trọng rồi chốt lại cùng cách, xem [sửa lối viết theo khuôn](formulaic-prose.md). Giữ nội dung và đổi cách tổ chức khi quyền biên tập cho phép; không chỉ thay cụm từ bề mặt.
+
 Đọc output mà không nhìn input: câu có tự đứng được không, đại từ có tiền ngữ rõ không, đoạn sau có nối được đoạn trước không? Sau đó đối chiếu lại input và context để kiểm phần bị mất hoặc thêm. Văn đọc trôi chảy chưa chứng minh giữ đúng nghĩa.

@@ -27,6 +27,8 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 
 Viết theo việc người đọc đang cần. Chỉ thêm định nghĩa, lời hướng dẫn, lưu ý hoặc câu phân biệt khi chúng giải quyết một vướng mắc cụ thể ở vị trí đó. Đừng tự biến mọi đoạn thành bài hướng dẫn hoặc mang các lưu ý nội bộ của skill vào bản sửa. Xem phần giải thích đúng lúc trong [diễn đạt tự nhiên](references/naturalness.md); giữ điều kiện, cảnh báo và phép đối chiếu có tác dụng thật.
 
+Khi bài lặp đối lập, câu tự nhấn mạnh, nhịp giật ngắn, tiêu đề/bullet hoặc kết đoạn tóm lại, đọc [sửa lối viết theo khuôn](references/formulaic-prose.md). Sửa theo chức năng và mật độ trong ngữ cảnh; giữ cấu trúc có tác dụng, khoảng số, thuật ngữ và giọng riêng. Không dùng danh sách “AI tells” để suy đoán tác giả hoặc làm từ điển thay thế.
+
 Khi người dùng chọn loại bài viết, đọc [writing profiles](references/writing-profiles.md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md) hoặc [tài liệu kỹ thuật](references/technical-writing.md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
 
 ## Ngữ cảnh và quyền biên tập

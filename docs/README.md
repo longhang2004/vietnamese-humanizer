@@ -13,6 +13,7 @@ The public project overview and contribution guide are available in English and 
 - [Style learning loop](style-learning-loop.md): same-topic reading, writing, editing, and evaluation.
 - [Style catalog](style-catalog.md): proposed writing tasks, tones, source notes, and research gaps.
 - [Same-topic pilot](research/2026-11-03-same-topic-pilot.md): actual agent drafts, edits, and qualitative AI review.
+- [Formulaic-prose research](research/2026-11-04-formulaic-prose.md): recent research, newsletters, Reddit discussions, X access limits, and contextual editing decisions.
 
 ## Authoring and maintenance
 

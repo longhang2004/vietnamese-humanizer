@@ -14,6 +14,12 @@ Xem [nguồn có tác giả và ghi chú vận dụng](../skills/humanizer-vi/re
 
 [Pilot đổi sách](research/2026-11-03-same-topic-pilot.md) đã chạy một writer subagent, agent chính biên tập và một reviewer subagent với bản A/B ẩn nhãn. Dữ kiện giả định, output AI và nhận xét AI được lưu riêng khỏi corpus/benchmark. Đây là quan sát development, không phải baseline bản ngữ hoặc bằng chứng định lượng về cải thiện.
 
+## Khảo sát lối viết theo khuôn ngày 4 tháng 11 năm 2026
+
+Xem [nhật ký nguồn](research/2026-11-04-formulaic-prose.md): báo cáo Graphite cập nhật đến 21-10-2026, Pew, bài biên tập của Steph Zinn, newsletter Base và các thảo luận Reddit. Bài X được dẫn lại nhưng truy cập trực tiếp trả 403; chưa dùng nội dung chưa kiểm chứng làm căn cứ chính. Các nguồn chủ yếu bằng tiếng Anh.
+
+Đợt này thêm reference xét đối lập, lời tự nhấn ý, kết đoạn lặp, bố cục chia nhỏ và giọng trợ lý theo chức năng. Thêm 12 case tiếng Việt tự viết có đối chiếu cần sửa/cần giữ; không thêm regex hoặc dùng giảm số dấu hiệu làm điểm chất lượng.
+
 ## Agent Skills
 
 [Agent Skills specification](https://agentskills.io/specification) quy định skill là một thư mục có `SKILL.md`. Frontmatter bắt buộc `name` và `description`; tên dùng chữ thường, số, dấu gạch nối và phải trùng tên thư mục. Specification khuyến nghị `SKILL.md` dưới 500 dòng, reference tương đối và progressive disclosure. Repository specification dùng Apache-2.0 cho code và CC-BY-4.0 cho tài liệu. Dự án này chỉ áp dụng format và tự viết nội dung.

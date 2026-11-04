@@ -12,3 +12,5 @@ Pattern là gợi ý review, không phải danh sách từ cấm. Chỉ sửa `V
 Lời dẫn "trong bối cảnh ... phát triển" có thể đủ để tạo một finding khi chính câu đó không nêu thay đổi cụ thể. Không ghép "trong bối cảnh" ở một câu với "không ngừng phát triển" ở câu sau.
 
 Khi hai pattern cùng đánh vào một câu, sửa một lần ở cấp cấu trúc rồi đánh giá lại. Không thay lần lượt từng cụm vì dễ tạo văn bản vá víu.
+
+Các cấu trúc cần đọc nghĩa như đối lập dựng sẵn, câu tự bình, kết đoạn lặp ý và giọng trợ lý chen vào bài có hướng dẫn riêng trong [sửa lối viết theo khuôn](formulaic-prose.md). Chưa đưa chúng thành regex hoặc pattern ID mới: cùng một cấu trúc có thể rất phù hợp trong ngữ cảnh khác.

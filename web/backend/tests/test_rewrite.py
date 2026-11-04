@@ -164,6 +164,7 @@ def test_rewrite_passes_context_and_profile_to_provider(client, monkeypatch, moc
     assert request["original_text"] == "Bạn gửi lại bản nháp giúp mình."
     assert request["detected_issues"] == []
     assert "[Reference: naturalness.md]" in prompt
+    assert "[Reference: formulaic-prose.md]" in prompt
     assert "[Reference: conversational.md]" in prompt
     assert kwargs["config"].response_mime_type == "application/json"
 

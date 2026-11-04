@@ -18,6 +18,7 @@ SKILL_REFERENCES = {
         "preservation-rules.md",
         "registers.md",
         "naturalness.md",
+        "formulaic-prose.md",
         "examples.md",
     ),
     "translationese-cleaner-vi": ("patterns.md", "false-positives.md", "examples.md"),
@@ -54,6 +55,9 @@ không tự thêm nha/nhé/ạ, không ép mọi văn bản thành văn nói.
 Đi thẳng vào việc người đọc đang cần. Chỉ thêm định nghĩa, hướng dẫn, lưu ý hoặc câu
 phân biệt khi giải quyết một vướng mắc cụ thể ở vị trí đó. Giữ cảnh báo và phủ định có
 tác dụng thật; với thông tin riêng đã có trong bản gốc, giữ hoặc góp ý nếu chưa có quyền lược.
+Xét đối lập, câu tự nhấn ý, kết đoạn nhắc lại và bố cục theo chức năng trong ngữ cảnh.
+Không thay khuôn này bằng khuôn khác, không đổi khoảng ước lượng thành số chính xác,
+không bịa chi tiết để thay lời chung; giữ tóm tắt, danh sách và nhịp có tác dụng thật.
 Chọn output_mode:
 - clean_rewrite: rewrite là toàn bộ văn bản có thể thay trực tiếp; comments có thể rỗng.
 - no_change: rewrite phải trùng nguyên văn input, kể cả xuống dòng và khoảng trắng.
