@@ -21,6 +21,30 @@ Không thay thuật ngữ bằng từ quen tai nếu đổi khái niệm: "hiệ
 
 Giữ quan hệ thời gian, nguyên nhân, tương phản và điều kiện đúng như input. "Sau khi" không tự thành "vì". Đừng thêm "do đó" để nối hai câu chỉ vì chúng đứng cạnh nhau. Nếu quan hệ đã rõ, một phép lặp hoặc xuống đoạn có thể đủ.
 
+## Giải thích đúng lúc
+
+Xét người đọc đang muốn biết gì hoặc làm gì ở đoạn này. Một bài kể chuyện, câu trả lời ngắn hay nhãn giao diện thường đi thẳng vào nội dung; chúng không mặc định cần lời giảng, định nghĩa hoặc ghi chú đi kèm.
+
+- Trước khi thêm một câu phụ, xác định vướng mắc cụ thể mà câu đó giải quyết. Giải thích thuật ngữ khi thiếu nó người đọc khó hiểu ý hoặc khó thao tác; chỉ việc thuật ngữ xuất hiện chưa đủ để cần định nghĩa. Độc giả mới cũng không cần được giải thích mọi thứ ngay đầu bài.
+- Câu “không phải…”, “không cần…”, “lưu ý…” cần có việc để làm: phân biệt một nhầm lẫn có căn cứ, nêu điều kiện, giới hạn hoặc giúp người đọc quyết định. Tránh tự dựng một hiểu lầm chỉ để phủ định hay thêm lời trấn an cho đủ ý.
+- Đặt thông tin tại nơi cần dùng: điều kiện trước thao tác liên quan, giới hạn cạnh kết quả cần diễn giải, cách khắc phục sau lỗi. Phần đọc thêm có thể tách riêng khi định dạng cho phép và tác giả đồng ý đổi bố cục. Một lưu ý đã đủ rõ không cần nhắc lại ở đầu, cuối và dưới mỗi bước.
+- Tách hướng dẫn dành cho agent khỏi văn bản trả cho người đọc. Các mục anti-goals, checklist bảo toàn và lời giải thích quy trình biên tập không tự trở thành chú thích trong bài, email hay giao diện.
+- Khi biên tập bản gốc, có thể lược lời dẫn hoặc ý lặp không thêm nội dung. Với định nghĩa, cam kết hay giới hạn có thông tin riêng, giữ lại hoặc đề nghị tác giả chuyển/lược nếu quyền biên tập chưa rõ. Không xóa thông tin chỉ vì có từ phủ định.
+
+### Ví dụ tự viết theo ngữ cảnh
+
+**Trang chọn tác vụ, tác giả cho phép bỏ phần dẫn thừa:** “Chọn chatbot để bắt đầu. Skill là bộ hướng dẫn biên tập có thể cài vào chatbot. Bạn không cần biết code.” Có thể giữ “Chọn chatbot để bắt đầu.” Định nghĩa và lời trấn an chưa giúp người đọc chọn tác vụ ở đây; không bắt buộc chuyển chúng sang một ghi chú khác.
+
+**Người đọc hỏi “skill là gì?” — giữ phần giải thích:** “Skill là bộ hướng dẫn biên tập có thể cài vào chatbot để dùng lại.” Câu trả lời đúng câu hỏi; rút thành “Chọn chatbot để bắt đầu” sẽ lạc yêu cầu.
+
+**Mở đầu bài cảm nhận, được phép bỏ lời giáo khoa:** “Cuốn sách khiến tôi nhớ những buổi chờ xe cùng bố. Lưu ý rằng cảm nhận văn học mang tính cá nhân và không phải ai cũng có cùng trải nghiệm.” Có thể giữ câu đầu nếu câu sau chỉ nhắc một điều chung, không giới hạn nhận định nào trong bài. Giọng kể tiếp tục theo trải nghiệm đã có.
+
+**Điều kiện thao tác — giữ:** “Chọn tệp ZIP vừa tải. Không giải nén tệp trước khi tải lên.” Khi định dạng tải lên là điều kiện của thao tác, câu phủ định có chức năng rõ. Giữ nội dung và đặt ngay cạnh bước chọn tệp.
+
+**Đối chiếu có chủ đích — giữ:** “Tôi cần bản nháp, không cần bản đã duyệt.” Hai loại tài liệu là điểm tác giả muốn phân biệt. Không viết lại thành “Tôi cần bản nháp” vì sẽ mất phạm vi yêu cầu.
+
+Đây là tiêu chí biên tập theo ngữ cảnh, không phải danh sách từ cấm hay dấu hiệu để suy đoán ai viết. Chỉ chọn `clean_rewrite` khi có quyền và đủ căn cứ sửa; nếu câu đã đúng vai trò, chọn `no_change`.
+
 ## Lược chủ ngữ có điều kiện
 
 Có thể lược thành phần lặp khi chủ thể vẫn rõ và giọng cho phép.

@@ -8,6 +8,7 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ### Changed
 
+- Thêm rule xét vai trò của định nghĩa, lời hướng dẫn, lưu ý và câu phủ định theo ngữ cảnh: giữ phần giúp người đọc làm việc hiện tại và các điều kiện có ý nghĩa, tránh tự biến mọi đoạn thành bài hướng dẫn. Áp dụng lên web và tách mô tả tác vụ cho người dùng khỏi mô tả kích hoạt dành cho AI.
 - Dùng chính các skill biên tập tiếng Việt của dự án để sửa câu chữ trên web: hướng dẫn rõ và gần gũi, tên tác vụ nhất quán, trạng thái gợi ý dễ hiểu hơn và có quy ước viết cho giao diện. Sinh lại bộ tải từ catalog đã sửa.
 
 ### Added

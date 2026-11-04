@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCapabilities } from "../components/CapabilityNav";
-import { Disclaimer } from "../components/Disclaimer";
 import { Editor } from "../components/Editor";
 import { IssueList } from "../components/IssueList";
 import { RewritePanel } from "../components/RewritePanel";
@@ -60,9 +59,6 @@ export default function HomePage() {
         <p className="text-sm text-slate-700">Muốn dùng bộ hướng dẫn này trong ChatGPT, Claude hoặc Gemini?</p>
         <Link href="/start" className="text-sm font-semibold text-sky-700 underline decoration-sky-200 underline-offset-4 hover:text-sky-900">Bắt đầu sử dụng →</Link>
       </div>
-      {/* Top Banner Disclaimer */}
-      <Disclaimer />
-
       {/* Main Workspace */}
       <div className="grid grid-cols-1 gap-6">
         <Editor skills={skills} onLint={handleLint} loading={loading} />

@@ -15,7 +15,7 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 
 1. Xác định loại văn bản, độc giả, mục đích và register. Nếu thiếu dữ kiện, suy ra từ văn bản và chọn mức can thiệp thấp.
 2. Ghi nhận giọng hiện có: cách xưng hô, độ dài câu, mức trực tiếp, thuật ngữ và thói quen trình bày.
-3. Đọc toàn đoạn trước khi sửa. Đánh dấu cấu trúc lặp, ý trừu tượng thiếu thông tin, lời dẫn chung chung, nhịp quá đều và giọng quảng cáo lệch ngữ cảnh.
+3. Đọc toàn đoạn trước khi sửa. Đánh dấu cấu trúc lặp, ý trừu tượng thiếu thông tin, lời dẫn chung chung, nhịp quá đều, giọng quảng cáo lệch ngữ cảnh và phần giải thích chen ngang việc người đọc đang làm.
 4. Sửa cấu trúc câu và đoạn trước khi thay từ. Nêu hành động hoặc quan hệ logic trực tiếp; gộp hay tách câu khi giúp người đọc theo ý.
 5. Giữ những câu đã ổn. Không sửa một cụm chỉ vì nó có trong catalog.
 6. Rà lại đại từ, thuật ngữ và register. Đọc thành tiếng nếu nhịp câu là vấn đề.
@@ -24,6 +24,8 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 Đọc [workflow chi tiết](references/workflow.md) cho văn bản dài hoặc khi nhiều pattern chồng nhau. Tra [register](references/registers.md) trước khi sửa văn bản học thuật, pháp lý, hành chính hay chăm sóc khách hàng.
 
 Đọc [diễn đạt tự nhiên](references/naturalness.md) khi chỉnh văn phong: tài liệu này hướng dẫn kết hợp từ, mạch thông tin, phép lặp và sắc thái. Chỉ đọc [hội thoại và kịch bản nói](references/conversational.md) khi người dùng chọn các kênh đó; văn viết gần gũi vẫn có tiêu chí riêng.
+
+Viết theo việc người đọc đang cần. Chỉ thêm định nghĩa, lời hướng dẫn, lưu ý hoặc câu phân biệt khi chúng giải quyết một vướng mắc cụ thể ở vị trí đó. Đừng tự biến mọi đoạn thành bài hướng dẫn hoặc mang các lưu ý nội bộ của skill vào bản sửa. Xem phần giải thích đúng lúc trong [diễn đạt tự nhiên](references/naturalness.md); giữ điều kiện, cảnh báo và phép đối chiếu có tác dụng thật.
 
 Khi người dùng chọn loại bài viết, đọc [writing profiles](references/writing-profiles.md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md) hoặc [tài liệu kỹ thuật](references/technical-writing.md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
 

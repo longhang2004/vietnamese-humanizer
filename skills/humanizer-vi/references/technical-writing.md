@@ -2,7 +2,7 @@
 
 Xác định trước đây là hướng dẫn thao tác, giải thích khái niệm, tài liệu tham chiếu hay ghi chú thay đổi. Mỗi loại có cách tổ chức riêng; không biến mọi đoạn thành các bước đánh số.
 
-Xác định kiến thức tiền đề từ audience/context: người dùng mới và developer đã biết nền tảng cần mức giải thích khác nhau. Không tự thêm phần nhập môn hoặc xóa định nghĩa tác giả đã chủ ý giữ. Nguồn tiếng Việt của ZaloPay ở [sources](sources.md) minh họa cách công bố đối tượng trước khi đi vào nội dung nâng cao.
+Xác định kiến thức tiền đề từ audience/context: người dùng mới và developer đã biết nền tảng cần mức giải thích khác nhau. Giải thích khái niệm ở nơi nó giúp hiểu hoặc thực hiện bước hiện tại; tránh tự thêm phần nhập môn chỉ vì tài liệu có thuật ngữ. Giữ định nghĩa tác giả đã chủ ý đặt. Nguồn tiếng Việt của ZaloPay ở [sources](sources.md) minh họa cách công bố đối tượng trước khi đi vào nội dung nâng cao.
 
 ## Quyết định biên tập
 

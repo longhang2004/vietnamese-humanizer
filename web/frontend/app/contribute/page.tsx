@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useCapabilities } from "../../components/CapabilityNav";
 import { ContributeForm } from "../../components/ContributeForm";
-import { Disclaimer } from "../../components/Disclaimer";
 import { fetchSkills } from "../../lib/api";
 import { SkillItem } from "../../lib/types";
 
@@ -29,7 +28,6 @@ export default function ContributePage() {
 
   return (
     <div>
-      <Disclaimer />
       <ContributeForm skills={skills} />
     </div>
   );

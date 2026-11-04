@@ -8,6 +8,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Changed
 
+- Added context-based guidance for explanations, definitions, disclaimers, and negations: keep what helps the current reader task, preserve meaningful conditions, and avoid turning every text into a tutorial. Applied it to web onboarding and separated user-facing task summaries from AI activation descriptions.
 - Applied the repository's Vietnamese editing skills to web copy: plain, friendly instructions, consistent task labels, clearer review states, and a documented UI copy guide. Regenerated user downloads from the updated catalog.
 
 ### Added

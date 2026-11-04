@@ -11,7 +11,7 @@ interface EditorProps {
 const DEFAULT_SKILLS: SkillItem[] = starterSkills.map((skill) => ({
   id: skill.id,
   name: skill.title,
-  when_to_use: skill.description,
+  when_to_use: skill.summary,
   when_not_to_use: "",
 }));
 
@@ -154,7 +154,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
                   </div>
                   <div className="flex-1">
                     <span className="font-bold block text-slate-900 text-xs sm:text-sm">{copy?.title ?? skill.name}</span>
-                    <span className="text-slate-500 leading-normal block mt-1">{copy?.description ?? skill.when_to_use}</span>
+                    <span className="text-slate-500 leading-normal block mt-1">{copy?.summary ?? skill.when_to_use}</span>
                   </div>
                 </div>
               </label>
@@ -164,11 +164,7 @@ export const Editor: React.FC<EditorProps> = ({ skills, onLint, loading }) => {
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-        <span className="text-xs text-slate-400 hidden sm:inline-block">
-          Kết quả là gợi ý để bạn đọc lại và cân nhắc sửa.
-        </span>
-
+      <div className="flex items-center justify-end pt-2 border-t border-slate-100">
         <button
           type="submit"
           disabled={loading || !text.trim() || selectedSkills.length === 0}

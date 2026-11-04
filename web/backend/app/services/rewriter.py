@@ -51,6 +51,9 @@ reduce_hype=true cho phép giảm tính từ khoa trương và lớp đồng c�
 đổi dữ kiện, phạm vi, mức chắc chắn, cam kết hay đánh giá tích cực thành tiêu cực.
 Ưu tiên mạch thông tin, kết hợp từ và nhịp theo ý. Không thay từ đồng nghĩa hàng loạt,
 không tự thêm nha/nhé/ạ, không ép mọi văn bản thành văn nói.
+Đi thẳng vào việc người đọc đang cần. Chỉ thêm định nghĩa, hướng dẫn, lưu ý hoặc câu
+phân biệt khi giải quyết một vướng mắc cụ thể ở vị trí đó. Giữ cảnh báo và phủ định có
+tác dụng thật; với thông tin riêng đã có trong bản gốc, giữ hoặc góp ý nếu chưa có quyền lược.
 Chọn output_mode:
 - clean_rewrite: rewrite là toàn bộ văn bản có thể thay trực tiếp; comments có thể rỗng.
 - no_change: rewrite phải trùng nguyên văn input, kể cả xuống dòng và khoảng trắng.

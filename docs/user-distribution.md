@@ -29,7 +29,7 @@ python scripts/export_user_packs.py --check
 
 Có thể đặt `--root PATH` hoặc `--output PATH` khi chuẩn bị một bộ riêng. Exporter chỉ lấy `SKILL.md` và các tệp `.md`/`.txt` trong references/assets của bốn skill đã định danh; bỏ qua tệp/thư mục ẩn, không lấy cấu hình tài khoản, corpus, benchmark hoặc file người dùng ngoài các thư mục đó. Link reference chưa được đóng gói sẽ làm build thất bại.
 
-Mô tả kích hoạt trong bản xuất được rút gọn theo catalog để đáp ứng giới hạn 200 ký tự của Claude; body của `SKILL.md` và reference giữ nội dung nguồn. ZIP có thứ tự, timestamp và quyền tệp cố định, không nén để byte ổn định giữa các phiên bản Python/zlib. Text được chuẩn hóa xuống dòng LF. Hash giúp kiểm tra đồng bộ, không phải chữ ký xác thực hay chứng nhận chất lượng.
+Mô tả kích hoạt trong bản xuất dùng `description` của catalog để đáp ứng giới hạn 200 ký tự của Claude; `summary` là mô tả tác vụ dùng trên giao diện. Body của `SKILL.md` và reference giữ nội dung nguồn. ZIP có thứ tự, timestamp và quyền tệp cố định, không nén để byte ổn định giữa các phiên bản Python/zlib. Text được chuẩn hóa xuống dòng LF. Hash giúp kiểm tra đồng bộ, không phải chữ ký xác thực hay chứng nhận chất lượng.
 
 Commit các tệp sinh cùng thay đổi nguồn. CI root và Web CI kiểm `--check`; không cần Python trong quá trình build/deploy frontend vì bộ tải đã được tạo sẵn. Nếu đổi nguồn, cần chạy lại exporter trước khi push. Chế độ check cũng báo tệp thừa cũ; xem xét và xóa chúng khi chủ động đổi tên gói.
 

@@ -19,7 +19,7 @@ function CopyPrompt({ text }: { text: string }) {
   async function copy() {
     try {
       await navigator.clipboard.writeText(text);
-      setMessage("Đã sao chép. Dán vào chatbot, rồi thay phần [Dán văn bản của bạn vào đây] bằng đoạn cần sửa.");
+      setMessage("Đã sao chép.");
     } catch {
       setMessage("Chưa sao chép được. Bạn có thể chọn toàn bộ nội dung trong ô bên dưới và sao chép trực tiếp.");
     }
@@ -55,8 +55,7 @@ export function GettingStarted() {
           Viết tiếng Việt tự nhiên hơn với chatbot bạn đang dùng
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-          Chọn chatbot và việc cần làm để nhận yêu cầu mẫu hoặc tải skill.
-          Skill là bộ hướng dẫn biên tập có thể cài vào chatbot để dùng lại. Bạn không cần viết code.
+          Chọn chatbot và việc bạn muốn làm.
         </p>
         <Link href="/" className="mt-5 inline-block text-sm font-semibold text-sky-700 underline decoration-sky-200 underline-offset-4 hover:text-sky-900">
           Soát văn phong ngay trên web →
@@ -80,7 +79,7 @@ export function GettingStarted() {
           <select id="starter-task" value={skillId} onChange={(event) => setSkillId(event.target.value)} className="w-full rounded-xl border border-slate-300 bg-white p-3 text-base text-slate-800 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100">
             {starterSkills.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
           </select>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{skill.description}</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">{skill.summary}</p>
         </div>
 
         <div className="border-t border-slate-100 pt-6">
@@ -106,7 +105,7 @@ export function GettingStarted() {
                 <li>Bật skill. Nếu Claude yêu cầu, bật Code execution and file creation trong Settings → Capabilities.</li>
               </> : <>
                 <li>Trên web Gemini, mở Customize → Skills → Create → Upload, rồi chọn tệp vừa tải.</li>
-                <li>Xem lại nội dung rồi chọn Create. Nếu tài khoản vẫn hiển thị Gems, bạn có thể dùng yêu cầu mẫu bên dưới trong lúc chờ tính năng Skills.</li>
+                <li>Xem lại nội dung rồi chọn Create.</li>
               </>}
               <li>Mở cuộc trò chuyện mới, dán yêu cầu mẫu bên dưới và thêm văn bản của bạn.</li>
             </ol>
@@ -116,7 +115,6 @@ export function GettingStarted() {
           </div>}
           {platformId === "chatgpt" && <div className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
             {chatgptInstallUrl ? <a href={chatgptInstallUrl} target="_blank" rel="noopener noreferrer" className="inline-block rounded-xl bg-emerald-600 px-5 py-3 font-semibold text-white hover:bg-emerald-700">Cài plugin trong ChatGPT</a> : <p>Dùng ngay bằng cách sao chép yêu cầu mẫu, mở ChatGPT và dán vào cuộc trò chuyện mới.</p>}
-            {!chatgptInstallUrl && <p className="text-slate-500">Plugin cho ChatGPT chưa được phát hành công khai. Bạn có thể dùng yêu cầu mẫu bên dưới để bắt đầu.</p>}
           </div>}
           {platformId === "other" && <p className="mt-3 text-sm leading-relaxed text-slate-700">
             Sao chép yêu cầu mẫu và dán vào chatbot của bạn. Nếu chatbot cho đính kèm tài liệu, bạn có thể thêm bộ hướng dẫn đầy đủ bên dưới.
@@ -128,26 +126,23 @@ export function GettingStarted() {
 
         <div className="border-t border-slate-100 pt-6">
           <h2 className="mb-3 text-lg font-semibold text-slate-900">Thử với văn bản của bạn</h2>
-          <p className="mb-4 text-sm leading-relaxed text-slate-600">Sao chép yêu cầu rút gọn bên dưới, dán vào chatbot rồi thêm văn bản cần sửa vào chỗ đánh dấu. Bạn có thể nói thêm mình viết cho ai, để làm gì và muốn dùng giọng nào.</p>
+          <p className="mb-4 text-sm leading-relaxed text-slate-600">Thay phần [Dán văn bản của bạn vào đây] bằng đoạn cần sửa.</p>
           <CopyPrompt key={`${platformId}-${skillId}`} text={starterPrompt(skill)} />
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2">
+      <section>
         <div className="rounded-2xl border border-slate-200 bg-white p-5">
           <h2 className="font-semibold text-slate-900">Dùng bộ hướng dẫn đầy đủ</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">Nếu chatbot hỗ trợ đọc tệp, bạn có thể đính kèm bộ hướng dẫn đầy đủ. Trong yêu cầu, hãy nói rõ phần bạn muốn chatbot áp dụng.</p>
           <a href="/downloads/huong-dan-tieng-viet.md" download className="mt-3 inline-block text-sm font-semibold text-sky-700 underline underline-offset-4">Tải bộ hướng dẫn đầy đủ</a>
-        </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-5">
-          <h2 className="font-semibold text-slate-900">Đọc lại trước khi sử dụng</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">Đối chiếu số liệu, tên riêng, thời hạn và ý nghĩa với bản gốc. Chatbot có thể giữ nguyên câu đã phù hợp hoặc hỏi thêm nếu có chỗ chưa rõ.</p>
         </div>
       </section>
 
       <details className="rounded-xl border border-slate-200 p-4 text-sm text-slate-600">
         <summary className="cursor-pointer font-medium">Hướng dẫn cài đặt chính thức</summary>
         <p className="mt-3">Đã đối chiếu các bước với tài liệu chính thức ngày {docsCheckedOn}. Giao diện có thể khác tùy tài khoản và phiên bản ứng dụng.</p>
+        {!chatgptInstallUrl && <p className="mt-3">Gói plugin ChatGPT chưa được phát hành công khai.</p>}
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li><a className="underline underline-offset-4" href="https://learn.chatgpt.com/docs/plugins" target="_blank" rel="noopener noreferrer">Plugin trong ChatGPT</a></li>
           <li><a className="underline underline-offset-4" href="https://support.claude.com/en/articles/12512180-use-skills-in-claude" target="_blank" rel="noopener noreferrer">Cài và dùng skill trong Claude</a></li>

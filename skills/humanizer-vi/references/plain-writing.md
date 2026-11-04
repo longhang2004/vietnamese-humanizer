@@ -5,6 +5,7 @@ Dùng cho bài giải thích, thông báo và văn viết phổ thông. Đích l
 ## Quyết định biên tập
 
 - Mỗi đoạn có một trọng tâm. Khi được sửa vừa/sâu, đặt sự việc hoặc ý chính gần đầu đoạn, rồi đến giải thích và giới hạn. Giữ trình tự kể chuyện khi nó có dụng ý.
+- Chỉ giải thích hoặc thêm ghi chú khi người đọc cần nó để theo ý đang trình bày. Tránh ngắt mạch bằng định nghĩa phổ thông, lời trấn an hay câu phủ định một hiểu lầm chưa xuất hiện. Xem các trường hợp giữ/lược trong [giải thích đúng lúc](naturalness.md).
 - Giữ chủ thể dễ nhận biết qua các câu. Lặp lại danh từ khi đổi đối tượng; lược chủ ngữ khi người đọc vẫn nhận ra người thực hiện.
 - Dùng động từ để nêu hành động đã có: “nhóm kiểm tra” thường rõ hơn “thực hiện việc kiểm tra”. Giữ danh hóa khi nó gọi tên một khái niệm cần thiết.
 - Dùng câu dài cho quan hệ cần nối; dùng câu ngắn cho kết luận hoặc bước chuyển. Không đặt ngưỡng số chữ cứng cho tiếng Việt.

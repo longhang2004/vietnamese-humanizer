@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { CapabilityNav, CapabilityProvider } from "../components/CapabilityNav";
+import { Disclaimer } from "../components/Disclaimer";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vietnamese-humanizer-g1o9.vercel.app";
@@ -140,9 +141,7 @@ export default function RootLayout({
           {/* Footer */}
           <footer className="bg-white border-t border-slate-200/80 py-8 mt-16 text-center text-xs text-slate-500">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-slate-400 max-w-2xl text-center md:text-right">
-                Gợi ý để bạn xem lại cách viết. Không chấm xác suất AI hay xác định ai viết văn bản.
-              </p>
+              <Disclaimer />
             </div>
           </footer>
         </CapabilityProvider>
