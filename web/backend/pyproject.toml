@@ -14,6 +14,7 @@ dependencies = [
   "pydantic-settings>=2.3.0",
   "slowapi>=0.1.9",
   "sqlalchemy>=2.0.30",
+  "psycopg[binary]>=3.2.0",
   "psycopg2-binary>=2.9.9",
   "vietnamese-writing-skills==0.6.0",
   "google-genai>=0.1.1",

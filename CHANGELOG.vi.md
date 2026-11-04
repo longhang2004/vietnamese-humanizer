@@ -17,6 +17,7 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ### Fixed
 
+- Bổ sung driver Psycopg 3 dạng binary để backend nạp được cấu hình PostgreSQL hiện tại, giữ tương thích Psycopg 2. Có test cho driver chỉ định và URL PostgreSQL mới/cũ, không kết nối database thật.
 - Trình soát bỏ kết quả hoặc lỗi trả về muộn khi nội dung hay nhóm kiểm tra đã đổi. Kết quả có đủ bốn nhóm lọc và phần giải thích quy tắc mở ngay tại chỗ.
 
 ## [0.6.0] - 2026-11-04

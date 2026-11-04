@@ -17,6 +17,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Fixed
 
+- Bundle the Psycopg 3 binary driver required by current PostgreSQL configurations, retaining Psycopg 2 support. Regression tests cover explicit drivers and plain/legacy PostgreSQL URL schemes without opening database connections.
 - The checker discards late results and errors when text or selected skills change. Results include all four finding filters and inline accessible pattern explanations.
 
 ## [0.6.0] - 2026-11-04

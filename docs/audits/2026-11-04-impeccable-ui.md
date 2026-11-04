@@ -26,6 +26,10 @@ The bundled detector returned `[]`. Read-only browser automation supports DOM, s
 
 The known production backend startup failure is an infrastructure blocker from before this pass. It is not repaired or represented as a successful checker response by these UI changes.
 
+### Separate backend follow-up
+
+Once Vercel access became available, runtime logs identified a missing `psycopg` module at database-engine import. SQLAlchemy 2.1 selects that driver for plain PostgreSQL URLs, while the backend only declared Psycopg 2. A separate fix adds `psycopg[binary]` to both backend manifests and retains Psycopg 2. Four real module-load regressions cover both explicit drivers and plain/legacy URL schemes without connecting to a database. All 98 backend tests and Ruff pass. This fix is separate from the UI assessment and its scores.
+
 ## Audit health
 
 Scores are a bounded code/browser assessment, not an automated certification.
