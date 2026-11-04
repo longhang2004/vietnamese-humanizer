@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T13:21:16Z",
+  "title": "Design System: Vietnamese Writing Skills",
+  "extensions": {
+    "motion": [
+      {
+        "name": "control-color",
+        "value": "160ms ease",
+        "purpose": "Control color and border transitions."
+      },
+      {
+        "name": "hero-enter",
+        "value": "600ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "One entrance for hero copy; disabled with reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "navigation-collapse",
+        "value": "850px"
+      },
+      {
+        "name": "mobile-stack",
+        "value": "600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary task action.",
+      "html": "<button class=\"ds-control ds-primary\">Kiểm tra văn bản</button>",
+      "css": ".ds-primary{font:600 14px/1.4 'Be Vietnam Pro',sans-serif;min-height:46px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:background-color 160ms ease;background:var(--accent,#c4ef91);color:var(--accent-ink,#14220b);border:1px solid transparent}.ds-primary:hover{background:var(--accent-hover,#d6f6b2)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary task action.",
+      "html": "<button class=\"ds-control ds-secondary\">Dùng trong chatbot</button>",
+      "css": ".ds-secondary{font:600 14px/1.4 'Be Vietnam Pro',sans-serif;min-height:46px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:background-color 160ms ease;background:transparent;color:var(--foreground,#eef2f5);border:1px solid var(--control-border,#566678)}.ds-secondary:hover{background:var(--surface-raised,#18212b)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Labeled text input.",
+      "html": "<label class=\"ds-label\" for=\"ds-text\">Văn bản cần soát</label><textarea class=\"ds-control ds-field\" id=\"ds-text\" placeholder=\"Dán hoặc nhập đoạn tiếng Việt…\"></textarea>",
+      "css": ".ds-label{display:block;margin-bottom:8px;font:600 13px 'Be Vietnam Pro',sans-serif;color:var(--muted,#aab6c4)}.ds-field{display:block;width:100%;min-height:120px;padding:16px;border:1px solid var(--control-border,#566678);border-radius:8px;background:var(--background,#0b0f14);color:var(--foreground,#eef2f5);font:16px/1.75 'Be Vietnam Pro',sans-serif;caret-color:var(--accent,#c4ef91)}.ds-field::placeholder{color:var(--muted,#aab6c4)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+    },
+    {
+      "name": "Navigation link",
+      "kind": "nav",
+      "description": "Current-route navigation.",
+      "html": "<a class=\"ds-control ds-nav\" href=\"/check\" aria-current=\"page\">Soát văn bản</a>",
+      "css": ".ds-nav{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border-radius:8px;color:var(--foreground,#eef2f5);background:var(--surface-raised,#18212b);font:13px 'Be Vietnam Pro',sans-serif;text-decoration:none}.ds-nav:hover{color:var(--accent,#c4ef91)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+    },
+    {
+      "name": "Example panel",
+      "kind": "card",
+      "refersTo": "surface-panel",
+      "description": "Writing output with preserved line breaks.",
+      "html": "<section class=\"ds-panel\"><h3>AI có nạp skill</h3><p>Bấm nút “Nhập CSV”.</p></section>",
+      "css": ".ds-panel{padding:24px;border:1px solid var(--border,#2b3846);border-radius:14px;background:var(--surface,#11171f);color:var(--foreground,#eef2f5);font:15px/1.9 'Be Vietnam Pro',sans-serif}.ds-panel h3{margin:0 0 22px;color:var(--accent,#c4ef91);font-size:13px;font-weight:600}.ds-panel p{margin:0;white-space:pre-wrap}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A dark workspace for Vietnamese writing",
+    "overview": "Readable Vietnamese, actual examples and a clear path into the editor are the focus. Graphite surfaces and pale lime establish the visual identity.",
+    "keyCharacteristics": [
+      "Dark canvas and flat surfaces",
+      "Readable Vietnamese typography",
+      "Direct labels and progressive disclosure",
+      "Native controls and visible focus"
+    ],
+    "dos": [
+      "Keep the user's text prominent.",
+      "Preserve verbatim outputs and provenance."
+    ],
+    "donts": [
+      "Invent scores, stars or quality claims.",
+      "Add persistent supporting notices above the task."
+    ]
+  }
+}

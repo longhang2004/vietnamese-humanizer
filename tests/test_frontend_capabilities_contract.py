@@ -28,7 +28,8 @@ def test_frontend_defines_and_fetches_the_health_capability_contract() -> None:
 def test_optional_frontend_features_fail_closed_without_blocking_lint() -> None:
     capability_nav = read_frontend("components/CapabilityNav.tsx")
     layout = read_frontend("app/layout.tsx")
-    home = read_frontend("app/page.tsx")
+    home = read_frontend("components/Checker.tsx")
+    checker_route = read_frontend("app/check/page.tsx")
     contribute = read_frontend("app/contribute/page.tsx")
 
     assert '"use client"' in capability_nav
@@ -37,10 +38,11 @@ def test_optional_frontend_features_fail_closed_without_blocking_lint() -> None:
     assert "fetchHealth()" in capability_nav
     assert "health.capabilities.rewrite === true" in capability_nav
     assert "health.capabilities.contributions === true" in capability_nav
-    assert "capabilities.contributions &&" in capability_nav
+    assert "capabilities.contributions &&" in home
 
-    assert "<CapabilityProvider>" in layout
-    assert "<CapabilityNav />" in layout
+    assert "<CapabilityProvider>" in checker_route
+    assert "<CapabilityProvider>" in contribute
+    assert "<SiteHeader stars={stars} />" in layout
     assert "<Analytics />" in layout
 
     assert "const capabilities = useCapabilities()" in home

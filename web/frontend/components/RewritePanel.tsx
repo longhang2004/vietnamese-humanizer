@@ -98,16 +98,16 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 sm:p-6 mb-8 transition-all">
-      <div className="flex flex-wrap justify-between items-center gap-4 mb-4 pb-4 border-b border-slate-100">
+    <div className="bg-[var(--surface)] rounded-2xl  border border-[var(--border)] p-5 sm:p-6 mb-8 transition-all">
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-4 pb-4 border-b border-[var(--border)]">
         <div>
-          <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <svg className="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <h2 className="text-base sm:text-lg font-bold text-[var(--foreground)] tracking-tight flex items-center gap-2">
+            <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
             </svg>
             <span>Gợi ý viết lại tự nhiên</span>
           </h2>
-          <p className="text-xs text-slate-500 mt-1 leading-normal">
+          <p className="text-xs text-[var(--muted)] mt-1 leading-normal">
             Gợi ý cách diễn đạt theo người đọc và ngữ cảnh. Bạn đọc lại trước khi dùng.
           </p>
         </div>
@@ -116,11 +116,11 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
           type="button"
           onClick={handleRewrite}
           disabled={visibleLoading || !originalText.trim()}
-          className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-emerald-600/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none active:scale-[0.98] transition-all flex items-center space-x-2"
+          className="px-5 py-2.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-ink)] font-bold text-xs sm:text-sm rounded-xl   disabled:opacity-50 disabled:cursor-not-allowed  active:scale-[0.98] transition-all flex items-center space-x-2"
         >
           {visibleLoading ? (
             <>
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-[var(--accent-ink)]" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
@@ -128,7 +128,7 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
             </>
           ) : (
             <>
-              <svg className="w-4 h-4 text-emerald-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-4 h-4 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
               </svg>
               <span>Viết lại bằng Gemini</span>
@@ -137,15 +137,15 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
         </button>
       </div>
 
-      <details className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-        <summary className="cursor-pointer text-sm font-semibold text-slate-800">
+      <details className="mb-4 rounded-xl border border-[var(--border)] bg-[var(--surface-raised)] p-4">
+        <summary className="cursor-pointer text-sm font-semibold text-[var(--foreground)]">
           Chọn giọng và ngữ cảnh (tùy chọn)
         </summary>
-        <p className="mt-2 text-xs text-slate-600">Mặc định giữ giọng gốc và sửa nhẹ. Nếu muốn đổi cách xưng hô, hãy ghi rõ ở ô bên dưới, kể cả khi chọn chat.</p>
+        <p className="mt-2 text-xs text-[var(--muted)]">Mặc định giữ giọng gốc và sửa nhẹ. Nếu muốn đổi cách xưng hô, hãy ghi rõ ở ô bên dưới, kể cả khi chọn chat.</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
-            <label className="text-sm text-slate-700">Loại bài viết
-              <select value={style.profile} aria-describedby="writing-profile-hint" onChange={(event) => updateStyle({ profile: event.target.value as RewriteStyle["profile"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+            <label className="text-sm text-[var(--muted)]">Loại bài viết
+              <select value={style.profile} aria-describedby="writing-profile-hint" onChange={(event) => updateStyle({ profile: event.target.value as RewriteStyle["profile"] })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2">
                 <option value="preserve">Theo văn bản gốc</option>
                 <option value="plain">Văn viết rõ ràng</option>
                 <option value="business">Trao đổi công việc</option>
@@ -155,10 +155,10 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
                 <option value="marketing">Marketing</option>
               </select>
             </label>
-            <p id="writing-profile-hint" className="mt-1 text-xs text-slate-600">{PROFILE_HINTS[style.profile]} Bạn vẫn có thể chọn kênh, giọng và mức sửa bên dưới.</p>
+            <p id="writing-profile-hint" className="mt-1 text-xs text-[var(--muted)]">{PROFILE_HINTS[style.profile]} Bạn vẫn có thể chọn kênh, giọng và mức sửa bên dưới.</p>
           </div>
-          <label className="text-sm text-slate-700">Kênh sử dụng
-            <select value={style.channel} onChange={(event) => updateStyle({ channel: event.target.value as RewriteStyle["channel"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+          <label className="text-sm text-[var(--muted)]">Kênh sử dụng
+            <select value={style.channel} onChange={(event) => updateStyle({ channel: event.target.value as RewriteStyle["channel"] })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2">
               <option value="auto">Theo văn bản gốc</option>
               <option value="document">Tài liệu / bài viết</option>
               <option value="email">Email</option>
@@ -166,8 +166,8 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
               <option value="spoken_script">Kịch bản để đọc thành tiếng</option>
             </select>
           </label>
-          <label className="text-sm text-slate-700">Giọng mong muốn
-            <select value={style.register} onChange={(event) => updateStyle({ register: event.target.value as RewriteStyle["register"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+          <label className="text-sm text-[var(--muted)]">Giọng mong muốn
+            <select value={style.register} onChange={(event) => updateStyle({ register: event.target.value as RewriteStyle["register"] })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2">
               <option value="preserve">Giữ giọng gốc</option>
               <option value="formal">Trang trọng</option>
               <option value="professional">Chuyên nghiệp, rõ ràng</option>
@@ -175,26 +175,26 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
               <option value="conversational">Giọng hội thoại</option>
             </select>
           </label>
-          <label className="text-sm text-slate-700">Người đọc
-            <input value={style.audience} maxLength={300} placeholder="Ví dụ: người mới dùng sản phẩm" onChange={(event) => updateStyle({ audience: event.target.value })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          <label className="text-sm text-[var(--muted)]">Người đọc
+            <input value={style.audience} maxLength={300} placeholder="Ví dụ: người mới dùng sản phẩm" onChange={(event) => updateStyle({ audience: event.target.value })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2" />
           </label>
-          <label className="text-sm text-slate-700">Quan hệ giao tiếp
-            <input value={style.relationship} maxLength={300} placeholder="Ví dụ: đồng nghiệp cùng nhóm" onChange={(event) => updateStyle({ relationship: event.target.value })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          <label className="text-sm text-[var(--muted)]">Quan hệ giao tiếp
+            <input value={style.relationship} maxLength={300} placeholder="Ví dụ: đồng nghiệp cùng nhóm" onChange={(event) => updateStyle({ relationship: event.target.value })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2" />
           </label>
-          <label className="text-sm text-slate-700">Cách xưng hô
-            <input value={style.pronouns} maxLength={200} placeholder="Để trống để giữ cách xưng hô hiện có" onChange={(event) => updateStyle({ pronouns: event.target.value })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          <label className="text-sm text-[var(--muted)]">Cách xưng hô
+            <input value={style.pronouns} maxLength={200} placeholder="Để trống để giữ cách xưng hô hiện có" onChange={(event) => updateStyle({ pronouns: event.target.value })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2" />
           </label>
-          <label className="text-sm text-slate-700">Mức can thiệp
-            <select value={style.edit_level} onChange={(event) => updateStyle({ edit_level: event.target.value as RewriteStyle["edit_level"] })} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2">
+          <label className="text-sm text-[var(--muted)]">Mức can thiệp
+            <select value={style.edit_level} onChange={(event) => updateStyle({ edit_level: event.target.value as RewriteStyle["edit_level"] })} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2">
               <option value="light">Nhẹ: sửa cục bộ</option>
               <option value="moderate">Vừa: gộp hoặc tách câu</option>
               <option value="deep">Sâu: có thể sắp xếp lại đoạn</option>
             </select>
           </label>
-          <label className="text-sm text-slate-700 sm:col-span-2">Ngữ cảnh bổ sung
-            <textarea value={context} maxLength={5000} rows={3} placeholder="Mục đích, thông tin liên quan hoặc phần hội thoại trước đó" onChange={(event) => { invalidateResult(); setContext(event.target.value); }} className="mt-1 block w-full rounded-lg border border-slate-300 bg-white p-2" />
+          <label className="text-sm text-[var(--muted)] sm:col-span-2">Ngữ cảnh bổ sung
+            <textarea value={context} maxLength={5000} rows={3} placeholder="Mục đích, thông tin liên quan hoặc phần hội thoại trước đó" onChange={(event) => { invalidateResult(); setContext(event.target.value); }} className="mt-1 block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2" />
           </label>
-          <label className="flex items-start gap-2 text-sm text-slate-700 sm:col-span-2">
+          <label className="flex items-start gap-2 text-sm text-[var(--muted)] sm:col-span-2">
             <input type="checkbox" checked={style.reduce_hype} onChange={(event) => updateStyle({ reduce_hype: event.target.checked })} className="mt-1" />
             <span>Cho phép giảm lời khen quá mức và lời đồng cảm theo khuôn. Cảm xúc có thể được diễn đạt nhẹ hơn; dữ kiện và cam kết vẫn phải giữ nguyên.</span>
           </label>
@@ -202,36 +202,36 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
       </details>
 
       {visibleError && (
-        <div className="p-3.5 bg-amber-50 border border-amber-200/80 text-amber-900 rounded-xl text-xs mb-4">
+        <div className="p-3.5 bg-[var(--surface-raised)] border border-[var(--border)] text-[var(--warning)] rounded-xl text-xs mb-4">
           <span className="font-bold">Chưa thực hiện được:</span> {visibleError}
         </div>
       )}
 
       {visibleResult && (
         <div className="mt-4 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
+          <div className="flex flex-wrap items-center justify-between gap-2 bg-[var(--surface-raised)] p-3 rounded-xl border border-[var(--border)]">
             <div className="flex items-center space-x-2">
-              <span className="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-mono font-bold rounded-full border border-amber-200 uppercase tracking-wider">
+              <span className="px-2.5 py-1 bg-[var(--surface-raised)] text-[var(--warning)] text-[11px] font-mono font-bold rounded-full border border-[var(--border)] uppercase tracking-wider">
                 {visibleResult.review_status === "unreviewed" ? "Chưa được duyệt" : visibleResult.review_status}
               </span>
-              <span className="text-xs text-slate-500 italic">{visibleResult.disclaimer}</span>
+              <span className="text-xs text-[var(--muted)] italic">{visibleResult.disclaimer}</span>
             </div>
 
             {canCopy && <button
               type="button"
               onClick={handleCopy}
-              className="px-3 py-1 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-sm flex items-center space-x-1.5 transition-all"
+              className="px-3 py-1 bg-[var(--surface)] hover:bg-[var(--surface-raised)] text-[var(--muted)] text-xs font-semibold rounded-lg border border-[var(--border)]  flex items-center space-x-1.5 transition-all"
             >
               {copied ? (
                 <>
-                  <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg className="w-3.5 h-3.5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
-                  <span className="text-emerald-700 font-bold">Đã sao chép</span>
+                  <span className="text-[var(--accent)] font-bold">Đã sao chép</span>
                 </>
               ) : (
                 <>
-                  <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="w-3.5 h-3.5 text-[var(--muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 011.927-.184" />
                   </svg>
                   <span>Sao chép kết quả</span>
@@ -241,22 +241,22 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="p-4 bg-slate-50/70 rounded-xl border border-slate-200/80 text-xs sm:text-sm">
-              <span className="block font-bold text-slate-500 text-xs uppercase tracking-wider font-mono mb-2">
+            <div className="p-4 bg-[var(--surface-raised)] rounded-xl border border-[var(--border)] text-xs sm:text-sm">
+              <span className="block font-bold text-[var(--muted)] text-xs uppercase tracking-wider font-mono mb-2">
                 Văn bản gốc:
               </span>
-              <p className="whitespace-pre-wrap text-slate-800 leading-relaxed font-sans">{originalText}</p>
+              <p className="whitespace-pre-wrap text-[var(--foreground)] leading-relaxed font-sans">{originalText}</p>
             </div>
 
-            <div className="p-4 bg-emerald-50/70 rounded-xl border border-emerald-200/80 text-xs sm:text-sm">
-              <span className="block font-bold text-emerald-800 text-xs uppercase tracking-wider font-mono mb-2 flex items-center justify-between">
+            <div className="p-4 bg-[var(--surface-raised)] rounded-xl border border-[var(--border)] text-xs sm:text-sm">
+              <span className="block font-bold text-[var(--accent)] text-xs uppercase tracking-wider font-mono mb-2 flex items-center justify-between">
                 <span>{MODE_LABELS[outputMode]}:</span>
-                <span className="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Cần tác giả duyệt</span>
+                <span className="text-[10px] text-[var(--accent)] bg-[var(--surface-raised)] px-2 py-0.5 rounded">Cần tác giả duyệt</span>
               </span>
-              {canCopy && <p className="whitespace-pre-wrap text-emerald-950 font-medium leading-relaxed font-sans">
+              {canCopy && <p className="whitespace-pre-wrap text-[var(--accent)] font-medium leading-relaxed font-sans">
                 {visibleResult.rewrite}
               </p>}
-              {Boolean(visibleResult.comments?.length) && <ul className="list-disc pl-5 space-y-2 text-slate-800 leading-relaxed">
+              {Boolean(visibleResult.comments?.length) && <ul className="list-disc pl-5 space-y-2 text-[var(--foreground)] leading-relaxed">
                 {visibleResult.comments?.map((comment, index) => <li key={index}>{comment}</li>)}
               </ul>}
             </div>

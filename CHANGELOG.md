@@ -6,6 +6,15 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+### Added
+
+- A dark project landing page, a dedicated `/check` workspace, examples, user guide and project pages, repository stars from GitHub, self-hosted Vietnamese fonts, and responsive navigation. Design work uses UI/UX Pro Max and Impeccable.
+- Six real paired Codex-subagent editing runs, with identical requests, verbatim outputs, raw records, source hashes and a publication drift check. These demonstrations are separate from the corpus and benchmark; no quality improvement is claimed.
+
+### Fixed
+
+- The checker discards late results and errors when text or selected skills change. Results include all four finding filters and inline accessible pattern explanations.
+
 ## [0.6.0] - 2026-11-04
 
 ### Changed

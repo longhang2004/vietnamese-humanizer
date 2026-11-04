@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { fetchHealth } from "../lib/api";
 import { HealthResponse } from "../lib/types";
@@ -47,46 +46,4 @@ export function CapabilityProvider({ children }: { children: React.ReactNode }) 
 
 export function useCapabilities(): Capabilities {
   return useContext(CapabilityContext);
-}
-
-export function CapabilityNav() {
-  const capabilities = useCapabilities();
-
-  return (
-    <nav
-      className="flex flex-wrap items-center gap-1 text-xs sm:text-sm font-medium"
-      aria-label="Điều hướng chính"
-    >
-      <Link
-        href="/start"
-        className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-100/80 transition-all"
-      >
-        Bắt đầu
-      </Link>
-      <Link
-        href="/"
-        className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-100/80 transition-all"
-      >
-        Soát văn phong
-      </Link>
-      {capabilities.contributions && (
-        <Link
-          href="/contribute"
-          className="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-semibold shadow-sm shadow-sky-600/20 active:scale-[0.98] transition-all flex items-center space-x-1.5"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-          </svg>
-          <span>Góp mẫu văn bản</span>
-        </Link>
-      )}
-    </nav>
-  );
 }

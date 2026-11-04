@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", "Plus Jakarta Sans", "Inter", "sans-serif"],
+        sans: ["var(--font-sans)", "Be Vietnam Pro", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
       },
       colors: {

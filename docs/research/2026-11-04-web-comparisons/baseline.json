@@ -1,0 +1,30 @@
+{
+  "condition": "without-vietnamese-skills",
+  "generator": "Codex subagent; inherited session model; exact provider version not exposed",
+  "cases": [
+    {
+      "id": "work-email",
+      "output": "Sáng nay, Lan đã gửi bản nháp tài liệu cho buổi họp. Nhờ bạn kiểm tra bảng chi phí trước 15:00 thứ Năm để nhóm có cơ sở chốt phần ngân sách. Phần nội dung còn lại hiện chưa được duyệt.\n\nNếu không kịp kiểm tra, bạn báo lại trước 11:00 để mình sắp xếp lịch với nhóm nhé."
+    },
+    {
+      "id": "administrative",
+      "output": "Để tổng hợp kết quả thực hiện kế hoạch tháng 11, Văn phòng đề nghị các đơn vị rà soát số liệu và gửi báo cáo về Văn phòng trước 16 giờ ngày 24/11/2026. Các đơn vị cần ghi riêng những nội dung chưa được xác minh trong phụ lục. Các đơn vị không gửi bản chứa dữ liệu cá nhân qua nhóm chat chung."
+    },
+    {
+      "id": "social",
+      "output": "Chiều nay, mình dọn lại kệ sách và tìm thấy tấm vé xe hồi còn học đại học. Mình định vứt đi nhưng rồi lại kẹp nó vào cuốn sổ cũ.\n\nCũng chẳng có gì đặc biệt, chỉ là tự nhiên nhớ quán cơm gần bến xe. Hồi đó, hai đứa cứ ăn ở đấy mỗi chiều thứ Sáu."
+    },
+    {
+      "id": "marketing",
+      "output": "Tiệm Mây giới thiệu túi vải nhỏ hai ngăn, có khóa kéo, với hai màu xanh rêu và kem. Giá 185.000đ/chiếc, chưa gồm phí giao hàng.\n\nTừ nay đến hết 30/11/2026, đơn từ hai chiếc đặt trên website được giảm 10%; không áp dụng cùng ưu đãi khác.\n\nChọn màu và đặt tại example.com/tui-may nhé!"
+    },
+    {
+      "id": "technical",
+      "output": "Để nhập danh sách, bạn làm theo các bước sau:\n\n1. Bấm “Nhập CSV”.\n2. Chọn tệp .csv có dung lượng không quá 2 MB. Nếu màn hình báo “Thiếu cột email”, bạn bổ sung cột email trong tệp rồi chọn lại tệp.\n3. Khi bản xem trước không còn báo lỗi, bạn có thể bấm “Xác nhận”.\n\nBạn hãy chờ thông báo “Đã nhập xong” trước khi đóng cửa sổ. Đóng cửa sổ trước khi có thông báo này có thể làm gián đoạn quá trình nhập."
+    },
+    {
+      "id": "plain",
+      "output": "Từ ngày 16/11, phòng đọc tầng 2 mở thêm từ 18:00 đến 20:00 vào thứ Ba và thứ Năm. Khung giờ này dành cho người từ 16 tuổi trở lên. Người đến đọc có thể mang máy tính cá nhân.\n\nKhu thiếu nhi tầng 1 giữ lịch cũ. Ban quản lý chưa xác nhận việc mở thêm giờ vào cuối tuần."
+    }
+  ]
+}

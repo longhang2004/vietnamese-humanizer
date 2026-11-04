@@ -31,7 +31,8 @@ def test_frontend_uses_canonical_branding_without_a_runtime_version() -> None:
     assert layout.count(f'title: "{PRODUCT_METADATA_TITLE}"') == 2
     assert f'siteName: "{PRODUCT_NAME}"' in layout
     assert f'name: "{PRODUCT_NAME}"' in layout
-    assert re.search(rf">\s*{re.escape(PRODUCT_NAME)}\s*</span>", layout)
+    header = (FRONTEND / "components" / "SiteHeader.tsx").read_text(encoding="utf-8")
+    assert re.search(rf">\s*{re.escape(PRODUCT_NAME)}\s*</span>", header)
     assert "Writing Skills & Humanizer" not in layout
     assert "Vietnamese Humanizer & Linter" not in layout
     assert "v0.4.0" not in layout

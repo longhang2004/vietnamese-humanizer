@@ -1,169 +1,53 @@
-import React, { useState } from "react";
-import { IssueItem, IssueOccurrence, PatternItem } from "../lib/types";
+import React, { useId, useState } from "react";
+import type { IssueItem, IssueOccurrence, PatternItem } from "../lib/types";
 
-interface IssueCardProps {
-  issue: IssueItem;
-  pattern?: PatternItem;
-  onSelectPattern: (patternId: string) => void;
-}
-
-const SEVERITY_LABELS: Record<string, string> = {
-  high: "Cao", medium: "Vừa", low: "Thấp", error: "Lỗi",
-  warning: "Cảnh báo", heuristic: "Tham khảo", preference: "Tùy chọn",
-};
+interface IssueCardProps { issue: IssueItem; pattern?: PatternItem; onSelectPattern?: (patternId: string) => void; }
+const SEVERITY_LABELS: Record<string, string> = { high: "Cao", medium: "Vừa", low: "Thấp", error: "Lỗi", warning: "Cảnh báo", heuristic: "Tham khảo", preference: "Tùy chọn" };
+const FINDING_LABELS: Record<string, string> = { error: "Lỗi cần sửa", warning: "Cần xem lại", preference: "Lựa chọn cách viết", heuristic: "Tín hiệu tham khảo" };
 
 export const IssueCard: React.FC<IssueCardProps> = ({ issue, pattern, onSelectPattern }) => {
   const [showOccurrences, setShowOccurrences] = useState(false);
-  const occurrences: IssueOccurrence[] = issue.occurrences?.length
-    ? issue.occurrences
-    : [
-        {
-          line: issue.line,
-          column: issue.column,
-          excerpt: issue.excerpt,
-          matched_text: "",
-        },
-      ];
+  const occurrenceId = useId();
+  const occurrences: IssueOccurrence[] = issue.occurrences?.length ? issue.occurrences : [{ line: issue.line, column: issue.column, excerpt: issue.excerpt, matched_text: "" }];
+  const severity = issue.severity.toLowerCase();
+  const severityColor = ["high", "error"].includes(severity) ? "text-[var(--danger)]" : ["medium", "warning"].includes(severity) ? "text-[var(--warning)]" : "text-[var(--muted)]";
 
   const renderExcerpt = (occurrence: IssueOccurrence) => {
-    const index = occurrence.matched_text
-      ? occurrence.excerpt.indexOf(occurrence.matched_text)
-      : -1;
+    const index = occurrence.matched_text ? occurrence.excerpt.indexOf(occurrence.matched_text) : -1;
     if (index < 0) return occurrence.excerpt;
     const end = index + occurrence.matched_text.length;
-    return (
-      <>
-        {occurrence.excerpt.slice(0, index)}
-        <mark className="bg-amber-200/70 text-inherit rounded-sm px-0.5">
-          {occurrence.excerpt.slice(index, end)}
-        </mark>
-        {occurrence.excerpt.slice(end)}
-      </>
-    );
-  };
-
-  const getSeverityBadge = (severity: string) => {
-    switch (severity.toLowerCase()) {
-      case "high":
-      case "error":
-        return "bg-rose-50 text-rose-700 border-rose-200/80";
-      case "medium":
-      case "warning":
-        return "bg-amber-50 text-amber-800 border-amber-200/80";
-      case "low":
-      case "heuristic":
-      case "preference":
-      default:
-        return "bg-sky-50 text-sky-800 border-sky-200/80";
-    }
-  };
-
-  const getFindingTypeLabel = (type: string) => {
-    switch (type) {
-      case "error":
-        return "Lỗi cần sửa";
-      case "warning":
-        return "Cần xem lại";
-      case "preference":
-        return "Lựa chọn cách viết";
-      case "heuristic":
-        return "Tín hiệu tham khảo";
-      default:
-        return type;
-    }
+    return <>{occurrence.excerpt.slice(0, index)}<mark className="rounded-sm bg-[var(--warning)] px-0.5 text-[var(--accent-ink)]">{occurrence.excerpt.slice(index, end)}</mark>{occurrence.excerpt.slice(end)}</>;
   };
 
   return (
-    <div className="border border-slate-200/80 rounded-xl p-4 bg-white shadow-sm hover:border-sky-300 hover:shadow transition-all group">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
-        <div className="flex items-center space-x-2">
-          <button
-            type="button"
-            onClick={() => onSelectPattern(issue.pattern_id)}
-            className="font-mono text-[11px] font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-md border border-sky-200/80 transition-colors"
-          >
-            {issue.pattern_id}
-          </button>
-          <span className="text-xs text-slate-400 font-mono">Dòng {issue.line}, cột {issue.column}</span>
-          {occurrences.length > 1 && (
-            <button
-              type="button"
-              aria-expanded={showOccurrences}
-              onClick={() => setShowOccurrences((current) => !current)}
-              className="text-[11px] font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 px-2 py-0.5 rounded-md border border-sky-200/80 transition-colors"
-            >
-              {occurrences.length} vị trí
-            </button>
-          )}
-          <span className="text-xs text-slate-500 font-medium">
-            • {getFindingTypeLabel(issue.finding_type)}
-          </span>
-        </div>
-        
-        <span
-          className={`text-[11px] px-2.5 py-0.5 rounded-full font-mono font-bold border uppercase tracking-wider ${getSeverityBadge(
-            issue.severity
-          )}`}
-        >
-          {SEVERITY_LABELS[issue.severity.toLowerCase()] ?? issue.severity}
-        </span>
+    <article className="min-w-0 border-t border-[var(--border)] pt-5">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <span className={`text-sm font-medium ${severityColor}`}>{FINDING_LABELS[issue.finding_type] ?? issue.finding_type}</span>
+        <span className={`text-sm ${severityColor}`}>Mức độ: {SEVERITY_LABELS[severity] ?? issue.severity}</span>
+      </div>
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm tabular-nums text-[var(--muted)]">
+        <span className="font-mono">{issue.pattern_id}</span><span>Dòng {issue.line}, cột {issue.column}</span>
+        {occurrences.length > 1 && <button type="button" aria-expanded={showOccurrences} aria-controls={occurrenceId} onClick={() => setShowOccurrences((current) => !current)} className="text-link min-h-11 px-1">{occurrences.length} vị trí</button>}
       </div>
 
-      {/* Excerpt Code Box */}
-      <div className="my-2.5 bg-slate-50/80 p-3 rounded-lg border-l-3 border-sky-500 text-xs sm:text-sm font-mono text-slate-800 leading-relaxed overflow-x-auto">
-        &quot;{renderExcerpt(occurrences[0])}&quot;
-      </div>
-
+      <blockquote className="my-4 break-words rounded-lg bg-[var(--background)] p-4 text-base leading-7">“{renderExcerpt(occurrences[0])}”</blockquote>
       {showOccurrences && occurrences.length > 1 && (
-        <ol className="mb-3 space-y-2" aria-label="Các vị trí phát hiện">
-          {occurrences.map((occurrence, index) => (
-            <li
-              key={`${occurrence.line}-${occurrence.column}-${index}`}
-              className="rounded-lg border border-slate-200/80 bg-slate-50/60 p-2.5"
-            >
-              <div className="mb-1 text-[11px] font-mono font-semibold text-slate-500">
-                Dòng {occurrence.line}, cột {occurrence.column}
-              </div>
-              <div className="text-xs sm:text-sm font-mono text-slate-700 leading-relaxed">
-                &quot;{renderExcerpt(occurrence)}&quot;
-              </div>
-            </li>
-          ))}
-        </ol>
+        <ol id={occurrenceId} className="mb-5 space-y-4" aria-label="Các vị trí phát hiện">{occurrences.map((occurrence, index) => <li key={`${occurrence.line}-${occurrence.column}-${index}`} className="break-words pl-4"><p className="text-sm tabular-nums text-[var(--muted)]">Dòng {occurrence.line}, cột {occurrence.column}</p><p className="mt-1 text-base leading-7">“{renderExcerpt(occurrence)}”</p></li>)}</ol>
       )}
+      <p className="break-words text-base leading-7">{issue.message}</p>
+      {issue.suggestion && <p className="mt-3 break-words text-base leading-7 text-[var(--muted)]"><span className="font-medium text-[var(--foreground)]">Gợi ý sửa: </span>{issue.suggestion}</p>}
 
-      {/* Main Issue Explanation */}
-      <p className="text-xs sm:text-sm text-slate-700 font-medium mb-2 leading-relaxed">{issue.message}</p>
-
-      {/* Suggestion Callout */}
-      {issue.suggestion && (
-        <div className="mt-2.5 text-xs text-emerald-900 bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-200/70 flex items-start space-x-2">
-          <svg className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-          </svg>
-          <div className="flex-1">
-            <span className="font-bold text-emerald-950">Gợi ý sửa: </span>
-            <span className="leading-relaxed">{issue.suggestion}</span>
-          </div>
-        </div>
-      )}
-
-      {/* Pattern details footer */}
       {pattern && (
-        <div className="mt-3 pt-2.5 border-t border-slate-100 flex justify-between items-center text-xs">
-          <span className="text-slate-400 truncate max-w-md italic">{pattern.summary}</span>
-          <button
-            type="button"
-            onClick={() => onSelectPattern(issue.pattern_id)}
-            className="text-sky-600 font-bold hover:text-sky-700 hover:underline flex-shrink-0 ml-2 flex items-center space-x-1"
-          >
-            <span>Vì sao có gợi ý này?</span>
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-        </div>
+        <details className="mt-3" onToggle={(event) => { if (event.currentTarget.open) onSelectPattern?.(issue.pattern_id); }}>
+          <summary className="text-link min-h-11 cursor-pointer py-3 text-base">Vì sao có gợi ý này?</summary>
+          <div className="space-y-4 pb-2 pt-3 text-base leading-7">
+            <div><h3 className="font-semibold">{pattern.name}</h3><p className="mt-1 font-mono text-sm text-[var(--muted)]">{pattern.skill}</p></div>
+            <p className="break-words text-[var(--muted)]">{pattern.summary}</p>
+            <div><h4 className="font-medium">Vì sao cần xem lại?</h4><p className="mt-1 break-words text-[var(--muted)]">{pattern.why_it_matters}</p></div>
+            {pattern.rewrite_strategy && <div><h4 className="font-medium">Gợi ý diễn đạt lại</h4><p className="mt-1 break-words text-[var(--muted)]">{pattern.rewrite_strategy}</p></div>}
+          </div>
+        </details>
       )}
-    </div>
+    </article>
   );
 };

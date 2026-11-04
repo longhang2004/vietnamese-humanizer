@@ -21,6 +21,7 @@ The public project overview and contribution guide are available in English and 
 
 - [User distribution](user-distribution.md): onboarding, platform downloads, generated assets, and release packaging.
 - [Web copy guide](web-copy-guide.md): Vietnamese UI voice, task names, examples, and preservation checks using the repository's own skills.
+- [Web comparison runs](research/2026-11-04-web-comparisons/README.md): raw paired AI generations, shared briefs, limitations and verbatim publication.
 - [Pattern authoring guide](pattern-authoring-guide.md): requirements for adding or changing patterns.
 - [Generated pattern catalog](generated-patterns.md): the current generated catalog.
 - [Maintenance agent prompt](maintenance-agent-prompt.md): repository maintenance guidance for coding agents.

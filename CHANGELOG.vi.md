@@ -6,6 +6,15 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+### Added
+
+- Landing page tối, công cụ riêng tại `/check`, trang ví dụ, hướng dẫn và giới thiệu dự án; số sao lấy từ GitHub, font tiếng Việt tự host và điều hướng responsive. Áp dụng UI/UX Pro Max và Impeccable cho thiết kế.
+- Sáu cặp biên tập thật bằng Codex subagent, cùng yêu cầu, giữ nguyên đầu ra và có bản ghi, hash nguồn, kiểm đồng bộ. Ví dụ nằm riêng khỏi corpus và benchmark; chưa có kết quả đo cải thiện chất lượng.
+
+### Fixed
+
+- Trình soát bỏ kết quả hoặc lỗi trả về muộn khi nội dung hay nhóm kiểm tra đã đổi. Kết quả có đủ bốn nhóm lọc và phần giải thích quy tắc mở ngay tại chỗ.
+
 ## [0.6.0] - 2026-11-04
 
 ### Changed

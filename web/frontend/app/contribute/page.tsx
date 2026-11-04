@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useCapabilities } from "../../components/CapabilityNav";
+import { CapabilityProvider, useCapabilities } from "../../components/CapabilityNav";
 import { ContributeForm } from "../../components/ContributeForm";
 import { fetchSkills } from "../../lib/api";
 import { SkillItem } from "../../lib/types";
 
-export default function ContributePage() {
+function ContributionContent() {
   const capabilities = useCapabilities();
   const [skills, setSkills] = useState<SkillItem[]>([]);
 
@@ -24,11 +24,15 @@ export default function ContributePage() {
     loadSkills();
   }, [capabilities.contributions]);
 
-  if (!capabilities.contributions) return null;
+  if (!capabilities.contributions) return <section className="page-heading"><h1>Góp mẫu văn bản</h1><p>Phần gửi mẫu hiện chưa mở. Bạn có thể góp ý hoặc báo trường hợp cần xem lại trong <a className="text-link" href="https://github.com/longhang2004/vietnamese-humanizer/issues">issue trên GitHub</a>.</p></section>;
 
   return (
-    <div>
+    <div className="py-12">
       <ContributeForm skills={skills} />
     </div>
   );
+}
+
+export default function ContributePage() {
+  return <CapabilityProvider><ContributionContent /></CapabilityProvider>;
 }

@@ -1,0 +1,45 @@
+{
+  "condition": "with-vietnamese-skills",
+  "generator": "Codex subagent; inherited session model; exact provider version not exposed",
+  "skill_commit": "845c3795f26346c4f5801e35365d65ff939a8e08",
+  "references_read": [
+    "skills/humanizer-vi/SKILL.md",
+    "skills/humanizer-vi/references/naturalness.md",
+    "skills/humanizer-vi/references/formulaic-prose.md",
+    "skills/humanizer-vi/references/preservation-rules.md",
+    "skills/humanizer-vi/references/writing-profiles.md",
+    "skills/humanizer-vi/references/business-writing.md",
+    "skills/humanizer-vi/references/administrative-writing.md",
+    "skills/humanizer-vi/references/social-writing.md",
+    "skills/humanizer-vi/references/marketing-writing.md",
+    "skills/humanizer-vi/references/technical-writing.md",
+    "skills/humanizer-vi/references/plain-writing.md",
+    "skills/humanizer-vi/references/registers.md"
+  ],
+  "cases": [
+    {
+      "id": "work-email",
+      "output": "Sáng nay, Lan đã gửi bản nháp tài liệu cho buổi họp. Nhờ bạn kiểm tra bảng chi phí trước 15:00 thứ Năm để nhóm có cơ sở chốt phần ngân sách. Phần nội dung còn lại hiện chưa được duyệt.\n\nNếu chưa kịp kiểm tra, bạn báo lại trước 11:00 để mình sắp xếp lịch với nhóm nhé."
+    },
+    {
+      "id": "administrative",
+      "output": "Để tổng hợp kết quả thực hiện kế hoạch tháng 11, Văn phòng đề nghị các đơn vị rà soát số liệu và gửi báo cáo về Văn phòng trước 16 giờ ngày 24/11/2026. Trong quá trình rà soát, các đơn vị cần phải ghi riêng vào phụ lục các nội dung chưa được xác minh. Các đơn vị không gửi bản chứa dữ liệu cá nhân qua nhóm chat chung."
+    },
+    {
+      "id": "social",
+      "output": "Chiều nay dọn lại kệ sách, mình tìm thấy tấm vé xe hồi còn học đại học. Mình đã định vứt đi nhưng rồi lại kẹp nó vào cuốn sổ cũ.\n\nCũng chẳng có chuyện gì đặc biệt, chỉ là tự nhiên mình nhớ quán cơm gần bến xe. Hồi đó hai đứa cứ ăn ở đấy mỗi chiều thứ Sáu."
+    },
+    {
+      "id": "marketing",
+      "output": "Tiệm Mây giới thiệu túi vải hai ngăn có khóa kéo, giá 185.000đ/chiếc. Túi có hai màu xanh rêu và kem.\n\nTừ nay đến hết 30/11/2026, đơn từ hai chiếc được giảm 10% khi đặt trên website; không áp dụng cùng ưu đãi khác. Giá chưa gồm phí giao hàng.\n\nChọn màu và đặt tại example.com/tui-may nhé!"
+    },
+    {
+      "id": "technical",
+      "output": "1. Bấm nút “Nhập CSV”.\n2. Chọn tệp .csv không quá 2 MB. Nếu màn hình báo “Thiếu cột email”, bạn cần bổ sung cột email trong tệp rồi chọn lại tệp.\n3. Khi bản xem trước không còn báo lỗi, bạn có thể bấm “Xác nhận”.\n\nĐóng cửa sổ trước khi có thông báo “Đã nhập xong” có thể khiến quá trình nhập bị gián đoạn."
+    },
+    {
+      "id": "plain",
+      "output": "Từ ngày 16/11, phòng đọc tầng 2 mở thêm từ 18:00 đến 20:00 vào thứ Ba và thứ Năm. Khung giờ này dành cho người từ 16 tuổi trở lên.\n\nKhu thiếu nhi tầng 1 giữ lịch cũ. Ban quản lý chưa xác nhận việc mở thêm giờ vào cuối tuần. Người đến đọc có thể mang máy tính cá nhân."
+    }
+  ]
+}
