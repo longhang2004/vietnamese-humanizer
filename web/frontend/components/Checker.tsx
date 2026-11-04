@@ -52,7 +52,9 @@ export function Checker() {
       setResult({ response, text, requestId });
     } catch (error: unknown) {
       if (requestId !== requestGeneration.current) return;
-      setErrorMsg(error instanceof Error ? error.message : "Chưa kiểm tra được văn bản. Bạn hãy thử lại.");
+      setErrorMsg(error instanceof TypeError
+        ? "Chưa kết nối được máy chủ. Bạn hãy thử lại sau."
+        : error instanceof Error ? error.message : "Chưa kiểm tra được văn bản. Bạn hãy thử lại.");
     } finally {
       if (requestId === requestGeneration.current) setLoading(false);
     }

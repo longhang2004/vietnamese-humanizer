@@ -109,6 +109,17 @@ test("a failed check provides an alert and can be retried", async () => {
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
 });
 
+test("a network failure explains recovery in Vietnamese and preserves the draft", async () => {
+  const user = userEvent.setup();
+  vi.mocked(lintText).mockRejectedValue(new TypeError("Failed to fetch"));
+  renderChecker();
+  fireEvent.change(screen.getByRole("textbox"), { target: { value: "Bản nháp đang viết" } });
+  await user.click(screen.getByRole("button", { name: "Soát văn phong" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("Chưa kết nối được máy chủ. Bạn hãy thử lại sau.");
+  expect(screen.getByRole("textbox")).toHaveValue("Bản nháp đang viết");
+  expect(screen.getByRole("button", { name: "Soát văn phong" })).toBeEnabled();
+});
+
 test("rewrite remains hidden when capabilities cannot be loaded", async () => {
   const user = userEvent.setup();
   vi.mocked(fetchHealth).mockRejectedValue(new Error("offline"));
