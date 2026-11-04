@@ -71,7 +71,7 @@ export function Checker() {
   };
 
   return (
-    <div className="space-y-7 py-12">
+    <div className="space-y-7 py-8 sm:py-12">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-2xl">
           <h1 className="text-3xl font-semibold tracking-tight">
@@ -81,30 +81,23 @@ export function Checker() {
             Tìm chỗ cần đọc lại, hiểu lý do và tự chọn cách sửa phù hợp.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-5">
+        {capabilities.contributions && (
           <Link
-            href="/start"
+            href="/contribute"
             className="text-link inline-flex min-h-11 items-center text-sm"
           >
-            Dùng trong chatbot
+            Góp mẫu văn bản
           </Link>
-          {capabilities.contributions && (
-            <Link
-              href="/contribute"
-              className="text-link inline-flex min-h-11 items-center text-sm"
-            >
-              Góp mẫu văn bản
-            </Link>
-          )}
-        </div>
+        )}
       </div>
 
-      {metadataUnavailable && (
-        <p role="status" className="text-sm leading-6 text-[var(--warning)]">
-          Chưa tải được phần giải thích quy tắc. Bạn vẫn có thể chọn nhóm kiểm
-          tra và thử soát văn bản.
-        </p>
-      )}
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {loading
+          ? "Đang kiểm tra văn bản. Vui lòng chờ kết quả."
+          : result
+            ? `Đã kiểm tra. Có ${result.response.summary.total} mục cần cân nhắc.`
+            : ""}
+      </p>
 
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
         <Editor
@@ -115,14 +108,6 @@ export function Checker() {
           onSkillsChange={invalidateResult}
         />
         <div className="min-w-0 space-y-6">
-          <p aria-live="polite" aria-atomic="true" className="sr-only">
-            {loading
-              ? "Đang kiểm tra văn bản. Vui lòng chờ kết quả."
-              : result
-                ? `Đã kiểm tra. Có ${result.response.summary.total} mục cần cân nhắc.`
-                : ""}
-          </p>
-
           {errorMsg ? (
             <section role="alert" className="surface-panel p-5 sm:p-6">
               <h2 className="text-xl font-semibold text-[var(--danger)]">
@@ -133,6 +118,12 @@ export function Checker() {
                 Văn bản của bạn vẫn được giữ trong ô nhập. Bấm “Soát văn phong”
                 để thử lại.
               </p>
+              <Link
+                href="/start"
+                className="text-link action-link mt-3 text-sm"
+              >
+                Dùng trong chatbot
+              </Link>
             </section>
           ) : loading ? (
             <section
@@ -166,13 +157,13 @@ export function Checker() {
             />
           ) : (
             <section
-              className="surface-panel flex min-h-[26rem] flex-col p-5 sm:p-6"
+              className="surface-panel flex flex-col p-5 sm:p-6 lg:min-h-[26rem]"
               aria-labelledby="results-title"
             >
               <h2 id="results-title" className="text-xl font-semibold">
                 Kết quả soát văn phong
               </h2>
-              <div className="my-auto py-12">
+              <div className="my-auto py-6 lg:py-12">
                 <h3 className="text-lg font-medium">
                   Bắt đầu từ một đoạn bạn đang viết.
                 </h3>
@@ -182,6 +173,15 @@ export function Checker() {
                 </p>
               </div>
             </section>
+          )}
+
+          {metadataUnavailable && !errorMsg && (
+            <p
+              role="status"
+              className="text-sm leading-6 text-[var(--warning)]"
+            >
+              Phần giải thích quy tắc chưa tải được.
+            </p>
           )}
 
           {result && capabilities.rewrite && (

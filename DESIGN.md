@@ -27,7 +27,7 @@ typography:
     lineHeight: 1.4
   command:
     fontFamily: "JetBrains Mono, monospace"
-    fontSize: "11px"
+    fontSize: "13px"
 rounded:
   field: "8px"
   button: "9px"
@@ -91,7 +91,7 @@ The main container is at most 1200px, with 24px side gutters on desktop and 18px
 
 The hero becomes one column below 850px. Paired outputs stack below 600px. Editor and results sit side by side on large screens and stack on mobile. Guides use a 220px table of contents and a reading column of at most 73ch.
 
-Shared stylesheet breakpoints are 1100px, 850px and 600px; checker utilities follow the existing Tailwind configuration. Grid children containing commands must shrink within their columns. Commands scroll inside their own control.
+Shared stylesheet breakpoints are 1100px, 850px and 600px; checker utilities follow the existing Tailwind configuration. Grid children containing commands must shrink within their columns. Commands wrap inside their control at a readable 13px size.
 
 ## Elevation & Depth
 
@@ -105,11 +105,12 @@ Fields use an 8px radius, buttons 9px and large panels 14px. Borders are 1px. Co
 
 - **Primary button:** lime fill, dark text, lighter hover fill.
 - **Secondary button:** control border, transparent fill, raised hover surface.
-- **Field:** dark background, control border, readable placeholder. The editor is a larger 16px variant.
-- **Navigation:** active and hover states; disclosure menu below 850px. GitHub stars come from the public API and are omitted when unavailable.
-- **Comparison explorer:** native selector, previous/next buttons, paired outputs and prompt disclosure. A topic change updates both outputs and the prompt together.
+- **Field:** dark background, control border, 16px text and readable placeholder. Onboarding uses this shared primitive. The control border against the background has a 3.26:1 contrast ratio.
+- **Navigation:** active and hover states; disclosure menu below 850px. Escape closes the menu and returns focus to its toggle. GitHub stars come from the public API and are omitted when unavailable.
+- **Comparison explorer:** native selector, previous/next buttons, paired outputs and prompt disclosure. A topic change updates both outputs and the prompt together; a short status announces the topic. Heading levels follow the embedding page.
+- **Check selection:** all four checks are on initially. A native disclosure exposes the checkboxes without pushing the primary action below expanded defaults.
 - **Findings:** type labels, counts, filters and inline explanations. Editing invalidates old results and pending responses.
-- **Install command:** internal horizontal scroll, copy button and announced confirmation.
+- **Install command:** wrapping monospace text, copy button and announced confirmation.
 
 ## Do's and Don'ts
 

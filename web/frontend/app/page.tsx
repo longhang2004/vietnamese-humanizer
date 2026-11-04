@@ -92,7 +92,7 @@ export default function HomePage() {
           <p className="text-sm text-[var(--muted)]">
             6 chủ đề, từ email công việc đến chia sẻ đời thường.
           </p>
-          <Link href="/examples" className="text-link text-sm">
+          <Link href="/examples" className="text-link action-link text-sm">
             Xem cách chạy và các ví dụ
           </Link>
         </div>
@@ -151,7 +151,7 @@ export default function HomePage() {
           <InstallCommand />
           <a
             href={REPOSITORY_URL + "/blob/main/README.md"}
-            className="text-link text-sm"
+            className="text-link action-link text-sm"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -21,7 +21,11 @@ export default function ExamplesPage() {
           riêng. Chọn một chủ đề để đọc cả hai bản.
         </p>
       </div>
-      <ComparisonExplorer cases={comparisons.cases} initialId="technical" />
+      <ComparisonExplorer
+        cases={comparisons.cases}
+        initialId="technical"
+        headingLevel={2}
+      />
       <details className="methodology">
         <summary>Các ví dụ được tạo như thế nào?</summary>
         <p>

@@ -255,6 +255,13 @@ pre {
 .text-link:hover {
   color: var(--accent-hover);
 }
+.action-link,
+.feature-intro > .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
 .field {
   display: block;
   width: 100%;
@@ -265,8 +272,21 @@ pre {
   color: var(--foreground);
   background: var(--background);
   font: inherit;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
+}
+.skill-options {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.skill-options summary {
+  min-height: 44px;
+  padding-block: 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.skill-options summary::marker {
+  color: var(--muted);
 }
 #editor-input.field {
   font-size: 1rem;
@@ -355,12 +375,11 @@ pre {
 .install-command code {
   flex: 1;
   min-width: 0;
-  overflow-x: auto;
-  white-space: nowrap;
+  white-space: normal;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
+  line-height: 1.7;
   padding-block: 13px;
-  scrollbar-width: thin;
 }
 .install-command button {
   flex-shrink: 0;
@@ -418,7 +437,7 @@ pre {
 }
 .document-footer {
   border-top: 1px solid var(--border);
-  padding: 15px 22px;
+  padding: 8px 22px;
   color: var(--muted);
   font-size: 12px;
   display: flex;
@@ -430,11 +449,12 @@ pre {
   color: var(--foreground);
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 6px;
 }
 .project-strip {
   border-block: 1px solid var(--border);
-  padding: 21px 0;
+  padding: 12px 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -455,6 +475,7 @@ pre {
   color: var(--foreground);
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 8px;
 }
 .comparison-explorer {
@@ -511,7 +532,7 @@ pre {
 .comparison-output + .comparison-output {
   border-left: 1px solid var(--border);
 }
-.comparison-output h3 {
+.comparison-output-heading {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -529,7 +550,7 @@ pre {
 .guided-output {
   background: #141e1b;
 }
-.guided-output h3 {
+.guided-output .comparison-output-heading {
   color: var(--accent);
 }
 .comparison-source {
@@ -544,7 +565,7 @@ pre {
   padding: 0 24px 24px;
   max-width: 90ch;
 }
-.source-content h4 {
+.source-heading {
   font-size: 13px;
   margin-block: 18px 8px;
   color: var(--foreground);
@@ -565,6 +586,7 @@ pre {
   font-size: 12px;
 }
 .comparison-provenance a {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -815,7 +837,7 @@ pre {
 .methodology summary {
   color: var(--foreground);
   font-weight: 600;
-  min-height: 28px;
+  min-height: 44px;
 }
 .methodology p {
   margin-top: 18px;
@@ -974,9 +996,6 @@ pre {
   }
   .hero > * {
     min-width: 0;
-  }
-  .install-command code {
-    font-size: 10px;
   }
   .document-body {
     padding: 20px;

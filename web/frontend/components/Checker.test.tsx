@@ -75,7 +75,10 @@ test.each(["typing", "sample", "clear", "skills"])("%s invalidates the displayed
   if (change === "typing") fireEvent.change(screen.getByRole("textbox"), { target: { value: "Văn bản B" } });
   if (change === "sample") await user.click(screen.getByRole("button", { name: "Thử văn bản mẫu" }));
   if (change === "clear") await user.click(screen.getByRole("button", { name: "Xóa văn bản" }));
-  if (change === "skills") await user.click(screen.getAllByRole("checkbox")[0]);
+  if (change === "skills") {
+    await user.click(screen.getByText("Nhóm kiểm tra"));
+    await user.click(screen.getAllByRole("checkbox")[0]);
+  }
   expect(screen.queryByText("Kết quả đã cũ")).not.toBeInTheDocument();
 });
 

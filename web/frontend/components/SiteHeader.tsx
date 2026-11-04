@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { REPOSITORY_URL } from "../lib/repository";
 import { Icon } from "./Icon";
 
@@ -16,8 +16,17 @@ const links = [
 export function SiteHeader({ stars }: { stars: number | null }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (open && event.key === "Escape") {
+          setOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
+    >
       <div className="site-header-inner">
         <Link
           href="/"
@@ -31,6 +40,8 @@ export function SiteHeader({ stars }: { stars: number | null }) {
           <span>Vietnamese Writing Skills</span>
         </Link>
         <button
+          ref={menuButton}
+          type="button"
           className="button-icon mobile-menu"
           aria-label={open ? "Đóng menu" : "Mở menu"}
           aria-expanded={open}

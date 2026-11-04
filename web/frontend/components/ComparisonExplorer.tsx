@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { REPOSITORY_URL } from "../lib/repository";
 import { Icon } from "./Icon";
 
@@ -18,10 +18,15 @@ export interface ComparisonCase {
 export function ComparisonExplorer({
   cases,
   initialId,
+  headingLevel = 3,
 }: {
   cases: ComparisonCase[];
   initialId?: string;
+  headingLevel?: 2 | 3;
 }) {
+  const topicId = useId();
+  const OutputHeading = headingLevel === 2 ? "h2" : "h3";
+  const SourceHeading = headingLevel === 2 ? "h3" : "h4";
   const [selectedId, setSelectedId] = useState(initialId ?? cases[0].id);
   const selected = cases.find((item) => item.id === selectedId) ?? cases[0];
   const index = cases.indexOf(selected);
@@ -29,12 +34,12 @@ export function ComparisonExplorer({
     <div className="comparison-explorer">
       <div className="comparison-toolbar">
         <div className="comparison-select">
-          <label htmlFor="comparison-topic" className="field-label">
+          <label htmlFor={topicId} className="field-label">
             Chủ đề so sánh
           </label>
           <select
             className="field"
-            id="comparison-topic"
+            id={topicId}
             value={selected.id}
             onChange={(event) => setSelectedId(event.target.value)}
           >
@@ -70,31 +75,38 @@ export function ComparisonExplorer({
           </button>
         </div>
       </div>
-      <div className="comparison-columns" aria-live="polite" aria-atomic="true">
+      <p role="status" className="sr-only">
+        Đang xem {selected.topic}, chủ đề {index + 1} trên {cases.length}.
+      </p>
+      <div className="comparison-columns">
         <section
           className="comparison-output"
           aria-label="Kết quả AI không nạp skill"
         >
-          <h3>AI không nạp skill</h3>
+          <OutputHeading className="comparison-output-heading">
+            AI không nạp skill
+          </OutputHeading>
           <p>{selected.without}</p>
         </section>
         <section
           className="comparison-output guided-output"
           aria-label="Kết quả AI có nạp skill"
         >
-          <h3>
+          <OutputHeading className="comparison-output-heading">
             <Icon name="book" width="17" height="17" />
             AI có nạp skill
-          </h3>
+          </OutputHeading>
           <p>{selected.with}</p>
         </section>
       </div>
       <details className="comparison-source" key={selected.id}>
         <summary>Xem yêu cầu và đoạn gốc</summary>
         <div className="source-content">
-          <h4>Yêu cầu dùng cho cả hai lượt</h4>
+          <SourceHeading className="source-heading">
+            Yêu cầu dùng cho cả hai lượt
+          </SourceHeading>
           <p>{selected.prompt}</p>
-          <h4>Đoạn gốc</h4>
+          <SourceHeading className="source-heading">Đoạn gốc</SourceHeading>
           <p className="whitespace-pre-wrap">{selected.input}</p>
         </div>
       </details>

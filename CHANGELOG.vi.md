@@ -11,6 +11,10 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 - Landing page tối, công cụ riêng tại `/check`, trang ví dụ, hướng dẫn và giới thiệu dự án; số sao lấy từ GitHub, font tiếng Việt tự host và điều hướng responsive. Áp dụng UI/UX Pro Max và Impeccable cho thiết kế.
 - Sáu cặp biên tập thật bằng Codex subagent, cùng yêu cầu, giữ nguyên đầu ra và có bản ghi, hash nguồn, kiểm đồng bộ. Ví dụ nằm riêng khỏi corpus và benchmark; chưa có kết quả đo cải thiện chất lượng.
 
+### Changed
+
+- Rà và refactor UI tối bằng plugin Impeccable: thu gọn phần chọn nhóm kiểm tra, dùng chung control cho onboarding, tăng cỡ chữ lệnh cài và vùng bấm. Sửa lệch cột, cấp tiêu đề, thông báo cho trình đọc màn hình và đóng menu bằng Escape.
+
 ### Fixed
 
 - Trình soát bỏ kết quả hoặc lỗi trả về muộn khi nội dung hay nhóm kiểm tra đã đổi. Kết quả có đủ bốn nhóm lọc và phần giải thích quy tắc mở ngay tại chỗ.

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Icon } from "./Icon";
 import {
   chatgptInstallUrl,
   docsCheckedOn,
@@ -34,11 +35,7 @@ function CopyPrompt({ text }: { text: string }) {
 
   return (
     <div className="space-y-3">
-      <button
-        type="button"
-        onClick={copy}
-        className="rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--accent-ink)] transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-      >
+      <button type="button" onClick={copy} className="button-primary">
         Sao chép yêu cầu
       </button>
       <p role="status" className="text-sm text-[var(--accent)]">
@@ -55,7 +52,7 @@ function CopyPrompt({ text }: { text: string }) {
         readOnly
         value={text}
         rows={8}
-        className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface-raised)] p-4 text-sm leading-relaxed text-[var(--muted)] focus:border-[var(--accent)]  focus:ring-2 focus:ring-[var(--accent)]"
+        className="field min-h-64 resize-y"
       />
     </div>
   );
@@ -81,13 +78,14 @@ export function GettingStarted() {
         </p>
         <Link
           href="/check"
-          className="mt-5 inline-block text-sm font-semibold text-[var(--accent)] underline decoration-[var(--border)] underline-offset-4 hover:text-[var(--accent)]"
+          className="text-link action-link mt-5 text-sm font-semibold"
         >
-          Soát văn phong ngay trên web →
+          Soát văn phong ngay trên web{" "}
+          <Icon name="arrow" width="16" height="16" />
         </Link>
       </section>
 
-      <section className="space-y-7 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5  sm:p-8">
+      <section className="surface-panel space-y-7 p-5 sm:p-8">
         <fieldset>
           <legend className="mb-3 text-lg font-semibold text-[var(--foreground)]">
             1. Bạn đang dùng công cụ nào?
@@ -99,7 +97,7 @@ export function GettingStarted() {
                 type="button"
                 aria-pressed={platformId === item.id}
                 onClick={() => setPlatformId(item.id)}
-                className={`rounded-xl border px-3 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${platformId === item.id ? "border-[var(--accent)] bg-[var(--surface-raised)] text-[var(--accent)]" : "border-[var(--border)] text-[var(--muted)] hover:border-[var(--accent)]"}`}
+                className={`rounded-xl border px-3 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${platformId === item.id ? "border-[var(--accent)] bg-[var(--surface-raised)] text-[var(--accent)]" : "border-[var(--control-border)] text-[var(--muted)] hover:border-[var(--accent)]"}`}
               >
                 {item.label}
               </button>
@@ -118,7 +116,7 @@ export function GettingStarted() {
             id="starter-task"
             value={skillId}
             onChange={(event) => setSkillId(event.target.value)}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 text-base text-[var(--foreground)] focus:border-[var(--accent)]  focus:ring-2 focus:ring-[var(--accent)]"
+            className="field"
           >
             {starterSkills.map((item) => (
               <option key={item.id} value={item.id}>
@@ -140,7 +138,7 @@ export function GettingStarted() {
               <a
                 href={download.href}
                 download
-                className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--accent-ink)] transition hover:bg-[var(--accent-hover)]"
+                className="button-primary max-w-full flex-wrap text-left"
               >
                 Tải skill “{skill.title}”{" "}
                 <span className="text-xs font-normal text-[var(--accent-ink)]">
@@ -221,7 +219,7 @@ export function GettingStarted() {
                   href={chatgptInstallUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block rounded-xl bg-[var(--accent)] px-5 py-3 font-semibold text-[var(--accent-ink)] hover:bg-[var(--accent-hover)]"
+                  className="button-primary"
                 >
                   Cài plugin trong ChatGPT
                 </a>
@@ -244,9 +242,10 @@ export function GettingStarted() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-block text-sm font-semibold text-[var(--accent)] underline decoration-[var(--border)] underline-offset-4 hover:text-[var(--accent)]"
+              className="text-link action-link mt-4 text-sm font-semibold"
             >
-              Mở {platform.label} ↗
+              Mở {platform.label}{" "}
+              <Icon name="external" width="16" height="16" />
             </a>
           )}
         </div>
@@ -266,7 +265,7 @@ export function GettingStarted() {
       </section>
 
       <section>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+        <div className="surface-panel p-5">
           <h2 className="font-semibold text-[var(--foreground)]">
             Dùng bộ hướng dẫn đầy đủ
           </h2>
@@ -277,7 +276,7 @@ export function GettingStarted() {
           <a
             href="/downloads/huong-dan-tieng-viet.md"
             download
-            className="mt-3 inline-block text-sm font-semibold text-[var(--accent)] underline underline-offset-4"
+            className="text-link action-link mt-3 text-sm font-semibold"
           >
             Tải bộ hướng dẫn đầy đủ
           </a>
@@ -285,7 +284,7 @@ export function GettingStarted() {
       </section>
 
       <details className="rounded-xl border border-[var(--border)] p-4 text-sm text-[var(--muted)]">
-        <summary className="cursor-pointer font-medium">
+        <summary className="min-h-11 cursor-pointer font-medium">
           Hướng dẫn cài đặt chính thức
         </summary>
         <p className="mt-3">

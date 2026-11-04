@@ -94,7 +94,7 @@ export const Editor: React.FC<EditorProps> = ({
         maxLength={20000}
         value={text}
         onChange={(event) => updateText(event.target.value)}
-        aria-describedby="editor-help editor-count"
+        aria-describedby="editor-count"
         placeholder="Dán hoặc nhập đoạn tiếng Việt bạn muốn soát…"
         className="field min-h-[18rem] w-full resize-y p-4 text-base leading-7"
       />
@@ -115,51 +115,47 @@ export const Editor: React.FC<EditorProps> = ({
           </span>
         )}
       </div>
-      <p
-        id="editor-help"
-        className="mt-3 text-sm leading-6 text-[var(--muted)]"
-      >
-        Chọn những nhóm bạn muốn kiểm tra bên dưới.
-      </p>
-
-      <fieldset className="mt-7 min-w-0 border-t border-[var(--border)] pt-5">
-        <legend className="float-left mb-3 flex w-full items-center justify-between gap-3 text-base font-semibold">
-          <span>Bạn muốn kiểm tra gì?</span>
-          <span className="text-sm font-normal tabular-nums text-[var(--muted)]">
-            {selectedSkills.length}/{activeSkills.length} đã chọn
+      <details className="skill-options">
+        <summary>
+          <span>Nhóm kiểm tra</span>
+          <span className="float-right text-sm font-normal tabular-nums text-[var(--muted)]">
+            {selectedSkills.length}/{activeSkills.length} đang bật
           </span>
-        </legend>
-        <div className="clear-both grid grid-cols-1 gap-x-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-          {activeSkills.map((skill) => {
-            const copy = starterSkills.find((item) => item.id === skill.id);
-            return (
-              <label
-                key={skill.id}
-                className="flex min-h-11 cursor-pointer items-start gap-3 rounded-lg py-3 text-base"
-              >
-                <input
-                  type="checkbox"
-                  name="skills"
-                  value={skill.id}
-                  checked={selectedSkills.includes(skill.id)}
-                  onChange={() => handleToggleSkill(skill.id)}
-                  className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-[var(--accent)]"
-                />
-                <span className="min-w-0">
-                  <span className="block font-medium">
-                    {copy?.title ?? skill.name}
+        </summary>
+        <fieldset className="min-w-0">
+          <legend className="sr-only">Bạn muốn kiểm tra gì?</legend>
+          <div className="clear-both grid grid-cols-1 gap-x-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+            {activeSkills.map((skill) => {
+              const copy = starterSkills.find((item) => item.id === skill.id);
+              return (
+                <label
+                  key={skill.id}
+                  className="flex min-h-11 cursor-pointer items-start gap-3 rounded-lg py-3 text-base"
+                >
+                  <input
+                    type="checkbox"
+                    name="skills"
+                    value={skill.id}
+                    checked={selectedSkills.includes(skill.id)}
+                    onChange={() => handleToggleSkill(skill.id)}
+                    className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-[var(--accent)]"
+                  />
+                  <span className="min-w-0">
+                    <span className="block font-medium">
+                      {copy?.title ?? skill.name}
+                    </span>
+                    <span className="mt-1 block text-sm leading-6 text-[var(--muted)]">
+                      {copy?.summary ?? skill.when_to_use}
+                    </span>
                   </span>
-                  <span className="mt-1 block text-sm leading-6 text-[var(--muted)]">
-                    {copy?.summary ?? skill.when_to_use}
-                  </span>
-                </span>
-              </label>
-            );
-          })}
-        </div>
-      </fieldset>
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
+      </details>
 
-      <div className="mt-5 border-t border-[var(--border)] pt-5">
+      <div className="mt-3">
         {selectedSkills.length === 0 && (
           <p className="mb-3 text-sm text-[var(--warning)]">
             Chọn ít nhất một nhóm kiểm tra để tiếp tục.
