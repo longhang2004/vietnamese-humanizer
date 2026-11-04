@@ -36,6 +36,16 @@ Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho m
 - The Base Team — [Why Your Writing Sounds Like ChatGPT](https://the-curve.basehq.com/p/why-your-writing-sounds-like-chatgpt-and-how-to-fix-it), 02-10-2026. Tham khảo đối lập, nhịp giật ngắn và bố cục social; ưu tiên mẫu giọng riêng khi được cung cấp.
 - Thảo luận Reddit [Lesser known AI writing tells](https://www.reddit.com/r/WritingWithAI/comments/1x6bpk5/lesser_known_ai_writing_tells/) và [The most frustrating AI writing habit](https://www.reddit.com/r/AIWritingLounge/comments/1xg0r3l/the_most_frustrating_ai_writing_habit_youve_had/). Dùng như phản hồi định tính về bình giải thừa, nhịp và câu kết lặp; ngày tuyệt đối chưa được xác minh từ HTML. Không suy ra xác suất nguồn gốc.
 
+## Đọc bổ sung nguồn Việt về lối viết theo khuôn
+
+Đọc ngày 04-11-2026, tiếp sau đợt nguồn quốc tế. Nhật ký: `docs/research/2026-11-04-vietnamese-writing-discussions.md` của repository. Phần vận dụng nằm trong [lối viết theo khuôn](formulaic-prose.md).
+
+- Phạm Mỹ, Báo Văn Nghệ — [“Mùi” AI](https://baovannghe.vn/mui-ai-26802.html), 23-02-2026: nhận xét về các khuôn lặp trong nội dung thương mại Việt.
+- Upcontent — [Kiểm tra văn bản AI](https://upcontent.vn/kiem-tra-van-ban-ai/), 23-10-2026: tham khảo phép thử thay tên và yêu cầu có dữ kiện riêng; không nhập danh sách từ cấm.
+- Hoà Lương — [Hiểu về dấu gạch ngang](https://hoaluong.com/hieu-ve-dau-gach-ngang-de-khong-con-hoang-mang/), chưa xác minh ngày: tham khảo chức năng dấu câu qua tình huống biên tập; không áp quy tắc cấm theo ký tự.
+- VOZ — [Cảm thấy khó chịu với content từ AI](https://voz.vn/t/cam-thay-kho-chiu-voi-content-tu-ai.1104978/), 26–27-05-2025: phản hồi về văn dài, lặp và quảng cáo chen ngang; không dùng để xác định ai viết.
+- Pnghuy, Tinh tế — [Trải nghiệm One UI 6.1](https://tinhte.vn/thread/trai-nghiem-samsung-one-ui-6-1-tren-galaxy-s23.3774246/), 30-03-2024: nhận xét về preset giữ cùng khuôn, giới hạn ở trải nghiệm thời điểm đó.
+
 ## Giới hạn vận dụng
 
 Các nguyên tắc về lược chủ ngữ, phép lặp, kết hợp từ và quyền giảm cường điệu trong [naturalness](naturalness.md) là quyết định biên tập của dự án dựa trên việc đọc và đối chiếu ví dụ, không được gán thành kết luận thực nghiệm của các nguồn trên. Hai bài báo không đủ đại diện cho văn viết Việt Nam. Cần review độc lập theo vùng miền, ngành và kênh trước khi công bố mức cải thiện.

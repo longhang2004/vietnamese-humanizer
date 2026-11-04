@@ -8,6 +8,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Changed
 
+- Added Vietnamese-source reading notes and contextual guidance for greeting/thank-you templates, content that lacks subject-specific detail, and punctuation roles, with original Vietnamese examples and regenerated downloads.
 - Added source-attributed guidance on formulaic prose from 2026 research and writing discussions, with contextual counterexamples, rewrite-prompt integration, and 12 agent-authored benchmark cases (106 total). The 44-pattern linter remains unchanged; no authorship score or quality improvement is claimed.
 - Added context-based guidance for explanations, definitions, disclaimers, and negations: keep what helps the current reader task, preserve meaningful conditions, and avoid turning every text into a tutorial. Applied it to web onboarding and separated user-facing task summaries from AI activation descriptions.
 - Applied the repository's Vietnamese editing skills to web copy: plain, friendly instructions, consistent task labels, clearer review states, and a documented UI copy guide. Regenerated user downloads from the updated catalog.

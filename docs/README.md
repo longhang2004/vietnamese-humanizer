@@ -14,6 +14,7 @@ The public project overview and contribution guide are available in English and 
 - [Style catalog](style-catalog.md): proposed writing tasks, tones, source notes, and research gaps.
 - [Same-topic pilot](research/2026-11-03-same-topic-pilot.md): actual agent drafts, edits, and qualitative AI review.
 - [Formulaic-prose research](research/2026-11-04-formulaic-prose.md): recent research, newsletters, Reddit discussions, X access limits, and contextual editing decisions.
+- [Vietnamese writing discussions](research/2026-11-04-vietnamese-writing-discussions.md): Vietnamese articles, writing blogs, VOZ/Tinh tế discussions, and local editorial examples.
 
 ## Authoring and maintenance
 

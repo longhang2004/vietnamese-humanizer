@@ -20,6 +20,8 @@ Xem [nhật ký nguồn](research/2026-11-04-formulaic-prose.md): báo cáo Grap
 
 Đợt này thêm reference xét đối lập, lời tự nhấn ý, kết đoạn lặp, bố cục chia nhỏ và giọng trợ lý theo chức năng. Thêm 12 case tiếng Việt tự viết có đối chiếu cần sửa/cần giữ; không thêm regex hoặc dùng giảm số dấu hiệu làm điểm chất lượng.
 
+Đợt [bổ sung nguồn Việt](research/2026-11-04-vietnamese-writing-discussions.md) đọc Phạm Mỹ, Upcontent, Hoà Lương, VOZ, Tinh tế và Finhay. Bổ sung việc rà khuôn lời chúc/tri ân, thông tin riêng của đối tượng và chức năng dấu câu; ghi rõ tuổi nguồn, phần chỉ là trải nghiệm và lời khuyên không được vận dụng.
+
 ## Agent Skills
 
 [Agent Skills specification](https://agentskills.io/specification) quy định skill là một thư mục có `SKILL.md`. Frontmatter bắt buộc `name` và `description`; tên dùng chữ thường, số, dấu gạch nối và phải trùng tên thư mục. Specification khuyến nghị `SKILL.md` dưới 500 dòng, reference tương đối và progressive disclosure. Repository specification dùng Apache-2.0 cho code và CC-BY-4.0 cho tài liệu. Dự án này chỉ áp dụng format và tự viết nội dung.

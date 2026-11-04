@@ -13,6 +13,16 @@ Dùng khi nhiều câu hoặc đoạn cùng một nhịp, cùng cách dẫn ho�
 - **Giọng trợ lý lẫn vào văn bản:** lời khen câu hỏi, thông báo sẽ giải thích, mời làm bước tiếp theo và câu hỏi kéo tương tác cần đúng vai người nói và kênh. Bản viết lại sạch không tự có lời mời “nếu bạn muốn…” ở cuối. Giữ lời mời trong email mời họp, lời đáp chăm sóc khách hàng hoặc bài social khi đó là chủ đích.
 - **Ẩn dụ thay thông tin:** khi hình ảnh chỉ làm ý chung nghe sâu sắc, thử diễn đạt hành động hoặc quan hệ đã có. Giữ hình ảnh của tác giả nếu nó giúp kể hoặc lập luận. Trong truyện, việc giảm bình giải không cho phép bịa cử chỉ, cảm giác hay quan hệ nhân vật để “show, don't tell”.
 
+## Đối chiếu thêm trong ngữ cảnh tiếng Việt
+
+- **Thiệp, lời chúc và bài tri ân:** rà xem phần tôn vinh có thể bê nguyên sang nhiều người nhận hoặc đề tài không. Nếu chỉ dẫn vòng/lặp ý và được phép lược, nêu thông điệp đã có. Giữ hình ảnh hoặc nhịp của tác giả khi có dụng ý; không mặc định làm mọi lời chúc thành thông báo khô.
+- **Nội dung có tên riêng nhưng thiếu thông tin riêng:** với bài giới thiệu hoặc review, thử thay tên đối tượng trong đầu để xem nhận xét còn gắn với dữ kiện nào. Nếu thiếu căn cứ, hỏi/góp ý hoặc dùng chi tiết đã được cung cấp. Giữ văn bản theo mẫu và hướng dẫn chung có chủ đích; không bịa giá, khách hàng hay trải nghiệm để bài vượt phép thử.
+- **Dấu câu và giọng:** xem dấu gạch ngang đang đánh dấu lượt thoại, chú thích, tổ hợp tên/số hay chỉ chen thêm lời bình. Giữ chức năng và quy ước đã chọn. Đổi bố cục nếu được phép và giúp theo ý; không chỉ đổi dấu hoặc thay tính từ giữa các preset. Giữ xưng hô, từ địa phương sẵn có, không tự thêm tiếng lóng để tạo vẻ đời thường.
+
+Ví dụ tự viết: trong thông báo nghỉ Tết, tác giả cho phép bỏ lời dẫn trang trí của bản nháp “Mỗi đơn hàng là một mốc son. Mỗi phản hồi là một dấu ấn. Tiệm Lành nghỉ từ 29 Tết đến hết mùng 5, mở lại mùng 6.” Có thể giữ câu cuối, gồm cả phạm vi ngày nghỉ. Với một bài tản văn được yêu cầu giữ phép điệp, cùng kiểu lặp có thể cần giữ.
+
+Ví dụ cần giữ: “– Má ăn cơm chưa?\n– Rồi, con.” Hai dấu đầu dòng phân lượt nói; cách xưng hô đã rõ. Không tự đổi thành lời kể hoặc chuyển “má” sang một cách gọi khác.
+
 ## Giữ nguyên khi có tác dụng
 
 - “Tôi cần bản nháp, không cần bản đã duyệt.” Giữ phạm vi yêu cầu.
@@ -22,7 +32,7 @@ Dùng khi nhiều câu hoặc đoạn cùng một nhịp, cùng cách dẫn ho�
 - “Thời gian chờ ước lượng 5–10 phút, chưa đo trên tất cả thiết bị.” Giữ khoảng và mức chắc chắn; không đổi thành 7 phút để tạo cảm giác đã đo.
 - “Tôi chờ. Cửa vẫn đóng.” Câu ngắn có thể mang nhịp và góc nhìn riêng; không tự nối hoặc thêm cảm xúc.
 
-Các ví dụ trên do dự án tự viết. Nguồn và giới hạn vận dụng nằm trong [ghi chú nguồn](sources.md). Nghiên cứu được đọc chủ yếu ở tiếng Anh; các quyết định tiếng Việt này cần review riêng. Không bỏ dấu gạch ngang, từ nối, thuật ngữ hay chi tiết đúng chỉ vì chúng được gắn nhãn “AI tell” trên mạng.
+Các ví dụ trên do dự án tự viết. Nguồn và giới hạn vận dụng nằm trong [ghi chú nguồn](sources.md), gồm nghiên cứu tiếng Anh và bài viết/thảo luận tiếng Việt. Các quyết định tiếng Việt này vẫn cần review riêng. Không bỏ dấu gạch ngang, từ nối, thuật ngữ hay chi tiết đúng chỉ vì chúng được gắn nhãn “AI tell” trên mạng.
 
 ## Rà bản sửa
 

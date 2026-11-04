@@ -19,7 +19,7 @@ Ngày đọc: 04-11-2026. Mục tiêu là tìm vấn đề biên tập có thể
 
 - Bài [X của Ruben Hassid](https://x.com/rubenhassid/status/2087856703773508025) bị trả HTTP 403. [Nic's notes](https://notes.nicolasdeville.com/nicai/ai-writing-tells/), 14-08-2026, dẫn bài đó với ngày 13-08 và thuật lại chín kiểu viết. Đã đọc bản thuật lại và bài Substack cùng tác giả; chưa kiểm chứng nội dung/ngày của bài X trực tiếp. Không tính hai bản thuật lại là các quan sát độc lập.
 - [Secret Chapters, 29-10-2026](https://secretchapters.app/blog/how-to-fix-ai-tells-in-your-prose) xuất hiện trong chỉ mục tìm kiếm nhưng mở trang bị cache miss. Chỉ dùng để phát hiện nguồn, không dựa vào phần chưa đọc để viết rule.
-- Tìm cả nguồn tiếng Việt nhưng chưa chọn được bài mới có phương pháp hoặc phản ví dụ đủ rõ trong đợt này. Phần chuyển sang tiếng Việt là quyết định biên tập của dự án, cần đánh giá bản ngữ.
+- Đợt đọc ban đầu chưa khảo sát nguồn Việt đủ sâu. Sau yêu cầu bổ sung cùng ngày, đã đọc bài gốc, blog nghề viết và diễn đàn trong [nhật ký nguồn Việt](2026-11-04-vietnamese-writing-discussions.md). Phần chuyển thành rule vẫn cần đánh giá bản ngữ.
 
 ## Quyết định đưa vào repo
 
