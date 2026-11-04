@@ -108,7 +108,7 @@
       "additionalProperties": false,
       "properties": {
         "profile": {
-          "enum": ["preserve", "plain", "business", "technical"]
+          "enum": ["preserve", "plain", "business", "technical", "administrative", "social", "marketing"]
         },
         "channel": {
           "enum": [

@@ -71,7 +71,7 @@ export interface SkillsResponse {
 }
 
 export interface RewriteStyle {
-  profile: "preserve" | "plain" | "business" | "technical";
+  profile: "preserve" | "plain" | "business" | "technical" | "administrative" | "social" | "marketing";
   channel: "auto" | "document" | "email" | "chat" | "spoken_script";
   register: "preserve" | "formal" | "professional" | "friendly" | "conversational";
   audience: string;

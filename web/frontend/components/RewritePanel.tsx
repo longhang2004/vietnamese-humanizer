@@ -12,6 +12,9 @@ const PROFILE_HINTS: Record<RewriteStyle["profile"], string> = {
   plain: "Làm rõ mạch ý và quan hệ giữa các câu, giữ nét riêng của người viết.",
   business: "Làm rõ việc cần làm, trách nhiệm và thời hạn đã có trong nội dung.",
   technical: "Giữ chính xác điều kiện, thuật ngữ, code và thứ tự thao tác.",
+  administrative: "Làm rõ nội dung, giữ đúng yêu cầu, thẩm quyền và mẫu văn bản đã có.",
+  social: "Giữ giọng cá nhân, mạch chia sẻ và cách nói phù hợp với cộng đồng.",
+  marketing: "Làm rõ sản phẩm, lợi ích có căn cứ và điều kiện ưu đãi.",
 };
 
 const MODE_LABELS = {
@@ -147,6 +150,9 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({ originalText, issueI
                 <option value="plain">Văn viết rõ ràng</option>
                 <option value="business">Trao đổi công việc</option>
                 <option value="technical">Tài liệu kỹ thuật</option>
+                <option value="administrative">Văn bản hành chính</option>
+                <option value="social">Bài đăng mạng xã hội</option>
+                <option value="marketing">Marketing</option>
               </select>
             </label>
             <p id="writing-profile-hint" className="mt-1 text-xs text-slate-600">{PROFILE_HINTS[style.profile]} Bạn vẫn có thể chọn kênh, giọng và mức sửa bên dưới.</p>

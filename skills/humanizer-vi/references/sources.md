@@ -2,6 +2,17 @@
 
 Đọc ngày 31 tháng 10 năm 2026. Các nguồn dưới đây có tên tác giả hoặc người trả lời được công bố. Đây là cơ sở quy nguồn, không phải chứng nhận cách từng câu được sản xuất. Dự án không sao chép bài báo, nhập chúng làm corpus hay mô phỏng giọng riêng của tác giả. Ví dụ và benchmark mới do coding agent tự viết, chưa được reviewer bản ngữ độc lập duyệt.
 
+## Nguồn cho hành chính, mạng xã hội và marketing
+
+Đọc ngày 04-11-2026. Nhật ký và giới hạn truy cập nằm trong `docs/research/2026-11-04-administrative-social-marketing.md` của repository. Ví dụ trong các reference tương ứng do agent tự viết; chưa có human review.
+
+- Bộ Nội vụ trả lời trên Cổng TTĐT Chính phủ, [Cấp số văn bản hành chính theo quy định nào?](https://chinhsachonline.chinhphu.vn/cap-so-van-ban-hanh-chinh-theo-quy-dinh-nao-77131.htm), 19-01-2025; và [Phần căn cứ ban hành văn bản chữ nghiêng hay thường?](https://baochinhphu.vn/phan-can-cu-ban-hanh-van-ban-chu-nghieng-hay-thuong-102230425132226725.htm), 26-04-2023. Vận dụng: giữ mẫu/loại văn bản, số và ký hiệu; không tự điền phần thuộc quy định riêng của cơ quan. Đây không phải công cụ xác nhận tuân thủ pháp luật.
+- Bộ KH&CN, [Lấy ý kiến báo cáo sơ bộ và báo cáo chuyên đề](https://mst.gov.vn/bo-khcn-lay-y-kien-bao-cao-so-bo-va-bao-cao-chuyen-de-ve-tong-ra-soat-he-thong-vbqppl-197260905165716969.htm), 05-09-2026. Đọc phần công văn đăng lại, quan sát người nhận, nhiệm vụ và hạn cụ thể. Không suy ra hệ quả của việc không phản hồi trong các văn bản khác.
+- cuhiep, Tinh tế, [Đồ nghề siêu gọn nhẹ đi làm content IFA 2026](https://tinhte.vn/thread/do-nghe-sieu-gon-nhe-di-lam-content-ifa-2026.4175741/), 11-09-2026. Tham khảo giọng cá nhân, quan hệ cộng đồng và bài trải nghiệm dài; không xác nhận nhận định sản phẩm hoặc áp một cách gọi người đọc cho mọi bài.
+- Biti’s, [Thông báo voucher](https://bitis.com.vn/blogs/news/bitis-tang-voucher-giam-50k-ky-niem-50-nam-giai-phong-mien-nam), 24-04-2025. Quan sát giọng hào hứng đi cùng đầy đủ điều kiện. Ưu đãi đã hết hạn; chỉ dùng làm mẫu biên tập theo ngữ cảnh.
+- Mailchimp, [Writing for Social Media](https://styleguide.mailchimp.com/writing-for-social-media/), không thấy ngày. Tham khảo quan hệ với người đọc và cách cân nhắc lời xin tương tác; không áp số câu gợi ý hay thông số nền tảng cũ thành quy tắc chung.
+- Google Ads, [Misrepresentation](https://support.google.com/adspolicy/answer/6020955?hl=en), không thấy ngày. Vận dụng có giới hạn: giữ giá/điều kiện và không tự thêm bằng chứng, lời hứa hoặc ưu đãi. Chính sách của một nền tảng không xác nhận mọi nội dung marketing đã hợp lệ; nguồn này không được coi là mẫu người Việt tự viết.
+
 ## Tiếng Việt được người viết sử dụng
 
 - Hoàng Thu Phố thực hiện phỏng vấn Nguyễn Ngọc Tư, [Viết là cách tôi giao lưu với bạn đọc](https://nhandan.vn/viet-la-cach-toi-giao-luu-voi-ban-doc-post348644.html), Nhân Dân/Thời Nay, 31-01-2019. Quan sát của dự án: nhịp câu không đều vẫn theo được vì đối tượng và lập trường xuyên suốt; cách xưng hô và sắc thái cá nhân không cần chuẩn hóa thành giọng doanh nghiệp. Đây là mẫu hội thoại đã biên tập, không đại diện cho mọi văn nói hoặc mọi vùng miền.

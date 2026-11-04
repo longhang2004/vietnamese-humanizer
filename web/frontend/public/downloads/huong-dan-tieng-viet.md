@@ -19,6 +19,8 @@ Văn bản cần biên tập:
 
 - [skills/humanizer-vi/SKILL.md](#resource-skills-humanizer-vi-skill-md)
 
+- [skills/humanizer-vi/references/administrative-writing.md](#resource-skills-humanizer-vi-references-administrative-writing-md)
+
 - [skills/humanizer-vi/references/business-writing.md](#resource-skills-humanizer-vi-references-business-writing-md)
 
 - [skills/humanizer-vi/references/conversational.md](#resource-skills-humanizer-vi-references-conversational-md)
@@ -29,6 +31,8 @@ Văn bản cần biên tập:
 
 - [skills/humanizer-vi/references/formulaic-prose.md](#resource-skills-humanizer-vi-references-formulaic-prose-md)
 
+- [skills/humanizer-vi/references/marketing-writing.md](#resource-skills-humanizer-vi-references-marketing-writing-md)
+
 - [skills/humanizer-vi/references/naturalness.md](#resource-skills-humanizer-vi-references-naturalness-md)
 
 - [skills/humanizer-vi/references/patterns.md](#resource-skills-humanizer-vi-references-patterns-md)
@@ -38,6 +42,8 @@ Văn bản cần biên tập:
 - [skills/humanizer-vi/references/preservation-rules.md](#resource-skills-humanizer-vi-references-preservation-rules-md)
 
 - [skills/humanizer-vi/references/registers.md](#resource-skills-humanizer-vi-references-registers-md)
+
+- [skills/humanizer-vi/references/social-writing.md](#resource-skills-humanizer-vi-references-social-writing-md)
 
 - [skills/humanizer-vi/references/sources.md](#resource-skills-humanizer-vi-references-sources-md)
 
@@ -106,7 +112,7 @@ Viết theo việc người đọc đang cần. Chỉ thêm định nghĩa, lờ
 
 Khi bài lặp đối lập, câu tự nhấn mạnh, nhịp giật ngắn, tiêu đề/bullet hoặc kết đoạn tóm lại, đọc [sửa lối viết theo khuôn](#resource-skills-humanizer-vi-references-formulaic-prose-md). Sửa theo chức năng và mật độ trong ngữ cảnh; giữ cấu trúc có tác dụng, khoảng số, thuật ngữ và giọng riêng. Không dùng danh sách “AI tells” để suy đoán tác giả hoặc làm từ điển thay thế.
 
-Khi người dùng chọn loại bài viết, đọc [writing profiles](#resource-skills-humanizer-vi-references-writing-profiles-md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](#resource-skills-humanizer-vi-references-plain-writing-md), [trao đổi công việc](#resource-skills-humanizer-vi-references-business-writing-md) hoặc [tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
+Khi người dùng chọn loại bài viết, đọc [writing profiles](#resource-skills-humanizer-vi-references-writing-profiles-md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](#resource-skills-humanizer-vi-references-plain-writing-md), [trao đổi công việc](#resource-skills-humanizer-vi-references-business-writing-md), [tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md), [hành chính](#resource-skills-humanizer-vi-references-administrative-writing-md), [bài đăng mạng xã hội](#resource-skills-humanizer-vi-references-social-writing-md) hoặc [marketing](#resource-skills-humanizer-vi-references-marketing-writing-md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
 
 ## Ngữ cảnh và quyền biên tập
 
@@ -153,7 +159,46 @@ Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn mộ
 
 ## Đầu ra
 
-Mặc định chỉ trả bản đã biên tập. Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. Khi người dùng yêu cầu review, dùng [review template](#resource-skills-humanizer-vi-assets-review-template-md) và [rubric](#resource-skills-humanizer-vi-references-evaluation-md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.
+Khi đã có thể biên tập an toàn, mặc định chỉ trả bản đã biên tập. Nếu cần kiểm chứng hoặc tác giả quyết định trước, chỉ trả nhận xét/câu hỏi cần giải quyết; chờ xác nhận rồi mới đưa bản thay thế. Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. Khi người dùng yêu cầu review, dùng [review template](#resource-skills-humanizer-vi-assets-review-template-md) và [rubric](#resource-skills-humanizer-vi-references-evaluation-md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.
+
+
+
+<a id="resource-skills-humanizer-vi-references-administrative-writing-md"></a>
+
+# Văn bản hành chính — `profile=administrative`
+
+Dùng để biên tập phần nội dung công văn, thông báo, báo cáo hoặc dự thảo được cung cấp. Đọc cùng mẫu và quy định của cơ quan nếu có. Profile hỗ trợ câu chữ; việc xác nhận thẩm quyền, căn cứ, thể thức và hiệu lực thuộc người phụ trách văn bản.
+
+## Quyết định biên tập
+
+- Giữ đúng loại văn bản và mục đích: đề nghị, thông báo, báo cáo hoặc quyết định. Một dự thảo hay đề xuất vẫn mang trạng thái đó sau khi sửa.
+- Giữ cơ quan ban hành, người nhận, đơn vị thực hiện và người có thẩm quyền được nêu. Tên cơ quan hoặc chức danh không đủ để suy ra quan hệ chỉ đạo.
+- Bảo toàn mức nghĩa vụ của “phải”, “không được”, “đề nghị”, “yêu cầu”, “giao”, “có trách nhiệm”. Giữ nhiệm vụ, điều kiện, ngoại lệ và phần cần xin ý kiến; không đổi “xem xét” thành “phê duyệt”.
+- Giữ đúng hạn xử lý và cách tính thời gian. “Trước ngày”, “chậm nhất ngày”, ngày làm việc và ngày theo lịch có thể khác nhau. Hệ quả của việc im lặng chỉ có khi input/context đã nêu.
+- Giữ khung có sẵn: tiêu đề, điều/khoản, phụ lục, nơi nhận, căn cứ và phần ký. Một đoạn nội dung được gửi để sửa vẫn là một đoạn; không tự dựng thêm thể thức toàn văn.
+- Giữ số, ký hiệu, tên cơ quan và chỗ trống. Không đoán số công văn, ngày ban hành, căn cứ, người ký, chức danh hoặc dấu. Số và chữ viết tắt có thể theo quy định riêng của cơ quan.
+- Rút câu vòng trong phần thuyết minh khi vẫn giữ rõ ai làm gì, gửi cho ai và khi nào. Giữ phép liệt kê có chức năng phân chia nhiệm vụ và các cách diễn đạt chính thức đã rõ nghĩa.
+- Khi một lựa chọn làm đổi nghĩa hoặc thẩm quyền, hỏi ngoài bản chỉnh. Khi thiếu tài liệu chứng minh một khẳng định, góp ý để kiểm tra; không tự chứng nhận nội dung hợp lệ.
+
+## Ví dụ tự viết, chưa được người bản ngữ duyệt
+
+**Sửa cục bộ.** Context: chỉ sửa đoạn nội dung công văn của Phòng Tổng hợp, giữ nguyên mức đề nghị.
+
+Input: “Để phục vụ cho việc tổng hợp nhiệm vụ quý IV, Phòng Tổng hợp đề nghị các đơn vị thực hiện việc rà soát số liệu và tiến hành gửi báo cáo về Phòng Tổng hợp trước 16 giờ ngày 12/11/2026. Báo cáo cần nêu rõ nhiệm vụ chưa hoàn thành và nguyên nhân của việc chưa hoàn thành các nhiệm vụ này.”
+
+Gợi ý: “Để tổng hợp nhiệm vụ quý IV, Phòng Tổng hợp đề nghị các đơn vị rà soát số liệu và gửi báo cáo về Phòng Tổng hợp trước 16 giờ ngày 12/11/2026. Báo cáo cần nêu rõ nhiệm vụ chưa hoàn thành và nguyên nhân.”
+
+Giảm danh hóa và lặp ý; giữ đơn vị nhận, hạn và phạm vi báo cáo.
+
+**Giữ nguyên:** “Đề nghị các đơn vị gửi danh sách cán bộ tham dự về Phòng Tổ chức trước ngày 20/11/2026. Danh sách gồm họ tên, chức vụ và số điện thoại liên hệ.” Chủ thể, nhiệm vụ và hạn đã rõ.
+
+**Cần tác giả quyết định:** “Đơn vị gửi hồ sơ trong 5 ngày kể từ khi nhận thông báo.” Nếu được yêu cầu ghi rõ ngày làm việc hay ngày theo lịch nhưng context chưa xác định, hỏi tác giả; không tự chọn.
+
+## Rà cuối
+
+Đã giữ đúng loại văn bản, trách nhiệm, điều kiện và hạn chưa? Có thêm một chi tiết khiến văn bản trông như đã được ban hành hoặc phê duyệt không? Giữ nguyên khi nội dung đã phù hợp.
+
+Nguồn và giới hạn vận dụng: [sources](#resource-skills-humanizer-vi-references-sources-md). Các quyết định biên tập trên không thay thế quy trình kiểm tra văn bản của cơ quan.
 
 
 
@@ -346,6 +391,45 @@ Các ví dụ trên do dự án tự viết. Nguồn và giới hạn vận dụ
 ## Rà bản sửa
 
 Mỗi phần giữ lại có làm việc gì cho người đọc không? Bản sửa có tự thêm một khuôn khác, lời bình hay chi tiết mới không? Đối chiếu lại các vế phủ định, điều kiện, khoảng số và lập trường. Nếu cách sửa cần chọn giữa các nghĩa hoặc bỏ một nhận định riêng, dùng nhận xét/câu hỏi thay cho tự quyết. Văn bản đã phù hợp được giữ nguyên.
+
+
+
+<a id="resource-skills-humanizer-vi-references-marketing-writing-md"></a>
+
+# Marketing — `profile=marketing`
+
+Dùng cho giới thiệu sản phẩm, thông điệp thương hiệu, nội dung ưu đãi và lời mời tìm hiểu hoặc mua hàng. Giữ giọng thương hiệu được cung cấp; điều chỉnh độ trực tiếp theo mục tiêu và người đọc.
+
+## Quyết định biên tập
+
+- Xác định sản phẩm hoặc đề nghị, độc giả và hành động mong muốn: tìm hiểu, so sánh, hỏi tư vấn, đăng ký hoặc mua. Nội dung nhận diện thương hiệu có thể chưa cần lời mời mua hàng.
+- Nêu thông tin hoặc lợi ích có trong input/context. Phân biệt đặc tính đã xác nhận, đánh giá chủ quan và định vị thương hiệu; một đặc tính không tự chứng minh kết quả sử dụng.
+- Làm rõ câu chung chung bằng chi tiết đã có. Giảm cường điệu theo quyền người dùng cho phép; nếu cần bỏ một khẳng định làm đổi thông điệp, góp ý để tác giả quyết định.
+- Giữ giá, tiền tệ, đơn vị, biến thể, ngưỡng đơn, phí, đối tượng, kênh áp dụng, thời hạn, ngoại lệ và khả năng kết hợp ưu đãi. Đặt điều kiện đủ gần đề nghị để người đọc hiểu đúng; không rút chúng chỉ để có caption ngắn.
+- Không sinh thêm khách hàng, đánh giá, giải thưởng, số liệu, chứng thực, hiệu quả, mức giảm giá, hàng sắp hết hoặc hạn chót. Giữ “có thể”, “dự kiến” và giới hạn áp dụng; không đổi thành bảo đảm.
+- Giữ lời mời hành động và đích đến đã có; làm rõ khi cần. Chỉ thêm khi brief đã nêu hành động và đường thực hiện; không tự tạo link, mã ưu đãi hoặc nút mua.
+- Chọn mức hào hứng, emoji, hashtag và chơi chữ theo giọng đã thống nhất. Giữ sự sôi nổi có dụng ý; đừng biến mọi thương hiệu thành cùng một giọng hô hào hay tự tạo sức ép mua.
+- Giữ nhận diện thương mại và các giới hạn đã được công bố. Với giá, điều kiện hoặc chứng cứ mâu thuẫn/thiếu, nêu câu hỏi hay nhận xét riêng; không âm thầm chọn con số thuận lợi hơn.
+
+## Ví dụ tự viết, chưa được người bản ngữ duyệt
+
+**Sửa có quyền giảm cường điệu.** Context: nội dung cửa hàng; giá và chương trình trong ví dụ là dữ kiện giả định đã được cung cấp. Tác giả cho phép bỏ lời khen chung, giữ mọi điều kiện và link.
+
+Input: “Chúng tôi tự hào mang đến sổ bìa vải A5 giá 89.000đ/cuốn, lựa chọn vô cùng lý tưởng cho nhu cầu ghi chép. Giảm 10% cho đơn từ 3 cuốn đến hết ngày 15/11/2026, chỉ khi đặt tại website của cửa hàng và không áp dụng cùng ưu đãi khác. Đặt tại example.com/so.”
+
+Gợi ý: “Sổ bìa vải A5: 89.000đ/cuốn. Giảm 10% cho đơn từ 3 cuốn đến hết ngày 15/11/2026, chỉ áp dụng khi đặt tại website của cửa hàng và không áp dụng cùng ưu đãi khác. Đặt tại example.com/so.”
+
+Giữ nguyên giá, ngưỡng đơn, thời hạn và kênh; không tự tính giá sau giảm hay thêm lời bảo đảm.
+
+**Giữ nguyên:** “Bộ 3 khăn cotton: 120.000đ. Giá chưa gồm phí giao hàng. Chọn màu và đặt tại example.com/khan.” Thông tin, giới hạn và bước tiếp theo đã rõ.
+
+**Góp ý:** “Kem dưỡng giúp giảm nám 80% sau một tuần.” Nếu chưa có chứng cứ trong context, nêu nhận xét cần kiểm chứng ngoài bản sửa; không bịa nghiên cứu hoặc đổi sang một tỷ lệ khác.
+
+## Rà cuối
+
+Người đọc có hiểu đúng đề nghị và chi phí không? Mọi điều kiện và mức chắc chắn có còn nguyên không? Có thêm lời hứa, chứng thực hoặc khan hiếm nào ngoài dữ kiện không? Nội dung rõ và đủ có thể giữ nguyên.
+
+Nguồn và giới hạn vận dụng: [sources](#resource-skills-humanizer-vi-references-sources-md). Việc đọc chính sách quảng cáo hỗ trợ các quyết định biên tập, không xác nhận chiến dịch đáp ứng mọi quy định hay bảo đảm tăng doanh số.
 
 
 
@@ -567,11 +651,61 @@ Văn viết gần gũi ưu tiên cách giải thích dễ theo nhưng vẫn có 
 
 
 
+<a id="resource-skills-humanizer-vi-references-social-writing-md"></a>
+
+# Bài đăng mạng xã hội — `profile=social`
+
+Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng đồng. Chọn theo mục đích bài; nội dung bán hàng hoặc ưu đãi dùng [marketing](#resource-skills-humanizer-vi-references-marketing-writing-md), kể cả khi đăng trên cùng nền tảng.
+
+## Quyết định biên tập
+
+- Xác định người đọc và việc tác giả muốn làm: kể chuyện, chia sẻ một nhận xét, hỏi ý kiến, thông báo hoặc mời tham gia. Bài chia sẻ có thể kết thúc ở nhận xét của người viết.
+- Giữ ngôi kể, cách gọi người đọc, từ địa phương và mức thân mật đã có. “Mình”, “tớ”, “tôi” hay “anh em” phụ thuộc tác giả và cộng đồng, không phải mặc định của mạng xã hội.
+- Đưa quan sát, câu hỏi hoặc thông tin chính lên sớm khi quyền biên tập cho phép. Chỉ lược lời dẫn chung nếu được phép và không mất cảm xúc có dụng ý.
+- Giữ trải nghiệm thật được cung cấp, ý kiến chủ quan và mức chưa chắc. Không thêm kỷ niệm, cảm giác, cử chỉ hoặc sự đồng tình của cộng đồng để tạo vẻ gần gũi.
+- Giữ câu ngắn, nhịp ngắt, khẩu ngữ và chuyển mã có dụng ý. Sửa chỗ gây hiểu nhầm; không rắc tiếng lóng, từ đang thịnh hành, lỗi cố ý hay tiểu từ vào mọi câu.
+- Chọn giọng theo tình huống. Bài xin lỗi, chuyện buồn hoặc thông báo sự cố cần sự tiết chế; vui vẻ không phải mục tiêu chung của mọi bài đăng.
+- Giữ câu hỏi, đường dẫn, emoji, hashtag và lời mời có tác dụng. Chỉ thêm khi có mục đích và thông tin tương ứng trong yêu cầu; không tự chèn lời xin tương tác, câu hỏi kết bài hoặc hashtag để đủ khuôn.
+- Chia đoạn theo mạch kể và thông tin. Bài trải nghiệm dài vẫn có thể hợp cộng đồng; không áp số câu, số chữ hay công thức mở bài cố định.
+
+## Ví dụ tự viết, chưa được người bản ngữ duyệt
+
+**Sửa có quyền giảm cường điệu.** Context: thông báo trong nhóm đổi sách; tác giả cho phép lược lời mở đầu khoa trương, giữ lời mời.
+
+Input: “Mình rất vui mừng khi được chia sẻ với mọi người một thông tin vô cùng ý nghĩa: Chủ nhật này nhóm mình đổi sách lúc 9h ở thư viện phường. Ai có sách muốn đổi thì mang theo nhé.”
+
+Gợi ý: “Chủ nhật này nhóm mình đổi sách lúc 9h ở thư viện phường. Ai có sách muốn đổi thì mang theo nhé.”
+
+Giữ giờ, nơi, cách xưng hô và lời mời; phần bị lược đã được tác giả cho phép.
+
+**Giữ nguyên:** “Sáng nay mình đi bộ ra chợ, quên mang điện thoại. Về nhà mới nhớ. Cũng lâu rồi mới có một buổi sáng thong thả vậy.” Nhịp kể và câu thiếu chủ ngữ vẫn rõ trong ngữ cảnh. Bài không cần thêm câu hỏi người đọc.
+
+**Cần tác giả quyết định:** “Chiều thứ Bảy gặp ở chỗ cũ nhé.” Nếu tác giả muốn chuyển từ nhóm bạn sang lời mời công khai, hỏi địa điểm và giờ; không tự đoán.
+
+## Rà cuối
+
+Đọc lên có còn nhận ra giọng người viết không? Có tự biến chia sẻ thành quảng cáo, kéo tương tác hoặc bịa trải nghiệm không? Với bài đã tự nhiên và đủ thông tin theo mục đích, chọn `no_change`.
+
+Tham khảo [sources](#resource-skills-humanizer-vi-references-sources-md); mẫu dài trên diễn đàn và hướng dẫn của một thương hiệu là quan sát theo ngữ cảnh, không phải chuẩn chung cho tiếng Việt.
+
+
+
 <a id="resource-skills-humanizer-vi-references-sources-md"></a>
 
 # Nguồn đọc về văn phong
 
 Đọc ngày 31 tháng 10 năm 2026. Các nguồn dưới đây có tên tác giả hoặc người trả lời được công bố. Đây là cơ sở quy nguồn, không phải chứng nhận cách từng câu được sản xuất. Dự án không sao chép bài báo, nhập chúng làm corpus hay mô phỏng giọng riêng của tác giả. Ví dụ và benchmark mới do coding agent tự viết, chưa được reviewer bản ngữ độc lập duyệt.
+
+## Nguồn cho hành chính, mạng xã hội và marketing
+
+Đọc ngày 04-11-2026. Nhật ký và giới hạn truy cập nằm trong `docs/research/2026-11-04-administrative-social-marketing.md` của repository. Ví dụ trong các reference tương ứng do agent tự viết; chưa có human review.
+
+- Bộ Nội vụ trả lời trên Cổng TTĐT Chính phủ, [Cấp số văn bản hành chính theo quy định nào?](https://chinhsachonline.chinhphu.vn/cap-so-van-ban-hanh-chinh-theo-quy-dinh-nao-77131.htm), 19-01-2025; và [Phần căn cứ ban hành văn bản chữ nghiêng hay thường?](https://baochinhphu.vn/phan-can-cu-ban-hanh-van-ban-chu-nghieng-hay-thuong-102230425132226725.htm), 26-04-2023. Vận dụng: giữ mẫu/loại văn bản, số và ký hiệu; không tự điền phần thuộc quy định riêng của cơ quan. Đây không phải công cụ xác nhận tuân thủ pháp luật.
+- Bộ KH&CN, [Lấy ý kiến báo cáo sơ bộ và báo cáo chuyên đề](https://mst.gov.vn/bo-khcn-lay-y-kien-bao-cao-so-bo-va-bao-cao-chuyen-de-ve-tong-ra-soat-he-thong-vbqppl-197260905165716969.htm), 05-09-2026. Đọc phần công văn đăng lại, quan sát người nhận, nhiệm vụ và hạn cụ thể. Không suy ra hệ quả của việc không phản hồi trong các văn bản khác.
+- cuhiep, Tinh tế, [Đồ nghề siêu gọn nhẹ đi làm content IFA 2026](https://tinhte.vn/thread/do-nghe-sieu-gon-nhe-di-lam-content-ifa-2026.4175741/), 11-09-2026. Tham khảo giọng cá nhân, quan hệ cộng đồng và bài trải nghiệm dài; không xác nhận nhận định sản phẩm hoặc áp một cách gọi người đọc cho mọi bài.
+- Biti’s, [Thông báo voucher](https://bitis.com.vn/blogs/news/bitis-tang-voucher-giam-50k-ky-niem-50-nam-giai-phong-mien-nam), 24-04-2025. Quan sát giọng hào hứng đi cùng đầy đủ điều kiện. Ưu đãi đã hết hạn; chỉ dùng làm mẫu biên tập theo ngữ cảnh.
+- Mailchimp, [Writing for Social Media](https://styleguide.mailchimp.com/writing-for-social-media/), không thấy ngày. Tham khảo quan hệ với người đọc và cách cân nhắc lời xin tương tác; không áp số câu gợi ý hay thông số nền tảng cũ thành quy tắc chung.
+- Google Ads, [Misrepresentation](https://support.google.com/adspolicy/answer/6020955?hl=en), không thấy ngày. Vận dụng có giới hạn: giữ giá/điều kiện và không tự thêm bằng chứng, lời hứa hoặc ưu đãi. Chính sách của một nền tảng không xác nhận mọi nội dung marketing đã hợp lệ; nguồn này không được coi là mẫu người Việt tự viết.
 
 ## Tiếng Việt được người viết sử dụng
 
@@ -704,6 +838,9 @@ Hỏi khi có nhiều độc giả khả dĩ với register khác hẳn nhau, đ
 | `plain` | Bài giải thích, thông báo, văn viết phổ thông | [Văn viết rõ ràng](#resource-skills-humanizer-vi-references-plain-writing-md) |
 | `business` | Email, giao việc, phản hồi và cập nhật tiến độ | [Trao đổi công việc](#resource-skills-humanizer-vi-references-business-writing-md) |
 | `technical` | Hướng dẫn thao tác, tài liệu tham chiếu, ghi chú kỹ thuật | [Tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md) |
+| `administrative` | Biên tập nội dung công văn, thông báo, báo cáo hoặc dự thảo đã cung cấp | [Văn bản hành chính](#resource-skills-humanizer-vi-references-administrative-writing-md) |
+| `social` | Chia sẻ cá nhân, thảo luận hoặc thông tin trong cộng đồng | [Bài đăng mạng xã hội](#resource-skills-humanizer-vi-references-social-writing-md) |
+| `marketing` | Giới thiệu sản phẩm, thông điệp thương hiệu hoặc ưu đãi | [Marketing](#resource-skills-humanizer-vi-references-marketing-writing-md) |
 
 ## Thứ tự quyết định
 
@@ -713,12 +850,13 @@ Hỏi khi có nhiều độc giả khả dĩ với register khác hẳn nhau, đ
 - `edit_level=light` vẫn sửa cục bộ. Chỉ chuyển ý lên đầu hoặc đảo thứ tự đoạn khi mức can thiệp cho phép và không làm mất điều kiện đi kèm.
 - Điền một cấu trúc chỉ bằng thông tin có trong input/context. Thiếu người phụ trách, thời hạn hoặc kết quả thì giữ khoảng trống về thông tin; hỏi tác giả nếu yêu cầu bắt buộc phải có chúng.
 - Với văn bản đã rõ và hợp mục đích, giữ nguyên. Ví dụ trong các reference là minh họa, không phải khuôn để thay đồng loạt.
+- Chọn theo mục đích: bài bán hàng trên Facebook dùng `marketing`; bài chia sẻ trong cộng đồng dùng `social`. Email đề nghị phối hợp dùng `business`; phần nội dung công văn giữ mẫu và thẩm quyền dùng `administrative`.
 
 ## Phạm vi hiện tại
 
-Ba profile là hướng dẫn biên tập của dự án, chưa được đánh giá độc lập bởi người bản ngữ. Xem [nguồn đọc và cách vận dụng](#resource-skills-humanizer-vi-references-sources-md). Các ví dụ do agent tự viết, không phải trích đoạn nguồn hay dữ liệu huấn luyện.
+Sáu profile chuyên biệt là hướng dẫn biên tập của dự án, chưa được đánh giá độc lập bởi người bản ngữ. Xem [nguồn đọc và cách vận dụng](#resource-skills-humanizer-vi-references-sources-md). Các ví dụ do agent tự viết, không phải trích đoạn nguồn hay dữ liệu huấn luyện.
 
-Văn bản hành chính và pháp lý tiếp tục dùng [registers](#resource-skills-humanizer-vi-references-registers-md) cùng mẫu được cơ quan/người dùng cung cấp. Chưa có profile tự tạo công văn. Giọng vui vẻ và hài hước chưa có preset; giữ sắc thái sẵn có, chỉ thêm khi có yêu cầu rõ và phù hợp tình huống.
+Profile hành chính biên tập câu chữ theo mẫu đã có; việc xác nhận căn cứ, thẩm quyền, thể thức và hiệu lực vẫn cần người phụ trách. Văn bản pháp lý chuyên ngành tiếp tục dùng [registers](#resource-skills-humanizer-vi-references-registers-md) và tài liệu được cung cấp. Giọng vui vẻ và hài hước chưa có preset; giữ sắc thái sẵn có, chỉ thêm khi có yêu cầu rõ và phù hợp tình huống.
 
 
 

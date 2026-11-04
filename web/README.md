@@ -6,7 +6,7 @@ Web app cung cấp linter deterministic, danh mục pattern và các tính năng
 
 Khi rewrite được bật, mục tùy chọn cho chọn kênh, giọng, người đọc, quan hệ, xưng hô, mức sửa và context. Mặc định giữ giọng gốc và sửa nhẹ. Giảm cường điệu cần được chọn riêng. Kết quả có thể là bản sửa, giữ nguyên, góp ý hoặc câu hỏi cần tác giả quyết định; hai loại cuối không có nút sao chép như văn bản thay thế. Xem [hợp đồng API rewrite](backend/README.md#rewrite-context-and-output-modes).
 
-Mục “Loại bài viết” có văn viết rõ ràng, trao đổi công việc và tài liệu kỹ thuật, mặc định theo văn bản gốc. Chọn loại bài không tự đổi kênh, giọng, xưng hô hay mức sửa. Ví dụ có thể kết hợp tài liệu kỹ thuật với giọng gần gũi. Xem [hướng dẫn profile](../skills/humanizer-vi/references/writing-profiles.md); chất lượng vẫn cần người đọc đánh giá.
+Mục “Loại bài viết” có văn viết rõ ràng, trao đổi công việc, tài liệu kỹ thuật, hành chính, bài đăng mạng xã hội và marketing, mặc định theo văn bản gốc. Chọn loại bài không tự đổi kênh, giọng, xưng hô hay mức sửa. Ví dụ có thể kết hợp tài liệu kỹ thuật với giọng gần gũi. Xem [hướng dẫn profile](../skills/humanizer-vi/references/writing-profiles.md); chất lượng vẫn cần người đọc đánh giá.
 
 ## Chạy local
 

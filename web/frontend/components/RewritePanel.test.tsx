@@ -114,7 +114,7 @@ test("changing the profile invalidates an in-flight result", async () => {
   expect(screen.getByRole("button", { name: /Viết lại bằng Gemini/i })).toBeEnabled();
 });
 
-test("selecting a writing profile keeps explicit voice, channel and edit depth", async () => {
+test.each(["technical", "administrative", "social", "marketing"])("selecting %s keeps explicit voice, channel and edit depth", async (profile) => {
   const user = userEvent.setup();
   vi.mocked(rewriteText).mockResolvedValue({
     rewrite: "Nếu mất mạng, giữ cửa sổ mở.", output_mode: "no_change", comments: [],
@@ -125,14 +125,14 @@ test("selecting a writing profile keeps explicit voice, channel and edit depth",
   await user.selectOptions(screen.getByLabelText("Kênh sử dụng"), "email");
   await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
   await user.selectOptions(screen.getByLabelText("Mức can thiệp"), "moderate");
-  await user.selectOptions(screen.getByLabelText("Loại bài viết"), "technical");
+  await user.selectOptions(screen.getByLabelText("Loại bài viết"), profile);
   expect(screen.getByLabelText("Giọng mong muốn")).toHaveValue("friendly");
   expect(screen.getByLabelText("Kênh sử dụng")).toHaveValue("email");
   expect(screen.getByLabelText("Mức can thiệp")).toHaveValue("moderate");
   await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
   expect(rewriteText).toHaveBeenCalledWith(expect.any(String), "humanizer-vi", undefined, {
     context: "", style: expect.objectContaining({
-      profile: "technical", channel: "email", register: "friendly", edit_level: "moderate",
+      profile, channel: "email", register: "friendly", edit_level: "moderate",
     }),
   });
   expect(await screen.findByText("Giữ nguyên văn bản:")).toBeInTheDocument();

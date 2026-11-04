@@ -26,7 +26,7 @@ Runner không tính inter-rater agreement. Agreement cần đủ overlap giữa 
 
 Báo điểm theo skill, domain, register và pattern khi cỡ mẫu cho phép. Luôn tách blocker rate khỏi average. Không quy đổi điểm thành xác suất văn bản do AI tạo.
 
-Repository chưa có human-reviewed baseline. Corpus hiện chỉ có provenance `agent-reviewed`; validator kiểm cấu trúc và quan hệ metadata, nhưng không chứng minh semantic equivalence. Bộ 106 case benchmark hỗ trợ regression dữ liệu và chuẩn hóa quy trình review; chưa có điểm chất lượng độc lập.
+Repository chưa có human-reviewed baseline. Corpus hiện chỉ có provenance `agent-reviewed`; validator kiểm cấu trúc và quan hệ metadata, nhưng không chứng minh semantic equivalence. Bộ 124 case benchmark hỗ trợ regression dữ liệu và chuẩn hóa quy trình review; chưa có điểm chất lượng độc lập.
 
 ## So sánh văn phong trên đoạn dài
 
@@ -37,6 +37,8 @@ Ba mươi case trong `cases/naturalness.jsonl` là 15 cặp tình huống tự v
 Lưu lựa chọn A/B/hòa và lý do trong notes của kết quả review, cùng mã batch và quy tắc xáo thứ tự. Không tự tạo điểm thay người thật. Trước khi báo agreement, cần thiết kế overlap và cách xử lý bất đồng như phần nhiều reviewer ở trên.
 
 ## Writing profiles
+
+`cases/extended-profiles.jsonl` bổ sung 18 case cho hành chính, bài đăng mạng xã hội và marketing. Đây là chín cặp đối chiếu ngữ cảnh, khác brief ở một số cặp; không diễn giải thành phép so sánh A/B. Kiểm riêng mức nghĩa vụ và định danh văn bản, giọng cộng đồng, chứng cứ thương mại, giá và điều kiện. Chưa có human review.
 
 Hai mươi bốn case mới gồm 12 cặp, tám case cho mỗi profile `plain`, `business`, `technical`. Profile chọn tiêu chí loại bài, còn channel/register mô tả kênh và giọng. Kiểm riêng cả lựa chọn kết hợp như technical + friendly, business + chat; không đánh đồng profile với mức trang trọng.
 

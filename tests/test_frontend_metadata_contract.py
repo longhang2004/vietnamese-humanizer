@@ -25,7 +25,6 @@ def test_frontend_uses_canonical_branding_without_a_runtime_version() -> None:
     root_project = read_root_project()
 
     assert root_project["name"] == "vietnamese-writing-skills"
-    assert root_project["version"] == "0.5.0"
 
     assert f'default: "{PRODUCT_TITLE}"' in layout
     assert f'template: "%s | {PRODUCT_NAME}"' in layout
@@ -37,6 +36,7 @@ def test_frontend_uses_canonical_branding_without_a_runtime_version() -> None:
     assert "Vietnamese Humanizer & Linter" not in layout
     assert "v0.4.0" not in layout
     assert "v0.3.0" not in layout
+    assert f'v{root_project["version"]}' not in layout
 
     assert "version" not in package
     assert "version" not in package_lock["packages"][""]

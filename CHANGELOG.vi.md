@@ -6,20 +6,24 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-04
+
 ### Changed
 
 - Bổ sung nguồn tiếng Việt và hướng dẫn rà khuôn lời chúc/tri ân, thông tin riêng của đối tượng và chức năng dấu câu; có ví dụ tự viết, đồng bộ lại bộ tải.
-- Bổ sung hướng dẫn lối viết theo khuôn từ nghiên cứu và thảo luận năm 2026, có nguồn, phản ví dụ, nạp vào prompt viết lại và 12 benchmark tự viết (tổng 106). Giữ nguyên 44 pattern; chưa có điểm nguồn gốc hay kết quả đo cải thiện chất lượng.
+- Bổ sung hướng dẫn lối viết theo khuôn từ nghiên cứu và thảo luận năm 2026, có nguồn, phản ví dụ, nạp vào prompt viết lại và 12 benchmark tự viết. Giữ nguyên 44 pattern; chưa có điểm nguồn gốc hay kết quả đo cải thiện chất lượng.
 - Thêm rule xét vai trò của định nghĩa, lời hướng dẫn, lưu ý và câu phủ định theo ngữ cảnh: giữ phần giúp người đọc làm việc hiện tại và các điều kiện có ý nghĩa, tránh tự biến mọi đoạn thành bài hướng dẫn. Áp dụng lên web và tách mô tả tác vụ cho người dùng khỏi mô tả kích hoạt dành cho AI.
 - Dùng chính các skill biên tập tiếng Việt của dự án để sửa câu chữ trên web: hướng dẫn rõ và gần gũi, tên tác vụ nhất quán, trạng thái gợi ý dễ hiểu hơn và có quy ước viết cho giao diện. Sinh lại bộ tải từ catalog đã sửa.
 
 ### Added
 
+- Thêm profile hành chính, bài đăng mạng xã hội và marketing, có nguồn đọc sơ cấp, reference riêng, lựa chọn trên API/web và 18 benchmark đối chiếu ngữ cảnh tự viết (tổng 124). Profile giữ các lựa chọn giọng/kênh/mức sửa; chưa có kết quả đánh giá độc lập bởi người bản ngữ.
+
 - Trang `/start` cho người không viết code: chọn chatbot và nhu cầu, hướng dẫn cài theo nền tảng, sao chép yêu cầu hoặc tự sao chép khi clipboard bị chặn.
 - Gói ZIP Claude/Gemini, gói plugin ChatGPT chuẩn bị nộp, tài liệu Markdown tự chứa và kiểm đồng bộ trong CI. Release đính kèm bộ tải riêng với gói Python; chưa có listing plugin công khai.
 - Lựa chọn loại bài độc lập trong API và web rewrite: giữ nguyên, văn viết rõ ràng, trao đổi công việc và tài liệu kỹ thuật. Profile giữ lựa chọn kênh, giọng, xưng hô và mức sửa của người dùng.
 - Reference tiếng Việt theo loại bài, ví dụ tự viết có chú giải và ghi nguồn đọc Google, Mailchimp, NN/g.
-- Thêm 24 benchmark do agent tự viết theo 12 cặp (tổng 94), quy trình review bản ngữ và báo cáo theo profile/system. Chưa có điểm chất lượng độc lập.
+- Thêm 24 benchmark do agent tự viết theo 12 cặp, quy trình review bản ngữ và báo cáo theo profile/system. Chưa có điểm chất lượng độc lập.
 - Danh mục nhóm văn phong có nguồn đọc, quy trình học cùng chủ đề và pilot bốn biến thể đã chạy bằng subagent, biên tập rồi review định tính bằng AI. Dữ liệu pilot nằm riêng khỏi corpus và baseline benchmark.
 
 ## [0.5.0] - 2026-10-31

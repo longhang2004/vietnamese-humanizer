@@ -133,11 +133,12 @@ def test_rewrite_provider_failure_does_not_expose_exception_details(client, monk
     assert raw_fragment not in response.text
 
 
-def test_rewrite_passes_context_and_profile_to_provider(client, monkeypatch, mock_gemini):
+@pytest.mark.parametrize("profile", ["business", "administrative", "social", "marketing"])
+def test_rewrite_passes_context_and_profile_to_provider(client, monkeypatch, mock_gemini, profile):
     monkeypatch.setattr(settings, "REWRITE_ENABLED", True)
     monkeypatch.setattr(settings, "GEMINI_API_KEY", "test_key")
     style = {
-        "profile": "business",
+        "profile": profile,
         "channel": "chat",
         "register": "friendly",
         "audience": "đồng nghiệp",
@@ -184,7 +185,9 @@ def test_default_profile_keeps_conversation_reference_out(monkeypatch, mock_gemi
 
 
 @pytest.mark.parametrize("skill", ["humanizer-vi", "style-guide-vi"])
-@pytest.mark.parametrize("profile", ["plain", "business", "technical"])
+@pytest.mark.parametrize(
+    "profile", ["plain", "business", "technical", "administrative", "social", "marketing"]
+)
 def test_writing_profile_loads_only_selected_guidance(skill, profile):
     from app.schemas import RewriteStyle
     from app.services.rewriter import PROFILE_REFERENCES, build_rewrite_prompt

@@ -4,6 +4,8 @@ Trạng thái ngày 3 tháng 11 năm 2026: `cases/writing-profiles.jsonl` có 24
 
 ## Tạo đầu ra để so sánh
 
+Từ v0.6.0, `cases/extended-profiles.jsonl` thêm 18 case cho `administrative`, `social`, `marketing`; mỗi profile có ba cặp đối chiếu ngữ cảnh, không phải A/B cùng brief. Dùng cùng quy trình chấm dưới đây, giữ mỗi cặp trong cùng tập. Hành chính cần reviewer quen loại văn bản; social xét quan hệ cộng đồng; marketing kiểm riêng chứng cứ, giá, điều kiện và đường thực hiện. Chưa có điểm chất lượng độc lập cho các profile mới.
+
 1. Cố định commit, phiên bản model, cấu hình sinh và nội dung prompt của từng hệ thống. Dùng mã hệ thống riêng cho baseline và phiên bản có profile; giữ mapping ngoài gói chấm mù.
 2. Với mỗi case, gửi `input` thành `text`, kèm skill/context/style. Đưa constraints vào yêu cầu biên tập. Không đưa expected mode, must-preserve, must-not-add, evaluation notes hoặc blockers vào prompt sinh.
 3. Khi đo tác động của profile, dùng cùng text/context/channel/register/edit_level và chỉ đổi `style.profile` thành `preserve` ở baseline. Lưu cả lỗi sinh, không bỏ những output xấu khỏi mẫu báo cáo.

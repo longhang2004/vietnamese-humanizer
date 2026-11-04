@@ -1,6 +1,6 @@
 # Nhóm văn phong để khảo sát tiếp
 
-Khảo sát ngày 3 tháng 11 năm 2026. Đây là danh mục tác vụ đề xuất của dự án, không phải hệ phân loại ngôn ngữ học chuẩn hoặc danh sách preset đã có trong API. API hiện chỉ nhận profile `preserve`, `plain`, `business`, `technical`.
+Khảo sát ngày 3 tháng 11 năm 2026. Đây là danh mục tác vụ đề xuất của dự án, không phải hệ phân loại ngôn ngữ học chuẩn hoặc danh sách preset đã có trong API. Từ v0.6.0, API nhận profile `preserve`, `plain`, `business`, `technical`, `administrative`, `social`, `marketing`. Ba profile mới có [nguồn đọc riêng](research/2026-11-04-administrative-social-marketing.md).
 
 ## Phân biệt các lựa chọn
 
@@ -20,15 +20,15 @@ Mô hình nhiều chiều của [NN/g](https://www.nngroup.com/articles/tone-of-
 | Công việc | Đề nghị, tiến độ, trách nhiệm và thời hạn | Biến dự kiến thành cam kết | Đã có profile; cần review bản ngữ |
 | Kỹ thuật | Tiền đề, thao tác, tham chiếu, thuật ngữ | Đổi code, bỏ điều kiện hoặc thêm bước | Đã có profile; cần review theo ngành |
 | Giao tiếp, chăm sóc khách hàng | Trả đúng lượt, xác nhận điều đã biết, câu hỏi tiếp theo | Tự nhận lỗi, hứa xử lý hoặc đổi vai xưng hô | Ưu tiên phát triển hướng dẫn hội thoại đã có |
-| Marketing, quảng bá | Lợi ích có căn cứ, thông điệp, lời mời hành động | Bịa công dụng, số liệu, khan hiếm hay lời chứng thực | Ưu tiên thử nghiệm tiếp |
-| Social, caption, lời mời | Mở đầu đúng nhu cầu, thông tin cốt lõi, bước tiếp theo | Giật tít, thêm emoji hoặc ép mọi bài thật ngắn | Ưu tiên thử nghiệm tiếp |
+| Marketing, quảng bá | Lợi ích có căn cứ, thông điệp, lời mời hành động | Bịa công dụng, số liệu, khan hiếm hay lời chứng thực | Đã có profile từ v0.6.0; cần review bản ngữ |
+| Social, caption, lời mời | Mở đầu đúng nhu cầu, thông tin cốt lõi, bước tiếp theo | Giật tít, thêm emoji hoặc ép mọi bài thật ngắn | Đã có profile từ v0.6.0; cần review bản ngữ |
 | Kịch bản nói, video, podcast | Nhịp nghe, chuyển ý, cách đọc số và tham chiếu hình ảnh | Chép nguyên cấu trúc bài dài hoặc thêm ngập ngừng giả | Ưu tiên mở rộng hướng dẫn đã có |
 | Giải thích, giáo dục | Kiến thức tiền đề, ví dụ, quan hệ khái niệm | Ví dụ sai, giảng giải quá mức hoặc đơn giản hóa sai | Khảo sát cùng tài liệu kỹ thuật |
 | Báo chí, bản tin, thông báo | Thông tin chính, quy nguồn, sự kiện và nhận định | Đưa bình luận thành sự thật hoặc thêm địa điểm | Có pilot nhỏ; cần nhiều nguồn khác nhau |
 | Kể chuyện, blog cá nhân, tản văn | Điểm nhìn, trình tự, chi tiết, nhịp và cảm xúc | Bịa trải nghiệm hoặc biến mọi đoạn thành giọng trữ tình | Khảo sát bằng tư liệu có quyền rõ |
 | Review, phê bình | Căn cứ đánh giá, tiêu chí, trải nghiệm và giới hạn | Giả vờ đã dùng/xem, ép nhận xét tích cực | Thử sau khi có rubric riêng |
 | Bình luận, lập luận | Luận điểm, bằng chứng, phản biện và mức chắc chắn | Tăng mức khẳng định hoặc xóa phản biện | Cần kiểm bảo toàn lập trường riêng |
-| Hành chính | Thể loại văn bản, mẫu duyệt, thẩm quyền và trách nhiệm | Câu đúng văn phong nhưng sai mẫu hoặc nghĩa vụ | Cần reviewer lĩnh vực và nguồn quy định phù hợp |
+| Hành chính | Thể loại văn bản, mẫu duyệt, thẩm quyền và trách nhiệm | Câu đúng văn phong nhưng sai mẫu hoặc nghĩa vụ | Đã có profile từ v0.6.0; cần reviewer lĩnh vực |
 | Học thuật | Thuật ngữ, phương pháp, hạn chế và dẫn nguồn | Xóa dè dặt khoa học hoặc bịa citation | Cần nguồn và reviewer theo chuyên ngành |
 
 Các hàng là nhóm tác vụ, có chỗ giao nhau. Chưa thêm đồng loạt vào enum `profile`: trước hết cần bài đọc đa tác giả, cặp cần sửa/giữ nguyên và một đợt đánh giá cho từng nhóm.

@@ -4,7 +4,7 @@ description: Biên tập tiếng Việt sáo, máy móc, đều nhịp hoặc l�
 license: MIT
 metadata:
   language: vi
-  version: "0.4.0"
+  version: "0.5.0"
 ---
 
 # Humanizer tiếng Việt
@@ -29,7 +29,7 @@ Viết theo việc người đọc đang cần. Chỉ thêm định nghĩa, lờ
 
 Khi bài lặp đối lập, câu tự nhấn mạnh, nhịp giật ngắn, tiêu đề/bullet hoặc kết đoạn tóm lại, đọc [sửa lối viết theo khuôn](references/formulaic-prose.md). Sửa theo chức năng và mật độ trong ngữ cảnh; giữ cấu trúc có tác dụng, khoảng số, thuật ngữ và giọng riêng. Không dùng danh sách “AI tells” để suy đoán tác giả hoặc làm từ điển thay thế.
 
-Khi người dùng chọn loại bài viết, đọc [writing profiles](references/writing-profiles.md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md) hoặc [tài liệu kỹ thuật](references/technical-writing.md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
+Khi người dùng chọn loại bài viết, đọc [writing profiles](references/writing-profiles.md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md), [tài liệu kỹ thuật](references/technical-writing.md), [hành chính](references/administrative-writing.md), [bài đăng mạng xã hội](references/social-writing.md) hoặc [marketing](references/marketing-writing.md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
 
 ## Ngữ cảnh và quyền biên tập
 
@@ -76,4 +76,4 @@ Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn mộ
 
 ## Đầu ra
 
-Mặc định chỉ trả bản đã biên tập. Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. Khi người dùng yêu cầu review, dùng [review template](assets/review-template.md) và [rubric](references/evaluation.md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.
+Khi đã có thể biên tập an toàn, mặc định chỉ trả bản đã biên tập. Nếu cần kiểm chứng hoặc tác giả quyết định trước, chỉ trả nhận xét/câu hỏi cần giải quyết; chờ xác nhận rồi mới đưa bản thay thế. Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. Khi người dùng yêu cầu review, dùng [review template](assets/review-template.md) và [rubric](references/evaluation.md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.

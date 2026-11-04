@@ -85,7 +85,9 @@ OutputMode = Literal["clean_rewrite", "review_comment", "needs_author_decision",
 
 
 class RewriteStyle(BaseModel):
-    profile: Literal["preserve", "plain", "business", "technical"] = "preserve"
+    profile: Literal[
+        "preserve", "plain", "business", "technical", "administrative", "social", "marketing"
+    ] = "preserve"
     channel: Literal["auto", "document", "email", "chat", "spoken_script"] = "auto"
     register_name: Literal["preserve", "formal", "professional", "friendly", "conversational"] = (
         Field("preserve", alias="register")
