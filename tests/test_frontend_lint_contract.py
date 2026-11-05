@@ -22,6 +22,8 @@ def test_frontend_zero_state_does_not_overclaim() -> None:
     issue_list = (FRONTEND / "components" / "IssueList.tsx").read_text(
         encoding="utf-8"
     )
+    # JSX line wrapping must not change this copy contract.
+    issue_list = " ".join(issue_list.split())
 
     assert "Chưa thấy chỗ cần lưu ý theo các quy tắc đã chọn." in issue_list
     assert "Kết quả này không có nghĩa văn bản đã hết lỗi." in issue_list
