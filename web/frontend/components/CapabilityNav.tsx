@@ -2,41 +2,50 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { fetchHealth } from "../lib/api";
-import { HealthResponse } from "../lib/types";
+import type { HealthResponse } from "../lib/types";
 
 type Capabilities = HealthResponse["capabilities"];
+type CapabilityState = Capabilities & {
+  status: "loading" | "ready" | "unavailable";
+};
 
 const disabledCapabilities: Capabilities = {
   rewrite: false,
   contributions: false,
 };
+const CapabilityContext = createContext<CapabilityState>({
+  ...disabledCapabilities,
+  status: "unavailable",
+});
 
-const CapabilityContext = createContext<Capabilities>(disabledCapabilities);
-
-export function CapabilityProvider({ children }: { children: React.ReactNode }) {
-  const [capabilities, setCapabilities] = useState<Capabilities>(disabledCapabilities);
-
+export function CapabilityProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [capabilities, setCapabilities] = useState<CapabilityState>({
+    ...disabledCapabilities,
+    status: "loading",
+  });
   useEffect(() => {
     let active = true;
-
     fetchHealth()
       .then((health) => {
         if (!active) return;
-
         setCapabilities({
           rewrite: health.capabilities.rewrite === true,
           contributions: health.capabilities.contributions === true,
+          status: "ready",
         });
       })
       .catch(() => {
-        // Optional features remain disabled when health is unavailable.
+        if (active)
+          setCapabilities({ ...disabledCapabilities, status: "unavailable" });
       });
-
     return () => {
       active = false;
     };
   }, []);
-
   return (
     <CapabilityContext.Provider value={capabilities}>
       {children}
@@ -44,6 +53,6 @@ export function CapabilityProvider({ children }: { children: React.ReactNode }) 
   );
 }
 
-export function useCapabilities(): Capabilities {
+export function useCapabilities(): CapabilityState {
   return useContext(CapabilityContext);
 }

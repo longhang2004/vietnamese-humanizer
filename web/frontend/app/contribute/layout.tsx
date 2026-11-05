@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contribute" },
 };
 
-export default function ContributionLayout({ children }: { children: ReactNode }) {
+export default function ContributionLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return children;
 }

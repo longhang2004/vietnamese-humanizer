@@ -6,7 +6,9 @@ import { SiteFooter } from "../components/SiteFooter";
 import { getRepositoryStars } from "../lib/repository";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vietnamese-humanizer-g1o9.vercel.app";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://vietnamese-humanizer-g1o9.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -105,12 +107,19 @@ export default async function RootLayout({
   return (
     <html lang="vi">
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="site-shell antialiased">
-        <a className="skip-link" href="#main-content">Đến nội dung chính</a>
+        <a className="skip-link" href="#main-content">
+          Đến nội dung chính
+        </a>
         <SiteHeader stars={stars} />
-        <main id="main-content" className="site-main">{children}</main>
+        <main id="main-content" className="site-main">
+          {children}
+        </main>
         <SiteFooter />
         <Analytics />
       </body>

@@ -1,32 +1,313 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T14:36:24.779860+00:00",
+  "generatedAt": "2026-11-05T14:07:35.387200+00:00",
   "title": "Design System: Vietnamese Writing Skills",
   "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Graphite canvas",
+        "canonical": "#0b0f14",
+        "tonalRamp": [
+          "oklch(15% 0.0037 254.17)",
+          "oklch(25% 0.0068 254.17)",
+          "oklch(35% 0.0099 254.17)",
+          "oklch(45% 0.0124 254.17)",
+          "oklch(58% 0.0124 254.17)",
+          "oklch(70% 0.0099 254.17)",
+          "oklch(83% 0.0062 254.17)",
+          "oklch(95% 0.0025 254.17)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Graphite surface",
+        "canonical": "#11171f",
+        "tonalRamp": [
+          "oklch(15% 0.0056 255.73)",
+          "oklch(25% 0.0102 255.73)",
+          "oklch(35% 0.0148 255.73)",
+          "oklch(45% 0.0185 255.73)",
+          "oklch(58% 0.0185 255.73)",
+          "oklch(70% 0.0148 255.73)",
+          "oklch(83% 0.0093 255.73)",
+          "oklch(95% 0.0037 255.73)"
+        ]
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Raised graphite",
+        "canonical": "#18212b",
+        "tonalRamp": [
+          "oklch(15% 0.0070 251.43)",
+          "oklch(25% 0.0128 251.43)",
+          "oklch(35% 0.0185 251.43)",
+          "oklch(45% 0.0232 251.43)",
+          "oklch(58% 0.0232 251.43)",
+          "oklch(70% 0.0185 251.43)",
+          "oklch(83% 0.0116 251.43)",
+          "oklch(95% 0.0046 251.43)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Quiet border",
+        "canonical": "#2b3846",
+        "tonalRamp": [
+          "oklch(15% 0.0091 250.62)",
+          "oklch(25% 0.0167 250.62)",
+          "oklch(35% 0.0242 250.62)",
+          "oklch(45% 0.0303 250.62)",
+          "oklch(58% 0.0303 250.62)",
+          "oklch(70% 0.0242 250.62)",
+          "oklch(83% 0.0151 250.62)",
+          "oklch(95% 0.0061 250.62)"
+        ]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control border",
+        "canonical": "#566678",
+        "tonalRamp": [
+          "oklch(15% 0.0104 251.55)",
+          "oklch(25% 0.0191 251.55)",
+          "oklch(35% 0.0278 251.55)",
+          "oklch(45% 0.0348 251.55)",
+          "oklch(58% 0.0348 251.55)",
+          "oklch(70% 0.0278 251.55)",
+          "oklch(83% 0.0174 251.55)",
+          "oklch(95% 0.0070 251.55)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Reading white",
+        "canonical": "#eef2f5",
+        "tonalRamp": [
+          "oklch(15% 0.0018 239.82)",
+          "oklch(25% 0.0032 239.82)",
+          "oklch(35% 0.0047 239.82)",
+          "oklch(45% 0.0059 239.82)",
+          "oklch(58% 0.0059 239.82)",
+          "oklch(70% 0.0047 239.82)",
+          "oklch(83% 0.0029 239.82)",
+          "oklch(95% 0.0012 239.82)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted slate",
+        "canonical": "#aab6c4",
+        "tonalRamp": [
+          "oklch(15% 0.0072 252.22)",
+          "oklch(25% 0.0132 252.22)",
+          "oklch(35% 0.0193 252.22)",
+          "oklch(45% 0.0241 252.22)",
+          "oklch(58% 0.0241 252.22)",
+          "oklch(70% 0.0193 252.22)",
+          "oklch(83% 0.0120 252.22)",
+          "oklch(95% 0.0048 252.22)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Pale lime",
+        "canonical": "#c4ef91",
+        "tonalRamp": [
+          "oklch(15% 0.0387 128.76)",
+          "oklch(25% 0.0709 128.76)",
+          "oklch(35% 0.1032 128.76)",
+          "oklch(45% 0.1290 128.76)",
+          "oklch(58% 0.1290 128.76)",
+          "oklch(70% 0.1032 128.76)",
+          "oklch(83% 0.0645 128.76)",
+          "oklch(95% 0.0258 128.76)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Lime hover",
+        "canonical": "#d6f6b2",
+        "tonalRamp": [
+          "oklch(15% 0.0284 128.59)",
+          "oklch(25% 0.0521 128.59)",
+          "oklch(35% 0.0758 128.59)",
+          "oklch(45% 0.0948 128.59)",
+          "oklch(58% 0.0948 128.59)",
+          "oklch(70% 0.0758 128.59)",
+          "oklch(83% 0.0474 128.59)",
+          "oklch(95% 0.0190 128.59)"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Lime ink",
+        "canonical": "#14220b",
+        "tonalRamp": [
+          "oklch(15% 0.0136 134.52)",
+          "oklch(25% 0.0249 134.52)",
+          "oklch(35% 0.0362 134.52)",
+          "oklch(45% 0.0452 134.52)",
+          "oklch(58% 0.0452 134.52)",
+          "oklch(70% 0.0362 134.52)",
+          "oklch(83% 0.0226 134.52)",
+          "oklch(95% 0.0090 134.52)"
+        ]
+      },
+      "danger": {
+        "role": "secondary",
+        "displayName": "Danger",
+        "canonical": "#ffb4b8",
+        "tonalRamp": [
+          "oklch(15% 0.0263 15.57)",
+          "oklch(25% 0.0482 15.57)",
+          "oklch(35% 0.0702 15.57)",
+          "oklch(45% 0.0877 15.57)",
+          "oklch(58% 0.0877 15.57)",
+          "oklch(70% 0.0702 15.57)",
+          "oklch(83% 0.0439 15.57)",
+          "oklch(95% 0.0175 15.57)"
+        ]
+      },
+      "warning": {
+        "role": "secondary",
+        "displayName": "Warning",
+        "canonical": "#f3cc83",
+        "tonalRamp": [
+          "oklch(15% 0.0304 82.35)",
+          "oklch(25% 0.0558 82.35)",
+          "oklch(35% 0.0811 82.35)",
+          "oklch(45% 0.1014 82.35)",
+          "oklch(58% 0.1014 82.35)",
+          "oklch(70% 0.0811 82.35)",
+          "oklch(83% 0.0507 82.35)",
+          "oklch(95% 0.0203 82.35)"
+        ]
+      },
+      "guided-surface": {
+        "role": "neutral",
+        "displayName": "Guided graphite",
+        "canonical": "#141e1b",
+        "tonalRamp": [
+          "oklch(15% 0.0047 174.45)",
+          "oklch(25% 0.0085 174.45)",
+          "oklch(35% 0.0124 174.45)",
+          "oklch(45% 0.0155 174.45)",
+          "oklch(58% 0.0155 174.45)",
+          "oklch(70% 0.0124 174.45)",
+          "oklch(83% 0.0078 174.45)",
+          "oklch(95% 0.0031 174.45)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Landing display",
+        "purpose": "Hero heading; explicit 960px and 600px overrides are documented in Layout."
+      },
+      "headline": {
+        "displayName": "Reading route heading",
+        "purpose": "Reading and onboarding titles; 32px on mobile."
+      },
+      "workspace-heading": {
+        "displayName": "Workspace heading",
+        "purpose": "Checker and contribution titles; 1.75rem on mobile."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base Vietnamese interface text."
+      },
+      "reading": {
+        "displayName": "Reading",
+        "purpose": "Comparison output and article text within controlled measures."
+      },
+      "label": {
+        "displayName": "Action label",
+        "purpose": "Shared button labels."
+      },
+      "command": {
+        "displayName": "Command",
+        "purpose": "Wrapping install commands and technical identifiers."
+      }
+    },
+    "shadows": [],
     "motion": [
       {
         "name": "control-color",
         "value": "160ms ease",
-        "purpose": "Control color and border transitions."
-      },
-      {
-        "name": "hero-enter",
-        "value": "600ms cubic-bezier(.16,1,.3,1)",
-        "purpose": "One entrance for hero copy; disabled with reduced motion."
+        "purpose": "Text, background and border state transitions; disabled by prefers-reduced-motion."
       }
     ],
     "breakpoints": [
       {
-        "name": "compact-desktop",
-        "value": "1100px"
+        "name": "shared-compact",
+        "value": "1100px",
+        "purpose": "Shared styles: navigation spacing, landing gaps and capability details."
       },
       {
-        "name": "navigation-collapse",
-        "value": "850px"
+        "name": "shared-navigation-hero",
+        "value": "960px",
+        "purpose": "Shared styles: navigation disclosure; landing hero, capability and FAQ stacking; two-column use rows."
       },
       {
-        "name": "mobile-stack",
-        "value": "600px"
+        "name": "shared-prose-legacy",
+        "value": "960px",
+        "purpose": "Shared legacy prose primitives; current ReadingLayout module uses its own 850px index threshold."
+      },
+      {
+        "name": "comparison-stack",
+        "value": "780px",
+        "purpose": "Comparison toolbar, paired output columns and provenance."
+      },
+      {
+        "name": "shared-mobile",
+        "value": "600px",
+        "purpose": "Shared container gutters, hero actions, use rows and footer."
+      },
+      {
+        "name": "workspace-options",
+        "value": "1100px",
+        "purpose": "Workspace: single-column checks within two-column workbench; rewrite choices remain two columns."
+      },
+      {
+        "name": "workspace-stack",
+        "value": "850px",
+        "purpose": "Workspace: source/findings stack, check choices return to two columns."
+      },
+      {
+        "name": "workspace-mobile",
+        "value": "600px",
+        "purpose": "Workspace: text pairs, checks, supplemental fields and compact padding."
+      },
+      {
+        "name": "onboarding-compact",
+        "value": "1100px",
+        "purpose": "GettingStarted: 280px rail, 32px gap and stacked header."
+      },
+      {
+        "name": "onboarding-stack",
+        "value": "850px",
+        "purpose": "GettingStarted: static two-column choices above setup."
+      },
+      {
+        "name": "onboarding-mobile",
+        "value": "600px",
+        "purpose": "GettingStarted: choices/support stack and task selector uses 16px text."
+      },
+      {
+        "name": "reading-compact",
+        "value": "1100px",
+        "purpose": "ReadingLayout: stacked header, 192px index and 40px gap."
+      },
+      {
+        "name": "reading-index-wrap",
+        "value": "850px",
+        "purpose": "ReadingLayout: static wrapping index and stacked next actions."
+      },
+      {
+        "name": "reading-mobile",
+        "value": "600px",
+        "purpose": "ReadingLayout: compact headings/spacing and recovery heading."
       }
     ]
   },
@@ -35,58 +316,102 @@
       "name": "Primary button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Primary task action.",
-      "html": "<button class=\"ds-control ds-primary\">Kiểm tra văn bản</button>",
-      "css": ".ds-primary{font:600 14px/1.4 'Be Vietnam Pro',sans-serif;min-height:46px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:background-color 160ms ease;background:var(--accent,#c4ef91);color:var(--accent-ink,#14220b);border:1px solid transparent}.ds-primary:hover{background:var(--accent-hover,#d6f6b2)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+      "description": "Primary task action, with shared hover, disabled and focus states.",
+      "html": "<button class=\"ds-control ds-primary\">Soát văn phong</button>",
+      "css": ".ds-primary{font:600 14px/1.4 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif);min-height:46px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease;background:var(--accent,#c4ef91);color:var(--accent-ink,#14220b);border:1px solid transparent}.ds-primary:hover:not(:disabled){background:var(--accent-hover,#d6f6b2)}.ds-control:disabled{opacity:.5;cursor:not-allowed}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-control{transition:none}}"
     },
     {
       "name": "Secondary button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Secondary task action.",
+      "description": "Secondary action using a visible control border.",
       "html": "<button class=\"ds-control ds-secondary\">Dùng trong chatbot</button>",
-      "css": ".ds-secondary{font:600 14px/1.4 'Be Vietnam Pro',sans-serif;min-height:46px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:background-color 160ms ease;background:transparent;color:var(--foreground,#eef2f5);border:1px solid var(--control-border,#566678)}.ds-secondary:hover{background:var(--surface-raised,#18212b)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+      "css": ".ds-secondary{font:600 14px/1.4 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif);min-height:46px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease;background:transparent;color:var(--foreground,#eef2f5);border:1px solid var(--control-border,#566678)}.ds-secondary:hover:not(:disabled){background:var(--surface-raised,#18212b)}.ds-control:disabled{opacity:.5;cursor:not-allowed}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-control{transition:none}}"
     },
     {
       "name": "Text field",
       "kind": "input",
       "refersTo": "field",
-      "description": "Labeled text input.",
-      "html": "<label class=\"ds-label\" for=\"ds-text\">Văn bản cần soát</label><textarea class=\"ds-control ds-field\" id=\"ds-text\" placeholder=\"Dán hoặc nhập đoạn tiếng Việt…\"></textarea>",
-      "css": ".ds-label{display:block;margin-bottom:8px;font:600 13px 'Be Vietnam Pro',sans-serif;color:var(--muted,#aab6c4)}.ds-field{display:block;width:100%;min-height:120px;padding:16px;border:1px solid var(--control-border,#566678);border-radius:8px;background:var(--background,#0b0f14);color:var(--foreground,#eef2f5);font:16px/1.75 'Be Vietnam Pro',sans-serif;caret-color:var(--accent,#c4ef91)}.ds-field::placeholder{color:var(--muted,#aab6c4)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+      "description": "Shared labeled field shown in its editor variant.",
+      "html": "<label class=\"ds-label\" for=\"ds-text\">Văn bản cần soát</label><textarea class=\"ds-control ds-field\" id=\"ds-text\" placeholder=\"Dán hoặc nhập đoạn tiếng Việt bạn muốn soát…\"></textarea>",
+      "css": ".ds-label{display:block;margin-bottom:8px;font:600 14px/1.4 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif);color:var(--muted,#aab6c4)}.ds-field{display:block;box-sizing:border-box;width:100%;min-height:18rem;resize:vertical;padding:16px;border:1px solid var(--control-border,#566678);border-radius:8px;background:var(--background,#0b0f14);color:var(--foreground,#eef2f5);font:16px/1.75 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif);caret-color:var(--accent,#c4ef91);transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease}.ds-field::placeholder{color:var(--muted,#aab6c4);opacity:1}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-control{transition:none}}"
     },
     {
       "name": "Navigation link",
       "kind": "nav",
-      "description": "Current-route navigation.",
-      "html": "<a class=\"ds-control ds-nav\" href=\"/check\" aria-current=\"page\">Soát văn bản</a>",
-      "css": ".ds-nav{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border-radius:8px;color:var(--foreground,#eef2f5);background:var(--surface-raised,#18212b);font:13px 'Be Vietnam Pro',sans-serif;text-decoration:none}.ds-nav:hover{color:var(--accent,#c4ef91)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+      "description": "Current-route navigation on the opaque shared header.",
+      "html": "<nav aria-label=\"Điều hướng chính\"><a class=\"ds-control ds-nav\" href=\"/check\" aria-current=\"page\">Soát văn bản</a></nav>",
+      "css": ".ds-nav{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border-radius:8px;color:var(--muted,#aab6c4);font:400 14px/1.7 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif);text-decoration:none;white-space:nowrap;transition:color 160ms ease,background-color 160ms ease}.ds-nav:hover,.ds-nav[aria-current]{color:var(--foreground,#eef2f5);background:var(--surface-raised,#18212b)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-control{transition:none}}"
     },
     {
-      "name": "Example panel",
+      "name": "Finding filter",
+      "kind": "chip",
+      "description": "A native pressed-state filter for findings.",
+      "html": "<button class=\"ds-control ds-filter\" aria-pressed=\"true\">Tất cả (4)</button>",
+      "css": ".ds-filter{min-height:44px;border:1px solid var(--border,#2b3846);border-radius:8px;padding:8px 12px;color:var(--muted,#aab6c4);background:transparent;font:400 14px/1.7 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif);font-variant-numeric:tabular-nums;cursor:pointer;transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease}.ds-filter:hover{border-color:var(--control-border,#566678);color:var(--foreground,#eef2f5);background:var(--surface-raised,#18212b)}.ds-filter[aria-pressed=true]{border-color:var(--accent,#c4ef91);color:var(--accent,#c4ef91);background:var(--background,#0b0f14)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-control{transition:none}}"
+    },
+    {
+      "name": "Comparison container",
       "kind": "card",
       "refersTo": "surface-panel",
-      "description": "Writing output with preserved line breaks.",
-      "html": "<section class=\"ds-panel\"><h3>AI có nạp skill</h3><p>Bấm nút “Nhập CSV”.</p></section>",
-      "css": ".ds-panel{padding:24px;border:1px solid var(--border,#2b3846);border-radius:14px;background:var(--surface,#11171f);color:var(--foreground,#eef2f5);font:15px/1.9 'Be Vietnam Pro',sans-serif}.ds-panel h3{margin:0 0 22px;color:var(--accent,#c4ef91);font-size:13px;font-weight:600}.ds-panel p{margin:0;white-space:pre-wrap}"
+      "description": "Flat enclosing panel with a subtle tint identifying the skill-loaded condition.",
+      "html": "<section class=\"ds-comparison\"><div class=\"ds-output\"><h3>AI chưa nạp skill</h3><p>Đầu ra được giữ nguyên.</p></div><div class=\"ds-output ds-guided\"><h3>AI có nạp skill</h3><p>Đầu ra được giữ nguyên.</p></div></section>",
+      "css": ".ds-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--border,#2b3846);border-radius:14px;overflow:hidden;background:var(--surface,#11171f);color:var(--foreground,#eef2f5);font-family:var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif)}.ds-output{min-width:0;padding:28px}.ds-output+.ds-output{border-inline-start:1px solid var(--border,#2b3846)}.ds-output h3{margin:0 0 20px;color:var(--muted,#aab6c4);font-size:14px;font-weight:600}.ds-output p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:16px;line-height:1.85}.ds-guided{background:#141e1b}.ds-guided h3{color:var(--accent,#c4ef91)}@media(max-width:780px){.ds-comparison{grid-template-columns:minmax(0,1fr)}.ds-output+.ds-output{border-inline-start:0;border-top:1px solid var(--border,#2b3846)}}@media(max-width:600px){.ds-output{padding:24px 20px}}"
+    },
+    {
+      "name": "Check disclosure",
+      "kind": "custom",
+      "description": "Native disclosure retains optional checks near submission without occupying the default view.",
+      "html": "<details class=\"ds-options\"><summary class=\"ds-control\">Nhóm kiểm tra <span>4/4 đang bật</span></summary><label class=\"ds-check\"><input type=\"checkbox\" checked> Lối viết tự nhiên</label></details>",
+      "css": ".ds-options{margin-top:20px;border-top:1px solid var(--border,#2b3846);color:var(--foreground,#eef2f5);font-family:var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif)}.ds-options summary{min-height:48px;padding-block:12px;font-size:14px;font-weight:600;cursor:pointer}.ds-options summary::marker{color:var(--muted,#aab6c4)}.ds-options summary span{float:right;padding-left:12px;color:var(--muted,#aab6c4);font-weight:400;font-variant-numeric:tabular-nums}.ds-check{display:flex;align-items:flex-start;gap:12px;min-height:44px;padding-block:12px;font-size:14px;cursor:pointer}.ds-check input{width:20px;height:20px;flex-shrink:0;margin-top:4px;accent-color:var(--accent,#c4ef91)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}.ds-check input:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}"
+    },
+    {
+      "name": "Install command",
+      "kind": "custom",
+      "description": "Wrapping command with its copy control and action-adjacent status.",
+      "html": "<div class=\"ds-install\"><code>npx skills add longhang2004/vietnamese-humanizer</code><button class=\"ds-control ds-copy\" aria-label=\"Sao chép lệnh cài skill\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M9 8h10v13H9zM15 8V3H4v13h5\"/></svg></button></div><p class=\"ds-status\" role=\"status\">Đã sao chép lệnh.</p>",
+      "css": ".ds-install{display:flex;align-items:center;gap:8px;padding-inline-start:16px;border:1px solid var(--control-border,#566678);border-radius:8px;background:var(--surface,#11171f)}.ds-install code{flex:1;min-width:0;padding-block:14px;color:var(--foreground,#eef2f5);white-space:normal;overflow-wrap:anywhere;font:400 13px/1.7 var(--font-mono,'JetBrains Mono',monospace)}.ds-copy{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:44px;min-height:44px;margin-inline-end:4px;padding:10px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted,#aab6c4);cursor:pointer;transition:color 160ms ease,background-color 160ms ease}.ds-copy:hover{background:var(--surface-raised,#18212b)}.ds-control:focus-visible{outline:2px solid var(--accent,#c4ef91);outline-offset:4px}.ds-status{min-height:24px;margin:4px 0 0;color:var(--accent,#c4ef91);font:400 14px/1.7 var(--font-sans,'Be Vietnam Pro','Segoe UI',sans-serif)}@media(prefers-reduced-motion:reduce){.ds-control{transition:none}}"
     }
   ],
   "narrative": {
     "northStar": "A dark workspace for Vietnamese writing",
-    "overview": "Readable Vietnamese, actual examples and a clear path into the editor are the focus. Graphite surfaces and pale lime establish the visual identity.",
+    "overview": "The user selected a dark interface aimed at technical users on 04 November 2026 and retained that identity for the layout refactor. Readable Vietnamese, actual output examples and a clear path into the editor remain the focus. Graphite surfaces and a pale lime accent establish the visual identity.\n\nThe shared system supports wide working regions and controlled reading measures. Rules, aligned rows and restrained tonal changes organize the content; native controls and direct labels keep the same interface usable for nontechnical readers. Surface-specific composition is recorded in the briefs under `.impeccable/surfaces/`.",
     "keyCharacteristics": [
-      "Dark canvas and flat surfaces",
-      "Readable Vietnamese typography",
-      "Direct labels and progressive disclosure",
-      "Native controls and visible focus"
+      "Dark canvas, flat surfaces and visible borders.",
+      "Vietnamese typography with commands in monospace.",
+      "Direct labels and progressive disclosure.",
+      "Native controls, visible focus and generous touch targets."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Rule",
+        "body": "Comparison emphasis distinguishes the two recorded conditions; it must not imply a measured quality advantage.",
+        "section": "colors"
+      },
+      {
+        "name": "The Vietnamese Reading Rule",
+        "body": "Preserve Vietnamese glyph coverage, comfortable line height and the original line breaks of published output examples.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Workbench Rule",
+        "body": "Use shared boundaries and tonal changes to organize working regions; avoid stacking decorative cards inside them.",
+        "section": "elevation"
+      }
     ],
     "dos": [
-      "Keep the user's text prominent.",
-      "Preserve verbatim outputs and provenance."
+      "**Do** keep the user's text and current task prominent.",
+      "**Do** keep outputs verbatim and link their prompts and skill snapshot.",
+      "**Do** use existing semantic colors, self-hosted fonts and native controls.",
+      "**Do** preserve visible focus, reduced-motion behavior and minimum action targets.",
+      "**Do** use the documented breakpoint for the affected module rather than assuming one global stacking threshold.",
+      "**Do** review desktop, tablet and 375px mobile layouts, including loading, error and empty states."
     ],
     "donts": [
-      "Invent scores, stars or quality claims.",
-      "Add persistent supporting notices above the task."
+      "**Don't** invent scores, stars or claims that a skill always improves output.",
+      "**Don't** put persistent supporting notices above the main task.",
+      "**Don't** add decorative metrics, gradient lettering or translucent panels to this design.",
+      "**Don't** promote surface-specific composition into a rule for every page."
     ]
   }
 }

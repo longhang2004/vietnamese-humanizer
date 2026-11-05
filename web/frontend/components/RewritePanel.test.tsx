@@ -21,13 +21,19 @@ test("clears a previous rewrite when the linted text changes", async () => {
   });
 
   const { rerender } = render(
-    <RewritePanel originalText="Văn bản A" issueIds={["VI-HUM-L02"]} />
+    <RewritePanel originalText="Văn bản A" issueIds={["VI-HUM-L02"]} />,
   );
-  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
-  expect(await screen.findByText("Bản viết lại của văn bản A")).toBeInTheDocument();
+  await user.click(
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+  );
+  expect(
+    await screen.findByText("Bản viết lại của văn bản A"),
+  ).toBeInTheDocument();
 
   rerender(<RewritePanel originalText="Văn bản B" issueIds={["VI-GRA-L01"]} />);
-  expect(screen.queryByText("Bản viết lại của văn bản A")).not.toBeInTheDocument();
+  expect(
+    screen.queryByText("Bản viết lại của văn bản A"),
+  ).not.toBeInTheDocument();
 });
 
 test("ignores a late rewrite response after the input has changed", async () => {
@@ -41,14 +47,14 @@ test("ignores a late rewrite response after the input has changed", async () => 
     () =>
       new Promise((resolve) => {
         resolveRewrite = resolve;
-      })
+      }),
   );
 
   const { rerender, container } = render(
-    <RewritePanel originalText="Văn bản A" issueIds={["VI-HUM-L02"]} />
+    <RewritePanel originalText="Văn bản A" issueIds={["VI-HUM-L02"]} />,
   );
   await user.click(
-    screen.getByRole("button", { name: /Viết lại bằng Gemini/i })
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
   );
   rerender(<RewritePanel originalText="Văn bản B" issueIds={["VI-GRA-L01"]} />);
   resolveRewrite({
@@ -64,78 +70,148 @@ test("ignores a late rewrite response after the input has changed", async () => 
 test("sends the selected voice, relationship and context", async () => {
   const user = userEvent.setup();
   vi.mocked(rewriteText).mockResolvedValue({
-    rewrite: "Bạn gửi bản nháp giúp mình.", output_mode: "clean_rewrite", comments: [],
-    review_status: "unreviewed", disclaimer: "Cần duyệt",
+    rewrite: "Bạn gửi bản nháp giúp mình.",
+    output_mode: "clean_rewrite",
+    comments: [],
+    review_status: "unreviewed",
+    disclaimer: "Cần duyệt",
   });
   render(<RewritePanel originalText="Vui lòng gửi bản nháp." />);
   await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
   await user.selectOptions(screen.getByLabelText("Kênh sử dụng"), "chat");
-  await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
-  await user.type(screen.getByLabelText("Quan hệ giao tiếp"), "Đồng nghiệp cùng nhóm");
+  await user.selectOptions(
+    screen.getByLabelText("Giọng mong muốn"),
+    "friendly",
+  );
+  await user.type(
+    screen.getByLabelText("Quan hệ giao tiếp"),
+    "Đồng nghiệp cùng nhóm",
+  );
   await user.type(screen.getByLabelText("Cách xưng hô"), "mình–bạn");
   await user.type(screen.getByLabelText("Ngữ cảnh bổ sung"), "Hạn là 15:00");
   await user.click(screen.getByRole("checkbox"));
-  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
-  expect(rewriteText).toHaveBeenCalledWith("Vui lòng gửi bản nháp.", "humanizer-vi", undefined, {
-    context: "Hạn là 15:00",
-    style: expect.objectContaining({
-      channel: "chat", register: "friendly", relationship: "Đồng nghiệp cùng nhóm",
-      pronouns: "mình–bạn", reduce_hype: true,
-    }),
-  });
+  await user.click(
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+  );
+  expect(rewriteText).toHaveBeenCalledWith(
+    "Vui lòng gửi bản nháp.",
+    "humanizer-vi",
+    undefined,
+    {
+      context: "Hạn là 15:00",
+      style: expect.objectContaining({
+        channel: "chat",
+        register: "friendly",
+        relationship: "Đồng nghiệp cùng nhóm",
+        pronouns: "mình–bạn",
+        reduce_hype: true,
+      }),
+    },
+  );
 });
 
 test.each(["review_comment", "needs_author_decision"] as const)(
-  "%s displays comments without offering to copy a replacement", async (output_mode) => {
+  "%s displays comments without offering to copy a replacement",
+  async (output_mode) => {
     const user = userEvent.setup();
     vi.mocked(rewriteText).mockResolvedValue({
-      rewrite: "This must never be offered as a replacement.", output_mode,
-      comments: ["Ai là người duyệt bản nháp?"], review_status: "unreviewed", disclaimer: "Cần duyệt",
+      rewrite: "This must never be offered as a replacement.",
+      output_mode,
+      comments: ["Ai là người duyệt bản nháp?"],
+      review_status: "unreviewed",
+      disclaimer: "Cần duyệt",
     });
     render(<RewritePanel originalText="Họ sẽ duyệt bản nháp." />);
-    await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
-    expect(await screen.findByText("Ai là người duyệt bản nháp?")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /Sao chép kết quả/i })).not.toBeInTheDocument();
-    expect(screen.queryByText("This must never be offered as a replacement.")).not.toBeInTheDocument();
-  }
+    await user.click(
+      screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+    );
+    expect(
+      await screen.findByText("Ai là người duyệt bản nháp?"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /Sao chép kết quả/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("This must never be offered as a replacement."),
+    ).not.toBeInTheDocument();
+  },
 );
 
 test("changing the profile invalidates an in-flight result", async () => {
   const user = userEvent.setup();
   let resolveRewrite!: (value: Awaited<ReturnType<typeof rewriteText>>) => void;
-  vi.mocked(rewriteText).mockImplementation(() => new Promise((resolve) => { resolveRewrite = resolve; }));
+  vi.mocked(rewriteText).mockImplementation(
+    () =>
+      new Promise((resolve) => {
+        resolveRewrite = resolve;
+      }),
+  );
   render(<RewritePanel originalText="Văn bản cần sửa." />);
-  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
+  await user.click(
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+  );
   await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
   await user.selectOptions(screen.getByLabelText("Loại bài viết"), "technical");
-  resolveRewrite({ rewrite: "Bản theo profile cũ", review_status: "unreviewed", disclaimer: "Cần duyệt" });
+  resolveRewrite({
+    rewrite: "Bản theo profile cũ",
+    review_status: "unreviewed",
+    disclaimer: "Cần duyệt",
+  });
   await Promise.resolve();
   expect(screen.queryByText("Bản theo profile cũ")).not.toBeInTheDocument();
-  expect(screen.getByRole("button", { name: /Viết lại bằng Gemini/i })).toBeEnabled();
+  expect(
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+  ).toBeEnabled();
 });
 
-test.each(["technical", "administrative", "social", "marketing"])("selecting %s keeps explicit voice, channel and edit depth", async (profile) => {
-  const user = userEvent.setup();
-  vi.mocked(rewriteText).mockResolvedValue({
-    rewrite: "Nếu mất mạng, giữ cửa sổ mở.", output_mode: "no_change", comments: [],
-    review_status: "unreviewed", disclaimer: "Cần duyệt",
-  });
-  render(<RewritePanel originalText="Nếu mất mạng, giữ cửa sổ mở." />);
-  await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
-  await user.selectOptions(screen.getByLabelText("Kênh sử dụng"), "email");
-  await user.selectOptions(screen.getByLabelText("Giọng mong muốn"), "friendly");
-  await user.selectOptions(screen.getByLabelText("Mức can thiệp"), "moderate");
-  await user.selectOptions(screen.getByLabelText("Loại bài viết"), profile);
-  expect(screen.getByLabelText("Giọng mong muốn")).toHaveValue("friendly");
-  expect(screen.getByLabelText("Kênh sử dụng")).toHaveValue("email");
-  expect(screen.getByLabelText("Mức can thiệp")).toHaveValue("moderate");
-  await user.click(screen.getByRole("button", { name: /Viết lại bằng Gemini/i }));
-  expect(rewriteText).toHaveBeenCalledWith(expect.any(String), "humanizer-vi", undefined, {
-    context: "", style: expect.objectContaining({
-      profile, channel: "email", register: "friendly", edit_level: "moderate",
-    }),
-  });
-  expect(await screen.findByText("Giữ nguyên văn bản:")).toBeInTheDocument();
-  await user.selectOptions(screen.getByLabelText("Loại bài viết"), "business");
-  expect(screen.queryByText("Giữ nguyên văn bản:")).not.toBeInTheDocument();
-});
+test.each(["technical", "administrative", "social", "marketing"])(
+  "selecting %s keeps explicit voice, channel and edit depth",
+  async (profile) => {
+    const user = userEvent.setup();
+    vi.mocked(rewriteText).mockResolvedValue({
+      rewrite: "Nếu mất mạng, giữ cửa sổ mở.",
+      output_mode: "no_change",
+      comments: [],
+      review_status: "unreviewed",
+      disclaimer: "Cần duyệt",
+    });
+    render(<RewritePanel originalText="Nếu mất mạng, giữ cửa sổ mở." />);
+    await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
+    await user.selectOptions(screen.getByLabelText("Kênh sử dụng"), "email");
+    await user.selectOptions(
+      screen.getByLabelText("Giọng mong muốn"),
+      "friendly",
+    );
+    await user.selectOptions(
+      screen.getByLabelText("Mức can thiệp"),
+      "moderate",
+    );
+    await user.selectOptions(screen.getByLabelText("Loại bài viết"), profile);
+    expect(screen.getByLabelText("Giọng mong muốn")).toHaveValue("friendly");
+    expect(screen.getByLabelText("Kênh sử dụng")).toHaveValue("email");
+    expect(screen.getByLabelText("Mức can thiệp")).toHaveValue("moderate");
+    await user.click(
+      screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+    );
+    expect(rewriteText).toHaveBeenCalledWith(
+      expect.any(String),
+      "humanizer-vi",
+      undefined,
+      {
+        context: "",
+        style: expect.objectContaining({
+          profile,
+          channel: "email",
+          register: "friendly",
+          edit_level: "moderate",
+        }),
+      },
+    );
+    expect(await screen.findByText("Giữ nguyên văn bản:")).toBeInTheDocument();
+    await user.selectOptions(
+      screen.getByLabelText("Loại bài viết"),
+      "business",
+    );
+    expect(screen.queryByText("Giữ nguyên văn bản:")).not.toBeInTheDocument();
+  },
+);

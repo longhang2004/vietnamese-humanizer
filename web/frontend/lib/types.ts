@@ -71,9 +71,17 @@ export interface SkillsResponse {
 }
 
 export interface RewriteStyle {
-  profile: "preserve" | "plain" | "business" | "technical" | "administrative" | "social" | "marketing";
+  profile:
+    | "preserve"
+    | "plain"
+    | "business"
+    | "technical"
+    | "administrative"
+    | "social"
+    | "marketing";
   channel: "auto" | "document" | "email" | "chat" | "spoken_script";
-  register: "preserve" | "formal" | "professional" | "friendly" | "conversational";
+  register:
+    "preserve" | "formal" | "professional" | "friendly" | "conversational";
   audience: string;
   relationship: string;
   pronouns: string;
@@ -87,7 +95,7 @@ export interface RewriteOptions {
 }
 
 export type RewriteOutputMode =
-  | "clean_rewrite" | "review_comment" | "needs_author_decision" | "no_change";
+  "clean_rewrite" | "review_comment" | "needs_author_decision" | "no_change";
 
 export interface RewriteResponse {
   rewrite: string;

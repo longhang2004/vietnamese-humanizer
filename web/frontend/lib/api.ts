@@ -32,13 +32,16 @@ async function handleResponse<T>(res: Response): Promise<T> {
 export async function fetchHealth(): Promise<HealthResponse> {
   if (!healthRequest) {
     healthRequest = fetch(`${API_BASE}/api/health`).then((res) =>
-      handleResponse<HealthResponse>(res)
+      handleResponse<HealthResponse>(res),
     );
   }
   return healthRequest;
 }
 
-export async function lintText(text: string, skills?: string[]): Promise<LintResponse> {
+export async function lintText(
+  text: string,
+  skills?: string[],
+): Promise<LintResponse> {
   const res = await fetch(`${API_BASE}/api/lint`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -61,7 +64,7 @@ export async function rewriteText(
   text: string,
   skill: string = "humanizer-vi",
   issueIds?: string[],
-  options: RewriteOptions = {}
+  options: RewriteOptions = {},
 ): Promise<RewriteResponse> {
   const res = await fetch(`${API_BASE}/api/rewrite`, {
     method: "POST",
@@ -72,7 +75,7 @@ export async function rewriteText(
 }
 
 export async function submitContribution(
-  data: ContributionRequest
+  data: ContributionRequest,
 ): Promise<ContributionResponse> {
   const res = await fetch(`${API_BASE}/api/contributions`, {
     method: "POST",

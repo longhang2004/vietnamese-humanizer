@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ReadingHeader } from "../../components/ReadingLayout";
+import styles from "../../components/ReadingLayout.module.css";
 import { ComparisonExplorer } from "../../components/ComparisonExplorer";
 import comparisons from "../../content/comparisons.json";
 import { REPOSITORY_URL } from "../../lib/repository";
@@ -13,20 +15,17 @@ export const metadata: Metadata = {
 
 export default function ExamplesPage() {
   return (
-    <>
-      <div className="page-heading">
-        <h1>Khi AI có thêm bộ skill tiếng Việt.</h1>
-        <p>
-          Cùng đoạn gốc và yêu cầu biên tập, hai agent xử lý trong hai ngữ cảnh
-          riêng. Chọn một chủ đề để đọc cả hai bản.
-        </p>
-      </div>
+    <div className={styles.examples}>
+      <ReadingHeader title="Khi AI có thêm bộ skill tiếng Việt.">
+        Cùng đoạn gốc và yêu cầu biên tập, hai agent xử lý trong hai ngữ cảnh
+        riêng. Chọn một chủ đề để đọc cả hai bản.
+      </ReadingHeader>
       <ComparisonExplorer
         cases={comparisons.cases}
         initialId="technical"
         headingLevel={2}
       />
-      <details className="methodology">
+      <details className={styles.methodology}>
         <summary>Các ví dụ được tạo như thế nào?</summary>
         <p>
           Ngày 04/11/2026, hai Codex subagent nhận cùng sáu đoạn giả định và yêu
@@ -55,14 +54,12 @@ export default function ExamplesPage() {
           .
         </p>
       </details>
-      <div className="section-space flex flex-wrap items-center justify-between gap-6">
+      <section className={styles.nextAction} aria-labelledby="examples-next">
         <div>
-          <h2 className="text-2xl font-semibold">Thử với đoạn của bạn.</h2>
-          <p className="mt-3 text-[var(--muted)]">
-            Soát ngay trên web, hoặc chọn skill cho chatbot.
-          </p>
+          <h2 id="examples-next">Thử với đoạn của bạn.</h2>
+          <p>Soát ngay trên web, hoặc chọn skill cho chatbot.</p>
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className={styles.actions}>
           <Link className="button-primary" href="/check">
             Soát văn bản
           </Link>
@@ -70,7 +67,7 @@ export default function ExamplesPage() {
             Dùng trong chatbot
           </Link>
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }

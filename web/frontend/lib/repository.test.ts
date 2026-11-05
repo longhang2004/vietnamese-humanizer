@@ -4,7 +4,13 @@ import { getRepositoryStars } from "./repository";
 afterEach(() => vi.unstubAllGlobals());
 
 test("reads the actual star count, including zero", async () => {
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({ stargazers_count: 0 }) }));
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ stargazers_count: 0 }),
+    }),
+  );
   expect(await getRepositoryStars()).toBe(0);
 });
 

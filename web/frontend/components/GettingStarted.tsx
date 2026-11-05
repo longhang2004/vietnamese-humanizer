@@ -11,6 +11,7 @@ import {
   starterPrompt,
   starterSkills,
 } from "../lib/onboarding";
+import styles from "./GettingStarted.module.css";
 
 const PLATFORMS: { id: Platform; label: string; url: string }[] = [
   { id: "chatgpt", label: "ChatGPT", url: "https://chatgpt.com/" },
@@ -28,32 +29,32 @@ function CopyPrompt({ text }: { text: string }) {
       setMessage("Đã sao chép.");
     } catch {
       setMessage(
-        "Chưa sao chép được. Bạn có thể chọn toàn bộ nội dung trong ô bên dưới và sao chép trực tiếp.",
+        "Chưa sao chép được. Bạn có thể chọn toàn bộ nội dung trong ô yêu cầu mẫu và sao chép trực tiếp.",
       );
     }
   }
 
   return (
-    <div className="space-y-3">
-      <button type="button" onClick={copy} className="button-primary">
-        Sao chép yêu cầu
-      </button>
-      <p role="status" className="text-sm text-[var(--accent)]">
-        {message}
-      </p>
-      <label
-        className="block text-sm font-medium text-[var(--muted)]"
-        htmlFor="starter-prompt"
-      >
-        Yêu cầu mẫu để sao chép
-      </label>
+    <div className={styles.copyPrompt}>
+      <div className={styles.promptControls}>
+        <label className={styles.promptLabel} htmlFor="starter-prompt">
+          Yêu cầu mẫu để sao chép
+        </label>
+        <button type="button" onClick={copy} className="button-primary">
+          <Icon name="copy" width="16" height="16" />
+          Sao chép yêu cầu
+        </button>
+      </div>
       <textarea
         id="starter-prompt"
         readOnly
         value={text}
-        rows={8}
-        className="field min-h-64 resize-y"
+        rows={10}
+        className={`field ${styles.promptField}`}
       />
+      <p role="status" className={styles.copyStatus}>
+        {message}
+      </p>
     </div>
   );
 }
@@ -68,267 +69,213 @@ export function GettingStarted() {
   const download = nativePlatform ? skillDownload(nativePlatform, skill) : null;
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8 pb-10">
-      <section className="page-heading">
-        <h1 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
-          Viết tiếng Việt tự nhiên hơn với chatbot bạn đang dùng
-        </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--muted)]">
-          Chọn chatbot và việc bạn muốn làm.
-        </p>
-        <Link
-          href="/check"
-          className="text-link action-link mt-5 text-sm font-semibold"
-        >
-          Soát văn phong ngay trên web{" "}
+    <div className={styles.page}>
+      <header className={`page-heading ${styles.header}`}>
+        <div>
+          <h1>Viết tiếng Việt tự nhiên hơn với chatbot bạn đang dùng</h1>
+          <p>Chọn chatbot và việc bạn muốn làm.</p>
+        </div>
+        <Link href="/check" className="text-link action-link">
+          Soát văn phong ngay trên web
           <Icon name="arrow" width="16" height="16" />
         </Link>
-      </section>
+      </header>
 
-      <section className="surface-panel space-y-7 p-5 sm:p-8">
-        <fieldset>
-          <legend className="mb-3 text-lg font-semibold text-[var(--foreground)]">
-            1. Bạn đang dùng công cụ nào?
-          </legend>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {PLATFORMS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                aria-pressed={platformId === item.id}
-                onClick={() => setPlatformId(item.id)}
-                className={`rounded-xl border px-3 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${platformId === item.id ? "border-[var(--accent)] bg-[var(--surface-raised)] text-[var(--accent)]" : "border-[var(--control-border)] text-[var(--muted)] hover:border-[var(--accent)]"}`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-
-        <div>
-          <label
-            htmlFor="starter-task"
-            className="mb-3 block text-lg font-semibold text-[var(--foreground)]"
-          >
-            2. Chọn việc muốn làm
-          </label>
-          <select
-            id="starter-task"
-            value={skillId}
-            onChange={(event) => setSkillId(event.target.value)}
-            className="field"
-          >
-            {starterSkills.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.title}
-              </option>
-            ))}
-          </select>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
-            {skill.summary}
-          </p>
-        </div>
-
-        <div className="border-t border-[var(--border)] pt-6">
-          <h2 className="text-lg font-semibold text-[var(--foreground)]">
-            3. Bắt đầu với {platform.label}
-          </h2>
-          {download && (
-            <div className="mt-4 space-y-4">
-              <a
-                href={download.href}
-                download
-                className="button-primary max-w-full flex-wrap text-left"
-              >
-                Tải skill “{skill.title}”{" "}
-                <span className="text-xs font-normal text-[var(--accent-ink)]">
-                  ZIP · {download.size}
-                </span>
-              </a>
-              <div
-                aria-hidden="true"
-                className="grid grid-cols-3 gap-2 rounded-xl bg-[var(--surface-raised)] p-3 text-center text-xs font-medium text-[var(--muted)]"
-              >
-                {[
-                  {
-                    label: "Tải về",
-                    path: "M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4",
-                  },
-                  {
-                    label: "Thêm skill",
-                    path: "M3 7h7l2 2h9v11H3ZM12 11v6m-3-3h6",
-                  },
-                  {
-                    label: "Thử với văn bản của bạn",
-                    path: "M5 4h14v13H9l-4 4Zm4 5h6m-6 4h4",
-                  },
-                ].map((step) => (
-                  <div key={step.label}>
-                    <svg
-                      className="mx-auto mb-2 h-7 w-7 text-[var(--accent)]"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d={step.path} />
-                    </svg>
-                    {step.label}
-                  </div>
-                ))}
-              </div>
-              <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-[var(--muted)]">
-                <li>Tải tệp ZIP ở trên về máy.</li>
-                {platformId === "claude" ? (
-                  <>
-                    <li>
-                      Mở Claude → Customize → Skills → thêm skill → Upload a
-                      skill, rồi chọn tệp vừa tải.
-                    </li>
-                    <li>
-                      Bật skill. Nếu Claude yêu cầu, bật Code execution and file
-                      creation trong Settings → Capabilities.
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      Trên web Gemini, mở Customize → Skills → Create → Upload,
-                      rồi chọn tệp vừa tải.
-                    </li>
-                    <li>Xem lại nội dung rồi chọn Create.</li>
-                  </>
-                )}
-                <li>
-                  Mở cuộc trò chuyện mới, dán yêu cầu mẫu bên dưới và thêm văn
-                  bản của bạn.
-                </li>
-              </ol>
-              <p className="text-sm text-[var(--muted)]">
-                Nếu chưa thấy mục Skills, bạn vẫn có thể dùng yêu cầu mẫu bên
-                dưới.
-              </p>
-            </div>
-          )}
-          {platformId === "chatgpt" && (
-            <div className="mt-3 space-y-3 text-sm leading-relaxed text-[var(--muted)]">
-              {chatgptInstallUrl ? (
-                <a
-                  href={chatgptInstallUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="button-primary"
+      <div className={styles.workspace}>
+        <aside
+          className={styles.choices}
+          aria-label="Chọn chatbot và việc cần làm"
+        >
+          <fieldset>
+            <legend>Bạn đang dùng công cụ nào?</legend>
+            <div className={styles.platforms}>
+              {PLATFORMS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-pressed={platformId === item.id}
+                  onClick={() => setPlatformId(item.id)}
+                  className={styles.platform}
                 >
-                  Cài plugin trong ChatGPT
-                </a>
-              ) : (
-                <p>
-                  Dùng ngay bằng cách sao chép yêu cầu mẫu, mở ChatGPT và dán
-                  vào cuộc trò chuyện mới.
-                </p>
-              )}
+                  {item.label}
+                </button>
+              ))}
             </div>
-          )}
-          {platformId === "other" && (
-            <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">
-              Sao chép yêu cầu mẫu và dán vào chatbot của bạn. Nếu chatbot cho
-              đính kèm tài liệu, bạn có thể thêm bộ hướng dẫn đầy đủ bên dưới.
-            </p>
-          )}
-          {platform.url && (
-            <a
-              href={platform.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link action-link mt-4 text-sm font-semibold"
+          </fieldset>
+
+          <div className={styles.task}>
+            <label htmlFor="starter-task">Chọn việc muốn làm</label>
+            <select
+              id="starter-task"
+              value={skillId}
+              onChange={(event) => setSkillId(event.target.value)}
+              aria-describedby="starter-task-description"
+              className="field"
             >
-              Mở {platform.label}{" "}
-              <Icon name="external" width="16" height="16" />
-            </a>
-          )}
-        </div>
+              {starterSkills.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+            <p id="starter-task-description">{skill.summary}</p>
+          </div>
+        </aside>
 
-        <div className="border-t border-[var(--border)] pt-6">
-          <h2 className="mb-3 text-lg font-semibold text-[var(--foreground)]">
-            Thử với văn bản của bạn
-          </h2>
-          <p className="mb-4 text-sm leading-relaxed text-[var(--muted)]">
-            Thay phần [Dán văn bản của bạn vào đây] bằng đoạn cần sửa.
-          </p>
-          <CopyPrompt
-            key={`${platformId}-${skillId}`}
-            text={starterPrompt(skill)}
-          />
-        </div>
-      </section>
+        <div className={styles.content}>
+          <section className={styles.setup} aria-labelledby="starter-setup">
+            <h2 id="starter-setup">Bắt đầu với {platform.label}</h2>
+            {download && (
+              <div className={styles.nativeSetup}>
+                <a href={download.href} download className="button-primary">
+                  <span>Tải skill “{skill.title}”</span>
+                  <span className={styles.downloadSize}>
+                    ZIP · {download.size}
+                  </span>
+                </a>
+                <ol>
+                  <li>Tải tệp ZIP ở trên về máy.</li>
+                  {platformId === "claude" ? (
+                    <>
+                      <li>
+                        Mở Claude → Customize → Skills → thêm skill → Upload a
+                        skill, rồi chọn tệp vừa tải.
+                      </li>
+                      <li>
+                        Bật skill. Nếu Claude yêu cầu, bật Code execution and
+                        file creation trong Settings → Capabilities.
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        Trên web Gemini, mở Customize → Skills → Create →
+                        Upload, rồi chọn tệp vừa tải.
+                      </li>
+                      <li>Xem lại nội dung rồi chọn Create.</li>
+                    </>
+                  )}
+                  <li>
+                    Mở cuộc trò chuyện mới, dán yêu cầu mẫu bên dưới và thêm văn
+                    bản của bạn.
+                  </li>
+                </ol>
+                <p>
+                  Nếu chưa thấy mục Skills, bạn vẫn có thể dùng yêu cầu mẫu bên
+                  dưới.
+                </p>
+              </div>
+            )}
+            {platformId === "chatgpt" && (
+              <div className={styles.platformSetup}>
+                {chatgptInstallUrl ? (
+                  <a
+                    href={chatgptInstallUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="button-primary"
+                  >
+                    Cài plugin trong ChatGPT
+                  </a>
+                ) : (
+                  <p>
+                    Dùng ngay bằng cách sao chép yêu cầu mẫu, mở ChatGPT và dán
+                    vào cuộc trò chuyện mới.
+                  </p>
+                )}
+              </div>
+            )}
+            {platformId === "other" && (
+              <p className={styles.platformSetup}>
+                Sao chép yêu cầu mẫu và dán vào chatbot của bạn. Nếu chatbot cho
+                đính kèm tài liệu, bạn có thể thêm bộ hướng dẫn đầy đủ bên dưới.
+              </p>
+            )}
+            {platform.url && (
+              <a
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`button-secondary ${styles.openPlatform}`}
+              >
+                Mở {platform.label}
+                <Icon name="external" width="16" height="16" />
+              </a>
+            )}
+          </section>
 
-      <section>
-        <div className="surface-panel p-5">
-          <h2 className="font-semibold text-[var(--foreground)]">
-            Dùng bộ hướng dẫn đầy đủ
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+          <section className={styles.prompt} aria-labelledby="starter-try">
+            <div className={styles.promptHeading}>
+              <h2 id="starter-try">Thử với văn bản của bạn</h2>
+              <p>Thay phần [Dán văn bản của bạn vào đây] bằng đoạn cần sửa.</p>
+            </div>
+            <CopyPrompt
+              key={`${platformId}-${skillId}`}
+              text={starterPrompt(skill)}
+            />
+          </section>
+        </div>
+      </div>
+
+      <div className={styles.support}>
+        <section className={styles.fullGuide} aria-labelledby="starter-guide">
+          <h2 id="starter-guide">Dùng bộ hướng dẫn đầy đủ</h2>
+          <p>
             Nếu chatbot hỗ trợ đọc tệp, bạn có thể đính kèm bộ hướng dẫn đầy đủ.
             Trong yêu cầu, hãy nói rõ phần bạn muốn chatbot áp dụng.
           </p>
           <a
             href="/downloads/huong-dan-tieng-viet.md"
             download
-            className="text-link action-link mt-3 text-sm font-semibold"
+            className="text-link action-link"
           >
             Tải bộ hướng dẫn đầy đủ
           </a>
-        </div>
-      </section>
+        </section>
 
-      <details className="rounded-xl border border-[var(--border)] p-4 text-sm text-[var(--muted)]">
-        <summary className="min-h-11 cursor-pointer font-medium">
-          Hướng dẫn cài đặt chính thức
-        </summary>
-        <p className="mt-3">
-          Đã đối chiếu các bước với tài liệu chính thức ngày {docsCheckedOn}.
-          Giao diện có thể khác tùy tài khoản và phiên bản ứng dụng.
-        </p>
-        {!chatgptInstallUrl && (
-          <p className="mt-3">
-            Gói plugin ChatGPT chưa được phát hành công khai.
+        <details className={styles.references}>
+          <summary>Hướng dẫn cài đặt chính thức</summary>
+          <p>
+            Đã đối chiếu các bước với tài liệu chính thức ngày {docsCheckedOn}.
+            Giao diện có thể khác tùy tài khoản và phiên bản ứng dụng.
           </p>
-        )}
-        <ul className="mt-3 list-disc space-y-2 pl-5">
-          <li>
-            <a
-              className="underline underline-offset-4"
-              href="https://learn.chatgpt.com/docs/plugins"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Plugin trong ChatGPT
-            </a>
-          </li>
-          <li>
-            <a
-              className="underline underline-offset-4"
-              href="https://support.claude.com/en/articles/12512180-use-skills-in-claude"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Cài và dùng skill trong Claude
-            </a>
-          </li>
-          <li>
-            <a
-              className="underline underline-offset-4"
-              href="https://support.google.com/gemini/answer/17094296"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Cài và dùng skill trong Gemini
-            </a>
-          </li>
-        </ul>
-      </details>
+          {!chatgptInstallUrl && (
+            <p>Gói plugin ChatGPT chưa được phát hành công khai.</p>
+          )}
+          <ul>
+            <li>
+              <a
+                className="text-link"
+                href="https://learn.chatgpt.com/docs/plugins"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Plugin trong ChatGPT
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-link"
+                href="https://support.claude.com/en/articles/12512180-use-skills-in-claude"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Cài và dùng skill trong Claude
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-link"
+                href="https://support.google.com/gemini/answer/17094296"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Cài và dùng skill trong Gemini
+              </a>
+            </li>
+          </ul>
+        </details>
+      </div>
     </div>
   );
 }

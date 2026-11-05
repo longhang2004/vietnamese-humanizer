@@ -47,7 +47,7 @@ def test_render_blueprint_allows_the_published_frontend_origin() -> None:
     render = (ROOT / "web" / "backend" / "render.yaml").read_text(encoding="utf-8")
     layout = (FRONTEND / "app" / "layout.tsx").read_text(encoding="utf-8")
     match = re.search(
-        r'NEXT_PUBLIC_SITE_URL \|\| "(https://[^"]+)"',
+        r'NEXT_PUBLIC_SITE_URL\s*\|\|\s*"(https://[^"]+)"',
         layout,
     )
     assert match is not None
