@@ -5,8 +5,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "test": "vitest run"
+    "lint": "npm run format:check && eslint . && npm run ui:check",
+    "test": "vitest run",
+    "format": "prettier --write app components lib \"*.config.{js,ts,mjs}\"",
+    "format:check": "prettier --check app components lib \"*.config.{js,ts,mjs}\"",
+    "ui:check": "impeccable detect --github app components"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -24,8 +27,10 @@
     "autoprefixer": "^10.4.19",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.4.1",
+    "impeccable": "4.8.0",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.39",
+    "prettier": "3.9.10",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.3",
     "vitest": "^4.1.12"

@@ -15,7 +15,11 @@ benchmarks/results/*
 # CodeGraph local index and generated agent rules
 .codegraph/
 .cursor/
-.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/impeccable/
+.agents/skills/impeccable/scripts/bin/
 .claude/
 agent/
 skills-lock.json
@@ -34,3 +38,22 @@ web/backend/.env
 web/backend/.venv/
 dev.db
 *.db
+
+# Impeccable: shared design artifacts are tracked; local runtime state is not.
+**/.impeccable/config.local.json
+**/.impeccable/hook.cache.json
+**/.impeccable/hook.pending.json
+**/.impeccable/*.png
+**/.impeccable/review/
+**/.impeccable/questions/
+**/.impeccable/live/server.json
+**/.impeccable/live/sessions/
+**/.impeccable/live/previews/
+**/.impeccable/live/annotations/
+**/.impeccable/live/cache/
+**/.impeccable/live/manual-edit-apply-transaction.json
+**/.impeccable/live/manual-edit-events.jsonl
+**/.impeccable/live/manual-edit-evidence/
+**/.impeccable/live/pending-manual-edits.json
+**/.impeccable/live/deferred-svelte-component-accepts.json
+**/.impeccable/live/*.png

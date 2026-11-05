@@ -46,7 +46,16 @@ npm run build
 ## Checks
 
 ```bash
-npm test -- --run
+npm run format
 npm run lint
+npm test
 npx tsc --noEmit
 ```
+
+`npm run lint` checks formatting, ESLint and the pinned Impeccable source detector. `npm run ui:check` runs the detector alone. Generated comparison content and user downloads are kept outside the formatter's source scope.
+
+## Project-local design skills
+
+The complete Impeccable 4.8.0 skill and command references are installed in [`.agents/skills/impeccable`](../../.agents/skills/impeccable/UPSTREAM.md), pinned to upstream commit `c8891a9ae865d6ee311836ae5199bfce0fe115b1`. Its Apache-2.0 license and NOTICE are included. Codex discovers the local skill on the next turn; contributors should read [AGENTS.md](../../AGENTS.md) before UI work.
+
+Route strategy is stored in `.impeccable/surfaces/`. The shared visual system remains in `DESIGN.md`. Impeccable and Prettier are development tools pinned in `package-lock.json`.
