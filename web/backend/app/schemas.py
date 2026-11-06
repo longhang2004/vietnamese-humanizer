@@ -1,6 +1,7 @@
 from typing import Literal
+from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 VALID_SKILLS = {
     "humanizer-vi",
@@ -149,3 +150,61 @@ class AdminContributionItem(BaseModel):
 class AdminContributionPatch(BaseModel):
     status: str
     review_note: str | None = None
+
+
+class ABAssignmentRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    session_id: UUID | None = None
+
+
+class ABStudyPublic(BaseModel):
+    id: str
+    version: int
+    title: str
+    disclosure: str
+
+
+class ABAssignmentPublic(BaseModel):
+    id: str
+    case_id: str
+    topic: str
+    profile: str
+    instruction: str
+    input_text: str
+    a: str
+    b: str
+
+
+class ABAssignmentResponse(BaseModel):
+    session_id: str
+    study: ABStudyPublic
+    assignment: ABAssignmentPublic | None
+    completed: int
+    total: int
+    skipped: int
+
+
+class ABVoteRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    session_id: UUID
+    assignment_id: UUID
+    choice: Literal["a", "b", "tie", "skip"]
+    reasons: list[Literal["readability", "register", "meaning", "restraint"]] = Field(
+        default_factory=list, max_length=4
+    )
+
+    @model_validator(mode="after")
+    def validate_reasons(self):
+        if len(self.reasons) != len(set(self.reasons)):
+            raise ValueError("Reasons must be unique.")
+        if self.choice == "skip" and self.reasons:
+            raise ValueError("Skipped cases cannot have reasons.")
+        return self
+
+
+class ABVoteResponse(BaseModel):
+    id: str
+    message: str
+    completed: int
+    total: int
+    skipped: int

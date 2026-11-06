@@ -60,6 +60,11 @@ def require_admin_enabled() -> None:
         raise HTTPException(status_code=503, detail=_DISABLED_DETAIL)
 
 
+def require_ab_review_enabled() -> None:
+    if not settings.AB_REVIEW_ENABLED:
+        raise HTTPException(status_code=503, detail=_DISABLED_DETAIL)
+
+
 def capability_route_class(check: Callable[[], None]) -> type[APIRoute]:
     class CapabilityRoute(APIRoute):
         def get_route_handler(
@@ -80,4 +85,5 @@ def public_capabilities() -> dict[str, bool]:
     return {
         "rewrite": settings.REWRITE_ENABLED and _has_value(settings.GEMINI_API_KEY),
         "contributions": settings.CONTRIBUTIONS_ENABLED,
+        "ab_review": settings.AB_REVIEW_ENABLED,
     }

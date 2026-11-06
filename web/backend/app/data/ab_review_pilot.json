@@ -1,0 +1,109 @@
+{
+  "study": {
+    "id": "public-pilot-2026-11-04",
+    "version": 1,
+    "title": "Góp đánh giá văn phong tiếng Việt",
+    "disclosure": "Đợt thử gồm sáu cặp AI đã công khai. Lựa chọn của bạn được lưu để cải thiện bộ skill.",
+    "provenance": "anonymous_web",
+    "source": {
+      "generatedOn": "2026-11-04",
+      "generator": "Codex subagents",
+      "modelVersion": "Exact provider version is not exposed by the subagent tool",
+      "skillCommit": "845c3795f26346c4f5801e35365d65ff939a8e08",
+      "method": "Two separate agent contexts, identical requests and drafts; all six pairs published verbatim. Shared host instructions apply to both conditions. No fixed sampling seed or independent human evaluation.",
+      "sourceDirectory": "docs/research/2026-11-04-web-comparisons",
+      "sourceHashes": {
+        "docs/research/2026-11-04-web-comparisons/briefs.json": "f98b1d9221031fe2712a48c5b81d5032aacf5f3f45e0a4e51618038ee4132950",
+        "docs/research/2026-11-04-web-comparisons/baseline.json": "577d84dfe9b4c5c13531aa0114091c65367319dc1b8fd91ae41cec4666584cfe",
+        "docs/research/2026-11-04-web-comparisons/with-skills.json": "56465fc410c5b41bf578e44a4c9a0e070fe151649dc09710a970a78d3fc117a3",
+        "skills/humanizer-vi/SKILL.md": "1a88eb0c95a482045ebe1d9f54afb536c8ceb00d03ed3a3c6856d0655dc4b4f1",
+        "skills/humanizer-vi/references/naturalness.md": "cfb8b39cbcf900476ffb94a6238d31daeee63a90df2dcada4d0133ab03c497b0",
+        "skills/humanizer-vi/references/formulaic-prose.md": "30a34fa8e2744f046e23a0286129b048412a4a341d20a9c5cb027836703f403d",
+        "skills/humanizer-vi/references/preservation-rules.md": "bbd666fe4ef7f93540c3bc7245e6516ce456ebe7a024d1848dc131427f338edb",
+        "skills/humanizer-vi/references/writing-profiles.md": "6302da4fdc658ebd233cb33609813f7d38aa17ccf1ec03abb7f550e71acc26fe",
+        "skills/humanizer-vi/references/business-writing.md": "5c0b627ff3ecc2a1b15222df6b2035b7e82c0f554e2265f1e56d8ad65b291b0f",
+        "skills/humanizer-vi/references/administrative-writing.md": "5edcdd20485c5120d55156b1eaf1cef70073b1cba3407b5798a137e8fa504bcf",
+        "skills/humanizer-vi/references/social-writing.md": "9ddb3a050a03c9f16347e993f86c9290ecc2ee3c9b75cb560665377d726ad536",
+        "skills/humanizer-vi/references/marketing-writing.md": "7e4dd9ee8671f8ae2fbb466b91464a41b1a9237bc31e9f1fa27636fd43aaee4c",
+        "skills/humanizer-vi/references/technical-writing.md": "b1d3fe2e3b4a597595beb45591755f2a71ff7bf53c53c6e6bf892aa3556a23cf",
+        "skills/humanizer-vi/references/plain-writing.md": "3d89d76c32b80303d68eb4f3e03782bbda806f77c30cc664290ec9301930863c",
+        "skills/humanizer-vi/references/registers.md": "7bdc3a34bd39d1c6b02b8163e04d2ee4224d2e751bc9ce4b44e2c4f444af3919"
+      },
+      "sha256": "8290998d585c31174bbaa0ee1b55faeb9bf64af682a7df4979ed040b12cf8dd2"
+    }
+  },
+  "cases": [
+    {
+      "id": "work-email",
+      "topic": "Email công việc",
+      "profile": "business",
+      "instruction": "Biên tập email dưới đây để gửi đồng nghiệp, giọng lịch sự và trực tiếp. Có thể gộp/tách câu; giữ nguyên việc cần làm, thời hạn và trạng thái chưa duyệt. Chỉ trả email đã biên tập.",
+      "input_text": "Mình muốn gửi đến bạn một cập nhật liên quan đến việc chuẩn bị tài liệu cho buổi họp. Lan đã hoàn tất việc gửi bản nháp sáng nay. Nhờ bạn thực hiện việc kiểm tra bảng chi phí trước 15:00 thứ Năm để nhóm có cơ sở chốt phần ngân sách. Phần nội dung còn lại hiện chưa được duyệt. Nếu chưa kịp kiểm tra, bạn báo lại trước 11:00 để mình sắp xếp lịch với nhóm nhé.",
+      "baseline": "Sáng nay, Lan đã gửi bản nháp tài liệu cho buổi họp. Nhờ bạn kiểm tra bảng chi phí trước 15:00 thứ Năm để nhóm có cơ sở chốt phần ngân sách. Phần nội dung còn lại hiện chưa được duyệt.\n\nNếu không kịp kiểm tra, bạn báo lại trước 11:00 để mình sắp xếp lịch với nhóm nhé.",
+      "with_skills": "Sáng nay, Lan đã gửi bản nháp tài liệu cho buổi họp. Nhờ bạn kiểm tra bảng chi phí trước 15:00 thứ Năm để nhóm có cơ sở chốt phần ngân sách. Phần nội dung còn lại hiện chưa được duyệt.\n\nNếu chưa kịp kiểm tra, bạn báo lại trước 11:00 để mình sắp xếp lịch với nhóm nhé.",
+      "metadata": {
+        "tone": "Lịch sự, trực tiếp"
+      }
+    },
+    {
+      "id": "administrative",
+      "topic": "Thông báo hành chính",
+      "profile": "administrative",
+      "instruction": "Biên tập phần nội dung thông báo sau, giữ giọng hành chính và mức nghĩa vụ. Chỉ sửa câu chữ, không bổ sung thể thức. Chỉ trả phần nội dung đã biên tập.",
+      "input_text": "Nhằm phục vụ cho công tác tổng hợp kết quả thực hiện kế hoạch tháng 11, Văn phòng đề nghị các đơn vị tiến hành việc rà soát số liệu và thực hiện việc gửi báo cáo về Văn phòng trước 16 giờ ngày 24/11/2026. Trong quá trình thực hiện việc rà soát, các nội dung chưa được xác minh cần phải được các đơn vị ghi riêng trong phụ lục. Các đơn vị không gửi bản chứa dữ liệu cá nhân qua nhóm chat chung.",
+      "baseline": "Để tổng hợp kết quả thực hiện kế hoạch tháng 11, Văn phòng đề nghị các đơn vị rà soát số liệu và gửi báo cáo về Văn phòng trước 16 giờ ngày 24/11/2026. Các đơn vị cần ghi riêng những nội dung chưa được xác minh trong phụ lục. Các đơn vị không gửi bản chứa dữ liệu cá nhân qua nhóm chat chung.",
+      "with_skills": "Để tổng hợp kết quả thực hiện kế hoạch tháng 11, Văn phòng đề nghị các đơn vị rà soát số liệu và gửi báo cáo về Văn phòng trước 16 giờ ngày 24/11/2026. Trong quá trình rà soát, các đơn vị cần phải ghi riêng vào phụ lục các nội dung chưa được xác minh. Các đơn vị không gửi bản chứa dữ liệu cá nhân qua nhóm chat chung.",
+      "metadata": {
+        "tone": "Trang trọng, rõ trách nhiệm"
+      }
+    },
+    {
+      "id": "social",
+      "topic": "Chia sẻ đời thường",
+      "profile": "social",
+      "instruction": "Biên tập bài chia sẻ cá nhân sau để đăng cho bạn bè đọc. Giữ ngôi mình, cách nói gần gũi và cảm xúc có sẵn. Có thể gộp/tách câu. Chỉ trả bài đã biên tập.",
+      "input_text": "Mình muốn chia sẻ một điều nho nhỏ về buổi chiều hôm nay. Mình dọn lại kệ sách và mình tìm thấy tấm vé xe hồi còn học đại học. Mình đã định vứt đi nhưng rồi mình lại kẹp nó vào cuốn sổ cũ. Cũng chẳng có chuyện gì đặc biệt, chỉ là tự nhiên mình nhớ quán cơm gần bến xe. Hồi đó hai đứa cứ ăn ở đấy mỗi chiều thứ Sáu.",
+      "baseline": "Chiều nay, mình dọn lại kệ sách và tìm thấy tấm vé xe hồi còn học đại học. Mình định vứt đi nhưng rồi lại kẹp nó vào cuốn sổ cũ.\n\nCũng chẳng có gì đặc biệt, chỉ là tự nhiên nhớ quán cơm gần bến xe. Hồi đó, hai đứa cứ ăn ở đấy mỗi chiều thứ Sáu.",
+      "with_skills": "Chiều nay dọn lại kệ sách, mình tìm thấy tấm vé xe hồi còn học đại học. Mình đã định vứt đi nhưng rồi lại kẹp nó vào cuốn sổ cũ.\n\nCũng chẳng có chuyện gì đặc biệt, chỉ là tự nhiên mình nhớ quán cơm gần bến xe. Hồi đó hai đứa cứ ăn ở đấy mỗi chiều thứ Sáu.",
+      "metadata": {
+        "tone": "Gần gũi, giữ giọng cá nhân"
+      }
+    },
+    {
+      "id": "marketing",
+      "topic": "Bài giới thiệu sản phẩm",
+      "profile": "marketing",
+      "instruction": "Biên tập bài giới thiệu sau, giữ giọng tươi vui và lời mời mua hàng. Được bỏ lời dẫn chung và giảm lời khen cường điệu; giữ toàn bộ thông tin về sản phẩm, giá, phí, điều kiện, hạn và đường dẫn. Chỉ trả bài đã biên tập.",
+      "input_text": "Một chiếc túi nhỏ. Một người bạn đồng hành. Một lựa chọn nâng tầm mỗi ngày. Tiệm Mây giới thiệu túi vải hai ngăn, có khóa kéo, giá 185.000đ/chiếc. Túi có hai màu xanh rêu và kem. Từ nay đến hết 30/11/2026, đơn từ hai chiếc được giảm 10% khi đặt trên website; không áp dụng cùng ưu đãi khác. Giá chưa gồm phí giao hàng. Chọn màu và đặt tại example.com/tui-may nhé!",
+      "baseline": "Tiệm Mây giới thiệu túi vải nhỏ hai ngăn, có khóa kéo, với hai màu xanh rêu và kem. Giá 185.000đ/chiếc, chưa gồm phí giao hàng.\n\nTừ nay đến hết 30/11/2026, đơn từ hai chiếc đặt trên website được giảm 10%; không áp dụng cùng ưu đãi khác.\n\nChọn màu và đặt tại example.com/tui-may nhé!",
+      "with_skills": "Tiệm Mây giới thiệu túi vải hai ngăn có khóa kéo, giá 185.000đ/chiếc. Túi có hai màu xanh rêu và kem.\n\nTừ nay đến hết 30/11/2026, đơn từ hai chiếc được giảm 10% khi đặt trên website; không áp dụng cùng ưu đãi khác. Giá chưa gồm phí giao hàng.\n\nChọn màu và đặt tại example.com/tui-may nhé!",
+      "metadata": {
+        "tone": "Tươi vui, thông tin cụ thể"
+      }
+    },
+    {
+      "id": "technical",
+      "topic": "Hướng dẫn thao tác",
+      "profile": "technical",
+      "instruction": "Biên tập hướng dẫn sau cho người dùng mới, giọng thân thiện. Có thể chia bước để dễ làm theo; giữ nguyên nhãn nút, định dạng tệp, giới hạn, điều kiện và thứ tự thao tác. Chỉ trả hướng dẫn đã biên tập.",
+      "input_text": "Để thực hiện việc nhập danh sách, bạn cần tiến hành bấm nút “Nhập CSV”, sau đó thực hiện việc chọn tệp .csv không quá 2 MB. Nếu màn hình báo “Thiếu cột email”, bạn cần bổ sung cột email trong tệp rồi chọn lại tệp. Khi bản xem trước không còn báo lỗi, bạn có thể bấm “Xác nhận”. Việc đóng cửa sổ trước khi có thông báo “Đã nhập xong” có thể khiến quá trình nhập bị gián đoạn.",
+      "baseline": "Để nhập danh sách, bạn làm theo các bước sau:\n\n1. Bấm “Nhập CSV”.\n2. Chọn tệp .csv có dung lượng không quá 2 MB. Nếu màn hình báo “Thiếu cột email”, bạn bổ sung cột email trong tệp rồi chọn lại tệp.\n3. Khi bản xem trước không còn báo lỗi, bạn có thể bấm “Xác nhận”.\n\nBạn hãy chờ thông báo “Đã nhập xong” trước khi đóng cửa sổ. Đóng cửa sổ trước khi có thông báo này có thể làm gián đoạn quá trình nhập.",
+      "with_skills": "1. Bấm nút “Nhập CSV”.\n2. Chọn tệp .csv không quá 2 MB. Nếu màn hình báo “Thiếu cột email”, bạn cần bổ sung cột email trong tệp rồi chọn lại tệp.\n3. Khi bản xem trước không còn báo lỗi, bạn có thể bấm “Xác nhận”.\n\nĐóng cửa sổ trước khi có thông báo “Đã nhập xong” có thể khiến quá trình nhập bị gián đoạn.",
+      "metadata": {
+        "tone": "Thân thiện, chính xác"
+      }
+    },
+    {
+      "id": "plain",
+      "topic": "Bản tin cộng đồng",
+      "profile": "plain",
+      "instruction": "Biên tập bản tin sau cho người dân trong khu đọc, giọng rõ ràng và bình tĩnh. Có thể sắp xếp lại đoạn; giữ đủ phạm vi, giờ, đối tượng và điều chưa xác nhận. Chỉ trả bản tin đã biên tập.",
+      "input_text": "Có những thay đổi tưởng nhỏ nhưng lại mang nhiều ý nghĩa. Việc mở thêm giờ của phòng đọc là một trong số ấy. Từ ngày 16/11, phòng đọc tầng 2 mở thêm từ 18:00 đến 20:00 vào thứ Ba và thứ Năm. Khung giờ này dành cho người từ 16 tuổi trở lên. Khu thiếu nhi tầng 1 giữ lịch cũ. Ban quản lý chưa xác nhận việc mở thêm giờ vào cuối tuần. Người đến đọc có thể mang máy tính cá nhân.",
+      "baseline": "Từ ngày 16/11, phòng đọc tầng 2 mở thêm từ 18:00 đến 20:00 vào thứ Ba và thứ Năm. Khung giờ này dành cho người từ 16 tuổi trở lên. Người đến đọc có thể mang máy tính cá nhân.\n\nKhu thiếu nhi tầng 1 giữ lịch cũ. Ban quản lý chưa xác nhận việc mở thêm giờ vào cuối tuần.",
+      "with_skills": "Từ ngày 16/11, phòng đọc tầng 2 mở thêm từ 18:00 đến 20:00 vào thứ Ba và thứ Năm. Khung giờ này dành cho người từ 16 tuổi trở lên.\n\nKhu thiếu nhi tầng 1 giữ lịch cũ. Ban quản lý chưa xác nhận việc mở thêm giờ vào cuối tuần. Người đến đọc có thể mang máy tính cá nhân.",
+      "metadata": {
+        "tone": "Rõ ràng, bình tĩnh"
+      }
+    }
+  ]
+}

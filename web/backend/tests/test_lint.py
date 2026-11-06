@@ -15,6 +15,7 @@ def test_health_endpoint(client):
     assert data["capabilities"] == {
         "rewrite": False,
         "contributions": False,
+        "ab_review": False,
     }
 
 

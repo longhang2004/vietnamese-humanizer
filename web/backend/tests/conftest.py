@@ -28,6 +28,7 @@ _MISSING_ENV_VALUE = object()
 _CAPABILITY_DEFAULTS = {
     "REWRITE_ENABLED": False,
     "CONTRIBUTIONS_ENABLED": False,
+    "AB_REVIEW_ENABLED": False,
     "ADMIN_API_ENABLED": False,
     "GEMINI_API_KEY": None,
     "ADMIN_API_KEY": None,

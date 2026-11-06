@@ -12,13 +12,13 @@ from app.db import models  # noqa: F401 - ensure models are registered with Base
 from app.db.database import Base, engine
 from app.limiter import limiter
 from app.proxy import TrustedProxyHeadersMiddleware
-from app.routers import admin, contributions, health, lint, patterns, rewrite
+from app.routers import ab_review, admin, contributions, health, lint, patterns, rewrite
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     validate_capability_settings()
-    if settings.CONTRIBUTIONS_ENABLED or settings.ADMIN_API_ENABLED:
+    if settings.CONTRIBUTIONS_ENABLED or settings.ADMIN_API_ENABLED or settings.AB_REVIEW_ENABLED:
         Base.metadata.create_all(bind=engine)
     yield
 
@@ -56,3 +56,4 @@ app.include_router(patterns.router)
 app.include_router(rewrite.router)
 app.include_router(contributions.router)
 app.include_router(admin.router)
+app.include_router(ab_review.router)

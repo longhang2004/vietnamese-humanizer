@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 
 from app.capabilities import (
     public_capabilities,
+    require_ab_review_enabled,
     require_admin_enabled,
     require_contributions_enabled,
     require_rewrite_enabled,
@@ -23,6 +24,7 @@ from app.proxy import forwarded_client_host, proxy_peer_is_trusted
 CAPABILITY_ENV_VARS = (
     "REWRITE_ENABLED",
     "CONTRIBUTIONS_ENABLED",
+    "AB_REVIEW_ENABLED",
     "ADMIN_API_ENABLED",
     "GEMINI_API_KEY",
     "ADMIN_API_KEY",
@@ -33,6 +35,7 @@ def test_capability_test_state_isolated_from_process_environment():
     assert all(os.getenv(name) is None for name in CAPABILITY_ENV_VARS)
     assert settings.REWRITE_ENABLED is False
     assert settings.CONTRIBUTIONS_ENABLED is False
+    assert settings.AB_REVIEW_ENABLED is False
     assert settings.ADMIN_API_ENABLED is False
     assert settings.GEMINI_API_KEY is None
     assert settings.ADMIN_API_KEY is None
@@ -50,6 +53,7 @@ def test_capability_settings_default_to_disabled_without_secrets():
 
     assert config.REWRITE_ENABLED is False
     assert config.CONTRIBUTIONS_ENABLED is False
+    assert config.AB_REVIEW_ENABLED is False
     assert config.ADMIN_API_ENABLED is False
     assert config.GEMINI_API_KEY is None
     assert config.ADMIN_API_KEY is None
@@ -104,9 +108,7 @@ def test_proxy_imports_on_uvicorn_without_private_trusted_hosts(monkeypatch):
 
 
 def test_declared_uvicorn_minimum_remains_0_30():
-    pyproject = (Path(__file__).resolve().parents[1] / "pyproject.toml").read_text(
-        encoding="utf-8"
-    )
+    pyproject = (Path(__file__).resolve().parents[1] / "pyproject.toml").read_text(encoding="utf-8")
     requirements = (Path(__file__).resolve().parents[1] / "requirements.txt").read_text(
         encoding="utf-8"
     )
@@ -163,6 +165,7 @@ def test_public_capabilities_include_only_effective_public_features(monkeypatch)
     assert public_capabilities() == {
         "rewrite": False,
         "contributions": True,
+        "ab_review": False,
     }
 
 
@@ -171,12 +174,11 @@ def test_public_capabilities_include_only_effective_public_features(monkeypatch)
     [
         (require_rewrite_enabled, "REWRITE_ENABLED"),
         (require_contributions_enabled, "CONTRIBUTIONS_ENABLED"),
+        (require_ab_review_enabled, "AB_REVIEW_ENABLED"),
         (require_admin_enabled, "ADMIN_API_ENABLED"),
     ],
 )
-def test_disabled_capability_dependencies_return_stable_503(
-    monkeypatch, dependency, setting_name
-):
+def test_disabled_capability_dependencies_return_stable_503(monkeypatch, dependency, setting_name):
     monkeypatch.setattr(settings, setting_name, False)
 
     with pytest.raises(HTTPException) as exc_info:
@@ -191,12 +193,11 @@ def test_disabled_capability_dependencies_return_stable_503(
     [
         (require_rewrite_enabled, "REWRITE_ENABLED"),
         (require_contributions_enabled, "CONTRIBUTIONS_ENABLED"),
+        (require_ab_review_enabled, "AB_REVIEW_ENABLED"),
         (require_admin_enabled, "ADMIN_API_ENABLED"),
     ],
 )
-def test_enabled_capability_dependencies_allow_requests(
-    monkeypatch, dependency, setting_name
-):
+def test_enabled_capability_dependencies_allow_requests(monkeypatch, dependency, setting_name):
     monkeypatch.setattr(settings, setting_name, True)
 
     assert dependency() is None
@@ -239,3 +240,15 @@ def test_lifespan_validates_before_database_initialization(monkeypatch):
         pass
 
     create_all.assert_not_called()
+
+
+def test_reviews_alone_initialize_database_and_health_without_provider(monkeypatch):
+    monkeypatch.setattr(settings, "AB_REVIEW_ENABLED", True)
+    with patch("app.main.Base.metadata.create_all") as create_all, TestClient(app) as client:
+        response = client.get("/api/health")
+    assert create_all.call_count == 1
+    assert response.json()["capabilities"] == {
+        "rewrite": False,
+        "contributions": False,
+        "ab_review": True,
+    }
