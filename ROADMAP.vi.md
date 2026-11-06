@@ -2,25 +2,31 @@
 
 # Lộ trình phát triển (Roadmap)
 
-Đã giao đến 0.5.0: bốn skill, linter deterministic, API/frontend, hướng dẫn văn phong và hội thoại, lựa chọn context/giọng khi rewrite, cùng 70 benchmark có 30 case dài theo cặp. Corpus hiện được agent rà soát; đợt tới cần đánh giá độc lập của người bản ngữ và giảm báo nhầm còn lại trước khi thêm pattern.
+Cập nhật ngày 06/11/2026. Bản phát hành có tag mới nhất là **0.6.0**. Phần triển khai từ `main` được ghi riêng; deploy web không tạo phiên bản phát hành mới.
+
+## Hiện đã có
+
+- Bản 0.6.0 có bốn skill tiếng Việt, 44 quy tắc linter, 103 ví dụ corpus và 124 case benchmark. Sáu nhóm văn phong gồm văn viết rõ ràng, trao đổi công việc, tài liệu kỹ thuật, hành chính, bài đăng mạng xã hội và marketing; mặc định giữ cách viết hiện có. Kênh sử dụng, mức trang trọng, cách xưng hô và mức sửa là các lựa chọn riêng.
+- Đã triển khai trình soát theo quy tắc, viết lại bằng AI theo cấu hình dịch vụ, trang `/start`, gói Claude/Gemini, yêu cầu dùng trong chatbot và tài liệu gộp. Gói plugin ChatGPT đã được chuẩn bị; listing công khai, kiểm import trên tài khoản thật và thử với người phổ thông vẫn cần hoàn tất. Xem [hướng dẫn phân phối](docs/user-distribution.md).
+- `main` và bản web hiện có landing tối, vùng làm việc `/check`, trang ví dụ, hướng dẫn/giới thiệu, luồng đóng góp theo khả năng backend và sáu cặp đầu ra AI chạy thật. Impeccable 4.8.0 được cài trong repo, kèm format và kiểm tra UI. Các thay đổi này nằm trong mục Unreleased của [changelog](CHANGELOG.vi.md).
+- Corpus hiện được agent rà soát, chưa có baseline chất lượng do người đọc độc lập đánh giá. Sáu cặp AI công khai dùng để minh họa hành vi.
 
 ## Tiếp theo
 
-- Đã triển khai, chưa phát hành: trang `/start` và gói tải cho người phổ thông. Cần kiểm import trên tài khoản thật, thử với người không biết code và hoàn tất submission plugin ChatGPT theo [hướng dẫn phân phối](docs/user-distribution.md).
-- Đã triển khai, chưa phát hành: profile riêng cho văn viết rõ ràng, công việc và kỹ thuật; thêm 24 case theo cặp và báo cáo theo profile/system. Cần [review bản ngữ](benchmarks/profile-review.md) trước khi tuyên bố cải thiện chất lượng.
-- Tổ chức đánh giá với người bản ngữ từ nhiều vùng miền và lĩnh vực; lưu vết chỗ chưa thống nhất thay vì áp một đáp án.
-- Thực hiện [vòng học cùng chủ đề](docs/style-learning-loop.md) trên tình huống chưa thấy. Đã lưu [pilot bốn biến thể bằng agent](docs/research/2026-11-03-same-topic-pilot.md) riêng khỏi benchmark; ưu tiên nghiên cứu marketing/social, giao tiếp, kịch bản nói và dí dỏm nhẹ theo lựa chọn.
+- Xây luồng chấm A/B trên web với bộ mẫu cố định, có phiên bản. Xáo thứ tự trình bày, giấu nhãn, cho chọn A/B/hòa/bỏ qua; lưu lượt trình bày và đánh giá vào database backend để query/export. Đây là kế hoạch, chưa deploy; trang ví dụ hiện hiển thị tên hai điều kiện. Xem [thiết kế đề xuất](docs/plans/2026-11-06-web-ab-review-design.md).
+- Tổ chức đánh giá độc lập cho sáu nhóm văn phong hiện có theo [quy trình review bản ngữ](benchmarks/profile-review.md). Phân biệt phản hồi ẩn danh trên web với đợt có reviewer độc lập được xác định; lưu cả bất đồng và trường hợp hòa.
+- Thực hiện [vòng học cùng chủ đề](docs/style-learning-loop.md) trên tình huống chưa thấy. Giữ [pilot bốn biến thể bằng agent](docs/research/2026-11-03-same-topic-pilot.md) riêng khỏi kết quả benchmark; dùng lỗi quan sát được để sửa hướng dẫn của các nhóm văn phong hiện có.
 - Tiếp tục thêm case `no_change` cho rule dễ bắt nhầm, kèm case thật sự cần sửa của cùng rule.
-- Bổ sung glossary theo ngành và fixture nhiều đoạn được reviewer độc lập đánh giá.
 - Hiệu chỉnh ngưỡng bằng corpus có giấy phép rõ.
+- Hoàn tất kiểm import trên tài khoản thật, thử với 5–10 người không biết code và các bước nộp plugin còn lại trong hướng dẫn phân phối.
 
 ## Sau đó
 
-- Mở rộng văn bản hành chính và giọng vui vẻ/hài hước theo lựa chọn sau khi đánh giá ba profile đầu.
 - Hỗ trợ style guide của dự án qua CLI.
+- Bổ sung glossary theo ngành và fixture nhiều đoạn được reviewer độc lập đánh giá.
 - Thêm baseline từ nhiều mô hình và người đánh giá độc lập.
-- Thống kê precision theo pattern, ngành và văn phong.
-- Khảo sát văn bản song ngữ và phụ đề.
+- Thống kê precision theo pattern, ngành và văn phong khi có dữ liệu đã chấm đủ để ước lượng.
+- Đánh giá giọng vui vẻ/hài hước theo lựa chọn, lời nói tự phát, văn bản song ngữ và phụ đề. Hướng dẫn chat và kịch bản nói hiện ở mức thử nghiệm; hành chính, mạng xã hội và marketing đã có profile.
 
 ## 1.0
 
