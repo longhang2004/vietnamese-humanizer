@@ -12,6 +12,7 @@ type CapabilityState = Capabilities & {
 const disabledCapabilities: Capabilities = {
   rewrite: false,
   contributions: false,
+  ab_review: false,
 };
 const CapabilityContext = createContext<CapabilityState>({
   ...disabledCapabilities,
@@ -35,6 +36,7 @@ export function CapabilityProvider({
         setCapabilities({
           rewrite: health.capabilities.rewrite === true,
           contributions: health.capabilities.contributions === true,
+          ab_review: health.capabilities.ab_review === true,
           status: "ready",
         });
       })

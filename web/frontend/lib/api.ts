@@ -6,6 +6,9 @@ import {
   PatternsResponse,
   RewriteOptions,
   RewriteResponse,
+  ReviewAssignmentResponse,
+  ReviewVoteRequest,
+  ReviewVoteResponse,
   SkillsResponse,
 } from "./types";
 
@@ -13,18 +16,28 @@ const rawBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 const API_BASE = rawBase.replace(/\/+$/, "");
 let healthRequest: Promise<HealthResponse> | null = null;
 
+export class ApiError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     let errorDetail = `Chưa thực hiện được yêu cầu (HTTP ${res.status}).`;
     try {
       const data = await res.json();
-      if (data.detail) {
+      if (typeof data.detail === "string" && data.detail.trim()) {
         errorDetail = data.detail;
       }
     } catch {
       // JSON parse error fallback
     }
-    throw new Error(errorDetail);
+    throw new ApiError(errorDetail, res.status);
   }
   return res.json();
 }
@@ -83,4 +96,26 @@ export async function submitContribution(
     body: JSON.stringify(data),
   });
   return handleResponse<ContributionResponse>(res);
+}
+
+export async function fetchReviewAssignment(
+  sessionId?: string,
+): Promise<ReviewAssignmentResponse> {
+  const res = await fetch(`${API_BASE}/api/ab-review/assignments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ session_id: sessionId }),
+  });
+  return handleResponse<ReviewAssignmentResponse>(res);
+}
+
+export async function submitReviewVote(
+  data: ReviewVoteRequest,
+): Promise<ReviewVoteResponse> {
+  const res = await fetch(`${API_BASE}/api/ab-review/votes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return handleResponse<ReviewVoteResponse>(res);
 }

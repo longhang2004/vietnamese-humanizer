@@ -10,6 +10,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 - A dark project landing page, a dedicated `/check` workspace, examples, user guide and project pages, repository stars from GitHub, self-hosted Vietnamese fonts, and responsive navigation. Design work uses UI/UX Pro Max and Impeccable.
 - Six real paired Codex-subagent editing runs, with identical requests, verbatim outputs, raw records, source hashes and a publication drift check. These demonstrations are separate from the corpus and benchmark; no quality improvement is claimed.
+- A blind A/B review pilot: `/review` behind `AB_REVIEW_ENABLED`, six frozen public cases, opaque assignments with a persisted A/B order, retry-safe durable votes, and a private CLI for summary, CSV and JSONL export. Votes stay anonymous web feedback with session keys, separate from verified independent review.
 
 ### Changed
 

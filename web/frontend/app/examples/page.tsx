@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ReadingHeader } from "../../components/ReadingLayout";
 import styles from "../../components/ReadingLayout.module.css";
 import { ComparisonExplorer } from "../../components/ComparisonExplorer";
+import { ABReviewEntry } from "../../components/ABReview";
 import comparisons from "../../content/comparisons.json";
 import { REPOSITORY_URL } from "../../lib/repository";
 
@@ -54,6 +55,7 @@ export default function ExamplesPage() {
           .
         </p>
       </details>
+      <ABReviewEntry />
       <section className={styles.nextAction} aria-labelledby="examples-next">
         <div>
           <h2 id="examples-next">Thử với đoạn của bạn.</h2>

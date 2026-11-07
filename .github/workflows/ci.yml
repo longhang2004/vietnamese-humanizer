@@ -30,6 +30,8 @@ jobs:
       - run: python scripts/run_benchmarks.py --validate-only
       - run: python scripts/generate_pattern_docs.py --check
       - run: python scripts/export_user_packs.py --check
+      - run: python scripts/export_web_comparisons.py --check
+      - run: python scripts/export_ab_review_pilot.py --check
 
   package:
     runs-on: ubuntu-latest

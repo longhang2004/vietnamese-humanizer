@@ -1,8 +1,8 @@
 # Chấm A/B trên web và lưu dữ liệu đánh giá
 
-Ngày: 06/11/2026. Trạng thái: thiết kế đề xuất, chưa triển khai hoặc mở thu thập dữ liệu.
+Ngày: 06/11/2026. Trạng thái: đã triển khai trong source (LON-118/119), backend mặc định tắt cờ `AB_REVIEW_ENABLED`; chưa push/deploy trong các tác vụ QA và UI.
 
-Người dùng đã chọn bản đầu dùng bộ mẫu có sẵn và giấu nhãn hai bản khi chấm. Phần backend hiện có SQLAlchemy, cấu hình `DATABASE_URL` và bảng đóng góp; chưa có bảng hoặc API chấm A/B. Các bảng dưới đây là đề xuất bổ sung.
+Người dùng đã chọn bản đầu dùng bộ mẫu có sẵn và giấu nhãn hai bản khi chấm. Phần backend dùng SQLAlchemy, cấu hình `DATABASE_URL` và các bảng đóng góp hiện có; bốn bảng và API chấm A/B đã được triển khai theo thiết kế dưới đây.
 
 ## Luồng người chấm
 
@@ -16,7 +16,7 @@ Người dùng đã chọn bản đầu dùng bộ mẫu có sẵn và giấu nh
 
 Dùng SQLAlchemy và database bền vững qua `DATABASE_URL`; SQLite dành cho phát triển/kiểm thử cục bộ. Dữ liệu đánh giá nằm trong các bảng riêng với đóng góp văn bản.
 
-| Bảng dự kiến | Nội dung |
+| Bảng | Nội dung |
 | --- | --- |
 | `ab_studies` | Mã và phiên bản đợt, trạng thái mở/đóng, mô tả và nguồn bộ mẫu. |
 | `ab_cases` | Đợt, chủ đề, profile, input, yêu cầu và hai output cố định; metadata sinh cùng hash nội dung, prompt và snapshot skill. |

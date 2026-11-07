@@ -10,6 +10,7 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 - Landing page tối, công cụ riêng tại `/check`, trang ví dụ, hướng dẫn và giới thiệu dự án; số sao lấy từ GitHub, font tiếng Việt tự host và điều hướng responsive. Áp dụng UI/UX Pro Max và Impeccable cho thiết kế.
 - Sáu cặp biên tập thật bằng Codex subagent, cùng yêu cầu, giữ nguyên đầu ra và có bản ghi, hash nguồn, kiểm đồng bộ. Ví dụ nằm riêng khỏi corpus và benchmark; chưa có kết quả đo cải thiện chất lượng.
+- Pilot chấm A/B mù: `/review` sau cờ `AB_REVIEW_ENABLED`, sáu case công khai đóng băng, lượt trình bày mờ có thứ tự A/B được lưu, phiếu bền vững retry-safe và CLI riêng cho summary, CSV, JSONL. Phiếu vẫn là phản hồi ẩn danh theo khóa phiên, tách khỏi đợt reviewer độc lập.
 
 ### Changed
 

@@ -40,6 +40,7 @@ export interface HealthResponse {
   capabilities: {
     rewrite: boolean;
     contributions: boolean;
+    ab_review?: boolean;
   };
 }
 
@@ -120,4 +121,40 @@ export interface ContributionResponse {
   id: string;
   status: string;
   message: string;
+}
+
+export type ReviewChoice = "a" | "b" | "tie" | "skip";
+export type ReviewReason = "readability" | "register" | "meaning" | "restraint";
+
+export interface ReviewAssignmentResponse {
+  session_id: string;
+  study: { id: string; version: number; title: string; disclosure: string };
+  assignment: {
+    id: string;
+    case_id: string;
+    topic: string;
+    profile: string;
+    instruction: string;
+    input_text: string;
+    a: string;
+    b: string;
+  } | null;
+  completed: number;
+  total: number;
+  skipped: number;
+}
+
+export interface ReviewVoteRequest {
+  session_id: string;
+  assignment_id: string;
+  choice: ReviewChoice;
+  reasons: ReviewReason[];
+}
+
+export interface ReviewVoteResponse {
+  id: string;
+  message: string;
+  completed: number;
+  total: number;
+  skipped: number;
 }
