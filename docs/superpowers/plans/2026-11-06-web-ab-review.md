@@ -67,9 +67,9 @@ Seed file `web/backend/app/data/ab_review_pilot.json` contains `{study:{id,versi
 **Owner:** Root.
 
 - [x] Generate genuine pilot snapshot plus provenance/hash checks; review Task 1 and Task 2 against spec/contracts and resolve material issues.
-- [x] Run full frontend format/lint/tests/build, backend tests/Ruff, relevant root contracts and the real comparison/download drift checks. GitHub Actions currently cannot start due to an account billing lock; report this accurately and use local checks.
+- [x] Run full frontend format/lint/tests/build, backend tests/Ruff, relevant root contracts and the real comparison/download drift checks. The earlier GitHub Actions billing lock is resolved: `CI` and `Web CI` both run successfully on `4bc3a227` for `main`.
 - [x] Run an isolated local SQLite API/frontend and inspect desktop/mobile, a real local vote and retry/resume/completion. Verify rows and CLI exports. Never send fake ratings to production. Capture valid screenshots and obtain the shipped fresh finish review; document the extension and resolve required findings.
-- [ ] Update roadmap/design status to implemented once true, document query/export commands and study limits, commit/push the complete feature. Enable the approved capability in the production backend, verify deployments, health/assignment behavior without casting a production vote, and hand over the working review URL plus SQL/export instructions.
+- [x] Update roadmap/design status to implemented once true, document query/export commands and study limits, commit/push the complete feature. Enable the approved capability in the production backend, verify deployments, health/assignment behavior without casting a production vote, and hand over the working review URL plus SQL/export instructions.
 
 ## Execution rulings
 
