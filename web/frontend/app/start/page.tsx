@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { GettingStarted } from "../../components/GettingStarted";
 
 export const metadata: Metadata = {
-  title: "Bắt đầu sử dụng",
+  title: "Dùng trong chatbot",
   description:
-    "Chọn chatbot và việc cần làm, rồi tải skill hoặc sao chép yêu cầu mẫu để biên tập tiếng Việt. Có hướng dẫn cho ChatGPT, Claude và Gemini.",
+    "Chọn cách biên tập tiếng Việt trong ChatGPT, Claude, Gemini hoặc chatbot khác. Tải skill hoặc sao chép yêu cầu mẫu.",
   alternates: { canonical: "/start" },
 };
 

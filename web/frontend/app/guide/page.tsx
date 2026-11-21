@@ -6,131 +6,122 @@ import { InstallCommand } from "../../components/InstallCommand";
 export const metadata: Metadata = {
   title: "Hướng dẫn sử dụng",
   description:
-    "Cách soát văn bản trên web, dùng skill trong chatbot và chọn loại bài, giọng, ngữ cảnh phù hợp.",
+    "Cách soát văn bản trên web, chọn giọng và cung cấp ngữ cảnh khi biên tập bằng chatbot hoặc AI agent.",
   alternates: { canonical: "/guide" },
 };
 
 export default function GuidePage() {
   return (
     <ReadingLayout
-      title="Bắt đầu với đoạn bạn muốn sửa."
-      introduction="Chọn cách dùng, thêm ngữ cảnh cần thiết và đối chiếu gợi ý với bản gốc."
+      title="Từ bản nháp đến bản sửa"
+      introduction="Cách chọn nhóm kiểm tra, đưa ngữ cảnh cho chatbot và đọc gợi ý trước khi sửa."
       contentsLabel="Mục lục hướng dẫn"
       contents={[
         { href: "#on-web", label: "Soát trên web" },
         { href: "#chatbot", label: "Dùng trong chatbot" },
-        { href: "#context", label: "Chọn giọng và ngữ cảnh" },
-        { href: "#review", label: "Đọc kết quả" },
-        { href: "#agent", label: "Dùng với AI agent" },
+        { href: "#context", label: "Thêm ngữ cảnh" },
+        { href: "#review", label: "Đọc gợi ý" },
+        { href: "#agent", label: "Cài cho AI agent" },
       ]}
     >
       <section id="on-web">
         <h2>Soát văn bản trên web</h2>
         <ol>
           <li>
-            Mở <Link href="/check">phần soát văn bản</Link>, rồi dán đoạn cần
-            kiểm tra. Bạn có thể thử văn bản mẫu trước.
+            Mở <Link href="/check">trình soát</Link> và dán đoạn cần xem. Bạn
+            cũng có thể thử văn bản mẫu.
           </li>
           <li>
-            Chọn nhóm cần xem: văn phong tự nhiên, câu dịch, ngữ pháp hoặc tính
-            nhất quán.
+            Chọn nhóm phù hợp với việc cần làm, như soát lỗi tiếng Việt hoặc sửa
+            câu dịch chưa tự nhiên.
           </li>
           <li>
-            Bấm “Soát văn phong”. Đọc từng phát hiện cùng vị trí, lý do và gợi
-            ý.
+            Bấm “Soát văn phong”. Mỗi phát hiện ghi vị trí, lý do và gợi ý.
           </li>
           <li>
-            Chỉnh lại đoạn gốc theo điều bạn thấy phù hợp, rồi kiểm tra tiếp nếu
-            cần.
+            Đọc cả đoạn trước khi áp dụng gợi ý. Kiểm tra lại sau khi chỉnh nếu
+            còn chỗ cần xem.
           </li>
         </ol>
-        <p>
-          Công cụ dùng các quy tắc đã biên soạn để tìm chỗ cần xem lại. Một phát
-          hiện về văn phong cần được xét trong cả đoạn và mục đích bài.
-        </p>
         <Link href="/check" className="button-primary">
-          Mở trình soát
+          Soát văn bản
         </Link>
       </section>
       <section id="chatbot">
-        <h2>Dùng trong chatbot của bạn</h2>
+        <h2>Dùng trong chatbot</h2>
         <p>
-          Vào <Link href="/start">trang bắt đầu</Link>, chọn ChatGPT, Claude,
-          Gemini hoặc công cụ khác. Trang sẽ cung cấp gói tải và cách cài tương
-          ứng, hoặc yêu cầu mẫu để sao chép.
+          Vào trang <Link href="/start">Dùng trong chatbot</Link> và chọn công
+          cụ bạn đang dùng. Với Claude hoặc Gemini, trang có gói tải và các bước
+          cài. Với ChatGPT hoặc chatbot khác, bạn có thể lấy yêu cầu mẫu.
         </p>
         <p>
-          Nếu chatbot hỗ trợ đính kèm tài liệu, bạn cũng có thể tải bộ hướng dẫn
-          đầy đủ. Khi gửi văn bản, nói rõ phần cần áp dụng và kết quả bạn muốn
-          nhận.
+          Nếu chatbot đọc được tệp, tải bộ hướng dẫn đầy đủ rồi đính kèm khi gửi
+          văn bản. Nói rõ phần hướng dẫn bạn muốn dùng và kết quả cần nhận.
         </p>
       </section>
       <section id="context">
-        <h2>Chọn giọng và ngữ cảnh</h2>
+        <h2>Cho biết bạn đang viết cho ai</h2>
         <p>
-          Bắt đầu bằng loại bài và người đọc. Ví dụ: email gửi đồng nghiệp, bài
-          chia sẻ với bạn bè hay hướng dẫn cho người mới.
+          Nêu loại bài, người đọc và những chi tiết phải giữ. Một email gửi đồng
+          nghiệp cần ngữ cảnh khác một bài chia sẻ với bạn bè.
         </p>
         <div className="prose-note">
           <p>
-            “Biên tập email này để gửi đồng nghiệp. Giữ cách xưng hô mình–bạn,
-            thời hạn và các việc chưa được duyệt. Có thể gộp câu, chỉ trả lại
-            email đã sửa.”
+            “Sửa nhẹ email này để gửi đồng nghiệp. Giữ cách xưng hô mình–bạn,
+            thời hạn và trạng thái các việc chưa được duyệt. Có thể gộp câu. Trả
+            lại email đã sửa.”
           </p>
         </div>
         <p>
-          Các loại bài hiện có: văn viết rõ ràng, trao đổi công việc, kỹ thuật,
-          hành chính, bài đăng mạng xã hội và marketing. Kênh, mức trang trọng,
-          cách xưng hô và mức sửa là những lựa chọn riêng.
+          Chọn loại bài theo mục đích, từ văn viết phổ thông, công việc và kỹ
+          thuật đến hành chính, mạng xã hội và marketing. Sau đó chọn riêng
+          kênh, mức trang trọng, xưng hô và mức sửa.
         </p>
         <p>
-          Với văn bản hành chính, gửi kèm mẫu hoặc quy ước của đơn vị nếu có.
-          Với marketing, cung cấp đủ giá, điều kiện và thông tin đã được xác
-          nhận.
+          Với văn bản theo mẫu cơ quan, gửi kèm mẫu nếu có. Với bài quảng cáo,
+          cung cấp giá, điều kiện và những lợi ích đã xác nhận.
         </p>
       </section>
       <section id="review">
-        <h2>Đọc kết quả theo ngữ cảnh</h2>
+        <h2>Đọc từng loại gợi ý</h2>
         <ul>
           <li>
-            <strong>Lỗi cần sửa:</strong> kiểm tra chính tả, ngữ pháp hoặc hình
-            thức tại vị trí được nêu.
+            <strong>Lỗi cần sửa.</strong> Xem chỗ được đánh dấu để kiểm tra
+            chính tả, ngữ pháp hoặc định dạng.
           </li>
           <li>
-            <strong>Cần xem lại:</strong> đọc câu cùng phần trước và sau để
-            quyết định cách sửa.
+            <strong>Cần xem lại.</strong> Đọc cả câu trước và sau rồi quyết định
+            có nên chỉnh.
           </li>
           <li>
-            <strong>Lựa chọn cách viết:</strong> cân nhắc theo giọng, người đọc
-            và quy ước riêng.
+            <strong>Lựa chọn cách viết.</strong> Cân nhắc giọng, người đọc và
+            quy ước của bài.
           </li>
           <li>
-            <strong>Tín hiệu tham khảo:</strong> xem như một lời nhắc rà lại;
-            cấu trúc đó vẫn có thể phù hợp.
+            <strong>Tín hiệu tham khảo.</strong> Rà lại xem cấu trúc đang dùng
+            có hợp ngữ cảnh không.
           </li>
         </ul>
         <p>
-          Khi tính năng viết lại bằng AI được bật, phần gợi ý có thể trả bản
-          sửa, giữ nguyên, nhận xét cần kiểm chứng hoặc câu hỏi cho tác giả.
-          Kiểm tra lại số liệu, điều kiện, phủ định và mức chắc chắn trước khi
-          sử dụng.
+          Khi có tính năng viết lại bằng AI, kết quả có thể là bản sửa, bản giữ
+          nguyên, nhận xét cần kiểm chứng hoặc câu hỏi cho bạn. Đối chiếu số
+          liệu, điều kiện, phủ định và mức chắc chắn với bản gốc trước khi dùng.
         </p>
         <p>
-          Trường hợp không có phát hiện chỉ cho biết các quy tắc đã chọn chưa
-          tìm ra chỗ cần lưu ý. Bạn vẫn nên đọc lại những nội dung quan trọng.
+          Nếu kết quả trống, các quy tắc đã chọn chưa tìm thấy chỗ cần lưu ý.
+          Đọc lại các thông tin quan trọng trước khi gửi hoặc đăng.
         </p>
       </section>
       <section id="agent">
-        <h2>Dùng với AI agent</h2>
+        <h2>Cài bộ skill cho AI agent</h2>
         <p>
-          Trong terminal của dự án, chạy lệnh dưới đây để thêm bộ skill. Sau đó
-          yêu cầu agent dùng skill phù hợp khi biên tập hoặc review nội dung.
+          Chạy lệnh dưới đây trong terminal của dự án. Khi gửi văn bản, yêu cầu
+          agent dùng skill phù hợp với việc cần làm.
         </p>
         <InstallCommand />
         <p>
-          Bạn có thể bắt đầu bằng một đoạn ngắn và xem{" "}
-          <Link href="/examples">các ví dụ chạy thật</Link> để hiểu phạm vi
-          hướng dẫn.
+          Xem <Link href="/examples">các cặp ví dụ biên tập</Link> để đọc hai
+          cách sửa cùng một bản nháp.
         </p>
       </section>
     </ReadingLayout>

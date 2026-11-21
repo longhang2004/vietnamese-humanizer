@@ -10,8 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND = ROOT / "web" / "frontend"
 PRODUCT_NAME = "Vietnamese Writing Skills"
-PRODUCT_TITLE = "Vietnamese Writing Skills — Soát văn phong tiếng Việt"
-PRODUCT_METADATA_TITLE = PRODUCT_TITLE
+PRODUCT_TITLE = "Vietnamese Writing Skills — Soát và biên tập tiếng Việt"
 
 
 def read_root_project() -> dict[str, object]:
@@ -26,9 +25,10 @@ def test_frontend_uses_canonical_branding_without_a_runtime_version() -> None:
 
     assert root_project["name"] == "vietnamese-writing-skills"
 
-    assert f'default: "{PRODUCT_TITLE}"' in layout
+    assert f'const siteTitle = "{PRODUCT_TITLE}";' in layout
+    assert "default: siteTitle" in layout
     assert f'template: "%s | {PRODUCT_NAME}"' in layout
-    assert layout.count(f'title: "{PRODUCT_METADATA_TITLE}"') == 2
+    assert layout.count("title: siteTitle") == 2
     assert f'siteName: "{PRODUCT_NAME}"' in layout
     assert f'name: "{PRODUCT_NAME}"' in layout
     header = (FRONTEND / "components" / "SiteHeader.tsx").read_text(encoding="utf-8")

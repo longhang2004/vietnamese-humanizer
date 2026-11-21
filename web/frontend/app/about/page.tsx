@@ -6,89 +6,85 @@ import { REPOSITORY_URL } from "../../lib/repository";
 export const metadata: Metadata = {
   title: "Về dự án",
   description:
-    "Mục đích, phạm vi và cách đóng góp cho Vietnamese Writing Skills.",
+    "Tìm hiểu Vietnamese Writing Skills, nguồn xây dựng bộ hướng dẫn, cách kiểm chứng và cách đóng góp.",
   alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
   return (
     <ReadingLayout
-      title="Viết tiếng Việt, giữ giọng riêng."
-      introduction="Vietnamese Writing Skills là dự án mã nguồn mở về biên tập tiếng Việt theo ngữ cảnh."
+      title="Vietnamese Writing Skills"
+      introduction="Bộ công cụ mã nguồn mở để soát và biên tập tiếng Việt theo ngữ cảnh."
       contentsLabel="Mục lục về dự án"
       contents={[
-        { href: "#purpose", label: "Mục đích" },
-        { href: "#coverage", label: "Phạm vi hiện tại" },
+        { href: "#purpose", label: "Cách biên tập" },
+        { href: "#coverage", label: "Công cụ và phạm vi" },
         { href: "#evidence", label: "Nguồn và kiểm chứng" },
-        { href: "#contribute", label: "Đóng góp" },
+        { href: "#contribute", label: "Góp ví dụ" },
       ]}
     >
       <section id="purpose">
-        <h2>Câu rõ hơn, ý vẫn là của bạn.</h2>
+        <h2>Sửa theo người đọc và mục đích</h2>
         <p>
-          Dự án tập trung vào bốn việc: chỉnh câu sáo hoặc lệch giọng, sửa lối
-          diễn đạt bám cấu trúc dịch, soát lỗi tiếng Việt và giữ cách viết nhất
-          quán.
+          Một email công việc và một đoạn kể với bạn bè có thể cần hai cách sửa.
+          Bộ hướng dẫn xét người đọc và tình huống trước khi chọn câu cần chỉnh.
         </p>
         <p>
-          Cùng một nội dung có thể cần cách diễn đạt khác nhau tùy người đọc,
-          mục đích và quan hệ giao tiếp. Bộ hướng dẫn ưu tiên giữ dữ kiện, lập
-          trường, mức chắc chắn và cách xưng hô của tác giả.
+          Khi câu đã rõ, có thể giữ nguyên. Khi cần sửa, những dữ kiện, cách
+          xưng hô, lập trường và mức chắc chắn của tác giả vẫn phải đọc ra được.
         </p>
       </section>
       <section id="coverage">
-        <h2>Phạm vi hiện tại</h2>
+        <h2>Công cụ và phạm vi</h2>
         <p>
-          Bản 0.6.1 có bốn skill, 44 quy tắc rà soát, 103 ví dụ và 128 ca
-          benchmark. Hướng dẫn theo loại bài gồm văn viết rõ ràng, công việc, kỹ
+          Trình soát web đánh dấu câu chữ theo quy tắc. Bộ skill hướng dẫn AI
+          biên tập cả đoạn. Tính năng viết lại và góp mẫu trên web xuất hiện tùy
+          cấu hình dịch vụ.
+        </p>
+        <p>
+          Bản phát hành 0.6.1 có 4 skill, 44 quy tắc, 103 ví dụ và 128 ca kiểm
+          thử biên tập. Các loại bài gồm văn viết phổ thông, công việc, kỹ
           thuật, hành chính, mạng xã hội và marketing.
         </p>
         <p>
-          Trình soát web dùng quy tắc để tìm tín hiệu. Bộ skill cung cấp hướng
-          dẫn cho AI biên tập cả đoạn. Tính năng viết lại và góp mẫu trên web
-          phụ thuộc cấu hình dịch vụ.
-        </p>
-        <p>
-          Dự án tập trung chất lượng văn bản. Các phát hiện không dùng để xác
-          định một người có dùng AI, chấm xác suất tác giả hoặc kết luận gian
-          lận.
+          Các phát hiện dùng để rà câu chữ. Chúng không xác định ai viết văn
+          bản, chấm xác suất dùng AI hay kết luận gian lận.
         </p>
       </section>
       <section id="evidence">
         <h2>Nguồn đọc và kiểm chứng</h2>
         <p>
-          Hướng dẫn được phát triển từ nguồn có quy thuộc rõ, gồm bài viết tiếng
-          Việt, tài liệu chính thức và hướng dẫn biên tập. Ví dụ của dự án được
-          tự viết, kèm điều cần giữ và giới hạn sử dụng.
+          Bộ hướng dẫn dựa trên bài viết tiếng Việt có nguồn, tài liệu chính
+          thức và hướng dẫn biên tập. Dự án tự soạn ví dụ và ghi rõ những gì mỗi
+          bản sửa cần giữ.
         </p>
         <p>
-          Bộ benchmark hiện chưa có baseline được người bản ngữ độc lập đánh
-          giá. Các cặp AI trên <Link href="/examples">trang ví dụ</Link> là lượt
-          chạy minh họa nguyên văn, có bản ghi nguồn và điều kiện sinh.
+          <Link href="/examples">Trang ví dụ</Link> đăng nguyên văn kết quả AI
+          và có bản ghi để đối chiếu. Bộ ca kiểm thử chưa có kết quả chuẩn đối
+          chiếu do người bản ngữ chấm độc lập.
         </p>
         <p>
-          Bạn có thể đọc{" "}
+          Đọc thêm{" "}
           <a href={REPOSITORY_URL + "/tree/main/docs/research"}>
             nhật ký nghiên cứu
           </a>
           ,{" "}
           <a href={REPOSITORY_URL + "/blob/main/docs/limitations.md"}>
-            các giới hạn
+            giới hạn của công cụ
           </a>{" "}
-          và <a href={REPOSITORY_URL + "/releases"}>lịch sử phát hành</a> trong
-          repo.
+          và <a href={REPOSITORY_URL + "/releases"}>các bản phát hành</a> trên
+          GitHub.
         </p>
       </section>
       <section id="contribute">
-        <h2>Cùng bổ sung những trường hợp thật.</h2>
+        <h2>Một câu nên giữ nguyên cũng là ví dụ tốt</h2>
         <p>
-          Nếu gặp một gợi ý chưa phù hợp, gửi đoạn ngắn đủ ngữ cảnh, loại bài,
-          người đọc và lý do bạn muốn giữ hoặc sửa. Những phản ví dụ rõ ràng
-          giúp dự án cải thiện các quy tắc.
+          Gặp chỗ công cụ gợi ý chưa hợp? Gửi một đoạn ngắn, cho biết bạn viết
+          cho ai và vì sao câu đó nên giữ hoặc sửa. Chọn nội dung bạn có quyền
+          chia sẻ và bỏ thông tin riêng tư trước khi đăng.
         </p>
         <p>
-          Chọn nội dung bạn có quyền chia sẻ và bỏ thông tin riêng tư trước khi
-          gửi. Mã nguồn được phân phối theo{" "}
+          Mã nguồn được phát hành theo{" "}
           <a href={REPOSITORY_URL + "/blob/main/LICENSE"}>giấy phép MIT</a>.
         </p>
         <a href={REPOSITORY_URL + "/issues"} className="button-primary">

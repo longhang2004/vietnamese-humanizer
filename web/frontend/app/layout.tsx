@@ -10,14 +10,17 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   "https://vietnamese-humanizer-g1o9.vercel.app";
 
+const siteTitle = "Vietnamese Writing Skills — Soát và biên tập tiếng Việt";
+const siteDescription =
+  "Tìm lỗi tiếng Việt, rà câu dịch sát và chỉnh văn phong theo người đọc. Soát trên web hoặc dùng bộ hướng dẫn trong chatbot.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Vietnamese Writing Skills — Soát văn phong tiếng Việt",
+    default: siteTitle,
     template: "%s | Vietnamese Writing Skills",
   },
-  description:
-    "Soát lỗi tiếng Việt, xem lại câu sáo rỗng hoặc dịch chưa tự nhiên và giữ cách viết nhất quán. Dùng trên web hoặc tải skill cho chatbot của bạn.",
+  description: siteDescription,
   keywords: [
     "rà soát văn phong tiếng việt",
     "gọt giũa văn phong",
@@ -40,9 +43,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Vietnamese Writing Skills — Soát văn phong tiếng Việt",
-    description:
-      "Soát lỗi tiếng Việt, xem lại câu sáo rỗng hoặc dịch chưa tự nhiên và giữ cách viết nhất quán. Dùng trên web hoặc tải skill cho chatbot của bạn.",
+    title: siteTitle,
+    description: siteDescription,
     url: siteUrl,
     siteName: "Vietnamese Writing Skills",
     locale: "vi_VN",
@@ -52,15 +54,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 675,
-        alt: "Vietnamese Writing Skills — công cụ soát văn phong tiếng Việt",
+        alt: "Vietnamese Writing Skills. Sửa câu chữ. Giữ giọng riêng.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vietnamese Writing Skills — Soát văn phong tiếng Việt",
-    description:
-      "Soát lỗi tiếng Việt, xem lại câu sáo rỗng hoặc dịch chưa tự nhiên và giữ cách viết nhất quán. Dùng trên web hoặc tải skill cho chatbot của bạn.",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/og-image.jpg"],
   },
   icons: {
@@ -93,8 +94,7 @@ const jsonLd = {
     price: "0",
     priceCurrency: "VND",
   },
-  description:
-    "Công cụ soát văn phong tiếng Việt, giúp người viết nhận ra chỗ cần xem lại và cân nhắc cách sửa theo ngữ cảnh.",
+  description: siteDescription,
   inLanguage: "vi-VN",
 };
 

@@ -11,18 +11,19 @@ export default function HomePage() {
     <>
       <section className="home-intro" aria-labelledby="home-title">
         <h1 id="home-title">
-          Tiếng Việt,
+          Sửa câu chữ.
           <br />
-          <span>đúng ý mình.</span>
+          <span>Giữ giọng riêng.</span>
         </h1>
         <div className="home-summary">
           <p>
-            Biên tập câu chữ, soát lỗi và giữ cách viết nhất quán. Dùng ngay
-            trên web hoặc thêm vào chatbot bạn đang dùng.
+            Soát lỗi tiếng Việt, tìm chỗ câu còn gượng và giữ cách viết nhất
+            quán. Kiểm tra bản thảo trên web hoặc biên tập trong chatbot bạn
+            quen dùng.
           </p>
           <div className="home-actions">
             <Link href="/check" className="button-primary">
-              Kiểm tra văn bản <Icon name="arrow" width="18" height="18" />
+              Soát văn bản <Icon name="arrow" width="18" height="18" />
             </Link>
             <Link href="/start" className="button-secondary">
               Dùng trong chatbot
@@ -38,22 +39,20 @@ export default function HomePage() {
       >
         <header className="section-heading">
           <h2 id="comparison-title">
-            Cùng một đoạn.
+            Cùng một bản nháp.
             <br />
-            Hai cách biên tập.
+            Hai bản sửa.
           </h2>
           <p>
-            Hai agent nhận cùng yêu cầu và đoạn gốc. Một bên nạp bộ skill tiếng
-            Việt, bên còn lại biên tập theo cách thông thường. Bạn tự đối chiếu
-            từng kết quả.
+            Hai lượt AI nhận cùng đoạn gốc và yêu cầu. Một lượt đọc thêm bộ
+            hướng dẫn tiếng Việt. Chọn chủ đề để xem câu chữ thay đổi ra sao.
           </p>
         </header>
         <ComparisonExplorer cases={comparisons.cases} initialId="technical" />
         <div className="proof-end">
-          <p>6 chủ đề, từ email công việc đến chia sẻ đời thường.</p>
+          <p>6 chủ đề, từ email công việc đến bài kể đời thường.</p>
           <Link href="/examples" className="text-link action-link">
-            Xem cách chạy và các ví dụ{" "}
-            <Icon name="arrow" width="16" height="16" />
+            Xem ví dụ và bản ghi <Icon name="arrow" width="16" height="16" />
           </Link>
         </div>
       </section>
@@ -63,14 +62,9 @@ export default function HomePage() {
         aria-labelledby="capabilities-title"
       >
         <div>
-          <h2 id="capabilities-title">
-            Chọn đúng chỗ
-            <br />
-            cần sửa.
-          </h2>
+          <h2 id="capabilities-title">Bạn muốn sửa chỗ nào?</h2>
           <p className="section-description">
-            Chỉnh văn phong, sửa câu dịch hay soát lỗi đều có tiêu chí riêng.
-            Bốn skill giúp bạn tập trung vào việc đang cần.
+            Bạn có thể dùng riêng từng bộ hướng dẫn theo việc cần làm.
           </p>
         </div>
         <dl className="capability-list">
@@ -87,22 +81,22 @@ export default function HomePage() {
       </section>
 
       <section className="use-section" aria-labelledby="use-title">
-        <h2 id="use-title">Bắt đầu từ công cụ bạn đang dùng.</h2>
+        <h2 id="use-title">Chọn cách bắt đầu</h2>
         <div className="use-row">
-          <h3>Soát ngay trên web</h3>
+          <h3>Trên web</h3>
           <p>
-            Dán đoạn cần kiểm tra, chọn nhóm quy tắc và đọc gợi ý theo từng vị
-            trí.
+            Dán một đoạn văn, chọn nhóm cần kiểm tra và xem từng vị trí được
+            đánh dấu.
           </p>
           <Link href="/check" className="text-link action-link">
-            Mở trình soát <Icon name="arrow" width="16" height="16" />
+            Soát văn bản <Icon name="arrow" width="16" height="16" />
           </Link>
         </div>
         <div className="use-row">
-          <h3>Dùng trong chatbot</h3>
+          <h3>Trong chatbot</h3>
           <p>
-            Chọn ChatGPT, Claude, Gemini hoặc chatbot khác. Tải skill, đính kèm
-            tài liệu hoặc sao chép yêu cầu mẫu theo hướng dẫn.
+            Tải skill cho Claude hoặc Gemini. Với ChatGPT hay chatbot khác, bạn
+            có thể dùng yêu cầu mẫu hoặc đính kèm bộ hướng dẫn nếu có hỗ trợ.
           </p>
           <Link href="/start" className="text-link action-link">
             Chọn chatbot <Icon name="arrow" width="16" height="16" />
@@ -110,14 +104,14 @@ export default function HomePage() {
         </div>
         <div className="use-row use-row-install">
           <div>
-            <h3>Thêm vào AI agent</h3>
+            <h3>Trong AI agent</h3>
             <a
               href={REPOSITORY_URL + "/blob/main/README.md"}
               className="text-link action-link mt-3 text-sm"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Tài liệu trong repo{" "}
+              Xem cách cài trên GitHub{" "}
               <Icon name="external" width="15" height="15" />
             </a>
           </div>
@@ -130,48 +124,47 @@ export default function HomePage() {
           <h2 id="faq-title">Câu hỏi thường gặp</h2>
           <p>
             <Link href="/guide" className="text-link action-link">
-              Đọc hướng dẫn sử dụng <Icon name="arrow" width="16" height="16" />
+              Xem hướng dẫn <Icon name="arrow" width="16" height="16" />
             </Link>
           </p>
         </div>
         <div className="faq-list">
           <details>
-            <summary>Tôi dùng ngay trên web được không?</summary>
+            <summary>Tôi có thể thử ngay trên web không?</summary>
             <p>
-              Được. Mở phần soát văn bản, dán nội dung và chọn những nhóm cần
-              kiểm tra. Mỗi phát hiện có vị trí, lý do và gợi ý để bạn cân nhắc.
+              Có. Mở trình soát và dùng đoạn mẫu hoặc dán văn bản của bạn. Mỗi
+              phát hiện ghi vị trí, lý do và gợi ý để bạn cân nhắc.
             </p>
           </details>
           <details>
-            <summary>Skill dùng được với chatbot nào?</summary>
+            <summary>Nếu chatbot của tôi chưa có mục Skills?</summary>
             <p>
-              Có gói tải cho Claude và Gemini, cùng yêu cầu mẫu và tài liệu để
-              dùng với ChatGPT hoặc chatbot khác. Trang bắt đầu sẽ chỉ cách phù
-              hợp với công cụ bạn chọn.
+              Bạn vẫn có thể dán yêu cầu mẫu vào cuộc trò chuyện. Nếu chatbot hỗ
+              trợ đọc tệp, hãy đính kèm bộ hướng dẫn đầy đủ.
             </p>
           </details>
           <details>
-            <summary>Ví dụ so sánh có phải do AI tạo thật?</summary>
+            <summary>Hai bản ví dụ được tạo ra sao?</summary>
             <p>
-              Có. Hai Codex subagent nhận cùng sáu đề bài; một agent nạp thêm bộ
-              skill tiếng Việt. Đầu ra được giữ nguyên văn, kèm yêu cầu, đoạn
-              gốc và bản ghi để đối chiếu.
+              Hai agent Codex chạy riêng trên cùng sáu đề bài. Một agent đọc
+              thêm bộ hướng dẫn tiếng Việt. Bạn có thể đọc nguyên văn cả hai kết
+              quả cùng đề bài và bản ghi của từng lượt.
             </p>
           </details>
           <details>
-            <summary>Tôi có thể góp ý hoặc bổ sung ví dụ không?</summary>
+            <summary>Tôi có thể gửi góp ý ở đâu?</summary>
             <p>
-              Bạn có thể gửi góp ý hoặc báo lỗi trong{" "}
+              Mở{" "}
               <a
                 className="text-link"
                 href={REPOSITORY_URL + "/issues"}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                issue trên GitHub
-              </a>
-              . Mẫu đóng góp sẽ được nhóm duy trì xem xét trước khi thêm vào bộ
-              dữ liệu.
+                một issue trên GitHub
+              </a>{" "}
+              để góp ý hoặc báo lỗi. Nhóm duy trì sẽ xem các ví dụ đóng góp
+              trước khi đưa vào bộ dữ liệu.
             </p>
           </details>
         </div>

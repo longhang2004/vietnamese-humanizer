@@ -8,18 +8,18 @@ import comparisons from "../../content/comparisons.json";
 import { REPOSITORY_URL } from "../../lib/repository";
 
 export const metadata: Metadata = {
-  title: "Ví dụ AI có và không nạp skill",
+  title: "Ví dụ biên tập",
   description:
-    "Đối chiếu sáu cặp kết quả biên tập AI chạy thật, cùng yêu cầu, đoạn gốc và bản ghi có nguồn.",
+    "Đọc sáu cặp bản sửa nguyên văn từ các lượt chạy AI. Mỗi cặp có cùng đoạn gốc, yêu cầu và bản ghi để đối chiếu.",
   alternates: { canonical: "/examples" },
 };
 
 export default function ExamplesPage() {
   return (
     <div className={styles.examples}>
-      <ReadingHeader title="Khi AI có thêm bộ skill tiếng Việt.">
-        Cùng đoạn gốc và yêu cầu biên tập, hai agent xử lý trong hai ngữ cảnh
-        riêng. Chọn một chủ đề để đọc cả hai bản.
+      <ReadingHeader title="Câu chữ thay đổi ra sao?">
+        Đọc hai bản sửa từ cùng một bản nháp. Một lượt AI dùng thêm bộ hướng dẫn
+        tiếng Việt. Sáu cặp này minh họa cách sửa ở từng đề bài.
       </ReadingHeader>
       <ComparisonExplorer
         cases={comparisons.cases}
@@ -27,30 +27,28 @@ export default function ExamplesPage() {
         headingLevel={2}
       />
       <details className={styles.methodology}>
-        <summary>Các ví dụ được tạo như thế nào?</summary>
+        <summary>Cách tạo sáu cặp ví dụ</summary>
         <p>
-          Ngày 04/11/2026, hai Codex subagent nhận cùng sáu đoạn giả định và yêu
-          cầu biên tập. Một agent chỉ đọc đề bài; agent còn lại đọc thêm
-          humanizer-vi và các tài liệu theo loại bài tại commit{" "}
-          <code>845c379</code>. Cả sáu cặp được xuất lên web nguyên văn, không
-          sửa lại để tạo khác biệt.
+          Ngày 04/11/2026, hai agent Codex nhận cùng sáu đoạn giả định và yêu
+          cầu biên tập. Một agent chỉ đọc đề bài. Agent kia đọc thêm
+          humanizer-vi và tài liệu theo loại bài tại commit <code>845c379</code>
+          . Cả sáu cặp được đăng nguyên văn.
         </p>
         <p>
-          Hai bên đều chịu chỉ dẫn chung của môi trường Codex. Model được kế
-          thừa từ phiên làm việc; công cụ không công bố mã phiên bản provider
-          hoặc seed. Vì vậy đây là ví dụ minh họa từng lượt chạy, chưa phải phép
-          đo chất lượng chung hoặc đánh giá độc lập bằng người thật.
+          Hai agent dùng chung chỉ dẫn của môi trường Codex. Model được kế thừa
+          từ phiên làm việc. Bản ghi thiếu mã phiên bản của nhà cung cấp và
+          seed. Các ví dụ này chưa qua chấm độc lập của người đọc.
         </p>
         <p>
-          Một số cặp chỉ khác vài chữ. Bạn có thể xem toàn bộ yêu cầu, đoạn gốc,
-          đầu ra và hash nguồn trong{" "}
+          Bạn có thể xem đầy đủ đề bài, đoạn gốc, kết quả và mã băm của tệp
+          nguồn trong{" "}
           <a
             className="text-link"
             href={REPOSITORY_URL + "/tree/main/" + comparisons.sourceDirectory}
             target="_blank"
             rel="noopener noreferrer"
           >
-            bản ghi gốc
+            bản ghi trên GitHub
           </a>
           .
         </p>
@@ -58,8 +56,8 @@ export default function ExamplesPage() {
       <ABReviewEntry />
       <section className={styles.nextAction} aria-labelledby="examples-next">
         <div>
-          <h2 id="examples-next">Thử với đoạn của bạn.</h2>
-          <p>Soát ngay trên web, hoặc chọn skill cho chatbot.</p>
+          <h2 id="examples-next">Thử với bản nháp của bạn</h2>
+          <p>Dán văn bản vào trình soát hoặc lấy yêu cầu mẫu cho chatbot.</p>
         </div>
         <div className={styles.actions}>
           <Link className="button-primary" href="/check">

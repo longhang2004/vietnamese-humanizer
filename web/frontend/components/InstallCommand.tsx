@@ -11,7 +11,9 @@ export function InstallCommand() {
       await navigator.clipboard.writeText(command);
       setMessage("Đã sao chép lệnh.");
     } catch {
-      setMessage("Bạn có thể chọn và sao chép lệnh trực tiếp.");
+      setMessage(
+        "Chưa sao chép được. Hãy chọn dòng lệnh để sao chép trực tiếp.",
+      );
     }
   }
   return (

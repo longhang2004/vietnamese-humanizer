@@ -8,7 +8,7 @@ import { Icon } from "./Icon";
 
 const links = [
   { href: "/check", label: "Soát văn bản" },
-  { href: "/examples", label: "Ví dụ thực tế" },
+  { href: "/examples", label: "Ví dụ biên tập" },
   { href: "/guide", label: "Hướng dẫn" },
   { href: "/start", label: "Dùng trong chatbot" },
 ];

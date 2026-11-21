@@ -18,6 +18,10 @@ Quy ước này được lập bằng chính các skill của dự án: [humaniz
 - Giữ các quy tắc dành cho agent trong tài liệu nội bộ. Nội dung mặc định trên web tập trung vào tác vụ; thông tin về phạm vi công cụ có thể đặt trong mục mở rộng, thay vì lặp lời phủ định ở đầu và cuối mọi trang.
 - Giữ nguyên số liệu, giới hạn nhập, phạm vi đồng ý chia sẻ, URL, mã và giá trị gửi API. Biên tập câu chữ không mở rộng quyền thu thập dữ liệu hay thay đổi chức năng.
 
+## Giọng trên các trang giới thiệu
+
+Trang chủ nói lợi ích cụ thể trước lời mời dùng thử. Dùng câu hỏi khi phần ngay sau giải đáp được. Phần giá trị sử dụng, các bước cài và giới hạn viết thẳng. Đặt điều kiện tài khoản và trạng thái phát hành gần nút liên quan. Trang ví dụ ghi rõ đây là các lượt minh họa và để cách chạy chi tiết cạnh bản so sánh. [Hướng dẫn biên tập marketing](../skills/humanizer-vi/references/marketing-writing.md)
+
 ## Ví dụ đã áp dụng
 
 | Trước | Sau | Lý do |

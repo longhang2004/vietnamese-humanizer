@@ -8,12 +8,11 @@ export function SiteFooter() {
         <div className="footer-brand">
           <h2>Vietnamese Writing Skills</h2>
           <p>
-            Biên tập tiếng Việt theo ngữ cảnh, giữ đúng ý và giọng của người
-            viết.
+            Soát văn bản trên web. Dùng bộ hướng dẫn với chatbot hoặc AI agent.
           </p>
         </div>
         <div>
-          <h2>Sử dụng</h2>
+          <h2>Công cụ</h2>
           <ul>
             <li>
               <Link href="/check">Soát văn bản</Link>
@@ -22,7 +21,7 @@ export function SiteFooter() {
               <Link href="/start">Dùng trong chatbot</Link>
             </li>
             <li>
-              <Link href="/examples">Ví dụ thực tế</Link>
+              <Link href="/examples">Ví dụ biên tập</Link>
             </li>
             <li>
               <Link href="/guide">Hướng dẫn</Link>
@@ -59,7 +58,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Góp ý & báo lỗi
+                Góp ý và báo lỗi
               </a>
             </li>
           </ul>
@@ -72,7 +71,6 @@ export function SiteFooter() {
             Giấy phép MIT
           </a>
         </span>
-        <span>Đọc kỹ. Sửa vừa đủ. Giữ giọng riêng.</span>
       </div>
     </footer>
   );

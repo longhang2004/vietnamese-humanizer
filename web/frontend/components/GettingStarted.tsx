@@ -26,10 +26,10 @@ function CopyPrompt({ text }: { text: string }) {
   async function copy() {
     try {
       await navigator.clipboard.writeText(text);
-      setMessage("Đã sao chép.");
+      setMessage("Đã sao chép yêu cầu.");
     } catch {
       setMessage(
-        "Chưa sao chép được. Bạn có thể chọn toàn bộ nội dung trong ô yêu cầu mẫu và sao chép trực tiếp.",
+        "Chưa sao chép được. Chọn nội dung trong ô yêu cầu mẫu và sao chép trực tiếp.",
       );
     }
   }
@@ -38,7 +38,7 @@ function CopyPrompt({ text }: { text: string }) {
     <div className={styles.copyPrompt}>
       <div className={styles.promptControls}>
         <label className={styles.promptLabel} htmlFor="starter-prompt">
-          Yêu cầu mẫu để sao chép
+          Yêu cầu mẫu
         </label>
         <button type="button" onClick={copy} className="button-primary">
           <Icon name="copy" width="16" height="16" />
@@ -72,22 +72,19 @@ export function GettingStarted() {
     <div className={styles.page}>
       <header className={`page-heading ${styles.header}`}>
         <div>
-          <h1>Viết tiếng Việt tự nhiên hơn với chatbot bạn đang dùng</h1>
-          <p>Chọn chatbot và việc bạn muốn làm.</p>
+          <h1>Biên tập trong chatbot bạn quen dùng</h1>
+          <p>Chọn chatbot để xem cách cài skill hoặc lấy yêu cầu mẫu.</p>
         </div>
         <Link href="/check" className="text-link action-link">
-          Soát văn phong ngay trên web
+          Soát văn bản trên web
           <Icon name="arrow" width="16" height="16" />
         </Link>
       </header>
 
       <div className={styles.workspace}>
-        <aside
-          className={styles.choices}
-          aria-label="Chọn chatbot và việc cần làm"
-        >
+        <aside className={styles.choices} aria-label="Chatbot và việc cần làm">
           <fieldset>
-            <legend>Bạn đang dùng công cụ nào?</legend>
+            <legend>Bạn dùng chatbot nào?</legend>
             <div className={styles.platforms}>
               {PLATFORMS.map((item) => (
                 <button
@@ -104,7 +101,7 @@ export function GettingStarted() {
           </fieldset>
 
           <div className={styles.task}>
-            <label htmlFor="starter-task">Chọn việc muốn làm</label>
+            <label htmlFor="starter-task">Việc cần làm</label>
             <select
               id="starter-task"
               value={skillId}
@@ -124,9 +121,13 @@ export function GettingStarted() {
 
         <div className={styles.content}>
           <section className={styles.setup} aria-labelledby="starter-setup">
-            <h2 id="starter-setup">Bắt đầu với {platform.label}</h2>
+            <h2 id="starter-setup">Cách dùng với {platform.label}</h2>
             {download && (
               <div className={styles.nativeSetup}>
+                <p>
+                  Dùng gói ZIP nếu tài khoản có mục Skills. Khi chưa thấy mục
+                  đó, bạn có thể lấy yêu cầu mẫu bên dưới.
+                </p>
                 <a href={download.href} download className="button-primary">
                   <span>Tải skill “{skill.title}”</span>
                   <span className={styles.downloadSize}>
@@ -134,36 +135,33 @@ export function GettingStarted() {
                   </span>
                 </a>
                 <ol>
-                  <li>Tải tệp ZIP ở trên về máy.</li>
+                  <li>Tải tệp ZIP về máy.</li>
                   {platformId === "claude" ? (
                     <>
                       <li>
-                        Mở Claude → Customize → Skills → thêm skill → Upload a
-                        skill, rồi chọn tệp vừa tải.
+                        Trong Claude, vào Customize → Skills. Chọn thêm skill
+                        rồi chọn Upload a skill và mở tệp vừa tải.
                       </li>
                       <li>
-                        Bật skill. Nếu Claude yêu cầu, bật Code execution and
-                        file creation trong Settings → Capabilities.
+                        Bật skill sau khi tải lên. Nếu Claude yêu cầu, vào
+                        Settings → Capabilities để bật Code execution and file
+                        creation.
                       </li>
                     </>
                   ) : (
                     <>
                       <li>
-                        Trên web Gemini, mở Customize → Skills → Create →
-                        Upload, rồi chọn tệp vừa tải.
+                        Trong Gemini trên web, vào Customize → Skills → Create →
+                        Upload. Chọn tệp ZIP vừa tải.
                       </li>
-                      <li>Xem lại nội dung rồi chọn Create.</li>
+                      <li>Kiểm tra nội dung rồi bấm Create.</li>
                     </>
                   )}
                   <li>
-                    Mở cuộc trò chuyện mới, dán yêu cầu mẫu bên dưới và thêm văn
-                    bản của bạn.
+                    Mở cuộc trò chuyện mới. Dán yêu cầu mẫu và thêm đoạn cần
+                    biên tập.
                   </li>
                 </ol>
-                <p>
-                  Nếu chưa thấy mục Skills, bạn vẫn có thể dùng yêu cầu mẫu bên
-                  dưới.
-                </p>
               </div>
             )}
             {platformId === "chatgpt" && (
@@ -179,16 +177,16 @@ export function GettingStarted() {
                   </a>
                 ) : (
                   <p>
-                    Dùng ngay bằng cách sao chép yêu cầu mẫu, mở ChatGPT và dán
-                    vào cuộc trò chuyện mới.
+                    Plugin chưa có bản cài công khai. Bạn có thể sao chép yêu
+                    cầu mẫu và dán vào cuộc trò chuyện mới.
                   </p>
                 )}
               </div>
             )}
             {platformId === "other" && (
               <p className={styles.platformSetup}>
-                Sao chép yêu cầu mẫu và dán vào chatbot của bạn. Nếu chatbot cho
-                đính kèm tài liệu, bạn có thể thêm bộ hướng dẫn đầy đủ bên dưới.
+                Sao chép yêu cầu mẫu và dán vào cuộc trò chuyện mới trong
+                chatbot bạn dùng.
               </p>
             )}
             {platform.url && (
@@ -206,8 +204,11 @@ export function GettingStarted() {
 
           <section className={styles.prompt} aria-labelledby="starter-try">
             <div className={styles.promptHeading}>
-              <h2 id="starter-try">Thử với văn bản của bạn</h2>
-              <p>Thay phần [Dán văn bản của bạn vào đây] bằng đoạn cần sửa.</p>
+              <h2 id="starter-try">Gửi đoạn bạn cần sửa</h2>
+              <p>
+                Dán yêu cầu vào chatbot, rồi thay dòng trong ngoặc vuông bằng
+                đoạn của bạn.
+              </p>
             </div>
             <CopyPrompt
               key={`${platformId}-${skillId}`}
@@ -219,10 +220,10 @@ export function GettingStarted() {
 
       <div className={styles.support}>
         <section className={styles.fullGuide} aria-labelledby="starter-guide">
-          <h2 id="starter-guide">Dùng bộ hướng dẫn đầy đủ</h2>
+          <h2 id="starter-guide">Bộ hướng dẫn để đính kèm</h2>
           <p>
-            Nếu chatbot hỗ trợ đọc tệp, bạn có thể đính kèm bộ hướng dẫn đầy đủ.
-            Trong yêu cầu, hãy nói rõ phần bạn muốn chatbot áp dụng.
+            Nếu chatbot đọc được tệp, hãy đính kèm bộ hướng dẫn. Ghi rõ phần bạn
+            muốn dùng khi gửi văn bản.
           </p>
           <a
             href="/downloads/huong-dan-tieng-viet.md"
@@ -234,14 +235,11 @@ export function GettingStarted() {
         </section>
 
         <details className={styles.references}>
-          <summary>Hướng dẫn cài đặt chính thức</summary>
+          <summary>Tài liệu chính thức của từng chatbot</summary>
           <p>
-            Đã đối chiếu các bước với tài liệu chính thức ngày {docsCheckedOn}.
-            Giao diện có thể khác tùy tài khoản và phiên bản ứng dụng.
+            Các bước được đối chiếu ngày {docsCheckedOn}. Tên mục và quyền sử
+            dụng có thể khác tùy tài khoản hoặc phiên bản.
           </p>
-          {!chatgptInstallUrl && (
-            <p>Gói plugin ChatGPT chưa được phát hành công khai.</p>
-          )}
           <ul>
             <li>
               <a
@@ -250,7 +248,7 @@ export function GettingStarted() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Plugin trong ChatGPT
+                Cách dùng plugin trong ChatGPT
               </a>
             </li>
             <li>
@@ -260,7 +258,7 @@ export function GettingStarted() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Cài và dùng skill trong Claude
+                Hướng dẫn skill của Claude
               </a>
             </li>
             <li>
@@ -270,7 +268,7 @@ export function GettingStarted() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Cài và dùng skill trong Gemini
+                Hướng dẫn skill của Gemini
               </a>
             </li>
           </ul>

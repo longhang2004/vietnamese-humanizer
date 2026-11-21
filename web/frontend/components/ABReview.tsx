@@ -484,8 +484,11 @@ function ReviewEntryContent() {
   return (
     <section className={styles.entry} aria-labelledby="review-entry-title">
       <div>
-        <h2 id="review-entry-title">Góp một lượt chấm A/B.</h2>
-        <p>Đọc hai bản giấu nhãn và chọn bản phù hợp hơn.</p>
+        <h2 id="review-entry-title">Bạn nghiêng về bản nào?</h2>
+        <p>
+          Đọc hai bản chỉ mang nhãn A và B. Chọn bản hợp với đề bài hơn hoặc
+          đánh dấu hòa.
+        </p>
       </div>
       <Link className="button-secondary" href="/review">
         Chấm A/B

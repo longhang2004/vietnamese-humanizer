@@ -35,7 +35,7 @@ export function ComparisonExplorer({
       <div className="comparison-toolbar">
         <div className="comparison-select">
           <label htmlFor={topicId} className="field-label">
-            Chủ đề so sánh
+            Chọn chủ đề
           </label>
           <select
             className="field"
@@ -76,34 +76,34 @@ export function ComparisonExplorer({
         </div>
       </div>
       <p role="status" className="sr-only">
-        Đang xem {selected.topic}, chủ đề {index + 1} trên {cases.length}.
+        {selected.topic}. Chủ đề {index + 1} trong {cases.length}.
       </p>
       <div className="comparison-columns">
         <section
           className="comparison-output"
-          aria-label="Kết quả AI không nạp skill"
+          aria-label="Kết quả AI không dùng skill"
         >
           <OutputHeading className="comparison-output-heading">
-            AI không nạp skill
+            AI không dùng skill
           </OutputHeading>
           <p>{selected.without}</p>
         </section>
         <section
           className="comparison-output guided-output"
-          aria-label="Kết quả AI có nạp skill"
+          aria-label="Kết quả AI dùng skill"
         >
           <OutputHeading className="comparison-output-heading">
             <Icon name="book" width="17" height="17" />
-            AI có nạp skill
+            AI dùng skill
           </OutputHeading>
           <p>{selected.with}</p>
         </section>
       </div>
       <details className="comparison-source" key={selected.id}>
-        <summary>Xem yêu cầu và đoạn gốc</summary>
+        <summary>Xem đề bài và đoạn gốc</summary>
         <div className="source-content">
           <SourceHeading className="source-heading">
-            Yêu cầu dùng cho cả hai lượt
+            Yêu cầu chung
           </SourceHeading>
           <p>{selected.prompt}</p>
           <SourceHeading className="source-heading">Đoạn gốc</SourceHeading>
@@ -111,13 +111,14 @@ export function ComparisonExplorer({
         </div>
       </details>
       <div className="comparison-provenance">
-        <p>Đầu ra AI được giữ nguyên văn từ các lượt chạy ngày 04/11/2026.</p>
+        <p>Kết quả nguyên văn từ các lượt chạy AI ngày 04/11/2026.</p>
         <a
           href={`${REPOSITORY_URL}/tree/main/docs/research/2026-11-04-web-comparisons`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Xem bản ghi gốc <Icon name="external" width="14" height="14" />
+          Xem bản ghi trên GitHub{" "}
+          <Icon name="external" width="14" height="14" />
         </a>
       </div>
     </div>

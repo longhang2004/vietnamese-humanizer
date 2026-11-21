@@ -10,6 +10,7 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 - Bổ sung cách chọn giọng theo từng phần của bài marketing, giữ phủ định có nghĩa và đặt điều kiện cạnh lời mời. Thêm năm case và cập nhật gói cài.
 - Bổ sung hướng dẫn biên tập báo cáo tiến độ và nghiên cứu. Thêm sáu case về mốc báo cáo, bằng chứng, trích dẫn và phạm vi kết luận.
+- Viết lại câu chữ trên các trang giới thiệu, luồng dùng trong chatbot và thẻ chia sẻ. Đặt lợi ích, bước tiếp theo và giới hạn ở nơi người đọc cần thấy.
 
 ## [0.6.1] - 2026-11-21
 
