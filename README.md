@@ -194,7 +194,7 @@ If Vietnamese Writing Skills is useful, you can make an optional donation to sup
 
 ## Contributors and acknowledgments
 
-- **Hàng Nhựt Long** ([@longhang2004](https://github.com/longhang2004)) — Core maintainer & developer.
+- **Hàng Nhựt Long** ([@longhang2004](https://github.com/longhang2004), [nhutlong20112004@gmail.com](mailto:nhutlong20112004@gmail.com)) — Core maintainer & developer.
 - **Lê Ngọc Phương Thư** (`lengocphuongthuct2006@gmail.com`) — Suggested and ideated the web application version.
 
 The project draws on the [Agent Skills specification](https://agentskills.io/specification), style-audit ideas from [blader/humanizer](https://github.com/blader/humanizer), and localization work in Chinese and Korean projects. The Vietnamese taxonomy and data in this repository were written independently. Details are in the [research notes](docs/research-notes.md).

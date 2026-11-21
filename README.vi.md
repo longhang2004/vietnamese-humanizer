@@ -194,7 +194,7 @@ Nếu Vietnamese Writing Skills hữu ích, bạn có thể ủng hộ việc du
 
 ## Đóng góp & Cảm ơn
 
-- **Hàng Nhựt Long** ([@longhang2004](https://github.com/longhang2004)) — Duyệt & phát triển chính.
+- **Hàng Nhựt Long** ([@longhang2004](https://github.com/longhang2004), [nhutlong20112004@gmail.com](mailto:nhutlong20112004@gmail.com)) — Duyệt & phát triển chính.
 - **Lê Ngọc Phương Thư** (`lengocphuongthuct2006@gmail.com`) — Đề xuất và lên ý tưởng xây dựng phiên bản Web Application.
 
 Dự án tham khảo định dạng [Agent Skills](https://agentskills.io/specification), các ý tưởng audit văn phong của [blader/humanizer](https://github.com/blader/humanizer) và kinh nghiệm bản địa hóa từ dự án tiếng Trung, tiếng Hàn. Taxonomy cùng dữ liệu tiếng Việt trong repository được viết độc lập. Xem thêm [research notes](docs/research-notes.md).
