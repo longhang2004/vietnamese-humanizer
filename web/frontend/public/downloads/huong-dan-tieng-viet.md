@@ -124,6 +124,8 @@ Mặc định sửa nhẹ. Chỉ sắp xếp lại đoạn khi người dùng ch
 
 Giữ nguyên dữ kiện, con số, tên riêng, trích dẫn, điều kiện, ngoại lệ, lập trường, thuật ngữ và mức độ chắc chắn. Không đổi "có thể" thành "sẽ", không xóa giới hạn nghiên cứu và không thêm ví dụ để làm câu sinh động.
 
+Trong báo cáo và bài nghiên cứu, giữ mốc chốt, phạm vi, điều kiện đo và nguồn đủ gần kết quả. Giữ đúng nghĩa của “ước tính”, “trong mô phỏng”, “người tham gia cho biết” và “chưa phát hiện”. Phân biệt kết quả ghi nhận, diễn giải, kiến nghị và việc dự kiến. Khi bằng chứng chỉ nêu mối liên hệ, giữ đúng mức đó. Xem phần báo cáo và nghiên cứu trong [tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md) khi cần rà sâu.
+
 Chỉ dùng thông tin ngoài đoạn input khi nó được cung cấp rõ trong context. Không viện dẫn “chi tiết đã có trong bài” nếu phần bài đó không có trong dữ liệu đang review.
 
 Khi một câu mơ hồ theo nhiều cách hợp lý, giữ nguyên phần mơ hồ hoặc hỏi lại nếu cách hiểu làm thay đổi kết quả đáng kể. Dùng checklist đầy đủ trong [preservation rules](#resource-skills-humanizer-vi-references-preservation-rules-md).
@@ -175,6 +177,7 @@ Dùng để biên tập phần nội dung công văn, thông báo, báo cáo ho�
 - Giữ cơ quan ban hành, người nhận, đơn vị thực hiện và người có thẩm quyền được nêu. Tên cơ quan hoặc chức danh không đủ để suy ra quan hệ chỉ đạo.
 - Bảo toàn mức nghĩa vụ của “phải”, “không được”, “đề nghị”, “yêu cầu”, “giao”, “có trách nhiệm”. Giữ nhiệm vụ, điều kiện, ngoại lệ và phần cần xin ý kiến; không đổi “xem xét” thành “phê duyệt”.
 - Giữ đúng hạn xử lý và cách tính thời gian. “Trước ngày”, “chậm nhất ngày”, ngày làm việc và ngày theo lịch có thể khác nhau. Hệ quả của việc im lặng chỉ có khi input/context đã nêu.
+- Với báo cáo theo mẫu, giữ kỳ báo cáo, mốc chốt, cột trạng thái và đơn vị chịu trách nhiệm. Phân biệt kết quả đã ghi nhận, dự báo và kiến nghị khi rút gọn.
 - Giữ khung có sẵn: tiêu đề, điều/khoản, phụ lục, nơi nhận, căn cứ và phần ký. Một đoạn nội dung được gửi để sửa vẫn là một đoạn; không tự dựng thêm thể thức toàn văn.
 - Giữ số, ký hiệu, tên cơ quan và chỗ trống. Không đoán số công văn, ngày ban hành, căn cứ, người ký, chức danh hoặc dấu. Số và chữ viết tắt có thể theo quy định riêng của cơ quan.
 - Rút câu vòng trong phần thuyết minh khi vẫn giữ rõ ai làm gì, gửi cho ai và khi nào. Giữ phép liệt kê có chức năng phân chia nhiệm vụ và các cách diễn đạt chính thức đã rõ nghĩa.
@@ -216,6 +219,7 @@ Dùng cho email, yêu cầu phối hợp, giao việc và cập nhật tiến đ
 - Giữ ngày, giờ, múi giờ, người nhận, CC và trạng thái duyệt. Không đổi “trước 15:00” thành “lúc 15:00”, hoặc “chưa phản hồi” thành “đã đồng ý”.
 - Theo quan hệ và xưng hô được cung cấp. Giữ lịch sự vừa đủ; không tự thêm “em”, “anh/chị”, “ạ” hay lời cảm ơn thay người viết.
 - Gộp lời dẫn công thức khi không mang nội dung. Giữ lời xin lỗi, sự ghi nhận và cảm xúc có dụng ý; việc giảm cường điệu cần quyền riêng.
+- Với báo cáo tiến độ, đặt mốc chốt cạnh trạng thái và khối lượng đã làm. Nêu vướng mắc, bước tiếp theo hoặc quyết định cần xin khi nguồn đã có. Giữ điều kiện của việc dự kiến và giữ bảng nếu người đọc dùng bảng để theo dõi từng đầu việc.
 - Với cập nhật sự cố hoặc chậm tiến độ, nêu tình trạng và bước tiếp theo đã biết. Không tự nhận lỗi, đổ lỗi hay hứa bồi thường/thời gian khôi phục.
 
 ## Ví dụ tự viết, chưa được người bản ngữ duyệt
@@ -757,6 +761,15 @@ Ví dụ trong [plain writing](#resource-skills-humanizer-vi-references-plain-wr
 
 Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho mục đích nghiên cứu. Chưa đánh giá quyền tái phân phối toàn văn của từng nguồn; không coi giấy phép MIT của dự án là giấy phép cho nội dung bên ngoài.
 
+## Nguồn bổ sung cho báo cáo và nghiên cứu
+
+Đọc ngày 22-11-2026. [Nhật ký nguồn và kiểm chứng](https://github.com/longhang2004/vietnamese-humanizer/blob/main/docs/research/2026-11-22-report-and-research.md)
+
+- Công bố của Tổng cục Thống kê đặt trạng thái ước tính, trị số và kỳ so sánh cạnh nhau. [Công bố số liệu quý IV và năm 2024](https://www.nso.gov.vn/du-lieu-va-so-lieu-thong-ke/2025/01/hop-bao-cong-bo-so-lieu-thong-ke-kinh-te-xa-hoi-quy-iv-va-nam-2024/)
+- Nguyễn Văn Tuấn phân tích cách chọn phát hiện đáng nêu trong phần kết quả và cách bàn về ý nghĩa, giới hạn. Tạp chí Khoa học Đại học Cần Thơ có mẫu gộp kết quả và thảo luận trong một mục. [Cách viết bài báo khoa học](https://nguyenvantuan.info/wp-content/uploads/2020/10/d9a0d-86994c_e2e06885e7454bafb38e642fc649f585.pdf) · [Hướng dẫn tác giả](https://ctujournal.vn/index.php/ctujsvn/GuideAuthors)
+- George Gopen và Judith Swan giải thích cách nối câu với ý đã biết và đặt trọng tâm ở thông tin mới. Dự án vận dụng vào mạch câu tiếng Việt theo ngữ cảnh. [The Science of Scientific Writing](https://courses.ems.psu.edu/styleforstudents/print/c10_p6.html)
+- ASA giải thích giới hạn diễn giải p-value. APA JARS–Qual hướng dẫn gắn diễn giải với dữ liệu định tính và dùng trích đoạn để minh họa phát hiện. [Tuyên bố ASA](https://www.stat.yale.edu/~jtc5/238/readings/P%20values%20ASA%20Statement%20with%20commentary.pdf) · [APA JARS–Qual](https://apastyle.apa.org/jars/qual-table-1.pdf)
+
 ## Nguồn bổ sung về lối viết theo khuôn
 
 Đọc ngày 04-11-2026. Phần vận dụng nằm trong [sửa lối viết theo khuôn](#resource-skills-humanizer-vi-references-formulaic-prose-md); nhật ký đầy đủ ở `docs/research/2026-11-04-formulaic-prose.md` của repository. Chỉ tổng hợp bằng lời riêng, không nhập bài nguồn làm corpus.
@@ -787,7 +800,7 @@ Các nguyên tắc về lược chủ ngữ, phép lặp, kết hợp từ và q
 
 # Tài liệu kỹ thuật — `profile=technical`
 
-Xác định trước đây là hướng dẫn thao tác, giải thích khái niệm, tài liệu tham chiếu hay ghi chú thay đổi. Mỗi loại có cách tổ chức riêng; không biến mọi đoạn thành các bước đánh số.
+Trước khi sửa, xác định văn bản là hướng dẫn thao tác, giải thích khái niệm, tài liệu tham chiếu, ghi chú thay đổi, báo cáo phân tích hay bài nghiên cứu. Giữ bố cục phù hợp với loại tài liệu. Chỉ trình bày thành các bước khi người đọc cần làm theo trình tự.
 
 Xác định kiến thức tiền đề từ audience/context: người dùng mới và developer đã biết nền tảng cần mức giải thích khác nhau. Giải thích khái niệm ở nơi nó giúp hiểu hoặc thực hiện bước hiện tại; tránh tự thêm phần nhập môn chỉ vì tài liệu có thuật ngữ. Giữ định nghĩa tác giả đã chủ ý đặt. Nguồn tiếng Việt của ZaloPay ở [sources](#resource-skills-humanizer-vi-references-sources-md) minh họa cách công bố đối tượng trước khi đi vào nội dung nâng cao.
 
@@ -802,6 +815,14 @@ Xác định kiến thức tiền đề từ audience/context: người dùng m�
 - Theo glossary được duyệt. Giữ tiếng Anh khi đó là thuật ngữ của sản phẩm hoặc cộng đồng; giải thích bằng dữ kiện sẵn có khi đối tượng là người mới. Nếu chưa biết hai từ có cùng nghĩa hay không, hỏi thay vì gộp.
 - Giữ chính xác “chỉ khi”, “trừ khi”, “không”, “mặc định”, “tối đa”, “ít nhất” và “có thể”. Không làm nhẹ cảnh báo hoặc nâng bảo đảm.
 - Giọng thân thiện có thể trực tiếp và dễ hiểu. Tránh tự thêm “rất đơn giản”, “chỉ cần”, lời đùa hoặc lời khen sản phẩm. Giữ mức trang trọng người dùng đã chọn.
+
+## Báo cáo phân tích và nghiên cứu
+
+- Mở đoạn bằng đối tượng đang xét hoặc phát hiện cần đọc nếu mức sửa cho phép. Nối câu sau với chỉ số, đối tượng hoặc ý vừa nêu. Lặp đúng thuật ngữ khi việc đó giúp người đọc biết các câu đang nói về cùng một thứ.
+- Theo mẫu của nơi nhận hoặc tạp chí. Phần kết quả nêu điều quan sát hoặc đo được và dẫn đến bảng, hình liên quan. Phần thảo luận giải thích ý nghĩa và giới hạn dựa trên bằng chứng. Khi hai phần cùng một mục, vẫn giữ rõ vai trò của từng câu. Giữ số bảng, hình và trích dẫn đúng chỗ.
+- Đặt kỳ số liệu, mốc so sánh, đơn vị, mẫu số, đối tượng khảo sát và điều kiện đo cạnh kết quả liên quan. Giữ mức “sơ bộ” hay “ước tính”, phân biệt phần trăm với điểm phần trăm và giữ nguyên số liệu về độ bất định đã có. Khi bảng nguồn có sẵn và được phép rút gọn, chọn số cần cho nhận xét chính.
+- Giữ mức kết luận mà dữ liệu cho phép. “Chưa phát hiện khác biệt có ý nghĩa thống kê” mô tả kết quả phân tích. Kết luận hai nhóm tương đương cần bằng chứng riêng. Giữ ranh giới của mô phỏng và khảo sát quan sát. Nếu bản gốc có kết luận vượt quá bằng chứng đã cho, góp ý ở đúng câu và chờ tác giả xác nhận trước khi thay luận điểm.
+- Trong nghiên cứu định tính, gắn nhận định với dữ liệu như lời kể, ghi chép hoặc nhóm chủ đề. Giữ rõ đâu là lời người tham gia và đâu là diễn giải của tác giả. Giữ nguyên lời trích trực tiếp và mã người tham gia theo bản gốc. Giữ phạm vi của “một số”, “trong các cuộc phỏng vấn” và các cách chỉ nhóm tương tự.
 
 ## Ví dụ tự viết, chưa được người bản ngữ duyệt
 
@@ -819,11 +840,13 @@ Lý do: làm rõ điều kiện và thao tác, giữ giới hạn tối thiểu 
 
 **Cần tác giả quyết định:** “Xóa thư mục cũ rồi chạy lại lệnh trên.” Nếu người dùng cần hướng dẫn thực thi độc lập, phải hỏi đường dẫn và lệnh cụ thể. Không tự thêm `rm -rf`, đoán thư mục hay điền lệnh từ kiến thức ngoài bài.
 
+**Rút lời dẫn khảo sát.** “Qua quá trình tiến hành khảo sát, kết quả thu được cho thấy rằng 38 trong số 120 người tham gia cho biết gặp khó khăn khi nộp hồ sơ” có thể viết thành “Trong 120 người được khảo sát, 38 người cho biết gặp khó khăn khi nộp hồ sơ.” Giữ mẫu số và cách quy nguồn cho người trả lời.
+
 ## Rà cuối
 
-Người làm theo có thấy điều kiện và cảnh báo trước khi hành động không? Token và đơn vị có còn nguyên không? Có đổi thao tác tùy chọn thành bắt buộc hoặc tạo bảo đảm mới không? Nếu đã rõ, chọn `no_change`.
+Người làm theo có thấy điều kiện và cảnh báo trước khi hành động không? Token và đơn vị có còn nguyên không? Có đổi thao tác tùy chọn thành bắt buộc hoặc tạo bảo đảm mới không? Với báo cáo, người đọc có thấy kết quả đo trong điều kiện nào và tác giả diễn giải đến đâu không? Nếu đã rõ, chọn `no_change`.
 
-Nguồn về giọng tài liệu developer và cách viết quy trình được ghi ở [sources](#resource-skills-humanizer-vi-references-sources-md). Nguyên tắc tiếng Anh được chọn lọc theo mục đích; các quyết định tiếng Việt trên còn cần review độc lập.
+Nguồn về giọng tài liệu developer, quy trình, báo cáo và nghiên cứu được ghi trong [ghi chú nguồn](#resource-skills-humanizer-vi-references-sources-md). Nguyên tắc tiếng Anh được chọn lọc theo mục đích; các quyết định tiếng Việt trên còn cần review độc lập.
 
 
 
@@ -865,8 +888,8 @@ Hỏi khi có nhiều độc giả khả dĩ với register khác hẳn nhau, đ
 | --- | --- | --- |
 | `preserve` | Giữ loại bài và giọng gốc, sửa những chỗ cần thiết | [Naturalness](#resource-skills-humanizer-vi-references-naturalness-md) |
 | `plain` | Bài giải thích, thông báo, văn viết phổ thông | [Văn viết rõ ràng](#resource-skills-humanizer-vi-references-plain-writing-md) |
-| `business` | Email, giao việc, phản hồi và cập nhật tiến độ | [Trao đổi công việc](#resource-skills-humanizer-vi-references-business-writing-md) |
-| `technical` | Hướng dẫn thao tác, tài liệu tham chiếu, ghi chú kỹ thuật | [Tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md) |
+| `business` | Email, giao việc, phản hồi và báo cáo tiến độ nội bộ | [Trao đổi công việc](#resource-skills-humanizer-vi-references-business-writing-md) |
+| `technical` | Hướng dẫn thao tác, tài liệu tham chiếu, báo cáo phân tích và bài nghiên cứu | [Tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md) |
 | `administrative` | Biên tập nội dung công văn, thông báo, báo cáo hoặc dự thảo đã cung cấp | [Văn bản hành chính](#resource-skills-humanizer-vi-references-administrative-writing-md) |
 | `social` | Chia sẻ cá nhân, thảo luận hoặc thông tin trong cộng đồng | [Bài đăng mạng xã hội](#resource-skills-humanizer-vi-references-social-writing-md) |
 | `marketing` | Giới thiệu sản phẩm, thông điệp thương hiệu hoặc ưu đãi | [Marketing](#resource-skills-humanizer-vi-references-marketing-writing-md) |
@@ -879,7 +902,7 @@ Hỏi khi có nhiều độc giả khả dĩ với register khác hẳn nhau, đ
 - `edit_level=light` vẫn sửa cục bộ. Chỉ chuyển ý lên đầu hoặc đảo thứ tự đoạn khi mức can thiệp cho phép và không làm mất điều kiện đi kèm.
 - Điền một cấu trúc chỉ bằng thông tin có trong input/context. Thiếu người phụ trách, thời hạn hoặc kết quả thì giữ khoảng trống về thông tin; hỏi tác giả nếu yêu cầu bắt buộc phải có chúng.
 - Với văn bản đã rõ và hợp mục đích, giữ nguyên. Ví dụ trong các reference là minh họa, không phải khuôn để thay đồng loạt.
-- Chọn theo mục đích: bài bán hàng trên Facebook dùng `marketing`; bài chia sẻ trong cộng đồng dùng `social`. Email đề nghị phối hợp dùng `business`; phần nội dung công văn giữ mẫu và thẩm quyền dùng `administrative`.
+- Chọn theo mục đích: bài bán hàng trên Facebook dùng `marketing`; bài chia sẻ trong cộng đồng dùng `social`. Email đề nghị phối hợp dùng `business`; phần nội dung công văn giữ mẫu và thẩm quyền dùng `administrative`. Báo cáo theo mẫu cơ quan dùng `administrative`. Dùng `technical` khi cần rà cách trình bày bằng chứng và mức kết luận.
 
 ## Phạm vi hiện tại
 

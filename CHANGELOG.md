@@ -9,6 +9,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 ### Changed
 
 - Refined the marketing profile for context-specific copy, meaningful negation, and conditions that belong next to the offer. Added five editing cases and refreshed the downloadable packs.
+- Added guidance for progress reports and research editing, with six cases on reporting periods, evidence, quotations, and the scope of conclusions.
 
 ## [0.6.1] - 2026-11-21
 

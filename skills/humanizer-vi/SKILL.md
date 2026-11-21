@@ -41,6 +41,8 @@ Mặc định sửa nhẹ. Chỉ sắp xếp lại đoạn khi người dùng ch
 
 Giữ nguyên dữ kiện, con số, tên riêng, trích dẫn, điều kiện, ngoại lệ, lập trường, thuật ngữ và mức độ chắc chắn. Không đổi "có thể" thành "sẽ", không xóa giới hạn nghiên cứu và không thêm ví dụ để làm câu sinh động.
 
+Trong báo cáo và bài nghiên cứu, giữ mốc chốt, phạm vi, điều kiện đo và nguồn đủ gần kết quả. Giữ đúng nghĩa của “ước tính”, “trong mô phỏng”, “người tham gia cho biết” và “chưa phát hiện”. Phân biệt kết quả ghi nhận, diễn giải, kiến nghị và việc dự kiến. Khi bằng chứng chỉ nêu mối liên hệ, giữ đúng mức đó. Xem phần báo cáo và nghiên cứu trong [tài liệu kỹ thuật](references/technical-writing.md) khi cần rà sâu.
+
 Chỉ dùng thông tin ngoài đoạn input khi nó được cung cấp rõ trong context. Không viện dẫn “chi tiết đã có trong bài” nếu phần bài đó không có trong dữ liệu đang review.
 
 Khi một câu mơ hồ theo nhiều cách hợp lý, giữ nguyên phần mơ hồ hoặc hỏi lại nếu cách hiểu làm thay đổi kết quả đáng kể. Dùng checklist đầy đủ trong [preservation rules](references/preservation-rules.md).

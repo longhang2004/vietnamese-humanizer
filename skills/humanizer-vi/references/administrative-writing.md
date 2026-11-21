@@ -8,6 +8,7 @@ Dùng để biên tập phần nội dung công văn, thông báo, báo cáo ho�
 - Giữ cơ quan ban hành, người nhận, đơn vị thực hiện và người có thẩm quyền được nêu. Tên cơ quan hoặc chức danh không đủ để suy ra quan hệ chỉ đạo.
 - Bảo toàn mức nghĩa vụ của “phải”, “không được”, “đề nghị”, “yêu cầu”, “giao”, “có trách nhiệm”. Giữ nhiệm vụ, điều kiện, ngoại lệ và phần cần xin ý kiến; không đổi “xem xét” thành “phê duyệt”.
 - Giữ đúng hạn xử lý và cách tính thời gian. “Trước ngày”, “chậm nhất ngày”, ngày làm việc và ngày theo lịch có thể khác nhau. Hệ quả của việc im lặng chỉ có khi input/context đã nêu.
+- Với báo cáo theo mẫu, giữ kỳ báo cáo, mốc chốt, cột trạng thái và đơn vị chịu trách nhiệm. Phân biệt kết quả đã ghi nhận, dự báo và kiến nghị khi rút gọn.
 - Giữ khung có sẵn: tiêu đề, điều/khoản, phụ lục, nơi nhận, căn cứ và phần ký. Một đoạn nội dung được gửi để sửa vẫn là một đoạn; không tự dựng thêm thể thức toàn văn.
 - Giữ số, ký hiệu, tên cơ quan và chỗ trống. Không đoán số công văn, ngày ban hành, căn cứ, người ký, chức danh hoặc dấu. Số và chữ viết tắt có thể theo quy định riêng của cơ quan.
 - Rút câu vòng trong phần thuyết minh khi vẫn giữ rõ ai làm gì, gửi cho ai và khi nào. Giữ phép liệt kê có chức năng phân chia nhiệm vụ và các cách diễn đạt chính thức đã rõ nghĩa.

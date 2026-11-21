@@ -46,6 +46,15 @@ Ví dụ trong [plain writing](plain-writing.md), [business writing](business-wr
 
 Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho mục đích nghiên cứu. Chưa đánh giá quyền tái phân phối toàn văn của từng nguồn; không coi giấy phép MIT của dự án là giấy phép cho nội dung bên ngoài.
 
+## Nguồn bổ sung cho báo cáo và nghiên cứu
+
+Đọc ngày 22-11-2026. [Nhật ký nguồn và kiểm chứng](https://github.com/longhang2004/vietnamese-humanizer/blob/main/docs/research/2026-11-22-report-and-research.md)
+
+- Công bố của Tổng cục Thống kê đặt trạng thái ước tính, trị số và kỳ so sánh cạnh nhau. [Công bố số liệu quý IV và năm 2024](https://www.nso.gov.vn/du-lieu-va-so-lieu-thong-ke/2025/01/hop-bao-cong-bo-so-lieu-thong-ke-kinh-te-xa-hoi-quy-iv-va-nam-2024/)
+- Nguyễn Văn Tuấn phân tích cách chọn phát hiện đáng nêu trong phần kết quả và cách bàn về ý nghĩa, giới hạn. Tạp chí Khoa học Đại học Cần Thơ có mẫu gộp kết quả và thảo luận trong một mục. [Cách viết bài báo khoa học](https://nguyenvantuan.info/wp-content/uploads/2020/10/d9a0d-86994c_e2e06885e7454bafb38e642fc649f585.pdf) · [Hướng dẫn tác giả](https://ctujournal.vn/index.php/ctujsvn/GuideAuthors)
+- George Gopen và Judith Swan giải thích cách nối câu với ý đã biết và đặt trọng tâm ở thông tin mới. Dự án vận dụng vào mạch câu tiếng Việt theo ngữ cảnh. [The Science of Scientific Writing](https://courses.ems.psu.edu/styleforstudents/print/c10_p6.html)
+- ASA giải thích giới hạn diễn giải p-value. APA JARS–Qual hướng dẫn gắn diễn giải với dữ liệu định tính và dùng trích đoạn để minh họa phát hiện. [Tuyên bố ASA](https://www.stat.yale.edu/~jtc5/238/readings/P%20values%20ASA%20Statement%20with%20commentary.pdf) · [APA JARS–Qual](https://apastyle.apa.org/jars/qual-table-1.pdf)
+
 ## Nguồn bổ sung về lối viết theo khuôn
 
 Đọc ngày 04-11-2026. Phần vận dụng nằm trong [sửa lối viết theo khuôn](formulaic-prose.md); nhật ký đầy đủ ở `docs/research/2026-11-04-formulaic-prose.md` của repository. Chỉ tổng hợp bằng lời riêng, không nhập bài nguồn làm corpus.

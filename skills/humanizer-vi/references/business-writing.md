@@ -10,6 +10,7 @@ Dùng cho email, yêu cầu phối hợp, giao việc và cập nhật tiến đ
 - Giữ ngày, giờ, múi giờ, người nhận, CC và trạng thái duyệt. Không đổi “trước 15:00” thành “lúc 15:00”, hoặc “chưa phản hồi” thành “đã đồng ý”.
 - Theo quan hệ và xưng hô được cung cấp. Giữ lịch sự vừa đủ; không tự thêm “em”, “anh/chị”, “ạ” hay lời cảm ơn thay người viết.
 - Gộp lời dẫn công thức khi không mang nội dung. Giữ lời xin lỗi, sự ghi nhận và cảm xúc có dụng ý; việc giảm cường điệu cần quyền riêng.
+- Với báo cáo tiến độ, đặt mốc chốt cạnh trạng thái và khối lượng đã làm. Nêu vướng mắc, bước tiếp theo hoặc quyết định cần xin khi nguồn đã có. Giữ điều kiện của việc dự kiến và giữ bảng nếu người đọc dùng bảng để theo dõi từng đầu việc.
 - Với cập nhật sự cố hoặc chậm tiến độ, nêu tình trạng và bước tiếp theo đã biết. Không tự nhận lỗi, đổ lỗi hay hứa bồi thường/thời gian khôi phục.
 
 ## Ví dụ tự viết, chưa được người bản ngữ duyệt

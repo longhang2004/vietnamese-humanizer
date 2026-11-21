@@ -1,6 +1,8 @@
 # Benchmark
 
-Bộ benchmark gồm 133 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+Bộ benchmark gồm 139 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+
+`cases/report-and-research.jsonl` có sáu tình huống giả định về báo cáo tiến độ, số liệu sơ bộ, mô phỏng, phỏng vấn và phạm vi kết luận. Bộ này có bản cần sửa, bản nên giữ nguyên và bản cần góp ý về bằng chứng. [Ghi chú nguồn và kiểm chứng](../docs/research/2026-11-22-report-and-research.md)
 
 `cases/marketing-editorial-styles.jsonl` có năm tình huống giả định về câu hỏi theo tình huống, câu cảm thán báo tin, phủ định có nghĩa và vị trí điều kiện/chú thích. Ba bản dự kiến giữ nguyên, hai bản cần sửa. Xem [ghi chú nguồn và kiểm chứng](../docs/research/2026-11-22-marketing-voice.md).
 
