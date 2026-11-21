@@ -2,7 +2,9 @@
 
 Đề xuất nghiên cứu ngày 3 tháng 11 năm 2026. Dự án có thể học dần bằng cách đọc nguồn có tác giả, tạo brief, cho agent viết độc lập, biên tập và kiểm trên chủ đề mới. Mục tiêu là cập nhật hướng dẫn, ví dụ và bộ đánh giá. Quy trình này chưa huấn luyện hay cập nhật trọng số model.
 
-Xem [danh mục nhóm văn phong cần khảo sát](style-catalog.md) và [vòng thử đã thực hiện](research/2026-11-03-same-topic-pilot.md). Pilot là công việc development, không được đưa vào benchmark. Bộ 124 case hiện tại có thêm 12 tình huống riêng từ [đợt khảo sát lối viết theo khuôn](research/2026-11-04-formulaic-prose.md), cùng 18 tình huống từ [đợt bổ sung hành chính, social và marketing](research/2026-11-04-administrative-social-marketing.md).
+Xem [danh mục nhóm văn phong cần khảo sát](style-catalog.md) và [vòng thử đã thực hiện](research/2026-11-03-same-topic-pilot.md). Pilot là công việc development, không được đưa vào benchmark. Bộ 124 case ở v0.6.0 có thêm 12 tình huống riêng từ [đợt khảo sát lối viết theo khuôn](research/2026-11-04-formulaic-prose.md), cùng 18 tình huống từ [đợt bổ sung hành chính, social và marketing](research/2026-11-04-administrative-social-marketing.md).
+
+Đợt [rà văn phong tiếng Việt sau lượt chấm A/B](research/2026-11-21-vietnamese-voice.md) bổ sung bốn case phát triển và ghi lại cách các đoạn có tác giả xử lý nhịp kể, chủ ngữ và mốc thao tác.
 
 ## Hai câu hỏi cần tách
 

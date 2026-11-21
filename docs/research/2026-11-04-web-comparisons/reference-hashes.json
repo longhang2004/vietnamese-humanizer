@@ -1,0 +1,17 @@
+{
+  "skill_commit": "845c3795f26346c4f5801e35365d65ff939a8e08",
+  "sha256": {
+    "skills/humanizer-vi/SKILL.md": "1a88eb0c95a482045ebe1d9f54afb536c8ceb00d03ed3a3c6856d0655dc4b4f1",
+    "skills/humanizer-vi/references/naturalness.md": "cfb8b39cbcf900476ffb94a6238d31daeee63a90df2dcada4d0133ab03c497b0",
+    "skills/humanizer-vi/references/formulaic-prose.md": "30a34fa8e2744f046e23a0286129b048412a4a341d20a9c5cb027836703f403d",
+    "skills/humanizer-vi/references/preservation-rules.md": "bbd666fe4ef7f93540c3bc7245e6516ce456ebe7a024d1848dc131427f338edb",
+    "skills/humanizer-vi/references/writing-profiles.md": "6302da4fdc658ebd233cb33609813f7d38aa17ccf1ec03abb7f550e71acc26fe",
+    "skills/humanizer-vi/references/business-writing.md": "5c0b627ff3ecc2a1b15222df6b2035b7e82c0f554e2265f1e56d8ad65b291b0f",
+    "skills/humanizer-vi/references/administrative-writing.md": "5edcdd20485c5120d55156b1eaf1cef70073b1cba3407b5798a137e8fa504bcf",
+    "skills/humanizer-vi/references/social-writing.md": "9ddb3a050a03c9f16347e993f86c9290ecc2ee3c9b75cb560665377d726ad536",
+    "skills/humanizer-vi/references/marketing-writing.md": "7e4dd9ee8671f8ae2fbb466b91464a41b1a9237bc31e9f1fa27636fd43aaee4c",
+    "skills/humanizer-vi/references/technical-writing.md": "b1d3fe2e3b4a597595beb45591755f2a71ff7bf53c53c6e6bf892aa3556a23cf",
+    "skills/humanizer-vi/references/plain-writing.md": "3d89d76c32b80303d68eb4f3e03782bbda806f77c30cc664290ec9301930863c",
+    "skills/humanizer-vi/references/registers.md": "7bdc3a34bd39d1c6b02b8163e04d2ee4224d2e751bc9ce4b44e2c4f444af3919"
+  }
+}

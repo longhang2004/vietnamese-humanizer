@@ -10,6 +10,6 @@ Hai bên đều chịu chỉ dẫn chung của môi trường Codex. “Không n
 
 Toàn bộ sáu cặp được đưa lên web nguyên văn. Một số kết quả rất gần nhau; điều đó vẫn được giữ lại. Chủ đề kỹ thuật được chọn làm ví dụ mở đầu vì người dùng yêu cầu hướng web thiên về kỹ thuật. Người xem có thể đổi sang mọi chủ đề còn lại, xem yêu cầu và đoạn gốc.
 
-`scripts/export_web_comparisons.py` chỉ gộp dữ liệu và hash nguồn vào `web/frontend/content/comparisons.json`. Nó không sinh hoặc biên tập đầu ra. Chạy với `--check` để phát hiện thay đổi chưa đồng bộ.
+`scripts/export_web_comparisons.py` chỉ gộp dữ liệu và hash nguồn vào `web/frontend/content/comparisons.json`. Nó không sinh hoặc biên tập đầu ra. Chạy với `--check` để phát hiện thay đổi chưa đồng bộ. [Hash reference đã lưu](reference-hashes.json) được tính từ blob của commit lần sinh và đối chiếu với cả 12 hash đã công khai trước khi lưu. Exporter lấy hash lịch sử từ đây. Ba tệp brief và output thô vẫn được băm trực tiếp.
 
 Đây là ví dụ minh họa chức năng, không phải benchmark kiểm soát model, chứng minh hơn/kém, đo hiệu quả chung hoặc đánh giá bởi người bản ngữ độc lập. Không nhập các ví dụ này vào corpus hay bộ 124 benchmark case.

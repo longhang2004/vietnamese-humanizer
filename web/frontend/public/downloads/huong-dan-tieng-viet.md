@@ -102,7 +102,7 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 4. Sửa cấu trúc câu và đoạn trước khi thay từ. Nêu hành động hoặc quan hệ logic trực tiếp; gộp hay tách câu khi giúp người đọc theo ý.
 5. Giữ những câu đã ổn. Không sửa một cụm chỉ vì nó có trong catalog.
 6. Rà lại đại từ, thuật ngữ và register. Đọc thành tiếng nếu nhịp câu là vấn đề.
-7. Audit bản cuối theo danh sách bảo toàn. Chỉ giải thích thay đổi khi người dùng yêu cầu.
+7. Đọc bản sửa như người nhận. Trong bài kể, kiểm ai đang làm hoặc đang nhớ. Trong hướng dẫn, kiểm người đọc nhận ra dấu hiệu được đi tiếp ngay ở bước liên quan. Đối chiếu bản gốc để giữ đúng nghĩa. Chỉ giải thích thay đổi khi người dùng yêu cầu.
 
 Đọc [workflow chi tiết](#resource-skills-humanizer-vi-references-workflow-md) cho văn bản dài hoặc khi nhiều pattern chồng nhau. Tra [register](#resource-skills-humanizer-vi-references-registers-md) trước khi sửa văn bản học thuật, pháp lý, hành chính hay chăm sóc khách hàng.
 
@@ -493,6 +493,8 @@ Nếu chưa biết trình tự, dùng "Mai kiểm tra số liệu và gửi báo
 
 Giữ tên hoặc chức danh ở chỗ chuyển người làm. Trong email, một câu thiếu chủ ngữ có thể nghe như mệnh lệnh; không dùng lược bỏ để tránh quyết định xưng hô còn thiếu.
 
+Khi câu lặp chủ ngữ, thử đọc liền với câu trước. Có thể lược nếu người đọc vẫn theo được cùng một người qua chuỗi hành động. Gọi lại chủ thể khi chuyển người làm, quay lại góc nhìn người kể hoặc cần nhấn một đối chiếu. Lượt sửa nhẹ có thể dừng ở cụm gây vấp dù cả đoạn dùng cùng cách xưng hô.
+
 ## Lặp và nhịp theo trọng lượng ý
 
 Lặp từ khóa giúp theo dõi cùng một đối tượng. Không đổi luân phiên "khách hàng", "người mua" và "người dùng" nếu ba vai trò khác nhau. Giữ phép lặp có dụng ý trong lời kể, đối chiếu và hướng dẫn.
@@ -663,7 +665,7 @@ Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng 
 - Giữ ngôi kể, cách gọi người đọc, từ địa phương và mức thân mật đã có. “Mình”, “tớ”, “tôi” hay “anh em” phụ thuộc tác giả và cộng đồng, không phải mặc định của mạng xã hội.
 - Đưa quan sát, câu hỏi hoặc thông tin chính lên sớm khi quyền biên tập cho phép. Chỉ lược lời dẫn chung nếu được phép và không mất cảm xúc có dụng ý.
 - Giữ trải nghiệm thật được cung cấp, ý kiến chủ quan và mức chưa chắc. Không thêm kỷ niệm, cảm giác, cử chỉ hoặc sự đồng tình của cộng đồng để tạo vẻ gần gũi.
-- Giữ câu ngắn, nhịp ngắt, khẩu ngữ và chuyển mã có dụng ý. Sửa chỗ gây hiểu nhầm; không rắc tiếng lóng, từ đang thịnh hành, lỗi cố ý hay tiểu từ vào mọi câu.
+- Giữ nhịp ngắt, khẩu ngữ và chuyển mã có dụng ý. Có thể lược một lần xưng “mình” nếu câu vẫn theo đúng một người. Gọi lại người làm khi câu đổi chủ thể hoặc ngôi kể quay về mình. Một từ như “tự nhiên”, “thì” hay “lại” có thể đánh dấu chuyển ý, tương phản hoặc cảm xúc. Giữ tác dụng đó khi sửa.
 - Chọn giọng theo tình huống. Bài xin lỗi, chuyện buồn hoặc thông báo sự cố cần sự tiết chế; vui vẻ không phải mục tiêu chung của mọi bài đăng.
 - Giữ câu hỏi, đường dẫn, emoji, hashtag và lời mời có tác dụng. Chỉ thêm khi có mục đích và thông tin tương ứng trong yêu cầu; không tự chèn lời xin tương tác, câu hỏi kết bài hoặc hashtag để đủ khuôn.
 - Chia đoạn theo mạch kể và thông tin. Bài trải nghiệm dài vẫn có thể hợp cộng đồng; không áp số câu, số chữ hay công thức mở bài cố định.
@@ -679,6 +681,8 @@ Gợi ý: “Chủ nhật này nhóm mình đổi sách lúc 9h ở thư viện 
 Giữ giờ, nơi, cách xưng hô và lời mời; phần bị lược đã được tác giả cho phép.
 
 **Giữ nguyên:** “Sáng nay mình đi bộ ra chợ, quên mang điện thoại. Về nhà mới nhớ. Cũng lâu rồi mới có một buổi sáng thong thả vậy.” Nhịp kể và câu thiếu chủ ngữ vẫn rõ trong ngữ cảnh. Bài không cần thêm câu hỏi người đọc.
+
+**Giữ nhịp khi đổi người làm:** “Chị nhắn là xe tới rồi. Mình đọc xong, cất điện thoại. Một lát lại lôi ra xem giờ.” “Mình” nối lại góc nhìn người kể sau hành động của chị. Câu cuối theo cùng chủ thể nên có thể đứng như vậy.
 
 **Cần tác giả quyết định:** “Chiều thứ Bảy gặp ở chỗ cũ nhé.” Nếu tác giả muốn chuyển từ nhóm bạn sang lời mời công khai, hỏi địa điểm và giờ; không tự đoán.
 
@@ -768,6 +772,7 @@ Xác định kiến thức tiền đề từ audience/context: người dùng m�
 ## Quyết định biên tập
 
 - **Hướng dẫn thao tác:** làm rõ điều kiện áp dụng, hành động và kết quả đã được mô tả. Giữ thứ tự phụ thuộc; đặt cảnh báo trước thao tác liên quan khi được sắp xếp lại. Không tự thêm bước hay lệnh để quy trình có vẻ hoàn chỉnh.
+- Nếu nguồn đã cho một trạng thái hoặc thông báo để biết khi nào có thể đi tiếp, đặt nó cạnh hành động phải chờ. Diễn đạt điều người đọc có thể làm tại chỗ, rồi nêu hậu quả của việc làm sớm nếu nguồn có. Giữ đúng phạm vi và mức chắc chắn của cảnh báo. Nếu hành động chỉ là tùy chọn, giữ cách diễn đạt cho biết người đọc có thể chọn và tránh biến nó thành bước kế tiếp.
 - **Tài liệu tham chiếu:** đi thẳng vào chức năng, tham số, giá trị trả về và giới hạn đã có. Giữ ngắn gọn, cho phép cấu trúc lặp giúp tra cứu.
 - **Giải thích khái niệm:** giữ thuật ngữ nhất quán và nối nguyên nhân–cơ chế–hệ quả theo bằng chứng trong input/context. Không tự thêm cơ chế hoặc ví dụ thực thi.
 - **Ghi chú thay đổi:** phân biệt hành vi trước/sau, phiên bản và phạm vi ảnh hưởng. Không biến một thay đổi cho nhóm thử nghiệm thành thay đổi cho mọi tài khoản.
@@ -785,6 +790,8 @@ Input: “Trong trường hợp mã phản hồi là `429`, việc thử lại y
 Gợi ý: “Nếu mã phản hồi là `429`, hãy đợi ít nhất 30 giây trước khi thử lại yêu cầu. Không tự động thử lại yêu cầu `POST`.”
 
 Lý do: làm rõ điều kiện và thao tác, giữ giới hạn tối thiểu và lệnh cấm. Không suy ra mọi `POST` đều an toàn để thử lại thủ công.
+
+**Đặt mốc chờ:** Giữ cửa sổ mở đến khi thấy “Đã lưu”. Đóng sớm có thể làm gián đoạn việc lưu. Khi cần, bạn có thể bấm “Xem bản lưu”. Dùng cách này khi nguồn có đủ thông báo, rủi ro và nút tùy chọn. Lời dặn chờ cần giúp người đọc tiếp tục thao tác tại cửa sổ đó.
 
 **Giữ nguyên:** “`get_status(id)` trả về `null` nếu không tìm thấy tác vụ. Hàm không tạo tác vụ mới.” Cấu trúc trực tiếp hợp tài liệu tham chiếu; không cần mở đầu “Hãy cùng tìm hiểu”.
 

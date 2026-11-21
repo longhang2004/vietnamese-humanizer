@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -28,8 +29,16 @@ def render() -> str:
         path = (ROOT / name).resolve()
         if not path.is_relative_to(ROOT / "skills/humanizer-vi"):
             raise ValueError("Only humanizer references belong in source metadata")
+    archive = json.loads((RUNS / "reference-hashes.json").read_text(encoding="utf-8"))
+    reference_hashes = archive["sha256"]
+    if (
+        archive["skill_commit"] != guided["skill_commit"]
+        or set(reference_hashes) != set(references)
+    ):
+        raise ValueError("Archived hashes must cover the references from the recorded skill commit")
+    if any(not re.fullmatch(r"[0-9a-f]{64}", digest) for digest in reference_hashes.values()):
+        raise ValueError("Archived reference hashes must be SHA-256 digests")
     sources = [RUNS / name for name in ("briefs.json", "baseline.json", "with-skills.json")]
-    sources += [ROOT / name for name in references]
     data = {
         "generatedOn": briefs["created_on"],
         "generator": "Codex subagents",
@@ -42,8 +51,11 @@ def render() -> str:
         ),
         "sourceDirectory": "docs/research/2026-11-04-web-comparisons",
         "sourceHashes": {
-            path.relative_to(ROOT).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in sources
+            **{
+                path.relative_to(ROOT).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in sources
+            },
+            **{name: reference_hashes[name] for name in references},
         },
         "cases": [
             {**case, "without": outputs[0][case["id"]], "with": outputs[1][case["id"]]}

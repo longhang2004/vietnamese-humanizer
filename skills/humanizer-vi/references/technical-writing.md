@@ -7,6 +7,7 @@ Xác định kiến thức tiền đề từ audience/context: người dùng m�
 ## Quyết định biên tập
 
 - **Hướng dẫn thao tác:** làm rõ điều kiện áp dụng, hành động và kết quả đã được mô tả. Giữ thứ tự phụ thuộc; đặt cảnh báo trước thao tác liên quan khi được sắp xếp lại. Không tự thêm bước hay lệnh để quy trình có vẻ hoàn chỉnh.
+- Nếu nguồn đã cho một trạng thái hoặc thông báo để biết khi nào có thể đi tiếp, đặt nó cạnh hành động phải chờ. Diễn đạt điều người đọc có thể làm tại chỗ, rồi nêu hậu quả của việc làm sớm nếu nguồn có. Giữ đúng phạm vi và mức chắc chắn của cảnh báo. Nếu hành động chỉ là tùy chọn, giữ cách diễn đạt cho biết người đọc có thể chọn và tránh biến nó thành bước kế tiếp.
 - **Tài liệu tham chiếu:** đi thẳng vào chức năng, tham số, giá trị trả về và giới hạn đã có. Giữ ngắn gọn, cho phép cấu trúc lặp giúp tra cứu.
 - **Giải thích khái niệm:** giữ thuật ngữ nhất quán và nối nguyên nhân–cơ chế–hệ quả theo bằng chứng trong input/context. Không tự thêm cơ chế hoặc ví dụ thực thi.
 - **Ghi chú thay đổi:** phân biệt hành vi trước/sau, phiên bản và phạm vi ảnh hưởng. Không biến một thay đổi cho nhóm thử nghiệm thành thay đổi cho mọi tài khoản.
@@ -24,6 +25,8 @@ Input: “Trong trường hợp mã phản hồi là `429`, việc thử lại y
 Gợi ý: “Nếu mã phản hồi là `429`, hãy đợi ít nhất 30 giây trước khi thử lại yêu cầu. Không tự động thử lại yêu cầu `POST`.”
 
 Lý do: làm rõ điều kiện và thao tác, giữ giới hạn tối thiểu và lệnh cấm. Không suy ra mọi `POST` đều an toàn để thử lại thủ công.
+
+**Đặt mốc chờ:** Giữ cửa sổ mở đến khi thấy “Đã lưu”. Đóng sớm có thể làm gián đoạn việc lưu. Khi cần, bạn có thể bấm “Xem bản lưu”. Dùng cách này khi nguồn có đủ thông báo, rủi ro và nút tùy chọn. Lời dặn chờ cần giúp người đọc tiếp tục thao tác tại cửa sổ đó.
 
 **Giữ nguyên:** “`get_status(id)` trả về `null` nếu không tìm thấy tác vụ. Hàm không tạo tác vụ mới.” Cấu trúc trực tiếp hợp tài liệu tham chiếu; không cần mở đầu “Hãy cùng tìm hiểu”.
 
