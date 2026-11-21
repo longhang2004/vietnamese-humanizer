@@ -39,7 +39,7 @@ export default function AboutPage() {
       <section id="coverage">
         <h2>Phạm vi hiện tại</h2>
         <p>
-          Bản 0.6.0 có bốn skill, 44 quy tắc rà soát, 103 ví dụ và 124 ca
+          Bản 0.6.1 có bốn skill, 44 quy tắc rà soát, 103 ví dụ và 128 ca
           benchmark. Hướng dẫn theo loại bài gồm văn viết rõ ràng, công việc, kỹ
           thuật, hành chính, mạng xã hội và marketing.
         </p>

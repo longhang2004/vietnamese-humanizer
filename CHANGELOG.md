@@ -6,6 +6,8 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-11-21
+
 ### Added
 
 - A dark project landing page, a dedicated `/check` workspace, examples, user guide and project pages, repository stars from GitHub, self-hosted Vietnamese fonts, and responsive navigation. Design work uses UI/UX Pro Max and Impeccable.
@@ -19,6 +21,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Fixed
 
+- Preserve the original skill reference hashes when regenerating the published A/B comparisons.
 - Bundle the Psycopg 3 binary driver required by current PostgreSQL configurations, retaining Psycopg 2 support. Regression tests cover explicit drivers and plain/legacy PostgreSQL URL schemes without opening database connections.
 - The checker discards late results and errors when text or selected skills change. Results include all four finding filters and inline accessible pattern explanations.
 
