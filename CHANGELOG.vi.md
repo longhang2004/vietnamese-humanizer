@@ -14,6 +14,7 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ### Changed
 
+- Rà cách chuyển chủ thể trong bài kể và cách đặt dấu hiệu hoàn tất cạnh thao tác cần chờ. Thêm bốn case benchmark theo ngữ cảnh và sinh lại gói cài.
 - Rà và refactor UI tối bằng plugin Impeccable: thu gọn phần chọn nhóm kiểm tra, dùng chung control cho onboarding, tăng cỡ chữ lệnh cài và vùng bấm. Sửa lệch cột, cấp tiêu đề, thông báo cho trình đọc màn hình và đóng menu bằng Escape.
 
 ### Fixed

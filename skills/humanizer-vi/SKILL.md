@@ -19,7 +19,7 @@ Biên tập chất lượng viết, không phân loại nguồn gốc văn bản
 4. Sửa cấu trúc câu và đoạn trước khi thay từ. Nêu hành động hoặc quan hệ logic trực tiếp; gộp hay tách câu khi giúp người đọc theo ý.
 5. Giữ những câu đã ổn. Không sửa một cụm chỉ vì nó có trong catalog.
 6. Rà lại đại từ, thuật ngữ và register. Đọc thành tiếng nếu nhịp câu là vấn đề.
-7. Audit bản cuối theo danh sách bảo toàn. Chỉ giải thích thay đổi khi người dùng yêu cầu.
+7. Đọc bản sửa như người nhận. Trong bài kể, kiểm ai đang làm hoặc đang nhớ. Trong hướng dẫn, kiểm người đọc nhận ra dấu hiệu được đi tiếp ngay ở bước liên quan. Đối chiếu bản gốc để giữ đúng nghĩa. Chỉ giải thích thay đổi khi người dùng yêu cầu.
 
 Đọc [workflow chi tiết](references/workflow.md) cho văn bản dài hoặc khi nhiều pattern chồng nhau. Tra [register](references/registers.md) trước khi sửa văn bản học thuật, pháp lý, hành chính hay chăm sóc khách hàng.
 

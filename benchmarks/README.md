@@ -1,6 +1,8 @@
 # Benchmark
 
-Bộ benchmark gồm 124 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+Bộ benchmark gồm 128 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+
+`cases/editorial-restraint.jsonl` có bốn tình huống giả định về chuyển chủ thể trong bài kể và mốc chờ trong hướng dẫn. Mỗi profile có một case cần sửa và một case cần giữ nguyên. Nhãn dự kiến do agent đặt. Xem [ghi chú đọc nguồn và kiểm chứng](../docs/research/2026-11-21-vietnamese-voice.md).
 
 `cases/naturalness.jsonl` bổ sung 30 case dài 150–500 đơn vị tách bằng khoảng trắng (không phải đếm từ bằng word segmentation), theo 15 cặp: bản phù hợp cần giữ nguyên và bản có vấn đề cần sửa/góp ý/hỏi tác giả. Trường `style` tùy chọn dùng cùng các lựa chọn với API rewrite. Tất cả tài liệu mới do coding agent tự viết; chưa có human review hoặc điểm baseline. Đây là bộ nhỏ có cặp phụ thuộc, không phải 30 mẫu độc lập đại diện tiếng Việt.
 

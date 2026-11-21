@@ -14,6 +14,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Changed
 
+- Refined Vietnamese editing guidance for shifts in perspective and subject in personal writing and visible completion cues in procedures. Added four contextual benchmark cases and rebuilt the downloadable writing packs.
 - Refined the existing dark UI through an Impeccable audit: optional checker choices use a disclosure, onboarding reuses shared controls, commands remain readable on mobile, and standalone actions have larger targets. Corrected panel alignment, heading levels, short screen-reader announcements and Escape focus restoration.
 
 ### Fixed

@@ -8,7 +8,7 @@ Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng 
 - Giữ ngôi kể, cách gọi người đọc, từ địa phương và mức thân mật đã có. “Mình”, “tớ”, “tôi” hay “anh em” phụ thuộc tác giả và cộng đồng, không phải mặc định của mạng xã hội.
 - Đưa quan sát, câu hỏi hoặc thông tin chính lên sớm khi quyền biên tập cho phép. Chỉ lược lời dẫn chung nếu được phép và không mất cảm xúc có dụng ý.
 - Giữ trải nghiệm thật được cung cấp, ý kiến chủ quan và mức chưa chắc. Không thêm kỷ niệm, cảm giác, cử chỉ hoặc sự đồng tình của cộng đồng để tạo vẻ gần gũi.
-- Giữ câu ngắn, nhịp ngắt, khẩu ngữ và chuyển mã có dụng ý. Sửa chỗ gây hiểu nhầm; không rắc tiếng lóng, từ đang thịnh hành, lỗi cố ý hay tiểu từ vào mọi câu.
+- Giữ nhịp ngắt, khẩu ngữ và chuyển mã có dụng ý. Có thể lược một lần xưng “mình” nếu câu vẫn theo đúng một người. Gọi lại người làm khi câu đổi chủ thể hoặc ngôi kể quay về mình. Một từ như “tự nhiên”, “thì” hay “lại” có thể đánh dấu chuyển ý, tương phản hoặc cảm xúc. Giữ tác dụng đó khi sửa.
 - Chọn giọng theo tình huống. Bài xin lỗi, chuyện buồn hoặc thông báo sự cố cần sự tiết chế; vui vẻ không phải mục tiêu chung của mọi bài đăng.
 - Giữ câu hỏi, đường dẫn, emoji, hashtag và lời mời có tác dụng. Chỉ thêm khi có mục đích và thông tin tương ứng trong yêu cầu; không tự chèn lời xin tương tác, câu hỏi kết bài hoặc hashtag để đủ khuôn.
 - Chia đoạn theo mạch kể và thông tin. Bài trải nghiệm dài vẫn có thể hợp cộng đồng; không áp số câu, số chữ hay công thức mở bài cố định.
@@ -24,6 +24,8 @@ Gợi ý: “Chủ nhật này nhóm mình đổi sách lúc 9h ở thư viện 
 Giữ giờ, nơi, cách xưng hô và lời mời; phần bị lược đã được tác giả cho phép.
 
 **Giữ nguyên:** “Sáng nay mình đi bộ ra chợ, quên mang điện thoại. Về nhà mới nhớ. Cũng lâu rồi mới có một buổi sáng thong thả vậy.” Nhịp kể và câu thiếu chủ ngữ vẫn rõ trong ngữ cảnh. Bài không cần thêm câu hỏi người đọc.
+
+**Giữ nhịp khi đổi người làm:** “Chị nhắn là xe tới rồi. Mình đọc xong, cất điện thoại. Một lát lại lôi ra xem giờ.” “Mình” nối lại góc nhìn người kể sau hành động của chị. Câu cuối theo cùng chủ thể nên có thể đứng như vậy.
 
 **Cần tác giả quyết định:** “Chiều thứ Bảy gặp ở chỗ cũ nhé.” Nếu tác giả muốn chuyển từ nhóm bạn sang lời mời công khai, hỏi địa điểm và giờ; không tự đoán.
 

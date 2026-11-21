@@ -56,6 +56,8 @@ Nếu chưa biết trình tự, dùng "Mai kiểm tra số liệu và gửi báo
 
 Giữ tên hoặc chức danh ở chỗ chuyển người làm. Trong email, một câu thiếu chủ ngữ có thể nghe như mệnh lệnh; không dùng lược bỏ để tránh quyết định xưng hô còn thiếu.
 
+Khi câu lặp chủ ngữ, thử đọc liền với câu trước. Có thể lược nếu người đọc vẫn theo được cùng một người qua chuỗi hành động. Gọi lại chủ thể khi chuyển người làm, quay lại góc nhìn người kể hoặc cần nhấn một đối chiếu. Lượt sửa nhẹ có thể dừng ở cụm gây vấp dù cả đoạn dùng cùng cách xưng hô.
+
 ## Lặp và nhịp theo trọng lượng ý
 
 Lặp từ khóa giúp theo dõi cùng một đối tượng. Không đổi luân phiên "khách hàng", "người mua" và "người dùng" nếu ba vai trò khác nhau. Giữ phép lặp có dụng ý trong lời kể, đối chiếu và hướng dẫn.
