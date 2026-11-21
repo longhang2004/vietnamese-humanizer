@@ -6,6 +6,10 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+### Changed
+
+- Refined the marketing profile for context-specific copy, meaningful negation, and conditions that belong next to the offer. Added five editing cases and refreshed the downloadable packs.
+
 ## [0.6.1] - 2026-11-21
 
 ### Added

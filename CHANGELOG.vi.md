@@ -6,6 +6,10 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+### Changed
+
+- Bổ sung cách chọn giọng theo từng phần của bài marketing, giữ phủ định có nghĩa và đặt điều kiện cạnh lời mời. Thêm năm case và cập nhật gói cài.
+
 ## [0.6.1] - 2026-11-21
 
 ### Added

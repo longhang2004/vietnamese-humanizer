@@ -13,6 +13,15 @@
 - Mailchimp, [Writing for Social Media](https://styleguide.mailchimp.com/writing-for-social-media/), không thấy ngày. Tham khảo quan hệ với người đọc và cách cân nhắc lời xin tương tác; không áp số câu gợi ý hay thông số nền tảng cũ thành quy tắc chung.
 - Google Ads, [Misrepresentation](https://support.google.com/adspolicy/answer/6020955?hl=en), không thấy ngày. Vận dụng có giới hạn: giữ giá/điều kiện và không tự thêm bằng chứng, lời hứa hoặc ưu đãi. Chính sách của một nền tảng không xác nhận mọi nội dung marketing đã hợp lệ; nguồn này không được coi là mẫu người Việt tự viết.
 
+## Nguồn bổ sung cho marketing
+
+Đọc ngày 22-11-2026. Các trang thương hiệu cho thấy câu chữ đã xuất bản. Phần quan sát cách làm nghề dựa trên chia sẻ của người có tên dưới đây. [Nhật ký khảo sát và kiểm chứng](https://github.com/longhang2004/vietnamese-humanizer/blob/main/docs/research/2026-11-22-marketing-voice.md)
+
+- Joanna Wiebe đối chiếu câu hỏi, bối cảnh và nút trong một thử nghiệm popup. Kết quả có phạm vi là popup được khảo sát. [Asking Questions in Your Copy, cập nhật 2020](https://copyhackers.com/2015/09/asking-questions/)
+- Hồng Anh, quản lý thương hiệu Neptune, cho biết các câu có vần đứng cùng hình gắn với việc nhà để giải thích thông điệp chiến dịch. [Phỏng vấn do Đỗ Kim thực hiện](https://www.brandsvietnam.com/congdong/topic/8823-bsi-case-study-neptune-chien-dich-hieu-de-yeu-thuong)
+- Apple dùng câu hỏi theo tình huống. Dòng thông số nêu mức tối đa và hoạt động đo. Chú thích giải thích phương pháp và các yếu tố làm kết quả thay đổi. [iPhone của Apple Việt Nam](https://www.apple.com/vn/iphone/) · [Bảng so sánh iPhone](https://www.apple.com/vn/iphone/compare/)
+- Spotify đặt giá sau ưu đãi và điều kiện đủ dùng thử cạnh nút. MoMo dùng cảm thán trong lời mở chiến dịch và câu trực tiếp ở danh sách quà. Dùng các trang làm mẫu biên tập theo từng phần. [Spotify Premium Việt Nam](https://www.spotify.com/vn-vi/premium/) · [MoMo và Coca-Cola](https://www.momo.vn/coke)
+
 ## Tiếng Việt được người viết sử dụng
 
 - Hoàng Thu Phố thực hiện phỏng vấn Nguyễn Ngọc Tư, [Viết là cách tôi giao lưu với bạn đọc](https://nhandan.vn/viet-la-cach-toi-giao-luu-voi-ban-doc-post348644.html), Nhân Dân/Thời Nay, 31-01-2019. Quan sát của dự án: nhịp câu không đều vẫn theo được vì đối tượng và lập trường xuyên suốt; cách xưng hô và sắc thái cá nhân không cần chuẩn hóa thành giọng doanh nghiệp. Đây là mẫu hội thoại đã biên tập, không đại diện cho mọi văn nói hoặc mọi vùng miền.
