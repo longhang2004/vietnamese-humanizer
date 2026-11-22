@@ -1,3 +1,5 @@
+default_install_hook_types: [pre-commit, commit-msg]
+
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.22
@@ -22,3 +24,14 @@ repos:
         entry: python scripts/validate_examples.py
         language: system
         pass_filenames: false
+      - id: conventional-commits
+        name: validate Conventional Commits message
+        entry: >-
+          python -c "import pathlib, re, sys;
+          lines = pathlib.Path(sys.argv[1]).read_text(encoding='utf-8').splitlines();
+          first = next((line for line in lines if line.strip() and not line.startswith('#')), '');
+          ok = bool(re.match(r'^(?:(?:build|chore|ci|docs|feat|fix|perf|refactor|release|revert|style|test)(?:\([a-z0-9._/-]+\))?!?: .+|Merge |Revert )', first));
+          sys.exit(0 if ok else 'Use Conventional Commits: <type>(<scope>): <description>')"
+        language: system
+        stages: [commit-msg]
+        always_run: true

@@ -41,6 +41,7 @@ A pattern based on one person's intuition may begin as a proposal to collect exa
 - Do not add AI-detection scores, detector-bypass claims, or heuristics intended to evade checks.
 - Do not treat regional variation as an error without a specific register constraint.
 - Importable logic belongs in `vietnamese_writing_skills`; `scripts/` contains compatibility wrappers only.
+- Commit messages follow Conventional Commits: `<type>[optional scope]: <description>` using one of `feat`, `fix`, `docs`, `refactor`, `test`, `ci`, `build`, `chore`, `style`, `perf`, or `release` (enforced via `.pre-commit-config.yaml` when hooks are installed with `pre-commit install`).
 
 ## Writing documentation
 

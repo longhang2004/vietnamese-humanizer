@@ -41,6 +41,7 @@ Pattern dựa trên trực giác của một người có thể mở thành prop
 - Không thêm score phát hiện AI, claim bypass detector hoặc heuristic nhằm né kiểm tra.
 - Không coi khác biệt vùng miền là lỗi nếu không có ràng buộc register cụ thể.
 - Logic importable nằm trong `vietnamese_writing_skills`; `scripts/` chỉ chứa wrapper.
+- Commit message tuân theo Conventional Commits: `<type>[optional scope]: <description>` với các type `feat`, `fix`, `docs`, `refactor`, `test`, `ci`, `build`, `chore`, `style`, `perf`, hoặc `release` (được kiểm tra qua `.pre-commit-config.yaml` khi cài hook bằng `pre-commit install`).
 
 ## Viết tài liệu
 
