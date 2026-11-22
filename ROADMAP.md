@@ -2,14 +2,13 @@
 
 # Roadmap
 
-Updated: 2026-11-06. The latest tagged product release is **0.6.0**. Work deployed from `main` is listed separately; a deployment does not create a new release.
+Updated: 2026-11-22. The latest tagged product release is **0.7.0**. Further work deployed from `main` is listed under `[Unreleased]` in the [changelog](CHANGELOG.md); a web deployment does not create a new release.
 
 ## Available today
 
-- Release 0.6.0 contains four writing skills, 44 linter patterns, 103 corpus examples and 124 benchmark cases. The six writing profiles are clear prose, work communication, technical documentation, administrative writing, social posts and marketing, alongside the default preservation mode. Channel, register, pronouns and editing depth remain independent choices.
-- The rule-based checker, optional AI rewrite with context/style controls, `/start` onboarding and generated Claude/Gemini downloads, chatbot prompts and combined guide are implemented. The ChatGPT plugin package is prepared; public listing, account-level imports and nontechnical-user trials remain outstanding. See the [distribution guide](docs/user-distribution.md).
-- Current `main` and the deployed web include the dark project landing, `/check` workspace, examples, guide/about pages, capability-aware contributions and six genuine paired AI demonstrations. Repo-local Impeccable 4.8.0, formatting and UI checks support further frontend work. These changes are described under Unreleased in the [changelog](CHANGELOG.md).
-- The blind A/B review pilot is implemented in the current source: a capability-gated `/review` page, six frozen public cases, opaque assignments with a persisted A/B order, durable votes with retry-safe receipts, and private CLI summary/CSV/JSONL export. It is `AB_REVIEW_ENABLED=false` by default in source; the deployed environment enables it explicitly. Votes are anonymous web feedback with session keys, not verified reviewer identities.
+- Release 0.7.0 includes four Vietnamese writing skills, 44 linter patterns, 103 corpus examples, and **151 benchmark cases** (expanding the 0.6.1 benchmark set with 12 voice-sample and linguistic cases). The six writing profiles are clear prose, work communication, technical documentation, administrative writing, social posts, and marketing, alongside the default preservation mode. Channel, register, pronouns, editing depth, and optional `voice_sample` remain independent choices.
+- The rule-based checker, two-phase optional AI rewrite with selective context loading, token-preservation audit, and `voice_sample` anchoring, `/start` onboarding with compact downloadable Claude/Gemini packs, and generated chatbot guides are implemented. The benchmark CLI also supports exporting stripped blind evaluation packets (`--prepare-packet`).
+- The web application includes the dark project landing, `/check` workspace, examples, guide/about pages, capability-aware contributions, six genuine paired AI demonstrations, and the capability-gated `/review` blind A/B review pilot (`AB_REVIEW_ENABLED=false` by default in source; enabled explicitly in deployed environments). Votes remain anonymous web feedback with session keys, not verified reviewer identities.
 - Corpus review is agent-based. There is no independently human-reviewed quality baseline. The six published AI pairs illustrate behavior; they are not a quality score.
 
 ## Next

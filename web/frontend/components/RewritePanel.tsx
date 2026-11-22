@@ -11,6 +11,7 @@ const DEFAULT_STYLE: RewriteStyle = {
   audience: "",
   relationship: "",
   pronouns: "",
+  voice_sample: "",
   edit_level: "light",
   reduce_hype: false,
 };
@@ -269,6 +270,19 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
                 invalidateResult();
                 setContext(event.target.value);
               }}
+              className="field"
+            />
+          </label>
+          <label className={`${styles.formField} ${styles.fullWidth}`}>
+            <span>Đoạn mẫu giọng viết (tùy chọn)</span>
+            <textarea
+              value={style.voice_sample ?? ""}
+              maxLength={1500}
+              rows={3}
+              placeholder="Dán 1–2 đoạn bạn từng viết để bám theo nhịp và cách xưng hô quen thuộc; công cụ không lấy dữ kiện từ đoạn mẫu."
+              onChange={(event) =>
+                updateStyle({ voice_sample: event.target.value })
+              }
               className="field"
             />
           </label>

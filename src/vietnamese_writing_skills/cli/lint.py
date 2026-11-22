@@ -38,12 +38,73 @@ URL_STOP_CHARS = frozenset("<>\"'«»") | {SMART_QUOTE_OPEN, SMART_QUOTE_CLOSE}
 PRONOUN_GROUPS = (
     ("bạn", "quý khách"),
     ("tôi", "chúng tôi", "chúng ta"),
+    ("tôi", "mình"),
 )
-RESULT_AUXILIARIES = {"sẽ", "đã", "đang", "bị", "được", "phải", "là", "chưa"}
+REFLEXIVE_MINH_PREV_WORDS = frozenset(
+    {"một", "tự", "riêng", "chính", "thân", "của", "cho", "với", "chúng"}
+)
+RESULT_AUXILIARIES = {
+    "sẽ",
+    "đã",
+    "đang",
+    "bị",
+    "được",
+    "phải",
+    "là",
+    "chưa",
+    "vẫn",
+    "cũng",
+    "không",
+    "mới",
+    "vừa",
+    "đều",
+    "cần",
+}
 RESULT_SUBJECTS = (
+    ("chúng", "tôi"),
+    ("chúng", "ta"),
+    ("chúng", "mình"),
     ("công", "ty"),
     ("dữ", "liệu"),
     ("cuộc", "họp"),
+    ("hệ", "thống"),
+    ("người", "dùng"),
+    ("khách", "hàng"),
+    ("đơn", "vị"),
+    ("bộ", "phận"),
+    ("máy", "chủ"),
+    ("dịch", "vụ"),
+    ("kết", "quả"),
+    ("phương", "án"),
+    ("dự", "án"),
+    ("quy", "trình"),
+    ("tài", "liệu"),
+    ("hồ", "sơ"),
+    ("thời", "gian"),
+    ("tốc", "độ"),
+    ("tỷ", "lệ"),
+    ("công", "việc"),
+    ("sự", "cố"),
+    ("nhân", "viên"),
+    ("sản", "phẩm"),
+    ("thiết", "bị"),
+    ("kế", "hoạch"),
+    ("phần", "mềm"),
+    ("tiến", "độ"),
+    ("chất", "lượng"),
+    ("tôi",),
+    ("bạn",),
+    ("họ",),
+    ("nó",),
+    ("mình",),
+    ("em",),
+    ("anh",),
+    ("chị",),
+    ("ông",),
+    ("bà",),
+    ("ta",),
+    ("nhóm",),
+    ("việc",),
 )
 REPEATED_FUNCTION_WORDS = {
     "sẽ",
@@ -401,30 +462,76 @@ def _repeated_opening_issues(
     return issues
 
 
+def _uniform_coefficient(lengths: list[int]) -> float:
+    """Tính hệ số biến thiên độ dài câu trong một cửa sổ."""
+    average = sum(lengths) / len(lengths)
+    if not average:
+        return 1.0
+    variance = sum((length - average) ** 2 for length in lengths) / len(lengths)
+    return math.sqrt(variance) / average
+
+
 def _uniform_length_issue(
     text: str,
     masked: str,
     patterns: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     sentences = _sentences(masked)
-    lengths = [len(words) for _, words in sentences if len(words) >= 6]
-    if len(lengths) < 5:
+    long_sentences = [
+        (sentence_match, words)
+        for sentence_match, words in sentences
+        if len(words) >= 6 and not _is_list_item(masked, sentence_match.start())
+    ]
+    suggestion = "Đọc thành tiếng và chỉ tách hoặc gộp câu khi nhịp đều làm ý khó theo dõi."
+    for paragraph_start, paragraph_end in _paragraph_ranges(masked):
+        local = [
+            item
+            for item in long_sentences
+            if paragraph_start <= item[0].start() < paragraph_end
+        ]
+        for index in range(len(local) - 4):
+            window = local[index : index + 5]
+            lengths = [len(words) for _, words in window]
+            if _uniform_coefficient(lengths) < 0.16:
+                return [
+                    _issue(
+                        text,
+                        window[0][0].start(),
+                        window[-1][0].end(),
+                        patterns["VI-HUM-S04"],
+                        (
+                            "Độ dài của ít nhất năm câu liên tiếp gần như đồng đều; "
+                            "đây chỉ là tín hiệu cần đọc lại."
+                        ),
+                        suggestion,
+                        occurrence_spans=[(window[0][0].start(), window[0][0].end())],
+                    )
+                ]
+    if len(long_sentences) < 5:
         return []
-    average = sum(lengths) / len(lengths)
-    variance = sum((length - average) ** 2 for length in lengths) / len(lengths)
-    coefficient = math.sqrt(variance) / average if average else 1.0
-    if coefficient >= 0.16:
+    lengths = [len(words) for _, words in long_sentences]
+    if _uniform_coefficient(lengths) >= 0.16:
         return []
     return [
         _issue(
             text,
-            sentences[0][0].start(),
-            sentences[-1][0].end(),
+            long_sentences[0][0].start(),
+            long_sentences[-1][0].end(),
             patterns["VI-HUM-S04"],
             "Độ dài của ít nhất năm câu gần như đồng đều; đây chỉ là tín hiệu cần đọc lại.",
-            "Đọc thành tiếng và chỉ tách hoặc gộp câu khi nhịp đều làm ý khó theo dõi.",
+            suggestion,
+            occurrence_spans=[(long_sentences[0][0].start(), long_sentences[0][0].end())],
         )
     ]
+
+
+def _is_reflexive_minh(lower: str, start: int) -> bool:
+    """Loại trừ 'mình' trong cụm phản thân hoặc 'chúng mình'."""
+    before = lower[:start]
+    if not before or before[-1] not in (" ", "\t", "\u00a0", "\u202f"):
+        return False
+    prev_words = WORD_RE.findall(before.rsplit("\n", 1)[-1])
+    return bool(prev_words and prev_words[-1] in REFLEXIVE_MINH_PREV_WORDS)
 
 
 def _pronoun_issues(
@@ -438,7 +545,12 @@ def _pronoun_issues(
         alternatives = "|".join(
             re.escape(pronoun) for pronoun in sorted(group, key=len, reverse=True)
         )
-        matches = list(re.finditer(rf"(?<!\w)(?:{alternatives})(?!\w)", lower))
+        raw_matches = re.finditer(rf"(?<!\w)(?:{alternatives})(?!\w)", lower)
+        matches = [
+            match
+            for match in raw_matches
+            if not (match.group(0) == "mình" and _is_reflexive_minh(lower, match.start()))
+        ]
         matched_pronouns = {match.group(0) for match in matches}
         present = [pronoun for pronoun in group if pronoun in matched_pronouns]
         if len(present) < 2 or len(matches) < 3:
@@ -611,20 +723,34 @@ def _redundant_connector_issues(
     pattern = patterns["VI-GRA-C06"]
     issues: list[dict[str, Any]] = []
     for match in re.finditer(r"\bvì vậy\s*,?\s+nên\b", masked, flags=re.IGNORECASE):
-        words = WORD_RE.findall(_sentence_tail(masked, match.end()))[:6]
+        words = WORD_RE.findall(_sentence_tail(masked, match.end()))[:7]
         lowered = [word.casefold() for word in words]
-        subject_length = next(
+        matched_subject = next(
             (
-                len(subject)
+                subject
                 for subject in RESULT_SUBJECTS
                 if tuple(lowered[: len(subject)]) == subject
             ),
-            0,
+            (),
         )
-        if not subject_length:
+        if not matched_subject:
             continue
-        predicate = lowered[subject_length:]
-        if not any(word in RESULT_AUXILIARIES for word in predicate[:4]):
+        predicate = lowered[len(matched_subject) :]
+        if matched_subject == ("nhóm",):
+            has_aux = bool(
+                predicate
+                and (
+                    predicate[0] in RESULT_AUXILIARIES
+                    or (
+                        predicate[0] in {"này", "đó", "ấy"}
+                        and len(predicate) > 1
+                        and predicate[1] in RESULT_AUXILIARIES
+                    )
+                )
+            )
+        else:
+            has_aux = any(word in RESULT_AUXILIARIES for word in predicate[:4])
+        if not has_aux:
             continue
         issues.append(_issue(text, match.start(), match.end(), pattern))
     return issues

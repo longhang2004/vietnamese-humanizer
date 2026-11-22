@@ -6,8 +6,20 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-22
+
+### Added
+
+- Support for optional `voice_sample` across the rewrite schema, backend prompt anchoring, web rewrite UI, starter prompts, and benchmark case schema (`maxLength: 1500`).
+- Selective, context-aware skill reference loading, profile-aware sampling temperatures (`select_temperature`), an internal `preservation_check` schema step, enriched lint span context in rewrite prompts, and a post-edit token-preservation audit (`audit_preserved_tokens`).
+- Deeper Vietnamese linguistic guidance across `humanizer-vi`, `translationese-cleaner-vi`, and `style-guide-vi`: topic–comment (`Đề–Thuyết`) structure, serial verb constructions, Sino-Vietnamese vs. native register calibration, discourse particles with dialect consistency, hidden calques (`một cách + tính từ`, redundant `rằng`, inanimate `cho phép`), and dyadic/reflexive pronoun rules.
+- Twelve new contextual contrast benchmark cases (`benchmarks/cases/voice-and-linguistics.jsonl`, bringing the total to 151) plus `prepare_review_packet()` and `viet-writing-benchmark --prepare-packet` for generating stripped blind review packets.
+
 ### Changed
 
+- Moved author attribution and reading notes out of runtime skills into `docs/sources.md`, slimmed starter prompts and `huong-dan-tieng-viet.md`, and refactored `humanizer-vi` around an explicit two-phase editing and preservation workflow.
+- Upgraded `lint.py` detectors: paragraph-level sliding windows for `VI-HUM-S04`, broader non-imperative subject detection in `VI-GRA-C06`, and singular `tôi`/`mình` drift checks (excluding reflexive phrases) in `VI-STY-P01`.
+- Cleaned up top-level repository organization for public GitHub readability: removed tracked `.codex/` notes, consolidated historical plan documents under `docs/plans/`, and expanded `README.md`, `README.vi.md`, `docs/README.md`, and `docs/architecture.md`.
 - Refined the marketing profile for context-specific copy, meaningful negation, and conditions that belong next to the offer. Added five editing cases and refreshed the downloadable packs.
 - Added guidance for progress reports and research editing, with six cases on reporting periods, evidence, quotations, and the scope of conclusions.
 - Rewrote the public site copy, chatbot setup and sharing preview to make benefits, next steps and product limits clear.

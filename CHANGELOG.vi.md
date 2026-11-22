@@ -6,8 +6,20 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-22
+
+### Added
+
+- Hỗ trợ tùy chọn `voice_sample` trên schema rewrite, prompt backend, giao diện web, prompt khởi đầu cho chatbot và schema benchmark (`maxLength: 1500`).
+- Nạp tài liệu tham chiếu có chọn lọc theo ngữ cảnh, chọn temperature theo loại bài (`select_temperature`), trường `preservation_check` nội bộ trước `rewrite`, ngữ cảnh dòng/cụm khớp chi tiết cho prompt và hậu kiểm bảo toàn token (`audit_preserved_tokens`).
+- Bổ sung chiều sâu ngôn ngữ học tiếng Việt trong `humanizer-vi`, `translationese-cleaner-vi` và `style-guide-vi`: cấu trúc Đề – Thuyết, chuỗi vị từ, phân tầng Hán-Việt ↔ thuần Việt theo register, từ đệm và nhất quán phương ngữ, calque ẩn (`một cách + tính từ`, `rằng` thừa, chủ ngữ vô tri dùng `cho phép`), cùng bảng xưng hô và cụm phản thân.
+- Bổ sung 12 case benchmark đối chiếu ngữ cảnh (`benchmarks/cases/voice-and-linguistics.jsonl`, tổng cộng 151 case), hàm `prepare_review_packet()` và cờ `--prepare-packet` để xuất gói chấm mù không chứa đáp án.
+
 ### Changed
 
+- Tách phần ghi chú nguồn đọc tác giả khỏi runtime skill sang `docs/sources.md`, rút gọn prompt mặc định cùng `huong-dan-tieng-viet.md`, và tái cấu trúc `humanizer-vi` theo quy trình biên tập 2 pha.
+- Nâng cấp bộ dò trong `lint.py`: quét cửa sổ trượt cấp đoạn cho `VI-HUM-S04`, mở rộng nhận diện chủ ngữ mệnh đề kết quả cho `VI-GRA-C06` mà vẫn giữ ngoại lệ khuyên bảo, và thêm kiểm tra trượt ngôi `tôi`/`mình` (loại trừ cụm phản thân) cho `VI-STY-P01`.
+- Chuẩn hóa cấu trúc repository công khai trên GitHub: gỡ `.codex/` khỏi Git, gom các tài liệu kế hoạch lịch sử về `docs/plans/`, và cập nhật `README.md`, `README.vi.md`, `docs/README.md`, `docs/architecture.md`.
 - Bổ sung cách chọn giọng theo từng phần của bài marketing, giữ phủ định có nghĩa và đặt điều kiện cạnh lời mời. Thêm năm case và cập nhật gói cài.
 - Bổ sung hướng dẫn biên tập báo cáo tiến độ và nghiên cứu. Thêm sáu case về mốc báo cáo, bằng chứng, trích dẫn và phạm vi kết luận.
 - Viết lại câu chữ trên các trang giới thiệu, luồng dùng trong chatbot và thẻ chia sẻ. Đặt lợi ích, bước tiếp theo và giới hạn ở nơi người đọc cần thấy.

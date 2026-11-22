@@ -7,6 +7,7 @@ from pathlib import Path
 
 from vietnamese_writing_skills.core.benchmark import (
     load_cases,
+    prepare_review_packet,
     summarize,
     validate_case,
     validate_results,
@@ -14,7 +15,13 @@ from vietnamese_writing_skills.core.benchmark import (
 from vietnamese_writing_skills.core.paths import child, data_location, repository_root
 from vietnamese_writing_skills.core.patterns import pattern_index
 
-__all__ = ["load_cases", "summarize", "validate_case", "validate_results"]
+__all__ = [
+    "load_cases",
+    "prepare_review_packet",
+    "summarize",
+    "validate_case",
+    "validate_results",
+]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -24,6 +31,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--review-schema", type=Path)
     parser.add_argument("--results", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--prepare-packet", type=Path)
+    parser.add_argument("--skill", action="append", dest="skills")
+    parser.add_argument("--profile", action="append", dest="profiles")
     parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args(argv)
     try:
@@ -50,6 +60,19 @@ def main(argv: list[str] | None = None) -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
+    if args.prepare_packet:
+        packet = prepare_review_packet(
+            cases,
+            set(args.skills) if args.skills else None,
+            set(args.profiles) if args.profiles else None,
+        )
+        args.prepare_packet.parent.mkdir(parents=True, exist_ok=True)
+        rendered_packet = (
+            "\n".join(json.dumps(item, ensure_ascii=False) for item in packet) + "\n"
+            if packet
+            else ""
+        )
+        args.prepare_packet.write_text(rendered_packet, encoding="utf-8")
     summary = summarize(cases, results)
     rendered = json.dumps(summary, ensure_ascii=False, indent=2)
     if args.output and not args.validate_only:

@@ -4,7 +4,7 @@ Truy cập nguồn ngày 20 tháng 7 năm 2026. Repository không nhập dataset
 
 ## Đợt đọc về văn phong ngày 31 tháng 10 năm 2026
 
-Xem [nguồn có tác giả và ghi chú vận dụng](../skills/humanizer-vi/references/sources.md): phỏng vấn Nguyễn Ngọc Tư do Hoàng Thu Phố thực hiện trên Nhân Dân/Thời Nay, bài Nam Kha ghi nhận chia sẻ của Nguyễn Khắc Cường trên Mực Tím/Tuổi Trẻ, và nghiên cứu về profile giao tiếp tiếng Việt. Ghi chú tách điều quan sát được, quyết định của dự án và giới hạn bằng chứng. Không đưa nguyên văn bài báo vào corpus hay prompt.
+Xem [nguồn có tác giả và ghi chú vận dụng](sources.md): phỏng vấn Nguyễn Ngọc Tư do Hoàng Thu Phố thực hiện trên Nhân Dân/Thời Nay, bài Nam Kha ghi nhận chia sẻ của Nguyễn Khắc Cường trên Mực Tím/Tuổi Trẻ, và nghiên cứu về profile giao tiếp tiếng Việt. Ghi chú tách điều quan sát được, quyết định của dự án và giới hạn bằng chứng. Không đưa nguyên văn bài báo vào corpus hay prompt.
 
 Đợt này bổ sung hướng dẫn mạch đoạn, kết hợp từ, lược chủ ngữ, phép lặp, sắc thái và cách biên tập theo kênh. Ba mươi benchmark dài mới do coding agent tự viết theo 15 cặp đối chiếu; không phải văn bản người thật hoặc dữ liệu được các tác giả nguồn duyệt. Các cặp được xem là cùng một nhóm khi chia development/test để tránh rò nội dung.
 

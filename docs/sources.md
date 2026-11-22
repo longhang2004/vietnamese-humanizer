@@ -42,7 +42,7 @@
 - Kate Moran, Nielsen Norman Group, [The Four Dimensions of Tone of Voice](https://www.nngroup.com/articles/tone-of-voice-dimensions/): phân tích giọng theo nhiều chiều và kiểm tra cảm nhận của người đọc. Vận dụng: đánh giá register fit riêng với preservation và cho reviewer xét cùng nội dung trong nhiều tình huống. Nghiên cứu này không xác nhận chất lượng của ba profile tiếng Việt.
 - Nhóm ZaloPay Open Source (`phamtai97`, `thinhdang`, `quocanh1897`, `thoainguyen`, `anhldbk`), [Go Language Advanced Programming — Giới thiệu](https://zalopay-oss.github.io/go-advanced/): tài liệu kỹ thuật tiếng Việt nêu rõ độc giả đã biết Go cơ bản và phạm vi chủ đề nâng cao. Quan sát của dự án: cần xác định kiến thức tiền đề trước khi quyết định giải thích thuật ngữ đến đâu. Chỉ đọc phần giới thiệu trong đợt này; không suy ra mọi chương đều cùng phong cách, không sao chép code hoặc nhập sách vào corpus.
 
-Ví dụ trong [plain writing](plain-writing.md), [business writing](business-writing.md), [technical writing](technical-writing.md) và `benchmarks/cases/writing-profiles.jsonl` do coding agent tự viết. Chưa có reviewer bản ngữ độc lập hoặc kết quả đo cải thiện. Nguồn báo chí tiếng Việt ở trên giúp đối chiếu mạch và giọng, chưa đại diện cho tài liệu công việc hay kỹ thuật Việt Nam.
+Ví dụ trong [plain writing](../skills/humanizer-vi/references/plain-writing.md), [business writing](../skills/humanizer-vi/references/business-writing.md), [technical writing](../skills/humanizer-vi/references/technical-writing.md) và `benchmarks/cases/writing-profiles.jsonl` do coding agent tự viết. Chưa có reviewer bản ngữ độc lập hoặc kết quả đo cải thiện. Nguồn báo chí tiếng Việt ở trên giúp đối chiếu mạch và giọng, chưa đại diện cho tài liệu công việc hay kỹ thuật Việt Nam.
 
 Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho mục đích nghiên cứu. Chưa đánh giá quyền tái phân phối toàn văn của từng nguồn; không coi giấy phép MIT của dự án là giấy phép cho nội dung bên ngoài.
 
@@ -57,7 +57,7 @@ Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho m
 
 ## Nguồn bổ sung về lối viết theo khuôn
 
-Đọc ngày 04-11-2026. Phần vận dụng nằm trong [sửa lối viết theo khuôn](formulaic-prose.md); nhật ký đầy đủ ở `docs/research/2026-11-04-formulaic-prose.md` của repository. Chỉ tổng hợp bằng lời riêng, không nhập bài nguồn làm corpus.
+Đọc ngày 04-11-2026. Phần vận dụng nằm trong [sửa lối viết theo khuôn](../skills/humanizer-vi/references/formulaic-prose.md); nhật ký đầy đủ ở `docs/research/2026-11-04-formulaic-prose.md` của repository. Chỉ tổng hợp bằng lời riêng, không nhập bài nguồn làm corpus.
 
 - Druck, Paredes và Smith, Graphite — [nghiên cứu gốc, 16-09-2026](https://graphite.io/research/ai-tells), cập nhật [01-10](https://graphite.io/research/ai-tells-opus-5-5-update) và [21-10-2026](https://graphite.io/research/ai-tells-gemini-4-argon-update). Tham khảo các nhóm cấu trúc và sự thay đổi theo model; cùng một họ nghiên cứu bài web, chưa kiểm chứng cho tiếng Việt. Điểm văn hoa có model chấm.
 - Bestvater và cộng sự, Pew Research Center — [How Much of the Internet Is Written With AI?](https://www.pewresearch.org/data-labs/2026/08/20/how-much-of-the-internet-is-written-with-ai/), 20-08-2026. Tham khảo giới hạn suy luận từ xu hướng trong tập lớn sang từng bài. Không dùng detector của nghiên cứu làm thước đo biên tập.
@@ -67,7 +67,7 @@ Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho m
 
 ## Đọc bổ sung nguồn Việt về lối viết theo khuôn
 
-Đọc ngày 04-11-2026, tiếp sau đợt nguồn quốc tế. Nhật ký: `docs/research/2026-11-04-vietnamese-writing-discussions.md` của repository. Phần vận dụng nằm trong [lối viết theo khuôn](formulaic-prose.md).
+Đọc ngày 04-11-2026, tiếp sau đợt nguồn quốc tế. Nhật ký: `docs/research/2026-11-04-vietnamese-writing-discussions.md` của repository. Phần vận dụng nằm trong [lối viết theo khuôn](../skills/humanizer-vi/references/formulaic-prose.md).
 
 - Phạm Mỹ, Báo Văn Nghệ — [“Mùi” AI](https://baovannghe.vn/mui-ai-26802.html), 23-02-2026: nhận xét về các khuôn lặp trong nội dung thương mại Việt.
 - Upcontent — [Kiểm tra văn bản AI](https://upcontent.vn/kiem-tra-van-ban-ai/), 23-10-2026: tham khảo phép thử thay tên và yêu cầu có dữ kiện riêng; không nhập danh sách từ cấm.
@@ -77,4 +77,4 @@ Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho m
 
 ## Giới hạn vận dụng
 
-Các nguyên tắc về lược chủ ngữ, phép lặp, kết hợp từ và quyền giảm cường điệu trong [naturalness](naturalness.md) là quyết định biên tập của dự án dựa trên việc đọc và đối chiếu ví dụ, không được gán thành kết luận thực nghiệm của các nguồn trên. Hai bài báo không đủ đại diện cho văn viết Việt Nam. Cần review độc lập theo vùng miền, ngành và kênh trước khi công bố mức cải thiện.
+Các nguyên tắc về lược chủ ngữ, phép lặp, kết hợp từ và quyền giảm cường điệu trong [naturalness](../skills/humanizer-vi/references/naturalness.md) là quyết định biên tập của dự án dựa trên việc đọc và đối chiếu ví dụ, không được gán thành kết luận thực nghiệm của các nguồn trên. Hai bài báo không đủ đại diện cho văn viết Việt Nam. Cần review độc lập theo vùng miền, ngành và kênh trước khi công bố mức cải thiện.

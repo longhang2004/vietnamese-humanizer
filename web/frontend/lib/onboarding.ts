@@ -11,7 +11,7 @@ export type StarterSkill = (typeof starterSkills)[number];
 export type Platform = "chatgpt" | "claude" | "gemini" | "other";
 
 export function starterPrompt(skill: StarterSkill): string {
-  return `${downloads.quick_start}\n\n${skill.request}\n\nVăn bản cần biên tập:\n[Dán văn bản của bạn vào đây]`;
+  return `${downloads.quick_start}\n\n${skill.request}\n\nĐoạn mẫu giọng viết của tôi (tùy chọn — bỏ qua nếu không dùng; chỉ học nhịp và xưng hô, không lấy dữ kiện):\n[Dán 1–2 đoạn bạn từng viết, hoặc xóa mục này]\n\nVăn bản cần biên tập:\n[Dán văn bản của bạn vào đây]`;
 }
 
 export function skillDownload(

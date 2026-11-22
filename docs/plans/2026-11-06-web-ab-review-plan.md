@@ -8,7 +8,7 @@
 
 **Tech Stack:** Existing Python/FastAPI/SQLAlchemy/Pydantic, React/Next.js, native controls and CSS modules. No new dependency.
 
-**Spec:** [Approved design](../../plans/2026-11-06-web-ab-review-design.md), approved by user on 2026-11-06.
+**Spec:** [Approved design](2026-11-06-web-ab-review-design.md), approved by user on 2026-11-06.
 
 ## Global Constraints
 

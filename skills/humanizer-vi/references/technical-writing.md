@@ -2,7 +2,7 @@
 
 Trước khi sửa, xác định văn bản là hướng dẫn thao tác, giải thích khái niệm, tài liệu tham chiếu, ghi chú thay đổi, báo cáo phân tích hay bài nghiên cứu. Giữ bố cục phù hợp với loại tài liệu. Chỉ trình bày thành các bước khi người đọc cần làm theo trình tự.
 
-Xác định kiến thức tiền đề từ audience/context: người dùng mới và developer đã biết nền tảng cần mức giải thích khác nhau. Giải thích khái niệm ở nơi nó giúp hiểu hoặc thực hiện bước hiện tại; tránh tự thêm phần nhập môn chỉ vì tài liệu có thuật ngữ. Giữ định nghĩa tác giả đã chủ ý đặt. Nguồn tiếng Việt của ZaloPay ở [sources](sources.md) minh họa cách công bố đối tượng trước khi đi vào nội dung nâng cao.
+Xác định kiến thức tiền đề từ audience/context: người dùng mới và developer đã biết nền tảng cần mức giải thích khác nhau. Giải thích khái niệm ở nơi nó giúp hiểu hoặc thực hiện bước hiện tại; tránh tự thêm phần nhập môn chỉ vì tài liệu có thuật ngữ. Giữ định nghĩa tác giả đã chủ ý đặt.
 
 ## Quyết định biên tập
 
@@ -24,7 +24,7 @@ Xác định kiến thức tiền đề từ audience/context: người dùng m�
 - Giữ mức kết luận mà dữ liệu cho phép. “Chưa phát hiện khác biệt có ý nghĩa thống kê” mô tả kết quả phân tích. Kết luận hai nhóm tương đương cần bằng chứng riêng. Giữ ranh giới của mô phỏng và khảo sát quan sát. Nếu bản gốc có kết luận vượt quá bằng chứng đã cho, góp ý ở đúng câu và chờ tác giả xác nhận trước khi thay luận điểm.
 - Trong nghiên cứu định tính, gắn nhận định với dữ liệu như lời kể, ghi chép hoặc nhóm chủ đề. Giữ rõ đâu là lời người tham gia và đâu là diễn giải của tác giả. Giữ nguyên lời trích trực tiếp và mã người tham gia theo bản gốc. Giữ phạm vi của “một số”, “trong các cuộc phỏng vấn” và các cách chỉ nhóm tương tự.
 
-## Ví dụ tự viết, chưa được người bản ngữ duyệt
+## Ví dụ đối chiếu
 
 **Sửa cục bộ:**
 
@@ -45,5 +45,3 @@ Lý do: làm rõ điều kiện và thao tác, giữ giới hạn tối thiểu 
 ## Rà cuối
 
 Người làm theo có thấy điều kiện và cảnh báo trước khi hành động không? Token và đơn vị có còn nguyên không? Có đổi thao tác tùy chọn thành bắt buộc hoặc tạo bảo đảm mới không? Với báo cáo, người đọc có thấy kết quả đo trong điều kiện nào và tác giả diễn giải đến đâu không? Nếu đã rõ, chọn `no_change`.
-
-Nguồn về giọng tài liệu developer, quy trình, báo cáo và nghiên cứu được ghi trong [ghi chú nguồn](sources.md). Nguyên tắc tiếng Anh được chọn lọc theo mục đích; các quyết định tiếng Việt trên còn cần review độc lập.

@@ -24,7 +24,7 @@ Dùng cho giới thiệu sản phẩm, thông điệp thương hiệu, nội dun
 - Nếu thiếu một điều kiện khiến người đọc hiểu sai giá, khả năng mua hoặc quyền nhận ưu đãi, nêu điều kiện ngay cạnh lời hứa, ở chỗ nhìn thấy trước nút hành động. Có thể dùng cùng câu hoặc dòng phụ liền kề. Khi vị trí hiển thị bị khóa và câu chữ không đủ để làm rõ, góp ý cho tác giả.
 - Dùng dấu sao hoặc chú thích có sẵn cho cách đo, nguồn hoặc chi tiết tra cứu sau khi lời chính đã đủ rõ. Giữ các giới hạn như “tối đa”, đối tượng so sánh và bối cảnh đo có ảnh hưởng đến cách hiểu ngay trong lời chính. Nếu giữ dấu chú thích, giữ cả phần giải thích tương ứng. Chỉ tạo chú thích từ chi tiết đã có và khi định dạng đầu ra hỗ trợ.
 
-## Ví dụ tự viết, chưa được người bản ngữ duyệt
+## Ví dụ đối chiếu
 
 **Sửa có quyền giảm cường điệu.** Context: nội dung cửa hàng; giá và chương trình trong ví dụ là dữ kiện giả định đã được cung cấp. Tác giả cho phép bỏ lời khen chung, giữ mọi điều kiện và link.
 
@@ -43,5 +43,3 @@ Giữ nguyên giá, ngưỡng đơn, thời hạn và kênh; không tự tính g
 ## Rà cuối
 
 Khi đọc lướt đến nút hành động, người đọc có hiểu đúng giá và điều kiện không? Giọng mở bài, thông tin mua và chú thích có hợp chức năng của từng phần không? Có thêm lời hứa, chứng thực hoặc khan hiếm nào ngoài dữ kiện không? Nội dung rõ và đủ có thể giữ nguyên.
-
-Nguồn và giới hạn vận dụng: [sources](sources.md). Việc đọc chính sách quảng cáo hỗ trợ các quyết định biên tập, không xác nhận chiến dịch đáp ứng mọi quy định hay bảo đảm tăng doanh số.

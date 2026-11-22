@@ -12,7 +12,7 @@ Dùng cho bài giải thích, thông báo và văn viết phổ thông. Đích l
 - Giữ phép lặp có tác dụng liên kết, từ địa phương phù hợp và sắc thái cá nhân. Không tự thay bằng từ đồng nghĩa chỉ để đa dạng.
 - Giữ ví dụ, hình ảnh và cảm xúc đã có. Không bịa chi tiết đời sống hay trải nghiệm để làm bài sinh động.
 
-## Ví dụ tự viết, chưa được người bản ngữ duyệt
+## Ví dụ đối chiếu
 
 **Sửa cục bộ:**
 
@@ -29,5 +29,3 @@ Lý do: làm rõ người thực hiện và đối tượng được nhắc lạ
 ## Rà cuối
 
 Người đọc có nhận ra đối tượng của mỗi câu không? Câu nối có thể hiện đúng quan hệ không? Mọi phủ định, giới hạn và lập trường còn nguyên không? Nếu đã đạt, chọn `no_change`.
-
-Tham khảo cách giữ mạch trong nguồn tiếng Việt và nguyên tắc phân biệt giọng theo tình huống ở [sources](sources.md). Quy tắc cụ thể trên là lựa chọn biên tập của dự án.

@@ -206,6 +206,40 @@ def summarize(
     return summary
 
 
+def prepare_review_packet(
+    cases: list[dict[str, Any]],
+    skills: set[str] | None = None,
+    profiles: set[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Tạo gói đầu vào chấm mù không chứa nhãn đáp án hay tiêu chí chấm."""
+    packet: list[dict[str, Any]] = []
+    for case in cases:
+        if skills and case["skill"] not in skills:
+            continue
+        profile = case.get("style", {}).get("profile", "preserve")
+        if profiles and profile not in profiles:
+            continue
+        parts: list[str] = []
+        base_context = case.get("context", "").strip()
+        if base_context:
+            parts.append(base_context)
+        constraints = [item.strip() for item in case.get("constraints", []) if item.strip()]
+        if constraints:
+            parts.append("Yêu cầu biên tập: " + "; ".join(constraints))
+        packet.append(
+            {
+                "case_id": case["id"],
+                "skill": case["skill"],
+                "domain": case["domain"],
+                "register": case["register"],
+                "text": case["input"],
+                "context": "\n".join(parts),
+                "style": dict(case.get("style", {})),
+            }
+        )
+    return packet
+
+
 def _review_summary(
     cases: list[dict[str, Any]], valid_rows: list[dict[str, Any]]
 ) -> dict[str, Any]:

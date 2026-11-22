@@ -14,7 +14,7 @@ Dùng để biên tập phần nội dung công văn, thông báo, báo cáo ho�
 - Rút câu vòng trong phần thuyết minh khi vẫn giữ rõ ai làm gì, gửi cho ai và khi nào. Giữ phép liệt kê có chức năng phân chia nhiệm vụ và các cách diễn đạt chính thức đã rõ nghĩa.
 - Khi một lựa chọn làm đổi nghĩa hoặc thẩm quyền, hỏi ngoài bản chỉnh. Khi thiếu tài liệu chứng minh một khẳng định, góp ý để kiểm tra; không tự chứng nhận nội dung hợp lệ.
 
-## Ví dụ tự viết, chưa được người bản ngữ duyệt
+## Ví dụ đối chiếu
 
 **Sửa cục bộ.** Context: chỉ sửa đoạn nội dung công văn của Phòng Tổng hợp, giữ nguyên mức đề nghị.
 
@@ -31,5 +31,3 @@ Giảm danh hóa và lặp ý; giữ đơn vị nhận, hạn và phạm vi báo
 ## Rà cuối
 
 Đã giữ đúng loại văn bản, trách nhiệm, điều kiện và hạn chưa? Có thêm một chi tiết khiến văn bản trông như đã được ban hành hoặc phê duyệt không? Giữ nguyên khi nội dung đã phù hợp.
-
-Nguồn và giới hạn vận dụng: [sources](sources.md). Các quyết định biên tập trên không thay thế quy trình kiểm tra văn bản của cơ quan.

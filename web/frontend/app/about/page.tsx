@@ -42,7 +42,7 @@ export default function AboutPage() {
           cấu hình dịch vụ.
         </p>
         <p>
-          Bản phát hành 0.6.1 có 4 skill, 44 quy tắc, 103 ví dụ và 128 ca kiểm
+          Bản phát hành 0.7.0 có 4 skill, 44 quy tắc, 103 ví dụ và 151 ca kiểm
           thử biên tập. Các loại bài gồm văn viết phổ thông, công việc, kỹ
           thuật, hành chính, mạng xã hội và marketing.
         </p>

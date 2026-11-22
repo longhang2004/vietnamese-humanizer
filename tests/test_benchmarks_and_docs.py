@@ -3,9 +3,12 @@ import re
 from collections import Counter
 from pathlib import Path
 
+from vietnamese_writing_skills.cli.benchmarks import main as benchmarks_main
 from vietnamese_writing_skills.cli.generate_docs import render
+from vietnamese_writing_skills.cli.lint import lint_text
 from vietnamese_writing_skills.core.benchmark import (
     load_cases,
+    prepare_review_packet,
     summarize,
     validate_case,
     validate_results,
@@ -308,3 +311,70 @@ def test_donation_qr_is_published_in_both_readmes() -> None:
 
     for readme in (ROOT / "README.md", ROOT / "README.vi.md"):
         assert "assets/donate-vietqr.png" in readme.read_text(encoding="utf-8")
+
+
+def test_voice_and_linguistics_cases_cover_four_skills_and_voice_sample() -> None:
+    cases = load_jsonl(ROOT / "benchmarks" / "cases" / "voice-and-linguistics.jsonl")
+    assert len(cases) == 12
+    assert {case["skill"] for case in cases} == {
+        "humanizer-vi",
+        "translationese-cleaner-vi",
+        "style-guide-vi",
+        "grammar-checker-vi",
+    }
+    voice_cases = [case for case in cases if case.get("style", {}).get("voice_sample")]
+    assert {case["expected_output_mode"] for case in voice_cases} == {
+        "clean_rewrite",
+        "no_change",
+    }
+    for case in cases:
+        found = {issue["pattern_id"] for issue in lint_text(case["input"], {case["skill"]})}
+        expected = set(case["expected_patterns"])
+        if expected:
+            assert expected.issubset(found), f"{case['id']} thiếu pattern {expected}"
+        elif case["expected_output_mode"] == "no_change":
+            assert found == set(), f"{case['id']} báo nhầm trên case no_change: {found}"
+
+
+def test_prepare_review_packet_strips_ground_truth_labels(tmp_path: Path) -> None:
+    cases, errors = load_cases(
+        ROOT / "benchmarks" / "cases",
+        PATTERN_IDS,
+        ROOT / "benchmarks" / "case.schema.json",
+    )
+    assert errors == []
+    packet = prepare_review_packet(cases, skills={"humanizer-vi"})
+    assert packet
+    assert all(item["skill"] == "humanizer-vi" for item in packet)
+    forbidden = {
+        "expected_output_mode",
+        "expected_patterns",
+        "must_preserve",
+        "must_not_add",
+        "evaluation_notes",
+        "blockers",
+    }
+    for item in packet:
+        assert forbidden.isdisjoint(item.keys())
+        assert "Yêu cầu biên tập:" in item["context"]
+
+    out_path = tmp_path / "packet.jsonl"
+    assert (
+        benchmarks_main(
+            [
+                "--prepare-packet",
+                str(out_path),
+                "--skill",
+                "humanizer-vi",
+                "--profile",
+                "business",
+            ]
+        )
+        == 0
+    )
+    exported = [json.loads(line) for line in out_path.read_text(encoding="utf-8").splitlines()]
+    assert any(
+        item["case_id"] == "BENCH-HUM-109" and item["style"].get("voice_sample")
+        for item in exported
+    )
+    assert all(forbidden.isdisjoint(item.keys()) for item in exported)

@@ -14,6 +14,7 @@ benchmarks/results/*
 
 # CodeGraph local index and generated agent rules
 .codegraph/
+.codex/
 .cursor/
 .agents/*
 !.agents/skills/

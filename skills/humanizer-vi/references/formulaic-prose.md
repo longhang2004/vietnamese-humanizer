@@ -32,7 +32,7 @@ Ví dụ cần giữ: “– Má ăn cơm chưa?\n– Rồi, con.” Hai dấu �
 - “Thời gian chờ ước lượng 5–10 phút, chưa đo trên tất cả thiết bị.” Giữ khoảng và mức chắc chắn; không đổi thành 7 phút để tạo cảm giác đã đo.
 - “Tôi chờ. Cửa vẫn đóng.” Câu ngắn có thể mang nhịp và góc nhìn riêng; không tự nối hoặc thêm cảm xúc.
 
-Các ví dụ trên do dự án tự viết. Nguồn và giới hạn vận dụng nằm trong [ghi chú nguồn](sources.md), gồm nghiên cứu tiếng Anh và bài viết/thảo luận tiếng Việt. Các quyết định tiếng Việt này vẫn cần review riêng. Không bỏ dấu gạch ngang, từ nối, thuật ngữ hay chi tiết đúng chỉ vì chúng được gắn nhãn “AI tell” trên mạng.
+Không bỏ dấu gạch ngang, từ nối, thuật ngữ hay chi tiết đúng chỉ vì chúng được gắn nhãn “AI tell” trên mạng.
 
 ## Rà bản sửa
 

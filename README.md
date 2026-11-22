@@ -7,7 +7,7 @@
 [![Python 3.11–3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-🌐 **Live Web Application**: [https://vietnamese-humanizer-g1o9.vercel.app/](https://vietnamese-humanizer-g1o9.vercel.app/)
+[Live Web App](https://vietnamese-humanizer-g1o9.vercel.app/) · [Get Started (No Code)](https://vietnamese-humanizer-g1o9.vercel.app/start) · [Documentation](docs/README.md) · [Pattern Catalog](docs/generated-patterns.md) · [Benchmarks](benchmarks/README.md) · [Roadmap](ROADMAP.md)
 
 Tools for editing Vietnamese prose without changing its facts. They help make writing clearer, more natural, and consistent with its context.
 
@@ -46,6 +46,24 @@ This edit removes only the announcement. The input already states the Redis mech
 - `no_change`: The input is already suitable. Do not change it merely for variety.
 
 An agent does not need to rewrite every input. It should decline to guess when the subject, scope, date, or level of obligation is unclear.
+
+## Repository structure
+
+```text
+vietnamese-humanizer/
+├── skills/                         # Canonical Agent Skills (SKILL.md + references)
+├── patterns/                       # 44 deterministic lint patterns & JSON schema
+├── examples/                       # 103 preservation-audited input/output pairs
+├── benchmarks/                     # 151 benchmark cases, schemas & blind review protocol
+├── src/vietnamese_writing_skills/  # Python package (core validators, CLI & bundled resources)
+├── distribution/                   # Chatbot starter prompt templates & pack catalog
+├── web/
+│   ├── backend/                    # FastAPI service (/api/lint, /api/rewrite, /api/ab-review)
+│   └── frontend/                   # Next.js web workspace & generated user downloads
+├── scripts/                        # Thin local wrappers & dev orchestrator (dev.py)
+├── docs/                           # Architecture, sources, guides, research & historical plans
+└── tests/                          # Package, validator, lint & contract test suites
+```
 
 ## Run the web app locally
 
@@ -121,6 +139,7 @@ viet-writing-validate-skills --root .
 viet-writing-validate-patterns --root .
 viet-writing-validate-examples --root .
 viet-writing-benchmark --root . --validate-only
+viet-writing-benchmark --root . --prepare-packet /tmp/review-packet.jsonl
 viet-writing-generate-docs --root . --check
 ```
 
@@ -133,6 +152,7 @@ python scripts/validate_patterns.py
 python scripts/validate_examples.py
 python scripts/run_benchmarks.py --validate-only
 python scripts/generate_pattern_docs.py --check
+python scripts/export_user_packs.py --check
 ```
 
 The linter exits with `1` when it finds material to review and `2` when it cannot run. A finding does not prove that prose is wrong or AI-generated.
@@ -148,9 +168,9 @@ Patterns also define `scope` and `aggregation`. Repeated sentence openings, for 
 
 ## Corpus and benchmark
 
-The catalog has 44 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 103 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 139 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints; these include 30 long cases in 15 matched pairs, 24 writing-profile cases in 12 matched pairs, and 12 formulaic-prose cases in six contextual contrast pairs, plus 18 administrative/social/marketing cases in nine contextual contrast pairs. The new cases are agent-authored. JSON Schema validates manual-review results, and a case may have several reviewers.
+The catalog has 44 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 103 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 151 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints; these include 30 long cases in 15 matched pairs, 24 writing-profile cases in 12 matched pairs, 12 formulaic-prose cases in six contextual contrast pairs, 18 administrative/social/marketing cases in nine contextual contrast pairs, and 12 voice-sample/linguistic cases in six contextual contrast pairs. The new cases are agent-authored. JSON Schema validates manual-review results, and a case may have several reviewers.
 
-When rewrite is enabled, the web app accepts writing profile (`preserve`, `plain`, `business`, `technical`, `administrative`, `social`, `marketing`), channel, register, audience, relationship, pronouns, editing depth, and context. A profile selects editorial guidance without changing the other controls. Defaults preserve the original voice and make light edits. Reducing hype is a separate opt-in because it may soften emotional intensity. See the Vietnamese [writing profiles](skills/humanizer-vi/references/writing-profiles.md), [naturalness guidance](skills/humanizer-vi/references/naturalness.md), [attributed reading notes](skills/humanizer-vi/references/sources.md), and [independent profile-review protocol](benchmarks/profile-review.md).
+When rewrite is enabled, the web app accepts writing profile (`preserve`, `plain`, `business`, `technical`, `administrative`, `social`, `marketing`), channel, register, audience, relationship, pronouns, editing depth, and context. A profile selects editorial guidance without changing the other controls. Defaults preserve the original voice and make light edits. Reducing hype is a separate opt-in because it may soften emotional intensity. See the Vietnamese [writing profiles](skills/humanizer-vi/references/writing-profiles.md), [naturalness guidance](skills/humanizer-vi/references/naturalness.md), [attributed reading notes](docs/sources.md), and [independent profile-review protocol](benchmarks/profile-review.md).
 
 A coding agent audited each input + context → output pair in the corpus. `agent-reviewed` does not mean reviewed by a maintainer, native speaker, or independent reviewer. The repository has no independent baseline yet. The current benchmark helps with process design and data regression; it does not establish effectiveness outside these authored cases.
 

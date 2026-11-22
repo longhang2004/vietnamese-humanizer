@@ -2,14 +2,13 @@
 
 # Lộ trình phát triển (Roadmap)
 
-Cập nhật ngày 06/11/2026. Bản phát hành có tag mới nhất là **0.6.0**. Phần triển khai từ `main` được ghi riêng; deploy web không tạo phiên bản phát hành mới.
+Cập nhật ngày 22/11/2026. Bản phát hành có tag mới nhất là **0.7.0**. Các thay đổi tiếp theo sau phát hành được ghi tại mục `[Unreleased]` trong [changelog](CHANGELOG.vi.md); deploy web không tạo phiên bản phát hành mới.
 
 ## Hiện đã có
 
-- Bản 0.6.0 có bốn skill tiếng Việt, 44 quy tắc linter, 103 ví dụ corpus và 124 case benchmark. Sáu nhóm văn phong gồm văn viết rõ ràng, trao đổi công việc, tài liệu kỹ thuật, hành chính, bài đăng mạng xã hội và marketing; mặc định giữ cách viết hiện có. Kênh sử dụng, mức trang trọng, cách xưng hô và mức sửa là các lựa chọn riêng.
-- Đã triển khai trình soát theo quy tắc, viết lại bằng AI theo cấu hình dịch vụ, trang `/start`, gói Claude/Gemini, yêu cầu dùng trong chatbot và tài liệu gộp. Gói plugin ChatGPT đã được chuẩn bị; listing công khai, kiểm import trên tài khoản thật và thử với người phổ thông vẫn cần hoàn tất. Xem [hướng dẫn phân phối](docs/user-distribution.md).
-- `main` và bản web hiện có landing tối, vùng làm việc `/check`, trang ví dụ, hướng dẫn/giới thiệu, luồng đóng góp theo khả năng backend và sáu cặp đầu ra AI chạy thật. Impeccable 4.8.0 được cài trong repo, kèm format và kiểm tra UI. Các thay đổi này nằm trong mục Unreleased của [changelog](CHANGELOG.vi.md).
-- Pilot chấm A/B mù đã có trong source hiện tại: trang `/review` theo khả năng backend, sáu case công khai đóng băng, lượt trình bày mờ có thứ tự A/B được lưu, phiếu bền vững với receipt retry-safe, và CLI summary/CSV/JSONL riêng. Source để `AB_REVIEW_ENABLED=false`; môi trường deploy bật tường minh. Phiếu là phản hồi ẩn danh theo khóa phiên, không phải danh tính reviewer đã xác minh.
+- Bản 0.7.0 gồm bốn skill tiếng Việt, 44 quy tắc linter, 103 ví dụ corpus và **151 case benchmark** (mở rộng từ bộ 0.6.1 thêm 12 case về `voice_sample` và cấu trúc tiếng Việt). Sáu nhóm văn phong gồm văn viết rõ ràng, trao đổi công việc, tài liệu kỹ thuật, hành chính, bài đăng mạng xã hội và marketing; mặc định giữ cách viết hiện có. Kênh sử dụng, mức trang trọng, cách xưng hô, mức sửa và `voice_sample` tùy chọn là các lựa chọn riêng.
+- Đã triển khai trình soát theo quy tắc, luồng viết lại hai pha theo `context`/`profile` có nạp reference chọn lọc, hậu kiểm token bảo toàn và neo giọng `voice_sample`, trang `/start`, gói Claude/Gemini tinh gọn, yêu cầu dùng trong chatbot và công cụ xuất gói chấm mù benchmark (`--prepare-packet`).
+- Ứng dụng web hiện có landing tối, vùng làm việc `/check`, trang ví dụ, hướng dẫn/giới thiệu, luồng đóng góp theo khả năng backend, sáu cặp đầu ra AI chạy thật và pilot chấm A/B mù `/review` sau cờ `AB_REVIEW_ENABLED` (mặc định tắt trong source, bật tường minh ở môi trường deploy). Phiếu là phản hồi ẩn danh theo khóa phiên, không phải danh tính reviewer đã xác minh.
 - Corpus hiện được agent rà soát, chưa có baseline chất lượng do người đọc độc lập đánh giá. Sáu cặp AI công khai dùng để minh họa hành vi.
 
 ## Tiếp theo

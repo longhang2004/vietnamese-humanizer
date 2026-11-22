@@ -24,6 +24,4 @@
 
 ## Phạm vi hiện tại
 
-Sáu profile chuyên biệt là hướng dẫn biên tập của dự án, chưa được đánh giá độc lập bởi người bản ngữ. Xem [nguồn đọc và cách vận dụng](sources.md). Các ví dụ do agent tự viết, không phải trích đoạn nguồn hay dữ liệu huấn luyện.
-
 Profile hành chính biên tập câu chữ theo mẫu đã có; việc xác nhận căn cứ, thẩm quyền, thể thức và hiệu lực vẫn cần người phụ trách. Văn bản pháp lý chuyên ngành tiếp tục dùng [registers](registers.md) và tài liệu được cung cấp. Giọng vui vẻ và hài hước chưa có preset; giữ sắc thái sẵn có, chỉ thêm khi có yêu cầu rõ và phù hợp tình huống.

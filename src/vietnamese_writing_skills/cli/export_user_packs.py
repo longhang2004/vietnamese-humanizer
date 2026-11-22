@@ -124,7 +124,10 @@ def build_packs(root: Path) -> dict[str, bytes]:
         catalog["quick_start"]
         + "\n\n"
         + catalog["skills"][0]["request"]
-        + "\n\nVăn bản cần biên tập:\n[Dán văn bản của bạn vào đây]\n"
+        + "\n\nĐoạn mẫu giọng viết của tôi (tùy chọn — bỏ qua nếu không dùng; "
+        + "chỉ học nhịp và xưng hô, không lấy dữ kiện):\n"
+        + "[Dán 1–2 đoạn bạn từng viết, hoặc xóa mục này]\n\n"
+        + "Văn bản cần biên tập:\n[Dán văn bản của bạn vào đây]\n"
     )
     handbook = [
         "# Hướng dẫn biên tập tiếng Việt\n",

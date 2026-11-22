@@ -15,6 +15,9 @@ test("offers a usable ChatGPT prompt while the plugin has no public listing", ()
   expect(
     screen.getByLabelText<HTMLTextAreaElement>("Yêu cầu mẫu").value,
   ).toContain("Giữ nguyên dữ kiện");
+  expect(
+    screen.getByLabelText<HTMLTextAreaElement>("Yêu cầu mẫu").value,
+  ).toContain("Đoạn mẫu giọng viết của tôi");
 });
 
 test.each(["Claude", "Gemini"])(

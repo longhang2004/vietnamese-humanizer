@@ -9,73 +9,55 @@ metadata:
 
 # Humanizer tiếng Việt
 
-Biên tập chất lượng viết, không phân loại nguồn gốc văn bản. Một tín hiệu đơn lẻ không đủ để kết luận có vấn đề. Ưu tiên cụm tín hiệu, tác động thật lên người đọc và mục đích của văn bản.
+Biên tập chất lượng viết theo người đọc và mục đích văn bản; không phân loại nguồn gốc hay chấm "xác suất AI". Một tín hiệu đơn lẻ chưa đủ để sửa — xét cụm tín hiệu trong toàn đoạn.
 
 ## Quy trình
 
-1. Xác định loại văn bản, độc giả, mục đích và register. Nếu thiếu dữ kiện, suy ra từ văn bản và chọn mức can thiệp thấp.
-2. Ghi nhận giọng hiện có: cách xưng hô, độ dài câu, mức trực tiếp, thuật ngữ và thói quen trình bày.
-3. Đọc toàn đoạn trước khi sửa. Đánh dấu cấu trúc lặp, ý trừu tượng thiếu thông tin, lời dẫn chung chung, nhịp quá đều, giọng quảng cáo lệch ngữ cảnh và phần giải thích chen ngang việc người đọc đang làm.
-4. Sửa cấu trúc câu và đoạn trước khi thay từ. Nêu hành động hoặc quan hệ logic trực tiếp; gộp hay tách câu khi giúp người đọc theo ý.
-5. Giữ những câu đã ổn. Không sửa một cụm chỉ vì nó có trong catalog.
-6. Rà lại đại từ, thuật ngữ và register. Đọc thành tiếng nếu nhịp câu là vấn đề.
-7. Đọc bản sửa như người nhận. Trong bài kể, kiểm ai đang làm hoặc đang nhớ. Trong hướng dẫn, kiểm người đọc nhận ra dấu hiệu được đi tiếp ngay ở bước liên quan. Đối chiếu bản gốc để giữ đúng nghĩa. Chỉ giải thích thay đổi khi người dùng yêu cầu.
+### Pha 1 — Chẩn đoán & biên tập tự nhiên
 
-Đọc [workflow chi tiết](references/workflow.md) cho văn bản dài hoặc khi nhiều pattern chồng nhau. Tra [register](references/registers.md) trước khi sửa văn bản học thuật, pháp lý, hành chính hay chăm sóc khách hàng.
+1. **Đọc toàn đoạn và neo giọng:** Xác định loại bài, độc giả, mục đích, register và giọng gốc (xưng hô, độ dài câu, mức trực tiếp, thuật ngữ). Khi thiếu dữ kiện, suy ra từ văn bản và can thiệp nhẹ. Nếu có **đoạn mẫu giọng viết (`voice_sample`)**, rút 3–4 đặc điểm diễn đạt (cách xưng hô, nhịp ngắt câu, tỷ lệ Hán-Việt/khẩu ngữ, cách mở–kết) để bám theo — tuyệt đối không mượn dữ kiện từ đoạn mẫu.
+2. **Lập biên bản bảo toàn trong suy luận:** Ghi nhận số liệu, mốc thời gian, tên riêng, điều kiện, phủ định, mức chắc chắn, lập trường, code, URL và thuật ngữ cần giữ nguyên.
+3. **Sửa theo tầng đoạn → câu → từ:** Viết trực tiếp như người viết thật nói với đúng người nhận. Ưu tiên tháo câu vòng, danh hóa nặng, nhịp phẳng, lời dẫn thừa và giải thích chen ngang; giữ nguyên câu đã ổn. Viết theo việc người đọc đang cần: chỉ giữ hoặc đặt định nghĩa, điều kiện, cảnh báo và câu phân biệt tại đúng vị trí giúp họ hiểu hoặc thao tác.
 
-Đọc [diễn đạt tự nhiên](references/naturalness.md) khi chỉnh văn phong: tài liệu này hướng dẫn kết hợp từ, mạch thông tin, phép lặp và sắc thái. Chỉ đọc [hội thoại và kịch bản nói](references/conversational.md) khi người dùng chọn các kênh đó; văn viết gần gũi vẫn có tiêu chí riêng.
+### Pha 2 — Đối chiếu bảo toàn & rà sửa thừa
 
-Viết theo việc người đọc đang cần. Chỉ thêm định nghĩa, lời hướng dẫn, lưu ý hoặc câu phân biệt khi chúng giải quyết một vướng mắc cụ thể ở vị trí đó. Đừng tự biến mọi đoạn thành bài hướng dẫn hoặc mang các lưu ý nội bộ của skill vào bản sửa. Xem phần giải thích đúng lúc trong [diễn đạt tự nhiên](references/naturalness.md); giữ điều kiện, cảnh báo và phép đối chiếu có tác dụng thật.
+4. **Đọc bản sửa độc lập như người nhận:** Kiểm tra mạch câu có tự đứng vững, đại từ có tiền ngữ rõ, có rò giọng trợ lý hay rơi vào khuôn mẫu khác không. Trong bài kể, kiểm ai đang làm hoặc đang nhớ; trong hướng dẫn, kiểm dấu hiệu được đi tiếp nằm ngay tại bước liên quan.
+5. **Đối chiếu biên bản bảo toàn với bản gốc:** Kiểm lại từng con số, mốc giờ, phủ định, từ chỉ mức chắc chắn (`có thể`, `sẽ`, `phải`, `chưa`), phạm vi và ngoại lệ. Nếu cách sửa làm đổi nghĩa hoặc thiếu căn cứ, hoàn nguyên hoặc chuyển sang góp ý / hỏi tác giả. Chỉ giải thích thay đổi khi người dùng yêu cầu.
 
-Khi bài lặp đối lập, câu tự nhấn mạnh, nhịp giật ngắn, tiêu đề/bullet hoặc kết đoạn tóm lại, đọc [sửa lối viết theo khuôn](references/formulaic-prose.md). Sửa theo chức năng và mật độ trong ngữ cảnh; giữ cấu trúc có tác dụng, khoảng số, thuật ngữ và giọng riêng. Không dùng danh sách “AI tells” để suy đoán tác giả hoặc làm từ điển thay thế.
+### Tài liệu tra cứu theo nhu cầu
 
-Khi người dùng chọn loại bài viết, đọc [writing profiles](references/writing-profiles.md) rồi chỉ đọc reference phù hợp: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md), [tài liệu kỹ thuật](references/technical-writing.md), [hành chính](references/administrative-writing.md), [bài đăng mạng xã hội](references/social-writing.md) hoặc [marketing](references/marketing-writing.md). Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp; mặc định giữ loại bài gốc.
+- Khi chỉnh văn phong: đọc [diễn đạt tự nhiên](references/naturalness.md).
+- Văn bản dài hoặc nhiều pattern chồng nhau: đọc [workflow chi tiết](references/workflow.md).
+- Văn bản học thuật, pháp lý, hành chính, chăm sóc khách hàng: tra [register](references/registers.md).
+- Kênh chat hoặc kịch bản nói: đọc [hội thoại và kịch bản nói](references/conversational.md).
+- Bài lặp đối lập, câu tự nhấn ý, nhịp giật ngắn, chia nhỏ quá mức hoặc kết đoạn tóm lại: đọc [sửa lối viết theo khuôn](references/formulaic-prose.md).
+- Khi người dùng chọn loại bài: đọc [writing profiles](references/writing-profiles.md) rồi chọn đúng một tài liệu: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md), [tài liệu kỹ thuật](references/technical-writing.md), [hành chính](references/administrative-writing.md), [bài đăng mạng xã hội](references/social-writing.md) hoặc [marketing](references/marketing-writing.md).
 
 ## Ngữ cảnh và quyền biên tập
 
-Phân biệt kênh (tài liệu, email, chat, kịch bản nói), độc giả, quan hệ giao tiếp, xưng hô và độ trang trọng. Chọn kênh chat không có nghĩa được đổi "tôi" thành "em" hoặc thêm "ạ". Khi thiếu thông tin, giữ giọng và xưng hô hiện có.
-
-Mặc định sửa nhẹ. Chỉ sắp xếp lại đoạn khi người dùng cho phép can thiệp sâu; mọi mức đều phải giữ nội dung. Khi được yêu cầu giảm cường điệu (`reduce_hype=true` trong ứng dụng), có thể giảm tính từ quảng cáo hoặc đồng cảm công thức. Quyền này không cho phép đổi số, phạm vi, mức chắc chắn, nghĩa vụ hay lập trường tích cực thành tiêu cực. Nếu bỏ một nhận định sẽ đổi thông điệp, góp ý để tác giả quyết định.
+- Tách biệt kênh (tài liệu, email, chat, kịch bản nói), người đọc, quan hệ giao tiếp, xưng hô và độ trang trọng. Chọn kênh chat không cho phép tự đổi "tôi" thành "em" hoặc thêm "ạ". Profile không tự đổi giọng, kênh, xưng hô hay mức can thiệp.
+- Mặc định sửa nhẹ và giữ giọng gốc; chỉ sắp xếp lại đoạn khi người dùng cho phép can thiệp sâu.
+- Khi người dùng bật giảm cường điệu (`reduce_hype=true`), có thể gọt tính từ quảng cáo hoặc lớp đồng cảm công thức, nhưng vẫn giữ nguyên số liệu, phạm vi, mức chắc chắn, nghĩa vụ và lập trường tích cực. Nếu bỏ một nhận định làm đổi thông điệp, góp ý để tác giả quyết định.
 
 ## Bảo toàn
 
-Giữ nguyên dữ kiện, con số, tên riêng, trích dẫn, điều kiện, ngoại lệ, lập trường, thuật ngữ và mức độ chắc chắn. Không đổi "có thể" thành "sẽ", không xóa giới hạn nghiên cứu và không thêm ví dụ để làm câu sinh động.
+- Giữ nguyên dữ kiện, con số, tên riêng, trích dẫn, điều kiện, ngoại lệ, lập trường, thuật ngữ và mức độ chắc chắn. Không đổi "có thể" thành "sẽ", không xóa giới hạn và không thêm ví dụ, trải nghiệm hay cơ chế chưa có.
+- Trong báo cáo và bài nghiên cứu, đặt mốc chốt, phạm vi, điều kiện đo và nguồn sát kết quả. Phân biệt kết quả ghi nhận, diễn giải, kiến nghị và dự kiến; giữ đúng mức quan hệ tương quan hay ước tính (xem thêm phần báo cáo trong [tài liệu kỹ thuật](references/technical-writing.md)).
+- Chỉ dùng thông tin ngoài đoạn gốc khi nó được nêu rõ trong context; tuyệt đối không lấy dữ kiện từ `voice_sample` và không viện dẫn "chi tiết đã có trong bài" nếu không nằm trong dữ liệu đầu vào.
+- Khi một câu mơ hồ theo nhiều cách hợp lý làm đổi kết quả đáng kể, giữ nguyên hoặc hỏi lại. Kiểm tra theo checklist đầy đủ trong [preservation rules](references/preservation-rules.md).
 
-Trong báo cáo và bài nghiên cứu, giữ mốc chốt, phạm vi, điều kiện đo và nguồn đủ gần kết quả. Giữ đúng nghĩa của “ước tính”, “trong mô phỏng”, “người tham gia cho biết” và “chưa phát hiện”. Phân biệt kết quả ghi nhận, diễn giải, kiến nghị và việc dự kiến. Khi bằng chứng chỉ nêu mối liên hệ, giữ đúng mức đó. Xem phần báo cáo và nghiên cứu trong [tài liệu kỹ thuật](references/technical-writing.md) khi cần rà sâu.
+## Cách chọn mức can thiệp và pattern
 
-Chỉ dùng thông tin ngoài đoạn input khi nó được cung cấp rõ trong context. Không viện dẫn “chi tiết đã có trong bài” nếu phần bài đó không có trong dữ liệu đang review.
-
-Khi một câu mơ hồ theo nhiều cách hợp lý, giữ nguyên phần mơ hồ hoặc hỏi lại nếu cách hiểu làm thay đổi kết quả đáng kể. Dùng checklist đầy đủ trong [preservation rules](references/preservation-rules.md).
-
-## Cách chọn pattern
-
-- Ưu tiên pattern làm mất thông tin hoặc làm sai register.
-- Với từ nối, lời mở đầu, danh sách ba ý và nhịp câu, xét mật độ trên cả đoạn.
-- Với lời dẫn nguồn mơ hồ, không tự bịa nguồn thay thế hoặc âm thầm hạ mức chắc chắn. Góp ý về bằng chứng còn thiếu; chỉ thu hẹp tuyên bố khi tác giả cho phép và context đủ căn cứ.
-- Với giọng cá nhân, chỉ giữ hay tăng cá tính khi văn bản gốc đã có cơ sở. Văn bản trung lập không cần thêm "tôi".
-- Nếu đầu vào tự nhiên và phù hợp, trả lại gần như nguyên văn.
-
-Danh mục giải thích nằm ở [patterns](references/patterns.md). Xem [examples](references/examples.md) để phân biệt sửa hợp lý với over-editing.
+- Chọn một mức: **Giữ nguyên** (đã rõ và hợp giọng, hoặc tín hiệu yếu); **Viết lại** (sửa cấu trúc/lỗi mà không đổi nghĩa); **Góp ý** (thiếu bằng chứng hoặc nguồn); **Cần tác giả quyết định** (mơ hồ xưng hô, thuật ngữ, cách hiểu đổi nghĩa).
+- Ưu tiên xử lý pattern làm mất thông tin hoặc lệch register; xét mật độ từ nối, lời mở, danh sách và nhịp câu trên cả đoạn. Không sửa một cụm chỉ vì nó nằm trong [patterns](references/patterns.md); chỉ giữ hoặc tăng cá tính khi bản gốc đã có cơ sở. Xem thêm [examples](references/examples.md) để tránh over-editing.
 
 ## Anti-goals
 
-- Không tuyên bố đoạn văn do AI viết hoặc chấm "xác suất AI".
-- Không hỗ trợ vượt detector, thêm lỗi, tiếng lóng hay chi tiết giả.
-- Không áp một giọng thân mật cho mọi văn bản.
-- Không làm phẳng khác biệt vùng miền, thế hệ hoặc nghề nghiệp.
-- Không rút gọn nội dung quan trọng chỉ để câu ngắn hơn.
-- Không thay từ đồng nghĩa hàng loạt khi cấu trúc mới là vấn đề.
-- Không biến nội dung kỹ thuật, học thuật hoặc pháp lý thành bản quảng cáo.
-
-## Cách chọn mức can thiệp
-
-Không mặc định mọi câu có tín hiệu đều phải sửa. Chọn một mức:
-
-- **Giữ nguyên**: câu đã đúng nghĩa và register, hoặc tín hiệu catalog không đủ chắc.
-- **Viết lại**: có thể sửa cấu trúc hoặc lỗi mà không đổi dữ kiện, lập trường hay thuật ngữ.
-- **Góp ý**: cần người viết xem lại; nêu vị trí và lựa chọn, đừng tự đoán.
-- **Cần tác giả quyết định**: xưng hô, glossary, hoặc cách hiểu làm đổi nghĩa.
+- Không tuyên bố văn bản do AI viết, chấm "xác suất AI" hay tối ưu để vượt detector.
+- Không thêm lỗi, tiếng lóng giả, chi tiết bịa hoặc lời mời trợ lý ("Nếu bạn muốn, tôi có thể…") vào bản sửa.
+- Không áp một giọng thân mật cho mọi văn bản, làm phẳng khác biệt vùng miền/thế hệ/nghề nghiệp, hay rút gọn làm mất ý quan trọng.
+- Không thay từ đồng nghĩa hàng loạt khi cấu trúc mới là vấn đề, và không biến nội dung kỹ thuật, học thuật hoặc pháp lý thành văn quảng cáo.
 
 ## Đầu ra
 
-Khi đã có thể biên tập an toàn, mặc định chỉ trả bản đã biên tập. Nếu cần kiểm chứng hoặc tác giả quyết định trước, chỉ trả nhận xét/câu hỏi cần giải quyết; chờ xác nhận rồi mới đưa bản thay thế. Không thêm lời dẫn như “Dưới đây là phiên bản…” hay “Nếu bạn cần, tôi có thể…”. Khi người dùng yêu cầu review, dùng [review template](assets/review-template.md) và [rubric](references/evaluation.md). Không gắn nhãn chắc chắn cho tác giả hay nguồn gốc văn bản.
+Khi đủ căn cứ biên tập an toàn, mặc định chỉ trả bản đã sửa; nếu đoạn đã phù hợp, giữ nguyên. Khi cần kiểm chứng hoặc tác giả quyết định, chỉ trả nhận xét hoặc câu hỏi cụ thể và chờ xác nhận trước khi đưa bản thay thế. Không thêm lời dẫn trước/sau văn bản thay thế hay mang lưu ý nội bộ của skill vào bài viết. Khi người dùng yêu cầu chấm hoặc review, dùng [review template](assets/review-template.md) và [rubric](references/evaluation.md).

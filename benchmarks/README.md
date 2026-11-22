@@ -1,6 +1,6 @@
 # Benchmark
 
-Bộ benchmark gồm 139 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+Bộ benchmark gồm 151 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
 
 `cases/report-and-research.jsonl` có sáu tình huống giả định về báo cáo tiến độ, số liệu sơ bộ, mô phỏng, phỏng vấn và phạm vi kết luận. Bộ này có bản cần sửa, bản nên giữ nguyên và bản cần góp ý về bằng chứng. [Ghi chú nguồn và kiểm chứng](../docs/research/2026-11-22-report-and-research.md)
 
@@ -16,7 +16,13 @@ Bộ benchmark gồm 139 case đa miền cho bốn skill. Bộ này đánh giá 
 
 `cases/extended-profiles.jsonl` thêm 18 case theo chín cặp đối chiếu ngữ cảnh cho `administrative`, `social`, `marketing`. Mỗi profile có sáu case: ba bản giữ nguyên cùng ba tình huống sửa, góp ý và cần tác giả quyết định. Kiểm loại văn bản, nghĩa vụ, giọng cá nhân, chứng cứ, giá và điều kiện; đây là case tự viết, chưa có human review. Xem [nguồn đọc](../docs/research/2026-11-04-administrative-social-marketing.md).
 
-Khi chạy một case qua API, chuyển `input` thành `text`, giữ nguyên `context` và `style`, đồng thời đưa yêu cầu biên tập trong `constraints` vào context. Không đưa expected mode, blocker hoặc evaluation notes vào prompt sinh. Khi chia development/test, giữ cả cặp trong cùng một phần.
+`cases/voice-and-linguistics.jsonl` thêm 12 case theo sáu cặp đối chiếu ngữ cảnh cho `voice_sample`, cấu trúc Đề – Thuyết, chuỗi vị từ, phương ngữ kèm phân tầng Hán-Việt, calque dịch máy (`cho thấy rằng`, `cho phép`, `một cách + tính từ`), trượt ngôi tự xưng `tôi`/`mình` và liên từ kết quả thừa `vì vậy, nên`. Đây là case do agent tự viết để kiểm bảo toàn và ranh giới không sửa quá tay, chưa có human review.
+
+Khi chạy một case qua API, chuyển `input` thành `text`, giữ nguyên `context` và `style`, đồng thời đưa yêu cầu biên tập trong `constraints` vào context. Không đưa expected mode, blocker hoặc evaluation notes vào prompt sinh. Khi chia development/test, giữ cả cặp trong cùng một phần. Có thể xuất sẵn gói đầu vào chấm mù không chứa đáp án bằng:
+
+```bash
+python scripts/run_benchmarks.py --prepare-packet /tmp/review-packet.jsonl
+```
 
 Mỗi case có input, context, constraints, expected output mode, must-preserve, must-not-add và blockers. Case không nên sửa dùng `no_change` và có thể để `expected_patterns` rỗng. Không gán pattern giả chỉ để buộc agent thay đổi câu.
 

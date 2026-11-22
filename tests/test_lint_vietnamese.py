@@ -542,3 +542,49 @@ def test_json_cli_output_is_valid(tmp_path: Path, capsys) -> None:
     assert main([str(path), "--format", "json"]) == 1
     payload = json.loads(capsys.readouterr().out)
     assert payload["summary"]["error"] == 1
+
+
+def test_uniform_length_detects_monotone_paragraph_inside_longer_article() -> None:
+    text = (
+        "Mở bài rất ngắn.\n\n"
+        "Nhóm nhận yêu cầu vào sáng nay. "
+        "Nhóm kiểm tra dữ liệu vào buổi trưa. "
+        "Nhóm gửi kết quả vào cuối ngày. "
+        "Nhóm lưu biên bản sau cuộc họp. "
+        "Nhóm đóng yêu cầu khi hoàn tất.\n\n"
+        "Kết thúc gọn."
+    )
+    findings = [
+        issue
+        for issue in lint_text(text, {"humanizer-vi"})
+        if issue["pattern_id"] == "VI-HUM-S04"
+    ]
+    assert len(findings) == 1
+    assert findings[0]["line"] == 3
+
+
+def test_redundant_connector_handles_general_subjects_without_breaking_advice() -> None:
+    assert "VI-GRA-C06" in ids(
+        "Vì vậy, nên hệ thống sẽ tự động khóa tài khoản.",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-C06" in ids(
+        "Vì vậy nên chúng tôi đã hoãn lịch phát hành.",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-C06" in ids(
+        "Vì vậy, nên tôi phải làm lại từ đầu.",
+        "grammar-checker-vi",
+    )
+    assert "VI-GRA-C06" not in ids(
+        "Vì vậy, nên dự phòng thêm máy chủ.",
+        "grammar-checker-vi",
+    )
+
+
+def test_singular_self_pronoun_drift_ignores_reflexive_minh() -> None:
+    mixed = "Tôi đã kiểm tra cấu hình. Sau đó mình gửi lại báo cáo cho tôi."
+    assert "VI-STY-P01" in ids(mixed, "style-guide-vi")
+
+    reflexive = "Tôi làm việc một mình và tự mình kiểm tra báo cáo của mình."
+    assert "VI-STY-P01" not in ids(reflexive, "style-guide-vi")

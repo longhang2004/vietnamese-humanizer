@@ -1,20 +1,37 @@
 # Diễn đạt tự nhiên ở cấp câu và đoạn
 
-Các ví dụ dưới đây do dự án tự viết. Chúng minh họa quyết định biên tập, không phải quy tắc áp dụng cho mọi câu. Xem [nguồn và phương pháp đọc](sources.md) để phân biệt quan sát từ tài liệu với lựa chọn của dự án.
+## Kết hợp từ, Đề – Thuyết và chuỗi hành động
 
-## Kết hợp từ và hành động
-
-Tìm xem người viết muốn nói ai làm gì, việc gì xảy ra và phần nào đáng nhấn mạnh. Một câu hết cụm trong catalog vẫn có thể gượng. Đừng thay "đóng vai trò trong việc" bằng "quan trọng đối với việc" rồi coi đã xong.
+Tìm xem người viết muốn nói ai làm gì, việc gì xảy ra và phần nào đáng nhấn mạnh. Tiếng Việt ưu tiên cấu trúc **Đề – Thuyết (Topic–Comment)**: đặt khung cảnh, điều kiện hoặc đối tượng đang bàn làm điểm xuất phát (Đề), rồi nêu nhận xét hoặc hành động mới (Thuyết), thay vì giữ khung chủ ngữ giả hay bị động dịch sát từ tiếng Anh.
 
 - Cứng: "Nhóm tiến hành việc gửi bản nháp cho khách hàng để thực hiện việc lấy ý kiến."
 - Sửa: "Nhóm gửi bản nháp cho khách hàng để lấy ý kiến."
+- Cứng (SVO dịch sát): "Một số thay đổi đối với lịch bảo trì đã được phê duyệt cho các cụm máy chủ dự phòng."
+- Tự nhiên (Đề – Thuyết): "Với các cụm máy chủ dự phòng, lịch bảo trì mới đã được duyệt."
 - Cần giữ: "Khảo sát này có vai trò thăm dò, chưa đủ để suy rộng kết quả." Vai trò và giới hạn là nội dung thật.
+
+Khi cùng một chủ thể làm nhiều việc nối tiếp hoặc có quan hệ nhân quả đã rõ, tận dụng **chuỗi vị từ (Serial Verb Construction)** hoặc đặt hai vế cạnh nhau (parataxis) thay vì rải liên từ hiển ngôn (`đồng thời`, `qua đó`, `từ đó`, `hơn nữa`, `bên cạnh đó`).
+
+- Cứng: "Hệ thống kiểm tra cấu hình, đồng thời ghi nhật ký lỗi, qua đó giúp kỹ sư khoanh vùng sự cố nhanh hơn."
+- Tự nhiên: "Hệ thống kiểm tra cấu hình và ghi nhật ký lỗi để kỹ sư khoanh vùng sự cố nhanh hơn." (Chỉ dùng "để" khi mục đích đó có trong ngữ cảnh; nếu không chắc mục đích, viết "Hệ thống kiểm tra cấu hình rồi ghi nhật ký lỗi cho kỹ sư rà soát.")
 
 Không thay thuật ngữ bằng từ quen tai nếu đổi khái niệm: "hiệu suất" không luôn là "tốc độ"; "độ tin cậy" không luôn là "độ chính xác". Khi chưa rõ, giữ thuật ngữ và góp ý.
 
+## Phân tầng Hán-Việt và thuần Việt theo register
+
+Từ Hán-Việt mang lại độ nén và tính chuẩn xác trong văn bản pháp lý, hành chính, học thuật và thuật ngữ chuyên môn (`nghị định`, `thẩm quyền`, `xác thực`, `khấu hao`, `miễn trừ`). Ngược lại, trong viết thường ngày, công việc, blog, hướng dẫn sản phẩm hay mạng xã hội, lạm dụng động từ/danh từ Hán-Việt hai âm tiết làm câu nặng và xa cách.
+
+- **Giữ nguyên Hán-Việt** khi đó là thuật ngữ ngành, định danh pháp lý, tên quy định hoặc cặp khái niệm có ranh giới nghĩa rõ.
+- **Hạ xuống từ thuần Việt hoặc phổ thông** khi từ nặng chỉ đóng vai trò động từ nối hay lớp vỏ hành chính không thêm nghĩa:
+  - `tiến hành` / `thực hiện việc` + động từ → gọi thẳng động từ (`tiến hành rà soát` → `rà soát`; `thực hiện việc sao lưu` → `sao lưu`).
+  - `đảm bảo` (dùng như cụm đệm) → `giữ`, `bảo đảm` (chỉ giữ khi nói đúng cam kết/kỹ thuật) hoặc nêu thẳng điều kiện.
+  - `triển khai` (nghĩa chung) → `mở`, `áp dụng`, `chạy`, `đưa vào dùng` (giữ `triển khai` trong ngữ cảnh kỹ thuật/quân sự/kế hoạch chính thức).
+  - `tối ưu hóa` (phi kỹ thuật) → `chỉnh gọn`, `làm nhanh hơn`, `giảm bớt`.
+  - `sử dụng` → `dùng` ở văn phong trò chuyện, blog, hướng dẫn phổ thông.
+
 ## Mạch thông tin và liên kết
 
-Đọc câu trước để biết câu sau đang tiếp tục đối tượng nào. Đặt thông tin đã biết ở vị trí giúp người đọc nhận ra mối nối, rồi đưa thông tin mới vào. Có thể nhắc lại danh từ thay vì dùng "điều này" khi nhiều tiền ngữ cạnh tranh.
+Đọc câu trước để biết câu sau đang tiếp tục đối tượng nào (mạch chủ đề). Gom các câu cùng Đề để giữ dòng chảy tự nhiên rồi mới chuyển sang đối tượng khác; đặt thông tin đã biết ở đầu câu để nối mạch, rồi đưa thông tin mới về cuối câu. Có thể nhắc lại danh từ thay vì dùng "điều này" khi nhiều tiền ngữ cạnh tranh.
 
 - Mơ hồ: "Nhóm đổi lịch giao hàng và cách tính phí. Điều này áp dụng từ thứ Hai."
 - Xử lý: hỏi lịch giao hàng, cách tính phí hay cả hai áp dụng từ thứ Hai; không tự chọn.
@@ -66,11 +83,15 @@ Tách câu khi điều kiện hoặc ý phụ che khuất hành động chính. 
 
 Một đoạn nên có điểm bám rõ, nhưng không buộc mọi đoạn mở bằng câu chủ đề và kết bằng tóm tắt. Với văn bản dài, kiểm tra mỗi đoạn thêm thông tin gì, có lặp lại kết luận của đoạn trước hay bỏ mất bước suy luận không.
 
-## Sắc thái nhỏ cũng là nghĩa
+## Sắc thái nhỏ, tiểu từ tình thái và nhất quán phương ngữ
 
 Giữ tác dụng của "vẫn", "chưa", "chỉ", "lại", "đã", "mới", "cũng" và từ chỉ mức độ. "Chỉ còn 3 chỗ" khác "còn 3 chỗ"; "vẫn chưa xong" khác "chưa xong". Không coi những từ này là phần thừa chỉ vì câu ngắn hơn khi bỏ chúng.
 
-Tiểu từ cuối câu phụ thuộc quan hệ. "nhé", "nha", "ạ", "thôi" không phải gia vị dùng chung. Giữ biến thể vùng miền có sẵn nếu phù hợp; không suy ra vùng miền từ tên người và không giả giọng bằng cách rải từ địa phương.
+Trong văn đời thường, blog cá nhân hay kịch bản nói, các từ đệm tạo nhịp (`thì`, `mà`, `chứ`, `thôi`, `xong`, `hẳn`) và tiểu từ tình thái cuối câu (`nhé`, `nha`, `ạ`, `đấy`, `nhỉ`) giúp câu có ngữ khí tự nhiên như người nói thật; ngược lại, trong tài liệu kỹ thuật hoặc thông báo hành chính, cần tiết chế để không làm loãng mệnh đề.
+
+Giữ **nhất quán hệ từ vựng và tiểu từ vùng miền (Bắc – Trung – Nam)** trong cùng một giọng viết:
+- Không trộn ngẫu nhiên hệ Bắc (`bố mẹ`, `nhé`, `đấy`, `nhỉ`, `bảo`) với hệ Nam (`ba má`, `tụi mình`, `nha`, `nè`, `nghen`, `coi`) trong cùng một người nói, trừ khi đang trích dẫn nhiều nhân vật.
+- Giữ biến thể vùng miền có sẵn trong bản gốc hoặc `voice_sample`; không suy ra vùng miền từ tên người và không giả giọng bằng cách rải từ địa phương.
 
 ## Bảo toàn và giảm cường điệu
 

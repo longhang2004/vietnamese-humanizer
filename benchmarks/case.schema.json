@@ -149,6 +149,10 @@
         },
         "reduce_hype": {
           "type": "boolean"
+        },
+        "voice_sample": {
+          "type": "string",
+          "maxLength": 1500
         }
       }
     }

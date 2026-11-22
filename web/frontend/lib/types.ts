@@ -86,6 +86,7 @@ export interface RewriteStyle {
   audience: string;
   relationship: string;
   pronouns: string;
+  voice_sample?: string;
   edit_level: "light" | "moderate" | "deep";
   reduce_hype: boolean;
 }

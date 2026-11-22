@@ -13,7 +13,7 @@ Dùng cho email, yêu cầu phối hợp, giao việc và cập nhật tiến đ
 - Với báo cáo tiến độ, đặt mốc chốt cạnh trạng thái và khối lượng đã làm. Nêu vướng mắc, bước tiếp theo hoặc quyết định cần xin khi nguồn đã có. Giữ điều kiện của việc dự kiến và giữ bảng nếu người đọc dùng bảng để theo dõi từng đầu việc.
 - Với cập nhật sự cố hoặc chậm tiến độ, nêu tình trạng và bước tiếp theo đã biết. Không tự nhận lỗi, đổ lỗi hay hứa bồi thường/thời gian khôi phục.
 
-## Ví dụ tự viết, chưa được người bản ngữ duyệt
+## Ví dụ đối chiếu
 
 **Sửa cục bộ:**
 
@@ -30,5 +30,3 @@ Lý do: làm rõ trạng thái và đề nghị, giữ người gửi, thời h�
 ## Rà cuối
 
 Yêu cầu có giữ đúng mức bắt buộc không? Tình trạng đã xong/chưa xong có rõ không? Có sinh thêm lời hứa hoặc đổi vai giao tiếp không? Nếu nội dung đã tốt, chọn `no_change`.
-
-Tham khảo nguyên tắc điều chỉnh giọng theo người đọc ở [sources](sources.md); các quy tắc giao việc và ví dụ trên là lựa chọn biên tập của dự án.

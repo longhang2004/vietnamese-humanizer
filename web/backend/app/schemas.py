@@ -96,6 +96,7 @@ class RewriteStyle(BaseModel):
     audience: str = Field("", max_length=300)
     relationship: str = Field("", max_length=300)
     pronouns: str = Field("", max_length=200)
+    voice_sample: str = Field("", max_length=1500)
     edit_level: Literal["light", "moderate", "deep"] = "light"
     reduce_hype: bool = False
 

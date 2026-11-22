@@ -13,7 +13,7 @@ Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng 
 - Giữ câu hỏi, đường dẫn, emoji, hashtag và lời mời có tác dụng. Chỉ thêm khi có mục đích và thông tin tương ứng trong yêu cầu; không tự chèn lời xin tương tác, câu hỏi kết bài hoặc hashtag để đủ khuôn.
 - Chia đoạn theo mạch kể và thông tin. Bài trải nghiệm dài vẫn có thể hợp cộng đồng; không áp số câu, số chữ hay công thức mở bài cố định.
 
-## Ví dụ tự viết, chưa được người bản ngữ duyệt
+## Ví dụ đối chiếu
 
 **Sửa có quyền giảm cường điệu.** Context: thông báo trong nhóm đổi sách; tác giả cho phép lược lời mở đầu khoa trương, giữ lời mời.
 
@@ -32,5 +32,3 @@ Giữ giờ, nơi, cách xưng hô và lời mời; phần bị lược đã đ�
 ## Rà cuối
 
 Đọc lên có còn nhận ra giọng người viết không? Có tự biến chia sẻ thành quảng cáo, kéo tương tác hoặc bịa trải nghiệm không? Với bài đã tự nhiên và đủ thông tin theo mục đích, chọn `no_change`.
-
-Tham khảo [sources](sources.md); mẫu dài trên diễn đàn và hướng dẫn của một thương hiệu là quan sát theo ngữ cảnh, không phải chuẩn chung cho tiếng Việt.

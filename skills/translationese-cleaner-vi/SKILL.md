@@ -15,8 +15,8 @@ Mục tiêu là câu tiếng Việt đứng được độc lập, không phải
 
 1. Xác định domain, độc giả, register và mức ràng buộc với bản gốc.
 2. Nếu có bản tiếng Anh, đối chiếu ý, quan hệ logic, mức chắc chắn và thuật ngữ. Nếu không có, chỉ sửa các cấu trúc có đủ ngữ cảnh.
-3. Tìm cụm danh từ dài, danh hóa, chủ ngữ giả, bị động, động từ yếu và metaphor dịch từng chữ.
-4. Xác định hành động, chủ thể và thông tin mới của từng câu. Sắp theo mạch tự nhiên của tiếng Việt thay vì giữ thứ tự tiếng Anh.
+3. Tìm cụm danh từ dài, danh hóa (`sự + V/Adj`), chủ ngữ giả, chủ ngữ vô tri dùng `cho phép`, bị động dịch sát, động từ yếu, bổ ngữ `một cách + tính từ` (calque trạng từ `-ly`), từ nối `rằng` thừa và metaphor dịch từng chữ.
+4. Xác định hành động, chủ thể và thông tin mới của từng câu. Sắp theo cấu trúc Đề – Thuyết hoặc chuỗi vị từ tự nhiên của tiếng Việt thay vì giữ thứ tự SVO tiếng Anh.
 5. Dùng động từ trực tiếp khi chính xác hơn. Tách câu nếu chuỗi bổ nghĩa khiến người đọc phải đọc lại.
 6. Rà thuật ngữ với glossary của người dùng. Khi chưa chắc, giữ thuật ngữ và nêu phương án thay thế thay vì tự quyết.
 7. Đối chiếu lại bản gốc hoặc biên bản bảo toàn.

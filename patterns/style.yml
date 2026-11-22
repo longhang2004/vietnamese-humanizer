@@ -12,7 +12,7 @@ patterns:
   summary: Trộn nhiều cách gọi độc giả hoặc người viết mà chưa có lý do chức năng.
   signals:
     regex:
-    - \b(?:bạn|quý khách|người dùng|khách hàng|chúng tôi|chúng ta)\b
+    - \b(?:bạn|quý khách|người dùng|khách hàng|tôi|mình|chúng tôi|chúng ta)\b
   why_it_matters: Đại từ thể hiện quan hệ xã hội; đổi qua lại có thể làm giọng và đối tượng không ổn định.
   rewrite_strategy:
   - Xác định quan hệ với độc giả rồi lập bảng cách gọi; giữ thuật ngữ phân tích khi nó có chức năng riêng.

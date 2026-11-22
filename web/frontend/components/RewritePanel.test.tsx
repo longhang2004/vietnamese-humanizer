@@ -215,3 +215,38 @@ test.each(["technical", "administrative", "social", "marketing"])(
     expect(screen.queryByText("Giữ nguyên văn bản:")).not.toBeInTheDocument();
   },
 );
+
+test("sends optional voice_sample and invalidates stale results when it changes", async () => {
+  const user = userEvent.setup();
+  vi.mocked(rewriteText).mockResolvedValue({
+    rewrite: "Bản sửa bám giọng mẫu.",
+    output_mode: "clean_rewrite",
+    comments: [],
+    review_status: "unreviewed",
+    disclaimer: "Cần duyệt",
+  });
+
+  render(<RewritePanel originalText="Vui lòng thực hiện việc kiểm tra." />);
+  await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
+  const voiceField = screen.getByLabelText("Đoạn mẫu giọng viết (tùy chọn)");
+  await user.type(voiceField, "Mình vừa xem qua bản nháp sáng nay.");
+  await user.click(
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+  );
+
+  expect(rewriteText).toHaveBeenCalledWith(
+    "Vui lòng thực hiện việc kiểm tra.",
+    "humanizer-vi",
+    undefined,
+    {
+      context: "",
+      style: expect.objectContaining({
+        voice_sample: "Mình vừa xem qua bản nháp sáng nay.",
+      }),
+    },
+  );
+  expect(await screen.findByText("Bản sửa bám giọng mẫu.")).toBeInTheDocument();
+
+  await user.type(voiceField, " Gửi bạn trước nhé.");
+  expect(screen.queryByText("Bản sửa bám giọng mẫu.")).not.toBeInTheDocument();
+});
