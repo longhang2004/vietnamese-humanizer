@@ -33,6 +33,7 @@ The public project overview and contribution guide are available in English and 
 - [Vietnamese voice notes](research/2026-11-21-vietnamese-voice.md): perspective shifts, topic-comment flow, and visible completion cues.
 - [Marketing voice notes](research/2026-11-22-marketing-voice.md): register flexibility, meaningful negation, and proximity of offer conditions.
 - [Report and research notes](research/2026-11-22-report-and-research.md): reporting periods, interview quotes, and scope of conclusions.
+- [Spoken dialogue, humor and satire notes](research/2026-11-23-spoken-humor-satire.md): film dialogue, vlog, explainer scripts, social self-deprecation, and *Số đỏ*-inspired satirical techniques.
 
 ## Historical plans and UI audits
 

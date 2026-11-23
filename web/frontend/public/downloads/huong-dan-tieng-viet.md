@@ -40,6 +40,8 @@ Văn bản cần biên tập:
 
 - [skills/humanizer-vi/references/formulaic-prose.md](#resource-skills-humanizer-vi-references-formulaic-prose-md)
 
+- [skills/humanizer-vi/references/humor-and-satire.md](#resource-skills-humanizer-vi-references-humor-and-satire-md)
+
 - [skills/humanizer-vi/references/marketing-writing.md](#resource-skills-humanizer-vi-references-marketing-writing-md)
 
 - [skills/humanizer-vi/references/naturalness.md](#resource-skills-humanizer-vi-references-naturalness-md)
@@ -120,6 +122,7 @@ Biên tập chất lượng viết theo người đọc và mục đích văn b�
 - Văn bản dài hoặc nhiều pattern chồng nhau: đọc [workflow chi tiết](#resource-skills-humanizer-vi-references-workflow-md).
 - Văn bản học thuật, pháp lý, hành chính, chăm sóc khách hàng: tra [register](#resource-skills-humanizer-vi-references-registers-md).
 - Kênh chat hoặc kịch bản nói: đọc [hội thoại và kịch bản nói](#resource-skills-humanizer-vi-references-conversational-md).
+- Văn cợt nhả, tự trào hoặc trào phúng, châm biếm: đọc [văn cợt nhả và trào phúng](#resource-skills-humanizer-vi-references-humor-and-satire-md).
 - Bài lặp đối lập, câu tự nhấn ý, nhịp giật ngắn, chia nhỏ quá mức hoặc kết đoạn tóm lại: đọc [sửa lối viết theo khuôn](#resource-skills-humanizer-vi-references-formulaic-prose-md).
 - Khi người dùng chọn loại bài: đọc [writing profiles](#resource-skills-humanizer-vi-references-writing-profiles-md) rồi chọn đúng một tài liệu: [văn viết rõ ràng](#resource-skills-humanizer-vi-references-plain-writing-md), [trao đổi công việc](#resource-skills-humanizer-vi-references-business-writing-md), [tài liệu kỹ thuật](#resource-skills-humanizer-vi-references-technical-writing-md), [hành chính](#resource-skills-humanizer-vi-references-administrative-writing-md), [bài đăng mạng xã hội](#resource-skills-humanizer-vi-references-social-writing-md) hoặc [marketing](#resource-skills-humanizer-vi-references-marketing-writing-md).
 
@@ -262,11 +265,29 @@ Nếu có lịch sử hội thoại, phân biệt việc đã trả lời với 
 
 Nếu không có lượt trước, đừng bịa lỗi của khách, cảm xúc của họ hay việc nhân viên đã làm. Không thêm lời xin lỗi nhận trách nhiệm hoặc hứa hoàn tiền khi input chưa có.
 
-## Kịch bản để nghe
+## Kịch bản để nghe và các dạng văn nói
 
 Ưu tiên mỗi nhịp một ý dễ giữ trong trí nhớ. Có thể tách câu chứa nhiều mệnh đề; giữ các điều kiện gắn với đúng hành động. Giữ số và đơn vị chính xác; viết bằng chữ khi hữu ích cho việc đọc và không đổi giá trị. Giữ code, đường dẫn và trích dẫn nguyên văn; khi không thể đọc rõ, góp ý về cách trình bày thay vì sửa identifier.
 
-Đọc thành tiếng để tìm chỗ phải lấy hơi giữa một cụm ý. Nhịp rõ không đòi hỏi xóa mọi câu dài hay thêm "ờ", "ừm", "kiểu như".
+Đọc thành tiếng để tìm chỗ phải lấy hơi giữa một cụm ý. Nhịp rõ không đòi hỏi xóa mọi câu dài hay thêm "ờ", "ừm", "kiểu như". Nếu kịch bản có chất hài hước hoặc châm biếm, xem thêm [văn cợt nhả và trào phúng](#resource-skills-humanizer-vi-references-humor-and-satire-md).
+
+### 1. Lời thoại phim và tiểu phẩm
+
+- **Tỉnh lược theo tình huống:** Nhân vật nhìn cùng một đồ vật hoặc bối cảnh nên thường lược chủ ngữ/tân ngữ (`"Cất cái này đi"` hoặc `"Chờ chút, xong ngay"` thay vì *"Anh hãy tiến hành cất tài liệu này đi"*).
+- **Bắt từ khóa lượt trước (lexical echoing):** Câu đáp tự nhiên hay lặp một chữ của câu hỏi vừa dứt để đẩy cảm xúc hoặc phản bác (`"Ký gì mà ký, đọc chưa hết mà."` thay vì *"Tôi không đồng ý ký vì chưa hoàn tất việc đọc"*).
+- **Tiểu từ tình thái định vị quan hệ và thái độ:** `đâu`, `đấy`, `chứ`, `cơ mà`, `hả`, `thôi`, `nha`, `nghen` tạo sắc thái nghi ngờ, dỗi, rủ rê hoặc cản lại. Không xóa các tiểu từ này để "cho gọn" và không chuẩn hóa phương ngữ của nhân vật sang giọng văn viết.
+
+### 2. Vlog và lời dẫn trước ống kính
+
+- **Mở thẳng vào cảnh và từ chỉ xuất:** Dùng các từ gắn với không gian trước mặt (`đây`, `khúc này`, `vừa nãy`, `bên này`) thay cho khung mở bài viết (*"Trong video ngày hôm nay, chúng ta sẽ cùng khám phá..."*).
+- **Nhịp bồi cuối câu (afterthought):** Người nói thật hay chốt ý chính trước rồi thêm một vế làm rõ ngắn phía sau (`"Quán này đóng lúc 22:00, mà bếp nghỉ từ 21:30 lận."`). Không ép gộp mọi vế về khuôn chủ–vị cổ điển nếu câu vẫn rõ sau một lần nghe.
+- **Chuyển ý bằng hành động hoặc mốc quay:** Thay `đồng thời`, `bên cạnh đó`, `nhìn chung` bằng động tác/cảnh kế tiếp đã có trong đề bài (`"Giờ mình mở hộp thử xem bên trong có gì."`).
+
+### 3. Video kiến thức và explainer
+
+- **Mở từ điểm nghẽn thật, rồi mới đặt cơ chế:** Đặt khung Đề – Thuyết gọn trong 1–2 mệnh đề; tránh nhồi ba bốn cụm quan hệ bổ nghĩa vào trước động từ chính khiến người nghe quên mất chủ thể.
+- **Neo thính giác thay cho tham chiếu mắt đọc:** Đổi các cụm văn bản viết như `"như bảng trên"`, `"chi tiết bên dưới"` thành cách chỉ dẫn bằng lời nói hoặc gợi tác giả chọn nơi đặt minh họa trên màn hình, mà không tự bịa số liệu mới.
+- **Giữ nguyên ranh giới chứng cứ khi nói tự nhiên:** Chuyển ngôn ngữ học thuật nặng thành câu nói dễ hiểu nhưng vẫn giữ `ước tính`, `trong thử nghiệm`, `theo khảo sát` để lời dẫn không biến giả thuyết thành chân lý.
 
 ## Khi cần tác giả quyết định
 
@@ -380,6 +401,51 @@ Không bỏ dấu gạch ngang, từ nối, thuật ngữ hay chi tiết đúng 
 ## Rà bản sửa
 
 Mỗi phần giữ lại có làm việc gì cho người đọc không? Bản sửa có tự thêm một khuôn khác, lời bình hay chi tiết mới không? Đối chiếu lại các vế phủ định, điều kiện, khoảng số và lập trường. Nếu cách sửa cần chọn giữa các nghĩa hoặc bỏ một nhận định riêng, dùng nhận xét/câu hỏi thay cho tự quyết. Văn bản đã phù hợp được giữ nguyên.
+
+
+
+<a id="resource-skills-humanizer-vi-references-humor-and-satire-md"></a>
+
+# Văn cợt nhả, tự trào và văn trào phúng
+
+Chỉ áp dụng hoặc khuếch đại sắc thái hài hước, cợt nhả hay trào phúng khi bản gốc đã có giọng này, `voice_sample` thể hiện rõ, hoặc ngữ cảnh yêu cầu tường minh. Dùng cùng [quy tắc bảo toàn](#resource-skills-humanizer-vi-references-preservation-rules-md) và [hướng dẫn diễn đạt tự nhiên](#resource-skills-humanizer-vi-references-naturalness-md).
+
+## Phân biệt ba mức độ
+
+| Sắc thái | Mục tiêu | Điểm cần giữ khi biên tập |
+|---|---|---|
+| Cợt nhả, dí dỏm đời thường | Tạo cảm giác nhẹ nhõm, tự nhiên như nói chuyện | Giữ lối chơi chữ, chuyển mã hoặc phóng đại có chừng mực |
+| Tự trào (self-deprecation) | Tự giễu cái xui, thiếu sót hay bất lực của bản thân | Dừng ngay ở chi tiết tạo twist; không an ủi hoặc giảng lại |
+| Trào phúng, châm biếm | Phơi bày nghịch lý, hình thức rỗng hoặc thói đạo đức giả | Giữ mũi nhọn đối lập và từ khóa đang bị giễu nhại |
+
+## 1. Văn cợt nhả và tự trào mạng xã hội
+
+- **Tự trào phủ đầu và hạ giọng tưng tửng:** Kể chuyện trễ hạn, hết tiền cuối tháng hay lỗi lặt vặt bằng giọng bình thản để sự việc tự gây cười, tránh thêm than vãn thừa.
+  - Cứng / giải thích lố: "Cuối tháng tài khoản chỉ còn vài chục nghìn nên mình đành ăn mì gói, đây quả là một trải nghiệm đầy thử thách và hài hước."
+  - Tự nhiên: "Cuối tháng, tài khoản còn 38 nghìn; bữa tối do đầu bếp nước sôi và gói muối mì tài trợ."
+- **Nhại văn phong nghiêm trọng cho chuyện vặt (mock-formal):** Mượn thuật ngữ hành chính, hội nghị, pháp lý hoặc khoa học đặt vào việc đời thường (ví dụ: `"hội đồng thẩm định dạ dày"`, `"quy trình giải ngân tiền ăn sáng"`). Không sửa các cụm này về ngôn ngữ bình thường.
+- **Bẻ nhịp cuối câu (setup → anti-climax):** Dựng khung trang trọng ở vế đầu rồi hạ bất ngờ ở vế cuối, dừng ngay tại điểm rơi.
+  - Cứng: "Sau 3 tiếng họp căng thẳng để tối ưu năng suất, nhóm thống nhất đổi phông chữ tiêu đề, điều này cho thấy họp dài chưa chắc hiệu quả."
+  - Sửa (bỏ câu giảng đạo lý thừa): "Sau 3 tiếng họp căng thẳng bàn giải pháp tăng hiệu suất, nhóm thống nhất đổi phông chữ tiêu đề."
+
+## 2. Văn trào phúng và châm biếm
+
+Tham khảo hệ thủ pháp trào phúng cổ điển và báo chí Việt Nam (tiêu biểu như lối viết châm biếm thói trưởng giả và hình thức rỗng trong *Số đỏ* của Vũ Trọng Phụng hoặc các tiểu phẩm phê phán bệnh thành tích):
+
+- **Nghịch ngữ (ghép hai cực đối lập giá trị):** Đặt từ mang sắc thái tích cực, trang nghiêm cạnh hoàn cảnh hoặc hậu quả tréo ngoe để mâu thuẫn tự lên tiếng (theo kiểu ghép đối lập của nhan đề *"Hạnh phúc của một tang gia"*). Không "chữa" sự đối lập này cho hợp logic thông thường.
+  - Giữ nguyên: "Lễ tổng kết thành tích tiết kiệm giấy được mở màn bằng 300 tờ giấy mời in màu dày cộp."
+- **Liệt kê đánh đồng bất tương xứng:** Xếp nghĩa vụ cao siêu ngang hàng với toan tính nhỏ nhặt trong cùng một chuỗi câu hoặc danh sách; giữ vế hạ bệ nằm ở vị trí chốt chuỗi.
+  - Giữ nguyên: "Chủ nhà tiếp khách bằng trọn tấm lòng hiếu khách, nụ cười niềm nở và tờ hợp đồng đặt sẵn ngay cạnh ấm trà."
+- **Giọng kể giả vờ khách quan hoặc khen ngược (deadpan irony / mock-praise):** Dùng từ ngữ ca ngợi, quy củ hành chính (`"nhờ tinh thần quyết liệt..."`, `"thành tựu đáng kinh ngạc..."`) để tường thuật trực tiếp một kết quả ngược đời đã có trong dữ kiện. Tuyệt đối không biến câu khen ngược thành câu chê thẳng băng nếu tác giả chủ ý mỉa mai.
+- **Nhại khẩu hiệu và chữ sáo có chủ đích:** Trong trào phúng, cụm sáo hành chính, chữ ngoại ngữ nửa mùa hay khẩu hiệu hoa mỹ thường là **đối tượng đang bị giễu nhại** (giống lối nhại `"Âu hóa"`, `"văn minh"` trong *Số đỏ*). Phân biệt hai trường hợp:
+  - *Sáo do máy móc / dịch sát:* gọt bỏ theo [sửa lối viết theo khuôn](#resource-skills-humanizer-vi-references-formulaic-prose-md).
+  - *Sáo để giễu nhại:* giữ nguyên từ khóa trong ngữ cảnh đang nhại; chỉ gọt những phần rườm rà không góp vào cú châm biếm (như câu mở bài `"Trong bối cảnh..."` trước đoạn trào phúng hoặc câu tóm tắt đạo lý ở cuối).
+
+## 3. Ranh giới bảo toàn và an toàn
+
+- **Không thêm câu giải thích trò đùa hay giảng đạo lý:** Không kết bài trào phúng bằng *"Hy vọng mọi người cùng suy ngẫm"*, *"Câu chuyện phản ánh thực trạng đáng buồn..."*.
+- **Không cợt nhả sai hoàn cảnh:** Tuyệt đối không đưa giọng đùa cợt vào thông báo sự cố kỹ thuật cho khách hàng, tin buồn, y tế, xin lỗi thật sự hoặc văn bản pháp lý/hành chính trừ khi bản gốc rõ ràng là tác phẩm châm biếm giả định.
+- **Không lấy trào phúng làm cớ bịa dữ kiện:** Mọi con số, chi tiết, mốc thời gian làm chất liệu gây cười hoặc châm biếm phải có sẵn trong bản gốc hoặc `context`. Nếu bản châm biếm gán cáo buộc cụ thể hoặc số liệu quy kết thiếu nguồn (`"nhiều nguồn tin cho rằng..."`, `"các chuyên gia chỉ ra..."`), dùng `review_comment` để yêu cầu tác giả kiểm chứng thay vì tự chỉnh chữ cho mượt.
 
 
 
@@ -660,7 +726,7 @@ Thừa nhận vấn đề vừa đủ, rồi nêu trạng thái và bước ti�
 
 ## Mạng xã hội và blog
 
-Có thể giữ nhịp lệch, khẩu ngữ, câu ngắn và tiếng địa phương nếu đó là giọng thật. Không "chuẩn hóa" thành văn bản doanh nghiệp.
+Có thể giữ nhịp lệch, khẩu ngữ, câu ngắn và tiếng địa phương nếu đó là giọng thật. Không "chuẩn hóa" thành văn bản doanh nghiệp. Nếu bài có sắc thái cợt nhả, tự trào hoặc châm biếm có chủ đích, giữ nguyên mũi nhọn đối lập và điểm rơi câu đùa theo [văn cợt nhả và trào phúng](#resource-skills-humanizer-vi-references-humor-and-satire-md).
 
 ## Văn viết gần gũi và hội thoại
 
@@ -676,7 +742,7 @@ Văn viết gần gũi ưu tiên cách giải thích dễ theo nhưng vẫn có 
 
 # Bài đăng mạng xã hội — `profile=social`
 
-Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng đồng. Chọn theo mục đích bài; nội dung bán hàng hoặc ưu đãi dùng [marketing](#resource-skills-humanizer-vi-references-marketing-writing-md), kể cả khi đăng trên cùng nền tảng.
+Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng đồng. Chọn theo mục đích bài; nội dung bán hàng hoặc ưu đãi dùng [marketing](#resource-skills-humanizer-vi-references-marketing-writing-md), kể cả khi đăng trên cùng nền tảng. Nếu bài mang giọng cợt nhả, tự trào hoặc châm biếm, xem thêm [văn cợt nhả và trào phúng](#resource-skills-humanizer-vi-references-humor-and-satire-md).
 
 ## Quyết định biên tập
 
@@ -834,7 +900,7 @@ Chọn góp ý hoặc hỏi tác giả khi có nhiều độc giả khả dĩ v�
 
 ## Phạm vi hiện tại
 
-Profile hành chính biên tập câu chữ theo mẫu đã có; việc xác nhận căn cứ, thẩm quyền, thể thức và hiệu lực vẫn cần người phụ trách. Văn bản pháp lý chuyên ngành tiếp tục dùng [registers](#resource-skills-humanizer-vi-references-registers-md) và tài liệu được cung cấp. Giọng vui vẻ và hài hước chưa có preset; giữ sắc thái sẵn có, chỉ thêm khi có yêu cầu rõ và phù hợp tình huống.
+Profile hành chính biên tập câu chữ theo mẫu đã có; việc xác nhận căn cứ, thẩm quyền, thể thức và hiệu lực vẫn cần người phụ trách. Văn bản pháp lý chuyên ngành tiếp tục dùng [registers](#resource-skills-humanizer-vi-references-registers-md) và tài liệu được cung cấp. Giọng cợt nhả, tự trào hoặc trào phúng chưa có preset riêng trong `profile`; khi bản gốc đã mang sắc thái này hoặc `context`/`voice_sample` yêu cầu rõ, dùng [văn cợt nhả và trào phúng](#resource-skills-humanizer-vi-references-humor-and-satire-md) để giữ đúng nhịp và ranh giới bảo toàn.
 
 
 

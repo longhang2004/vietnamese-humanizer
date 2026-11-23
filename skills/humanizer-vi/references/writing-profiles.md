@@ -24,4 +24,4 @@
 
 ## Phạm vi hiện tại
 
-Profile hành chính biên tập câu chữ theo mẫu đã có; việc xác nhận căn cứ, thẩm quyền, thể thức và hiệu lực vẫn cần người phụ trách. Văn bản pháp lý chuyên ngành tiếp tục dùng [registers](registers.md) và tài liệu được cung cấp. Giọng vui vẻ và hài hước chưa có preset; giữ sắc thái sẵn có, chỉ thêm khi có yêu cầu rõ và phù hợp tình huống.
+Profile hành chính biên tập câu chữ theo mẫu đã có; việc xác nhận căn cứ, thẩm quyền, thể thức và hiệu lực vẫn cần người phụ trách. Văn bản pháp lý chuyên ngành tiếp tục dùng [registers](registers.md) và tài liệu được cung cấp. Giọng cợt nhả, tự trào hoặc trào phúng chưa có preset riêng trong `profile`; khi bản gốc đã mang sắc thái này hoặc `context`/`voice_sample` yêu cầu rõ, dùng [văn cợt nhả và trào phúng](humor-and-satire.md) để giữ đúng nhịp và ranh giới bảo toàn.

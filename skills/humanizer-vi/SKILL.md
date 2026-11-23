@@ -30,6 +30,7 @@ Biên tập chất lượng viết theo người đọc và mục đích văn b�
 - Văn bản dài hoặc nhiều pattern chồng nhau: đọc [workflow chi tiết](references/workflow.md).
 - Văn bản học thuật, pháp lý, hành chính, chăm sóc khách hàng: tra [register](references/registers.md).
 - Kênh chat hoặc kịch bản nói: đọc [hội thoại và kịch bản nói](references/conversational.md).
+- Văn cợt nhả, tự trào hoặc trào phúng, châm biếm: đọc [văn cợt nhả và trào phúng](references/humor-and-satire.md).
 - Bài lặp đối lập, câu tự nhấn ý, nhịp giật ngắn, chia nhỏ quá mức hoặc kết đoạn tóm lại: đọc [sửa lối viết theo khuôn](references/formulaic-prose.md).
 - Khi người dùng chọn loại bài: đọc [writing profiles](references/writing-profiles.md) rồi chọn đúng một tài liệu: [văn viết rõ ràng](references/plain-writing.md), [trao đổi công việc](references/business-writing.md), [tài liệu kỹ thuật](references/technical-writing.md), [hành chính](references/administrative-writing.md), [bài đăng mạng xã hội](references/social-writing.md) hoặc [marketing](references/marketing-writing.md).
 

@@ -24,7 +24,7 @@ Thừa nhận vấn đề vừa đủ, rồi nêu trạng thái và bước ti�
 
 ## Mạng xã hội và blog
 
-Có thể giữ nhịp lệch, khẩu ngữ, câu ngắn và tiếng địa phương nếu đó là giọng thật. Không "chuẩn hóa" thành văn bản doanh nghiệp.
+Có thể giữ nhịp lệch, khẩu ngữ, câu ngắn và tiếng địa phương nếu đó là giọng thật. Không "chuẩn hóa" thành văn bản doanh nghiệp. Nếu bài có sắc thái cợt nhả, tự trào hoặc châm biếm có chủ đích, giữ nguyên mũi nhọn đối lập và điểm rơi câu đùa theo [văn cợt nhả và trào phúng](humor-and-satire.md).
 
 ## Văn viết gần gũi và hội thoại
 

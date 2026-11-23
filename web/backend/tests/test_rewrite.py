@@ -448,3 +448,45 @@ def test_deterministic_preservation_audit_flags_dropped_immutable_tokens(monkeyp
         style=RewriteStyle(channel="spoken_script"),
     )
     assert skipped_spoken.comments == []
+
+
+def test_humor_and_satire_reference_loads_selectively():
+    from app.schemas import RewriteStyle
+    from app.services.rewriter import build_rewrite_prompt
+
+    technical = build_rewrite_prompt(
+        "Cụm máy chủ sao lưu lúc 02:00 mỗi ngày.",
+        "humanizer-vi",
+        None,
+        "Tài liệu vận hành định kỳ.",
+        RewriteStyle(profile="technical"),
+    )
+    assert "[Reference: humor-and-satire.md]" not in technical
+
+    social = build_rewrite_prompt(
+        "Cuối tháng tài khoản còn 38 nghìn.",
+        "humanizer-vi",
+        None,
+        "",
+        RewriteStyle(profile="social"),
+    )
+    assert "[Reference: humor-and-satire.md]" in social
+
+    satire_by_context = build_rewrite_prompt(
+        "Lễ tiết kiệm giấy gửi 300 thư mời in màu.",
+        "humanizer-vi",
+        None,
+        "Giữ giọng trào phúng, khen ngược.",
+        RewriteStyle(),
+    )
+    assert "[Reference: humor-and-satire.md]" in satire_by_context
+
+    spoken_banter = build_rewrite_prompt(
+        "Chờ chút, để mình mở hộp thử.",
+        "humanizer-vi",
+        None,
+        "Lời dẫn vlog có chút dí dỏm.",
+        RewriteStyle(channel="spoken_script"),
+    )
+    assert "[Reference: conversational.md]" in spoken_banter
+    assert "[Reference: humor-and-satire.md]" in spoken_banter

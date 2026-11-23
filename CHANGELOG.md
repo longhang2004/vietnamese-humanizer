@@ -6,6 +6,16 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+### Added
+
+- Expanded `conversational.md` with dedicated Vietnamese editing rules for scripted spoken forms: film/dramatic dialogue (situational ellipsis, lexical echoing, pragmatic final particles), vlog monologues (deictic openings, right-dislocated afterthoughts), and explainer/knowledge video scripts.
+- New reference guide `skills/humanizer-vi/references/humor-and-satire.md` and research note `docs/research/2026-11-23-spoken-humor-satire.md` covering social banter/self-deprecation (mock-formal framing, anti-climax twists without over-explaining jokes) and satirical techniques inspired by Vũ Trọng Phụng's *Số đỏ* (paradoxical juxtaposition, incongruous enumeration, deadpan mock-praise, and intentional slogan parody), with safety/factual boundaries.
+- Selective loading of `humor-and-satire.md` in `web/backend/app/services/rewriter.py` when `profile="social"` or when humor/satire cues appear in the text, context, or voice sample, plus 10 contextual benchmark cases (`benchmarks/cases/spoken-humor-satire.jsonl`, 161 total).
+
+### Changed
+
+- Added Conventional Commits validation (`commit-msg` stage) to `.pre-commit-config.yaml` and documented the convention in `CONTRIBUTING.md` and `CONTRIBUTING.vi.md`.
+
 ## [0.7.0] - 2026-11-22
 
 ### Added

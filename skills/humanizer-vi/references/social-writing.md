@@ -1,6 +1,6 @@
 # Bài đăng mạng xã hội — `profile=social`
 
-Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng đồng. Chọn theo mục đích bài; nội dung bán hàng hoặc ưu đãi dùng [marketing](marketing-writing.md), kể cả khi đăng trên cùng nền tảng.
+Dùng cho chia sẻ cá nhân, thảo luận, hỏi đáp và thông tin cộng đồng. Chọn theo mục đích bài; nội dung bán hàng hoặc ưu đãi dùng [marketing](marketing-writing.md), kể cả khi đăng trên cùng nền tảng. Nếu bài mang giọng cợt nhả, tự trào hoặc châm biếm, xem thêm [văn cợt nhả và trào phúng](humor-and-satire.md).
 
 ## Quyết định biên tập
 
