@@ -48,24 +48,25 @@
     "skills/grammar-checker-vi/references/common-errors.md": "5f0ee04e2d66bc83d7c522e67983897a21f084f78718df619696b69c55c51f8c",
     "skills/grammar-checker-vi/references/examples.md": "99432fa4df13086fcdc70fd4ad1c9b6d8300288a6abf02bc2b8b42c530f73e9c",
     "skills/grammar-checker-vi/references/punctuation.md": "bf255092948f57c12aa372fa94b83e459334c791de7371a594d7c760754003ed",
-    "skills/humanizer-vi/SKILL.md": "c1e2b34918e680ce702fa2a64ece16a335f9334d38e397963e9a58a226ec2009",
+    "skills/humanizer-vi/SKILL.md": "73062389586dd26bad057d7679bb1ec01b3c053ed21c7cb518b520a2cf13d1de",
     "skills/humanizer-vi/assets/review-template.md": "f26469135d0fc7c10583b5f20a1f7e1a45a072698719c6bf7529336dc2ea2150",
     "skills/humanizer-vi/references/administrative-writing.md": "f97654ffc3c71db18d27f36ba768e26105b2ef64565dccaa5d114d57c7ec80d6",
     "skills/humanizer-vi/references/business-writing.md": "f8dcfb6cabf0c1ccf2ada7339efc859f869e07ebc7c1d4ccc22ff9c23a7095aa",
-    "skills/humanizer-vi/references/conversational.md": "9ff03a94e3cb69254297fa1be8d23662ee7796f82610badbe814f2bcae6686a7",
+    "skills/humanizer-vi/references/conversational.md": "584e96d7f6ce712ffbc8f9f54dc0184e2767f8768c26f1d8b714045eda2075f8",
     "skills/humanizer-vi/references/evaluation.md": "24af84713bbad1f3742842cd1b3f45f005ecf01c0a1539316aed9203ef496446",
     "skills/humanizer-vi/references/examples.md": "eb5411f03f37c99572c7207f8bbb9ff522e00abbe2f401aa78a10387d62dc70f",
     "skills/humanizer-vi/references/formulaic-prose.md": "4077228af523dc53a25523b12eec8958597c3682ae772c3f8159625d399972ab",
+    "skills/humanizer-vi/references/humor-and-satire.md": "3f13b06b9e80fb618b190b81f87f4c1025fe49a14b952fecb5f75f899b5d62e2",
     "skills/humanizer-vi/references/marketing-writing.md": "85eed2e252c56355f455d5f6e11d48883334d655c6be8ecfc20b05b99659570b",
     "skills/humanizer-vi/references/naturalness.md": "391d26164f09180c2a6fcc6018a45a725a4d625f5143e81f848036e73ded2a4d",
     "skills/humanizer-vi/references/patterns.md": "cbc0476886d6d1136ef025bb6398a107042291e39deb20174b0a93241455db60",
     "skills/humanizer-vi/references/plain-writing.md": "dc4119093178b3632e5e6bc6377d79a9b9bac6834aa07b1e42b0baf2a589bd7e",
     "skills/humanizer-vi/references/preservation-rules.md": "bbd666fe4ef7f93540c3bc7245e6516ce456ebe7a024d1848dc131427f338edb",
-    "skills/humanizer-vi/references/registers.md": "7bdc3a34bd39d1c6b02b8163e04d2ee4224d2e751bc9ce4b44e2c4f444af3919",
-    "skills/humanizer-vi/references/social-writing.md": "3fd3b3eb2fdd15cca03d116f036efb32bc98a697d6c68c4606eb4be17b735793",
+    "skills/humanizer-vi/references/registers.md": "963277c6139cebc0c04420479f0e0993689cb24e4f0391ce3136ede3f2cc189f",
+    "skills/humanizer-vi/references/social-writing.md": "0432ab41225378cf93d6a2def22b1c08e98c8f94f5ffeab4cffd1135a568b000",
     "skills/humanizer-vi/references/technical-writing.md": "5781c726c195e47fd0af8e9a642e31c699a281da5281251a9d875c0da2e295ba",
     "skills/humanizer-vi/references/workflow.md": "893e1d30fee83f3ec3bb40a303edb4ae62242b068077a09bd5fa3bab8f59e715",
-    "skills/humanizer-vi/references/writing-profiles.md": "a621c34310d698f02df39696eedc38b28b8bc414ab0ed22e9a826607b788c047",
+    "skills/humanizer-vi/references/writing-profiles.md": "471c89d2ac99bc9304a6110c9aa798e9c3da24097a5f2d03332ae26f2d3832fd",
     "skills/style-guide-vi/SKILL.md": "87802c2e890fd0e2f9e62d43278834203bb959ae7903deeb61e5949c4a10d5fc",
     "skills/style-guide-vi/references/capitalization.md": "a3a719a81a356dd9c7704ff1993310ed96988467503c52786d7030e464befbd7",
     "skills/style-guide-vi/references/examples.md": "f8976886e474d212ea5127c6d032002467e7effadd7c6e6e7ea2b5eaa9c07f46",
@@ -84,16 +85,16 @@
       "sha256": "f81985b4758bcb289fbe3127125a14495678dd1631145eb258aa14f2b49b9abe"
     },
     "chatgpt/vietnamese-writing-skills.zip": {
-      "bytes": 120862,
-      "sha256": "993eeb88a183e288d2d0ac59e385cd483248e0c627bb8ed6ba32cdc430067216"
+      "bytes": 130629,
+      "sha256": "5690009d6cb30d6b8cf7ee2640637c1142e8035cebf19f4084ace588755f82d1"
     },
     "claude/grammar-checker-vi.zip": {
       "bytes": 9554,
       "sha256": "73c7e1f941c8a39123f9ee933930d2033dd4d21ec1a879190b8a4711c1da8fe5"
     },
     "claude/humanizer-vi.zip": {
-      "bytes": 81697,
-      "sha256": "5764d93a3218e1ea01a9d9d1f3e1a8eb0e0461001c1f8c2a6815b720ad4ad805"
+      "bytes": 91450,
+      "sha256": "a4a3875bc100e9ebd5ad8ad4414cf6117a662268a3591f7572bd2d2743f59bb4"
     },
     "claude/style-guide-vi.zip": {
       "bytes": 14033,
@@ -108,8 +109,8 @@
       "sha256": "e80d3db22080ed685c4dc9bf171db9545db4f2181315ce62b9b2fa5b23482153"
     },
     "gemini/humanizer-vi.zip": {
-      "bytes": 81203,
-      "sha256": "82902234d88309a3f30427b4a98ef8d4d4473ccf9a0cdad0ee0d270c49c6d24c"
+      "bytes": 90930,
+      "sha256": "c4b003840e54a851243e97e6f59502d01390fc38f8cb16e6840f51b13753652f"
     },
     "gemini/style-guide-vi.zip": {
       "bytes": 13793,
@@ -120,8 +121,8 @@
       "sha256": "92925e63181f04caf11c1473b1cb0a25265bf8b5be1ef32aa546909146a22c4e"
     },
     "huong-dan-tieng-viet.md": {
-      "bytes": 115921,
-      "sha256": "7ea1a963c119ef40334f6064a22356e2754fb2dbb7f459fddae46b5857ec7af7"
+      "bytes": 126024,
+      "sha256": "b74fa2fdb77e700b09fd55881f962d61e587ff538a4c8b0fd31cb8e71835f201"
     },
     "yeu-cau-bien-tap.txt": {
       "bytes": 1674,

@@ -31,6 +31,11 @@ EMAIL_TOKEN_RE = re.compile(r"\b[\w.+-]+@[\w.-]+\.\w+\b")
 NUMERIC_TOKEN_RE = re.compile(
     r"(?<![\wÀ-ỹĐđ])\d+(?:[.,:/-]\d+)*(?:%|đ|₫)?(?![\wÀ-ỹĐđ])"
 )
+HUMOR_SATIRE_CUE_RE = re.compile(
+    r"\b(?:cợt nhả|trào phúng|châm biếm|hài hước|dí dỏm|"
+    r"tự trào|giễu nhại|mỉa mai|tưng tửng|khen ngược|nghịch ngữ)\b",
+    flags=re.IGNORECASE,
+)
 
 # Repository-owned filenames only; never resolve paths supplied in a request.
 SKILL_REFERENCES = {
@@ -75,6 +80,9 @@ chót hay kết quả để điền cấu trúc.
 - `reduce_hype=true` cho phép gọt tính từ khoa trương và đồng cảm công thức nhưng giữ dữ kiện,
 phạm vi, mức chắc chắn, cam kết và lập trường tích cực; `false` giữ nguyên cường độ tác giả.
 - Tín hiệu linter chỉ để tham khảo; không thay từ đồng nghĩa hàng loạt, không tự thêm nha/nhé/ạ.
+- Với văn nói, giữ lượt thoại, tỉnh lược theo cảnh, nhịp bồi cuối câu và tiểu từ định vị quan hệ;
+với văn cợt nhả hay trào phúng, giữ nghịch ngữ, khen ngược, phép nhại văn phong và dừng đúng
+điểm rơi, không giải thích lại trò đùa hay giảng đạo lý.
 
 Chọn `output_mode` và trả JSON đúng schema (không thêm Markdown):
 - `clean_rewrite`: `rewrite` là toàn bộ văn bản thay thế sạch, không kèm lời dẫn; `comments` rỗng
@@ -121,6 +129,7 @@ def load_skill_guidelines(
     style: RewriteStyle,
     text: str = "",
     detected_pattern_ids: Iterable[str] = (),
+    context: str = "",
 ) -> str:
     if skill not in VALID_SKILLS:
         raise ValueError("Unknown writing skill")
@@ -147,6 +156,13 @@ def load_skill_guidelines(
             filenames.append("workflow.md")
         if style.channel in {"chat", "spoken_script"} or style.register_name == "conversational":
             filenames.append("conversational.md")
+        cue_haystack = "\n".join(
+            part
+            for part in (text, context, style.voice_sample, style.audience, style.relationship)
+            if part
+        )
+        if style.profile == "social" or HUMOR_SATIRE_CUE_RE.search(cue_haystack):
+            filenames.append("humor-and-satire.md")
     filenames = list(dict.fromkeys(filenames))
     sections = [directory.joinpath("SKILL.md").read_text(encoding="utf-8")]
     for filename in filenames:
@@ -202,6 +218,7 @@ def build_rewrite_prompt(
         style,
         text=text,
         detected_pattern_ids=grouped_matches.keys(),
+        context=context,
     )
     style_payload = style.model_dump(by_alias=True)
     voice_sample = style_payload.get("voice_sample", "").strip()

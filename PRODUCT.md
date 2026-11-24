@@ -20,7 +20,7 @@ The website offers a rule-based checker and downloads/prompts for chatbots. AI r
 
 ## Capabilities and Constraints
 
-Four skills, 44 rule patterns, six specialized writing profiles plus preservation, 103 corpus examples and 151 benchmark cases at v0.7.0. There is no independently human-reviewed quality baseline. The ChatGPT plugin is packaged but has no public listing. GitHub is the canonical repository; the site is deployed on Vercel.
+Four skills, 44 rule patterns, six specialized writing profiles plus preservation, 103 corpus examples and 161 benchmark cases on the current main development line (tagged release v0.7.0). There is no independently human-reviewed quality baseline. The ChatGPT plugin is packaged but has no public listing. GitHub is the canonical repository; the site is deployed on Vercel.
 
 ## Brand Commitments
 

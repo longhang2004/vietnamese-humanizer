@@ -75,6 +75,13 @@ Các nguồn bổ sung chỉ được liên kết và diễn giải ngắn cho m
 - VOZ — [Cảm thấy khó chịu với content từ AI](https://voz.vn/t/cam-thay-kho-chiu-voi-content-tu-ai.1104978/), 26–27-05-2025: phản hồi về văn dài, lặp và quảng cáo chen ngang; không dùng để xác định ai viết.
 - Pnghuy, Tinh tế — [Trải nghiệm One UI 6.1](https://tinhte.vn/thread/trai-nghiem-samsung-one-ui-6-1-tren-galaxy-s23.3774246/), 30-03-2024: nhận xét về preset giữ cùng khuôn, giới hạn ở trải nghiệm thời điểm đó.
 
+## Văn nói, cợt nhả và trào phúng
+
+Đọc và tổng hợp ngày 23-11-2026. Nhật ký: [khảo sát văn nói, cợt nhả và trào phúng](research/2026-11-23-spoken-humor-satire.md). Phần vận dụng nằm trong [hội thoại và kịch bản nói](../skills/humanizer-vi/references/conversational.md) và [văn cợt nhả và trào phúng](../skills/humanizer-vi/references/humor-and-satire.md).
+
+- Vũ Trọng Phụng, tiểu thuyết *Số đỏ* (1936, tiêu biểu ở chương *"Hạnh phúc của một tang gia"* và đoạn diễn thuyết sân quần vợt): tham khảo các thủ pháp trào phúng gồm nghịch ngữ ghép hai cực giá trị đối lập, liệt kê đánh đồng bất tương xứng, giọng kể giả vờ khách quan/khen ngược và nhại chữ nghĩa/khẩu hiệu sáo có chủ đích. Chỉ phân tích thủ pháp bằng lời riêng; không sao chép văn bản làm corpus và không tự thêm giọng châm biếm khi chưa được yêu cầu.
+- Ngữ dụng học văn nói tiếng Việt (lời thoại phim, vlog, kịch bản kiến thức) và giao tiếp tự trào/giễu nhại trên mạng xã hội Việt Nam: tham khảo phép tỉnh lược tình huống, bắt từ khóa lượt lời, tiểu từ tình thái cuối câu, nhịp bồi, lối nhại hành chính cho chuyện nhỏ (mock-formal) và cách giữ điểm rơi bẻ nhịp mà không giải thích thừa.
+
 ## Giới hạn vận dụng
 
 Các nguyên tắc về lược chủ ngữ, phép lặp, kết hợp từ và quyền giảm cường điệu trong [naturalness](../skills/humanizer-vi/references/naturalness.md) là quyết định biên tập của dự án dựa trên việc đọc và đối chiếu ví dụ, không được gán thành kết luận thực nghiệm của các nguồn trên. Hai bài báo không đủ đại diện cho văn viết Việt Nam. Cần review độc lập theo vùng miền, ngành và kênh trước khi công bố mức cải thiện.

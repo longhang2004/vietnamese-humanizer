@@ -22,7 +22,7 @@ Mô hình nhiều chiều của [NN/g](https://www.nngroup.com/articles/tone-of-
 | Giao tiếp, chăm sóc khách hàng | Trả đúng lượt, xác nhận điều đã biết, câu hỏi tiếp theo | Tự nhận lỗi, hứa xử lý hoặc đổi vai xưng hô | Ưu tiên phát triển hướng dẫn hội thoại đã có |
 | Marketing, quảng bá | Lợi ích có căn cứ, thông điệp, lời mời hành động | Bịa công dụng, số liệu, khan hiếm hay lời chứng thực | Đã có profile từ v0.6.0; cần review bản ngữ |
 | Social, caption, lời mời | Mở đầu đúng nhu cầu, thông tin cốt lõi, bước tiếp theo | Giật tít, thêm emoji hoặc ép mọi bài thật ngắn | Đã có profile từ v0.6.0; cần review bản ngữ |
-| Kịch bản nói, video, podcast | Nhịp nghe, chuyển ý, cách đọc số và tham chiếu hình ảnh | Chép nguyên cấu trúc bài dài hoặc thêm ngập ngừng giả | Ưu tiên mở rộng hướng dẫn đã có |
+| Kịch bản nói, video, podcast | Nhịp nghe, chuyển ý, cách đọc số và tham chiếu hình ảnh | Chép nguyên cấu trúc bài dài hoặc thêm ngập ngừng giả | Đã mở rộng [conversational.md](../skills/humanizer-vi/references/conversational.md) cho thoại phim, vlog và video kiến thức; chờ review bản ngữ |
 | Giải thích, giáo dục | Kiến thức tiền đề, ví dụ, quan hệ khái niệm | Ví dụ sai, giảng giải quá mức hoặc đơn giản hóa sai | Khảo sát cùng tài liệu kỹ thuật |
 | Báo chí, bản tin, thông báo | Thông tin chính, quy nguồn, sự kiện và nhận định | Đưa bình luận thành sự thật hoặc thêm địa điểm | Có pilot nhỏ; cần nhiều nguồn khác nhau |
 | Kể chuyện, blog cá nhân, tản văn | Điểm nhìn, trình tự, chi tiết, nhịp và cảm xúc | Bịa trải nghiệm hoặc biến mọi đoạn thành giọng trữ tình | Khảo sát bằng tư liệu có quyền rõ |
@@ -40,7 +40,7 @@ Nên thử như các lựa chọn giọng có mức độ, kết hợp với tá
 - **Vui vẻ:** nhịp sáng, lời mời tích cực; có thể hoàn toàn không có câu đùa.
 - **Dí dỏm nhẹ:** một liên tưởng hoặc cách nói bất ngờ vẫn giữ rõ thông tin. Pilot đổi sách có thử một cách nhân hóa do agent tự viết.
 - **Đùa thân mật:** cần quan hệ và giới hạn người dùng xác định; không mặc định thân mật với khách lạ.
-- **Châm biếm/giễu nhại:** cần xác định đối tượng, chủ đích và phạm vi sáng tạo; chưa có hướng dẫn đủ để làm preset.
+- **Cợt nhả, tự trào và trào phúng/châm biếm:** đã có tài liệu tham chiếu riêng tại [văn cợt nhả và trào phúng](../skills/humanizer-vi/references/humor-and-satire.md) (tham khảo thủ pháp *Số đỏ* của Vũ Trọng Phụng, văn tự trào mạng xã hội và tiểu phẩm báo chí) dùng làm hướng dẫn theo ngữ cảnh/kích hoạt, chưa tách thành `profile` preset riêng trên UI cho tới khi có thêm đợt chấm bản ngữ.
 
 Tiêu chí là câu đùa hợp tình huống và người đọc có thấy nó có duyên không. Chèn “nha”, emoji hoặc dấu chấm than không đủ tạo giọng tự nhiên. Lời báo lỗi, thông tin chậm trễ và tình huống người đọc đang lo cần cách xử lý riêng. [Atlassian](https://atlassian.design/foundations/content/voice-tone/) phân biệt những điểm nhấn tạo cảm giác dễ chịu với việc cố gây cười và nhấn mạnh thời điểm sử dụng.
 

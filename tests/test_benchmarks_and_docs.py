@@ -378,3 +378,21 @@ def test_prepare_review_packet_strips_ground_truth_labels(tmp_path: Path) -> Non
         for item in exported
     )
     assert all(forbidden.isdisjoint(item.keys()) for item in exported)
+
+
+def test_spoken_humor_satire_cases_are_valid() -> None:
+    cases = load_jsonl(ROOT / "benchmarks" / "cases" / "spoken-humor-satire.jsonl")
+    assert len(cases) == 10
+    assert {case["domain"] for case in cases} >= {"spoken-script", "social-media", "blog"}
+    assert {case["expected_output_mode"] for case in cases} == {
+        "clean_rewrite",
+        "no_change",
+        "review_comment",
+    }
+    for case in cases:
+        found = {issue["pattern_id"] for issue in lint_text(case["input"], {case["skill"]})}
+        expected = set(case["expected_patterns"])
+        if expected:
+            assert expected.issubset(found), f"{case['id']} thiếu pattern {expected}"
+        elif case["expected_output_mode"] == "no_change":
+            assert found == set(), f"{case['id']} báo nhầm trên case no_change: {found}"
