@@ -7,6 +7,7 @@ interface EditorProps {
   skills: SkillItem[];
   onLint: (text: string, selectedSkills: string[]) => void;
   loading: boolean;
+  value?: string;
   onTextChange?: (text: string) => void;
   onSkillsChange?: () => void;
 }
@@ -23,10 +24,12 @@ export const Editor: React.FC<EditorProps> = ({
   skills,
   onLint,
   loading,
+  value,
   onTextChange,
   onSkillsChange,
 }) => {
-  const [text, setText] = useState("");
+  const [uncontrolledText, setUncontrolledText] = useState("");
+  const text = value !== undefined ? value : uncontrolledText;
   const [selectedSkills, setSelectedSkills] = useState([
     "humanizer-vi",
     "translationese-cleaner-vi",
@@ -36,9 +39,11 @@ export const Editor: React.FC<EditorProps> = ({
   const activeSkills = DEFAULT_SKILLS.map(
     (fallback) => skills.find((skill) => skill.id === fallback.id) ?? fallback,
   );
-  const updateText = (value: string) => {
-    const nextText = value.slice(0, 20000);
-    setText(nextText);
+  const updateText = (nextValue: string) => {
+    const nextText = nextValue.slice(0, 20000);
+    if (value === undefined) {
+      setUncontrolledText(nextText);
+    }
     onTextChange?.(nextText);
   };
   const handleToggleSkill = (skillId: string) => {

@@ -19,6 +19,8 @@ FORMULAIC_PATTERN_IDS = {
     "VI-HUM-L03",
     "VI-HUM-D01",
     "VI-HUM-D02",
+    "VI-HUM-D04",
+    "VI-HUM-D05",
     "VI-HUM-S01",
     "VI-HUM-S02",
     "VI-HUM-S03",
@@ -154,14 +156,22 @@ def load_skill_guidelines(
             filenames.append("examples.md")
         if style.edit_level == "deep" or len(text.split()) >= 150:
             filenames.append("workflow.md")
-        if style.channel in {"chat", "spoken_script"} or style.register_name == "conversational":
+        if (
+            style.channel in {"chat", "spoken_script"}
+            or style.register_name == "conversational"
+            or "VI-HUM-D04" in detected_set
+        ):
             filenames.append("conversational.md")
         cue_haystack = "\n".join(
             part
             for part in (text, context, style.voice_sample, style.audience, style.relationship)
             if part
         )
-        if style.profile == "social" or HUMOR_SATIRE_CUE_RE.search(cue_haystack):
+        if (
+            style.profile == "social"
+            or "VI-HUM-D05" in detected_set
+            or HUMOR_SATIRE_CUE_RE.search(cue_haystack)
+        ):
             filenames.append("humor-and-satire.md")
     filenames = list(dict.fromkeys(filenames))
     sections = [directory.joinpath("SKILL.md").read_text(encoding="utf-8")]

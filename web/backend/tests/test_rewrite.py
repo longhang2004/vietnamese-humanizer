@@ -490,3 +490,29 @@ def test_humor_and_satire_reference_loads_selectively():
     )
     assert "[Reference: conversational.md]" in spoken_banter
     assert "[Reference: humor-and-satire.md]" in spoken_banter
+
+
+def test_new_humanizer_patterns_trigger_matching_references():
+    from app.schemas import RewriteStyle
+    from app.services.rewriter import build_rewrite_prompt
+
+    video_meta = build_rewrite_prompt(
+        "Trong video ngày hôm nay, chúng ta sẽ cùng xem cách pin giảm dung lượng.",
+        "humanizer-vi",
+        None,
+        "",
+        RewriteStyle(),
+    )
+    assert "[Reference: formulaic-prose.md]" in video_meta
+    assert "[Reference: conversational.md]" in video_meta
+
+    joke_explainer = build_rewrite_prompt(
+        "Cả nhóm họp 3 tiếng để đổi cỡ chữ từ 14 lên 16. "
+        "Điều này quả thực là một tình huống dở khóc dở cười.",
+        "humanizer-vi",
+        None,
+        "",
+        RewriteStyle(),
+    )
+    assert "[Reference: formulaic-prose.md]" in joke_explainer
+    assert "[Reference: humor-and-satire.md]" in joke_explainer

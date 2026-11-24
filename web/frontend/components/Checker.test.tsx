@@ -255,3 +255,35 @@ test("rewrite is available only for a current result when the capability is enab
     screen.queryByRole("button", { name: /Viết lại bằng Gemini/i }),
   ).not.toBeInTheDocument();
 });
+
+test("applying a rewrite updates the editor draft and clears stale results", async () => {
+  const user = userEvent.setup();
+  const { rewriteText } = await import("../lib/api");
+  vi.mocked(fetchHealth).mockResolvedValue({
+    status: "ok",
+    version: "test",
+    capabilities: { rewrite: true, contributions: false },
+  });
+  vi.mocked(lintText).mockResolvedValue(response("Cần rút gọn cụm từ"));
+  vi.mocked(rewriteText).mockResolvedValue({
+    rewrite: "Bản viết lại gọn hơn.",
+    output_mode: "clean_rewrite",
+    comments: [],
+    review_status: "unreviewed",
+    disclaimer: "Cần duyệt",
+  });
+
+  renderChecker();
+  const input = screen.getByRole("textbox", { name: "Văn bản cần soát" });
+  fireEvent.change(input, { target: { value: "Bản nháp ban đầu." } });
+  await user.click(screen.getByRole("button", { name: "Soát văn phong" }));
+  await user.click(
+    await screen.findByRole("button", { name: /Viết lại bằng Gemini/i }),
+  );
+  await user.click(
+    await screen.findByRole("button", { name: "Đưa vào ô soát tiếp" }),
+  );
+
+  expect(input).toHaveValue("Bản viết lại gọn hơn.");
+  expect(screen.queryByText("Cần rút gọn cụm từ")).not.toBeInTheDocument();
+});

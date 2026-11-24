@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import { rewriteText } from "../lib/api";
+import { computeWordDiff } from "../lib/diff";
+import { starterSkills } from "../lib/onboarding";
 import type { RewriteResponse, RewriteStyle } from "../lib/types";
 import { Icon } from "./Icon";
 import styles from "./workspace.module.css";
@@ -28,6 +30,43 @@ const PROFILE_HINTS: Record<RewriteStyle["profile"], string> = {
   marketing: "Làm rõ sản phẩm, lợi ích có căn cứ và điều kiện ưu đãi.",
 };
 
+const CONTEXT_PRESETS: {
+  id: string;
+  label: string;
+  profile: RewriteStyle["profile"];
+  channel: RewriteStyle["channel"];
+  register: RewriteStyle["register"];
+  context: string;
+}[] = [
+  {
+    id: "spoken_script",
+    label: "Kịch bản nói / Vlog",
+    profile: "plain",
+    channel: "spoken_script",
+    register: "conversational",
+    context:
+      "Kịch bản nói cho video hoặc vlog, ưu tiên câu nói miệng tự nhiên, nhịp ngắn.",
+  },
+  {
+    id: "banter_social",
+    label: "Bài đăng cợt nhả / Dí dỏm",
+    profile: "social",
+    channel: "chat",
+    register: "conversational",
+    context:
+      "Bài đăng mạng xã hội giọng cợt nhả, dí dỏm; giữ điểm rơi câu đùa, không giải thích lại.",
+  },
+  {
+    id: "satire",
+    label: "Trào phúng / Châm biếm",
+    profile: "social",
+    channel: "document",
+    register: "preserve",
+    context:
+      "Văn trào phúng, châm biếm; giữ nghịch ngữ, khen ngược và phép nhại văn phong.",
+  },
+];
+
 const MODE_LABELS = {
   clean_rewrite: "Bản viết lại đề xuất",
   no_change: "Giữ nguyên văn bản",
@@ -38,12 +77,22 @@ const MODE_LABELS = {
 interface RewritePanelProps {
   originalText: string;
   issueIds?: string[];
+  selectedSkills?: string[];
+  onApplyRewrite?: (nextText: string) => void;
 }
 
 export const RewritePanel: React.FC<RewritePanelProps> = ({
   originalText,
   issueIds,
+  selectedSkills,
+  onApplyRewrite,
 }) => {
+  const defaultSkill =
+    selectedSkills?.length === 1 &&
+    starterSkills.some((item) => item.id === selectedSkills[0])
+      ? selectedSkills[0]
+      : "humanizer-vi";
+  const [skill, setSkill] = useState<string>(defaultSkill);
   const [style, setStyle] = useState<RewriteStyle>(DEFAULT_STYLE);
   const [context, setContext] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -51,9 +100,11 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
   const [resultSource, setResultSource] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+  const [showDiff, setShowDiff] = useState<boolean>(false);
   const requestGeneration = useRef(0);
   const requestKey = JSON.stringify([
     originalText,
+    skill,
     issueIds ?? null,
     context,
     style,
@@ -65,6 +116,19 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
   const canCopy =
     Boolean(visibleResult?.rewrite) &&
     (outputMode === "clean_rewrite" || outputMode === "no_change");
+  const canCompare =
+    Boolean(visibleResult?.rewrite) &&
+    outputMode === "clean_rewrite" &&
+    visibleResult?.rewrite !== originalText;
+  const matchedPresetId =
+    CONTEXT_PRESETS.find(
+      (preset) =>
+        skill === "humanizer-vi" &&
+        style.profile === preset.profile &&
+        style.channel === preset.channel &&
+        style.register === preset.register &&
+        context === preset.context,
+    )?.id ?? "";
 
   const invalidateResult = () => {
     requestGeneration.current += 1;
@@ -72,11 +136,24 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
     setErrorMsg(null);
     setLoading(false);
     setCopied(false);
+    setShowDiff(false);
   };
 
   const updateStyle = (patch: Partial<RewriteStyle>) => {
     invalidateResult();
     setStyle((previous) => ({ ...previous, ...patch }));
+  };
+
+  const applyPreset = (preset: (typeof CONTEXT_PRESETS)[number]) => {
+    invalidateResult();
+    setSkill("humanizer-vi");
+    setStyle((previous) => ({
+      ...previous,
+      profile: preset.profile,
+      channel: preset.channel,
+      register: preset.register,
+    }));
+    setContext(preset.context);
   };
 
   const handleRewrite = async () => {
@@ -85,10 +162,11 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
     setLoading(true);
     setErrorMsg(null);
     setCopied(false);
+    setShowDiff(false);
     setResult(null);
     setResultSource(requestKey);
     try {
-      const res = await rewriteText(originalText, "humanizer-vi", issueIds, {
+      const res = await rewriteText(originalText, skill, issueIds, {
         context,
         style,
       });
@@ -146,6 +224,39 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
       <details className={styles.options}>
         <summary>Chọn giọng và ngữ cảnh (tùy chọn)</summary>
         <div className={`${styles.optionGrid} ${styles.rewriteOptions}`}>
+          <div className={`${styles.formField} ${styles.fullWidth}`}>
+            <span>Gợi ý nhanh theo ngữ cảnh</span>
+            <div className={styles.presetRow}>
+              {CONTEXT_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  aria-pressed={matchedPresetId === preset.id}
+                  onClick={() => applyPreset(preset)}
+                  className={styles.filter}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <label className={styles.formField}>
+            <span>Kỹ năng viết lại</span>
+            <select
+              value={skill}
+              onChange={(event) => {
+                invalidateResult();
+                setSkill(event.target.value);
+              }}
+              className="field"
+            >
+              {starterSkills.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+          </label>
           <div className={styles.formField}>
             <label htmlFor="writing-profile">Loại bài viết</label>
             <select
@@ -340,15 +451,38 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
               </span>
               <p>{visibleResult.disclaimer}</p>
             </div>
-            {canCopy && (
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="button-secondary"
-              >
-                <Icon name={copied ? "check" : "copy"} />
-                {copied ? "Đã sao chép" : "Sao chép kết quả"}
-              </button>
+            {(canCompare || canCopy) && (
+              <div className={styles.rewriteActions}>
+                {canCompare && (
+                  <button
+                    type="button"
+                    aria-pressed={showDiff}
+                    onClick={() => setShowDiff((current) => !current)}
+                    className={styles.filter}
+                  >
+                    So sánh thay đổi
+                  </button>
+                )}
+                {canCopy && onApplyRewrite && (
+                  <button
+                    type="button"
+                    onClick={() => onApplyRewrite(visibleResult.rewrite)}
+                    className="button-secondary"
+                  >
+                    Đưa vào ô soát tiếp
+                  </button>
+                )}
+                {canCopy && (
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="button-secondary"
+                  >
+                    <Icon name={copied ? "check" : "copy"} />
+                    {copied ? "Đã sao chép" : "Sao chép kết quả"}
+                  </button>
+                )}
+              </div>
             )}
           </div>
           <div className={styles.textPair}>
@@ -358,7 +492,29 @@ export const RewritePanel: React.FC<RewritePanelProps> = ({
             </div>
             <div className={styles.outputText}>
               <h3>{MODE_LABELS[outputMode]}:</h3>
-              {canCopy && <p>{visibleResult.rewrite}</p>}
+              {canCopy &&
+                (showDiff && outputMode === "clean_rewrite" ? (
+                  <p>
+                    {computeWordDiff(originalText, visibleResult.rewrite).map(
+                      (segment, index) =>
+                        segment.kind === "removed" ? (
+                          <del key={index} className={styles.diffRemoved}>
+                            {segment.text}
+                          </del>
+                        ) : segment.kind === "added" ? (
+                          <ins key={index} className={styles.diffAdded}>
+                            {segment.text}
+                          </ins>
+                        ) : (
+                          <React.Fragment key={index}>
+                            {segment.text}
+                          </React.Fragment>
+                        ),
+                    )}
+                  </p>
+                ) : (
+                  <p>{visibleResult.rewrite}</p>
+                ))}
               {Boolean(visibleResult.comments?.length) && (
                 <ul>
                   {visibleResult.comments?.map((comment, index) => (

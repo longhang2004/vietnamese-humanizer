@@ -52,7 +52,7 @@ Agent không cần viết lại mọi input. Khi chủ thể, phạm vi, ngày t
 ```text
 vietnamese-humanizer/
 ├── skills/                         # Bộ Agent Skills chuẩn nguồn (SKILL.md + references)
-├── patterns/                       # 44 quy tắc linter deterministic & JSON schema
+├── patterns/                       # 49 quy tắc linter deterministic & JSON schema
 ├── examples/                       # 103 cặp ví dụ đã rà bảo toàn dữ kiện
 ├── benchmarks/                     # 161 benchmark case, schema & quy trình chấm mù
 ├── src/vietnamese_writing_skills/  # Python package (core validators, CLI & bundled resources)
@@ -168,7 +168,7 @@ Mỗi pattern cũng có `scope` và `aggregation`. Lặp mở đầu câu dùng 
 
 ## Corpus và benchmark
 
-Catalog có 44 pattern, mỗi pattern nêu finding type, scope, aggregation, ngoại lệ và rủi ro false positive. Có 103 example với output mode, `context`, `must_preserve`, `must_not_add` và nguồn gốc đánh giá. Có 161 benchmark case ghi expected output mode, context, blocker cụ thể và ràng buộc bảo toàn; trong đó có 30 case dài theo 15 cặp, 24 case writing profile theo 12 cặp, 12 case lối viết theo khuôn theo sáu cặp đối chiếu ngữ cảnh, 18 case hành chính/mạng xã hội/marketing theo chín cặp đối chiếu ngữ cảnh, 12 case mẫu giọng/cấu trúc tiếng Việt theo sáu cặp đối chiếu ngữ cảnh và 10 case văn nói/cợt nhả/trào phúng theo năm cặp đối chiếu ngữ cảnh. Các case mới do agent tự viết. JSON Schema kiểm tra kết quả đánh giá thủ công; một case có thể có nhiều reviewer.
+Catalog có 49 pattern, mỗi pattern nêu finding type, scope, aggregation, ngoại lệ và rủi ro false positive. Có 103 example với output mode, `context`, `must_preserve`, `must_not_add` và nguồn gốc đánh giá. Có 161 benchmark case ghi expected output mode, context, blocker cụ thể và ràng buộc bảo toàn; trong đó có 30 case dài theo 15 cặp, 24 case writing profile theo 12 cặp, 12 case lối viết theo khuôn theo sáu cặp đối chiếu ngữ cảnh, 18 case hành chính/mạng xã hội/marketing theo chín cặp đối chiếu ngữ cảnh, 12 case mẫu giọng/cấu trúc tiếng Việt theo sáu cặp đối chiếu ngữ cảnh và 10 case văn nói/cợt nhả/trào phúng theo năm cặp đối chiếu ngữ cảnh. Các case mới do agent tự viết. JSON Schema kiểm tra kết quả đánh giá thủ công; một case có thể có nhiều reviewer.
 
 Khi tính năng rewrite được bật, web cho chọn loại bài (`preserve`, `plain`, `business`, `technical`, `administrative`, `social`, `marketing`), kênh, giọng, độc giả, quan hệ, xưng hô, mức sửa và context. Loại bài chọn hướng dẫn biên tập, giữ nguyên các lựa chọn khác. Mặc định giữ giọng gốc, sửa nhẹ. Giảm cường điệu là lựa chọn riêng vì có thể làm nhẹ cường độ cảm xúc. Xem [writing profiles](skills/humanizer-vi/references/writing-profiles.md), [hướng dẫn diễn đạt tự nhiên](skills/humanizer-vi/references/naturalness.md), [nguồn đọc có tác giả](docs/sources.md) và [quy trình review profile độc lập](benchmarks/profile-review.md).
 

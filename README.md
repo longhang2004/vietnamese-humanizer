@@ -52,7 +52,7 @@ An agent does not need to rewrite every input. It should decline to guess when t
 ```text
 vietnamese-humanizer/
 ├── skills/                         # Canonical Agent Skills (SKILL.md + references)
-├── patterns/                       # 44 deterministic lint patterns & JSON schema
+├── patterns/                       # 49 deterministic lint patterns & JSON schema
 ├── examples/                       # 103 preservation-audited input/output pairs
 ├── benchmarks/                     # 161 benchmark cases, schemas & blind review protocol
 ├── src/vietnamese_writing_skills/  # Python package (core validators, CLI & bundled resources)
@@ -168,7 +168,7 @@ Patterns also define `scope` and `aggregation`. Repeated sentence openings, for 
 
 ## Corpus and benchmark
 
-The catalog has 44 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 103 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 161 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints; these include 30 long cases in 15 matched pairs, 24 writing-profile cases in 12 matched pairs, 12 formulaic-prose cases in six contextual contrast pairs, 18 administrative/social/marketing cases in nine contextual contrast pairs, 12 voice-sample/linguistic cases in six contextual contrast pairs, and 10 spoken/banter/satire cases in five contextual contrast pairs. The new cases are agent-authored. JSON Schema validates manual-review results, and a case may have several reviewers.
+The catalog has 49 patterns with finding type, scope, aggregation, exceptions, and false-positive risk. Its 103 examples specify an output mode, `context`, `must_preserve`, `must_not_add`, and review provenance. The 161 benchmark cases record an expected output mode, context, specific blockers, and preservation constraints; these include 30 long cases in 15 matched pairs, 24 writing-profile cases in 12 matched pairs, 12 formulaic-prose cases in six contextual contrast pairs, 18 administrative/social/marketing cases in nine contextual contrast pairs, 12 voice-sample/linguistic cases in six contextual contrast pairs, and 10 spoken/banter/satire cases in five contextual contrast pairs. The new cases are agent-authored. JSON Schema validates manual-review results, and a case may have several reviewers.
 
 When rewrite is enabled, the web app accepts writing profile (`preserve`, `plain`, `business`, `technical`, `administrative`, `social`, `marketing`), channel, register, audience, relationship, pronouns, editing depth, and context. A profile selects editorial guidance without changing the other controls. Defaults preserve the original voice and make light edits. Reducing hype is a separate opt-in because it may soften emotional intensity. See the Vietnamese [writing profiles](skills/humanizer-vi/references/writing-profiles.md), [naturalness guidance](skills/humanizer-vi/references/naturalness.md), [attributed reading notes](docs/sources.md), and [independent profile-review protocol](benchmarks/profile-review.md).
 

@@ -2,12 +2,12 @@
 
 # Lộ trình phát triển (Roadmap)
 
-Cập nhật ngày 23/11/2026. Bản phát hành có tag mới nhất là **0.7.0**. Các thay đổi tiếp theo trên `main` được ghi tại mục `[Unreleased]` trong [changelog](CHANGELOG.vi.md); deploy web không tạo phiên bản phát hành mới.
+Cập nhật ngày 24/11/2026. Bản phát hành có tag mới nhất là **0.7.0**. Các thay đổi tiếp theo trên `main` được ghi tại mục `[Unreleased]` trong [changelog](CHANGELOG.vi.md); deploy web không tạo phiên bản phát hành mới.
 
 ## Hiện đã có
 
-- Bản 0.7.0 cùng cập nhật trên `main` gồm bốn skill tiếng Việt, 44 quy tắc linter, 103 ví dụ corpus và **161 case benchmark** (bổ sung 10 case văn nói, cợt nhả và trào phúng bên cạnh 12 case `voice_sample` và cấu trúc tiếng Việt). Sáu nhóm văn phong gồm văn viết rõ ràng, trao đổi công việc, tài liệu kỹ thuật, hành chính, bài đăng mạng xã hội và marketing; mặc định giữ cách viết hiện có. Kênh sử dụng, mức trang trọng, cách xưng hô, mức sửa và `voice_sample` tùy chọn là các lựa chọn riêng.
-- Đã triển khai trình soát theo quy tắc, luồng viết lại hai pha theo `context`/`profile` có nạp reference chọn lọc, hậu kiểm token bảo toàn và neo giọng `voice_sample`, trang `/start`, gói Claude/Gemini tinh gọn, yêu cầu dùng trong chatbot và công cụ xuất gói chấm mù benchmark (`--prepare-packet`).
+- Bản 0.7.0 cùng các nhánh phát triển kế tiếp gồm bốn skill tiếng Việt, 49 quy tắc linter, 103 ví dụ corpus và **161 case benchmark** (bổ sung 10 case văn nói, cợt nhả và trào phúng bên cạnh 12 case `voice_sample` và cấu trúc tiếng Việt). Sáu nhóm văn phong gồm văn viết rõ ràng, trao đổi công việc, tài liệu kỹ thuật, hành chính, bài đăng mạng xã hội và marketing; mặc định giữ cách viết hiện có. Kênh sử dụng, mức trang trọng, cách xưng hô, mức sửa và `voice_sample` tùy chọn là các lựa chọn riêng.
+- Đã triển khai trình soát theo quy tắc, luồng viết lại hai pha hỗ trợ chọn cả bốn skill, nạp reference chọn lọc, hậu kiểm token bảo toàn, neo giọng `voice_sample`, xem diff thay đổi từng từ và nút đưa bản sửa vào ô soát tiếp trên `/check`; trang `/start` có thêm tình huống mẫu, gói Claude/Gemini tinh gọn, yêu cầu dùng trong chatbot và công cụ xuất gói chấm mù benchmark (`--prepare-packet`).
 - Ứng dụng web hiện có landing tối, vùng làm việc `/check`, trang ví dụ, hướng dẫn/giới thiệu, luồng đóng góp theo khả năng backend, sáu cặp đầu ra AI chạy thật và pilot chấm A/B mù `/review` sau cờ `AB_REVIEW_ENABLED` (mặc định tắt trong source, bật tường minh ở môi trường deploy). Phiếu là phản hồi ẩn danh theo khóa phiên, không phải danh tính reviewer đã xác minh.
 - Corpus hiện được agent rà soát, chưa có baseline chất lượng do người đọc độc lập đánh giá. Sáu cặp AI công khai dùng để minh họa hành vi.
 

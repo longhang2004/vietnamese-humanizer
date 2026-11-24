@@ -9,6 +9,8 @@ import {
   Platform,
   skillDownload,
   starterPrompt,
+  StarterScenarioId,
+  starterScenarios,
   starterSkills,
 } from "../lib/onboarding";
 import styles from "./GettingStarted.module.css";
@@ -62,6 +64,7 @@ function CopyPrompt({ text }: { text: string }) {
 export function GettingStarted() {
   const [platformId, setPlatformId] = useState<Platform>("chatgpt");
   const [skillId, setSkillId] = useState(starterSkills[0].id);
+  const [scenarioId, setScenarioId] = useState<StarterScenarioId>("default");
   const platform = PLATFORMS.find((item) => item.id === platformId)!;
   const skill = starterSkills.find((item) => item.id === skillId)!;
   const nativePlatform =
@@ -116,6 +119,23 @@ export function GettingStarted() {
               ))}
             </select>
             <p id="starter-task-description">{skill.summary}</p>
+            <label htmlFor="starter-scenario" className={styles.scenarioLabel}>
+              Tình huống mẫu (tùy chọn)
+            </label>
+            <select
+              id="starter-scenario"
+              value={scenarioId}
+              onChange={(event) =>
+                setScenarioId(event.target.value as StarterScenarioId)
+              }
+              className="field"
+            >
+              {starterScenarios.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
           </div>
         </aside>
 
@@ -211,8 +231,8 @@ export function GettingStarted() {
               </p>
             </div>
             <CopyPrompt
-              key={`${platformId}-${skillId}`}
-              text={starterPrompt(skill)}
+              key={`${platformId}-${skillId}-${scenarioId}`}
+              text={starterPrompt(skill, scenarioId)}
             />
           </section>
         </div>

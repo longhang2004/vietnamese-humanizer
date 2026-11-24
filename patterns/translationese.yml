@@ -392,3 +392,111 @@ patterns:
   - danh-hoa
   - dong-tu-yeu
   min_occurrences: 2
+- id: VI-TRA-S06
+  name: mot-cach-tinh-tu-day-dac
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: heuristic
+  scope: paragraph
+  aggregation: density
+  severity: low
+  confidence: medium
+  summary: Lặp cụm trạng ngữ dịch sát “một cách + tính từ” nhiều lần trong cùng đoạn.
+  signals:
+    regex:
+    - '\bmột cách\s+(?:hiệu quả|nhanh chóng|dễ dàng|đáng kể|toàn diện|rõ ràng|chặt chẽ|linh hoạt|trực tiếp|tối ưu|triệt để|sâu sắc|chính xác|liền mạch|chuyên nghiệp|minh bạch|bền vững|nhất quán|tự động|chủ động)\b'
+  why_it_matters: Nhiều cụm “một cách + tính từ” dịch từ trạng từ “-ly” làm câu nặng nề và rườm rà khi dùng trực tiếp tính từ hoặc động từ gọn hơn.
+  rewrite_strategy:
+  - Đổi thành tính từ, phó từ trực tiếp hoặc động từ cụ thể; giữ nguyên nếu cần tách rạch ròi cách thức ở điểm nhấn chính.
+  bad_examples:
+  - text: Công cụ xử lý chứng từ một cách nhanh chóng và đối chiếu công nợ một cách chính xác.
+    reason: Hai cụm “một cách + tính từ” lặp trong cùng câu đều rút gọn được thành bổ ngữ trực tiếp.
+  - text: Nhóm phối hợp một cách chặt chẽ để triển khai quy trình mới một cách hiệu quả.
+    reason: Cách diễn đạt dịch từ cặp “closely / effectively” làm câu dài hơn cần thiết.
+  good_examples:
+  - mode: clean_rewrite
+    text: Công cụ xử lý chứng từ nhanh và đối chiếu công nợ chính xác.
+    reason: Giữ nguyên dữ kiện và lược bỏ khuôn dịch sát “một cách + tính từ”.
+  - mode: no_change
+    text: Hợp đồng quy định hai bên phải phản hồi một cách rõ ràng trước thứ Sáu.
+    reason: Chỉ xuất hiện một lần ở vị trí cần nhấn mạnh cách thức, không kích hoạt theo mật độ.
+  exceptions:
+  - Khi cần phân biệt rõ cách thức thực hiện ở vị trí trọng tâm và không lặp trong đoạn.
+  false_positive_risk: medium
+  tags:
+  - dich-sat
+  - pho-tu
+  - mat-do
+  min_occurrences: 2
+- id: VI-TRA-S07
+  name: du-tu-noi-rang
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: preference
+  scope: paragraph
+  aggregation: density
+  severity: low
+  confidence: medium
+  summary: Lặp từ nối “rằng” theo mệnh đề “that” tiếng Anh trong cùng đoạn khi lược đi vẫn rõ nghĩa.
+  signals:
+    regex:
+    - '\b(?:cho thấy|chỉ ra|lưu ý|đảm bảo|xác nhận|nhận thấy|nhấn mạnh|chứng minh|hiểu|biết|nghĩ|thấy)\s+rằng\b'
+  why_it_matters: Chêm nhiều từ “rằng” theo cấu trúc “shows/notes that” khiến câu Việt mang nhịp dịch máy thay vì nối mệnh đề tự nhiên.
+  rewrite_strategy:
+  - Bỏ “rằng” hoặc chuyển sang dấu hai chấm/ngắt câu khi ranh giới mệnh đề đã rõ.
+  bad_examples:
+  - text: Báo cáo quý 3 cho thấy rằng tỷ lệ lỗi giảm mạnh, đồng thời nhóm vận hành nhận thấy rằng thời gian phản hồi cũng rút ngắn.
+    reason: Hai mệnh đề liên tiếp chêm “rằng” không cần thiết dù không bỏ đi vẫn rõ chủ–vị.
+  - text: Biên bản xác nhận rằng hệ thống đã ổn định và cần lưu ý rằng bản vá mới chỉ áp dụng cho cụm chính.
+    reason: Lặp “xác nhận rằng / lưu ý rằng” theo đúng khuôn văn bản dịch.
+  good_examples:
+  - mode: clean_rewrite
+    text: Báo cáo quý 3 cho thấy tỷ lệ lỗi giảm mạnh, đồng thời nhóm vận hành nhận thấy thời gian phản hồi cũng rút ngắn.
+    reason: Giữ đủ dữ kiện báo cáo quý 3, tỷ lệ lỗi và thời gian phản hồi với nhịp câu Việt tự nhiên.
+  - mode: no_change
+    text: Ban kiểm tra nhấn mạnh rằng quy định này có hiệu lực từ ngày 1 tháng 12.
+    reason: Dùng một lần ở mệnh đề trọng tâm nên không cần coi là lặp dịch máy.
+  exceptions:
+  - Khi “rằng” giúp tách ranh giới hai mệnh đề dài dễ nhập nhằng hoặc mang sắc thái nhấn mạnh trang trọng.
+  false_positive_risk: medium
+  tags:
+  - dich-sat
+  - tu-noi
+  - menh-de
+  min_occurrences: 2
+- id: VI-TRA-S08
+  name: chu-ngu-vo-tri-cho-phep
+  skill: translationese-cleaner-vi
+  category: structural
+  finding_type: preference
+  scope: sentence
+  aggregation: count
+  severity: low
+  confidence: medium
+  summary: Lặp cấu trúc chủ ngữ vô tri + “cho phép” dịch từ “allows/enables users to”.
+  signals:
+    regex:
+    - '\b(?:tính năng|công cụ|nền tảng|hệ thống|giải pháp|ứng dụng|giao diện|cập nhật|phiên bản|thiết kế|mô hình|tùy chọn)\s+(?:(?:này|mới|đó)\s+)?cho phép\s+(?:người dùng|bạn|nhóm|doanh nghiệp|khách hàng|đội ngũ)\b'
+  why_it_matters: Lặp khung “Công cụ/Tính năng cho phép người dùng…” khiến bài giới thiệu sản phẩm mang giọng dịch từ “enables/allows you to” thay vì nói thẳng ai làm được việc gì.
+  rewrite_strategy:
+  - Đưa người làm lên làm chủ ngữ hoặc dùng “giúp / để” khi ý thật không phải là cấp quyền.
+  bad_examples:
+  - text: Tính năng này cho phép người dùng xuất báo cáo CSV.
+    reason: “Cho phép” dịch sát từ “allows users to” trong khi ý là khả năng thao tác.
+  - text: Giao diện mới cho phép bạn lọc đơn hàng theo ngày giao.
+    reason: Có thể nói trực tiếp “Trên giao diện mới, bạn có thể lọc đơn hàng…”.
+  good_examples:
+  - mode: clean_rewrite
+    text: Bạn có thể xuất báo cáo CSV bằng tính năng này và lọc đơn hàng theo ngày giao trên giao diện mới.
+    reason: Đưa người dùng làm chủ thể hành động, bỏ cấu trúc chủ ngữ vô tri lặp lại.
+  - mode: no_change
+    text: Hệ thống này cho phép người dùng xuất báo cáo sau khi được quản trị viên cấp quyền.
+    reason: Xuất hiện một lần và mang đúng nghĩa cấp phép kỹ thuật.
+  exceptions:
+  - Khi chủ thể thật sự nắm quyền cấp phép kỹ thuật (phân quyền, giới hạn truy cập, quy định bảo mật).
+  false_positive_risk: medium
+  tags:
+  - dich-sat
+  - chu-ngu-vo-tri
+  - dong-tu
+  min_occurrences: 2

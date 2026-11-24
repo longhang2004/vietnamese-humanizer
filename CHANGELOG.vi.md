@@ -8,6 +8,8 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ### Added
 
+- Bổ sung 5 quy tắc deterministic mới (`VI-TRA-S06`, `VI-TRA-S07`, `VI-TRA-S08`, `VI-HUM-D04`, `VI-HUM-D05`, nâng catalog lên 49 pattern) bắt cụm `"một cách + tính từ"` lặp dày, dư từ `"rằng"`, chủ ngữ vô tri dùng `"cho phép"`, mở bài video/vlog khuôn mẫu và câu giải thích trò đùa kiểu AI, đồng thời nối vào cơ chế nạp tài liệu chọn lọc trong `rewriter.py` và đồng bộ `BENCH-HUM-117`/`119`.
+- Nâng cấp UX trên `/check` và `/start`: mở khóa chọn cả 4 skill viết lại trong `RewritePanel.tsx`, xem diff thay đổi từng từ (`So sánh thay đổi`), nút đưa bản sửa vào ô soát tiếp (`Đưa vào ô soát tiếp`) và preset tình huống văn nói / cợt nhả / trào phúng.
 - Mở rộng `conversational.md` cho ba dạng văn nói tiếng Việt: lời thoại phim/tiểu phẩm (tỉnh lược tình huống, bắt từ khóa lượt trước, tiểu từ tình thái cuối câu), lời dẫn vlog (mở thẳng với từ chỉ xuất, nhịp bồi cuối câu) và video kiến thức (mỗi hơi thở một mệnh đề, neo thính giác).
 - Thêm tài liệu tham chiếu `skills/humanizer-vi/references/humor-and-satire.md` và ghi chú `docs/research/2026-11-23-spoken-humor-satire.md` cho văn cợt nhả/tự trào mạng xã hội (mock-formal, bẻ nhịp anti-climax không giải thích thừa) và văn trào phúng/châm biếm tham chiếu thủ pháp trong *Số đỏ* của Vũ Trọng Phụng (nghịch ngữ, liệt kê bất tương xứng, khen ngược khách quan, nhại khẩu hiệu có chủ đích) kèm ranh giới bảo toàn.
 - Nạp chọn lọc `humor-and-satire.md` trong `web/backend/app/services/rewriter.py` khi `profile="social"` hoặc có tín hiệu cợt nhả/trào phúng/hài hước trong văn bản, ngữ cảnh hay `voice_sample`, kèm 10 benchmark case mới (`benchmarks/cases/spoken-humor-satire.jsonl`, nâng tổng lên 161 case).
