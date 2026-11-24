@@ -90,3 +90,15 @@ test("switching to another chatbot offers a guide without a stale native downloa
     screen.getByRole("button", { name: "Sao chép yêu cầu" }),
   ).toBeEnabled();
 });
+
+test("selecting a scenario preset appends context to the starter prompt", async () => {
+  const user = userEvent.setup();
+  render(<GettingStarted />);
+  await user.selectOptions(
+    screen.getByLabelText("Tình huống mẫu (tùy chọn)"),
+    "satire",
+  );
+  expect(
+    screen.getByLabelText<HTMLTextAreaElement>("Yêu cầu mẫu").value,
+  ).toContain("Văn trào phúng, châm biếm");
+});

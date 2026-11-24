@@ -371,3 +371,78 @@ patterns:
   - nhip-cau
   - heuristic
   min_occurrences: 1
+- id: VI-HUM-D04
+  name: mo-bai-video-khuon-mau
+  skill: humanizer-vi
+  category: discourse
+  finding_type: preference
+  scope: document
+  aggregation: single
+  severity: low
+  confidence: high
+  summary: Mở bài video hoặc vlog theo khuôn thông báo nội dung thay vì đi thẳng vào tình huống.
+  signals:
+    regex:
+    - '(?:Trong|Ở)\s+(?:video|clip|tập|vlog)\s+(?:ngày\s+)?(?:hôm nay|này),?\s+(?:chúng ta|mình|tôi|kênh)\s+(?:sẽ|cùng)'
+  why_it_matters: Câu mở đầu thông báo kiểu văn viết làm chậm nhịp giữ chân người nghe trong 10 giây đầu của vlog hoặc video kiến thức.
+  rewrite_strategy:
+  - Mở thẳng bằng câu hỏi, tình huống tại chỗ hoặc chi tiết chính của cảnh quay.
+  bad_examples:
+  - text: Trong video ngày hôm nay, chúng ta sẽ cùng khám phá lý do pin điện thoại tụt nhanh vào mùa lạnh.
+    reason: Lời dẫn khuôn mẫu kéo dài phần mở đầu video.
+  - text: Ở tập này, mình sẽ hướng dẫn cách dọn file cấu hình bị trùng.
+    reason: Người xem đã thấy tiêu đề tập và cần vào thẳng việc.
+  good_examples:
+  - mode: clean_rewrite
+    text: Vì sao pin điện thoại tụt nhanh vào mùa lạnh?
+    reason: Đi thẳng vào câu hỏi trọng tâm ở giây đầu mà không tự thêm dữ kiện mới.
+  - mode: clean_rewrite
+    text: Đây là cách dọn file cấu hình bị trùng.
+    reason: Vào thẳng nội dung thực hành như lời thoại nói.
+  - mode: no_change
+    text: Quán này đóng lúc 22:00, mà bếp nghỉ từ 21:30 lận.
+    reason: Mở thẳng bằng tình huống và số liệu thực tế trong vlog.
+  exceptions:
+  - Video chuỗi nhiều tập cần nhắc rõ phạm vi tập đang xem ngay ở câu đầu.
+  false_positive_risk: low
+  tags:
+  - van-noi
+  - mo-bai
+  - meta
+  min_occurrences: 1
+- id: VI-HUM-D05
+  name: giai-thich-tro-dua-khuon-ai
+  skill: humanizer-vi
+  category: discourse
+  finding_type: heuristic
+  scope: paragraph
+  aggregation: single
+  severity: low
+  confidence: high
+  summary: Chèn câu bình luận giải thích sự hài hước hoặc mỉa mai theo khuôn AI, làm mất điểm rơi câu đùa.
+  signals:
+    regex:
+    - '\b(?:(?:đây|điều này)\s+(?:quả(?:\s+thực)?\s+)?là\s+một\s+tình huống dở khóc dở cười|tình huống hài hước này cho thấy|điều này tạo nên sự tương phản hài hước|nhấn mạnh tính mỉa mai của tình huống|quả là một nghịch lý thú vị)\b'
+  why_it_matters: Văn cợt nhả và trào phúng dựa vào độ chênh để người đọc tự nhận ra; câu giảng giải lại làm trễ và hỏng điểm rơi.
+  rewrite_strategy:
+  - Cắt phần bình luận thừa và giữ nguyên điểm dừng ở chi tiết gây chênh.
+  bad_examples:
+  - text: Cả nhóm họp 3 tiếng chỉ để đổi cỡ chữ tiêu đề từ 14 lên 16. Điều này quả thực là một tình huống dở khóc dở cười.
+    reason: Câu sau giảng lại chi tiết hài hước vốn đã rõ ở câu đầu.
+  - text: Lễ tiết kiệm giấy phát 300 thư mời in màu; điều này tạo nên sự tương phản hài hước khiến người đọc suy ngẫm.
+    reason: Tự gọi tên “sự tương phản hài hước” làm phai nét châm biếm.
+  good_examples:
+  - mode: clean_rewrite
+    text: Cả nhóm họp 3 tiếng chỉ để đổi cỡ chữ tiêu đề từ 14 lên 16.
+    reason: Dừng đúng điểm rơi anti-climax mà không bình luận giải thích thêm.
+  - mode: no_change
+    text: Nhờ tinh thần quyết liệt cắt giảm thủ tục, quy trình xin cấp một chiếc bút bi nay chỉ còn sáu chữ ký và ba tuần chờ đợi.
+    reason: Giữ giọng khen ngược và liệt kê bất tương xứng mà không giảng giải.
+  exceptions:
+  - Bài phân tích phê bình văn học cần gọi tên thủ pháp nghịch lý hoặc mỉa mai một cách tường minh.
+  false_positive_risk: low
+  tags:
+  - hai-huoc
+  - trao-phung
+  - giai-thich-thua
+  min_occurrences: 1

@@ -250,3 +250,70 @@ test("sends optional voice_sample and invalidates stale results when it changes"
   await user.type(voiceField, " Gửi bạn trước nhé.");
   expect(screen.queryByText("Bản sửa bám giọng mẫu.")).not.toBeInTheDocument();
 });
+
+test("supports selecting any skill, applying context presets, inline diff and re-checking", async () => {
+  const user = userEvent.setup();
+  const onApplyRewrite = vi.fn();
+  const write = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue();
+  vi.mocked(rewriteText).mockResolvedValue({
+    rewrite: "Nhóm kiểm tra trực tiếp trước 15:00.",
+    output_mode: "clean_rewrite",
+    comments: [],
+    review_status: "unreviewed",
+    disclaimer: "Cần duyệt",
+  });
+
+  render(
+    <RewritePanel
+      originalText="Nhóm thực hiện việc kiểm tra trước 15:00."
+      selectedSkills={["translationese-cleaner-vi"]}
+      onApplyRewrite={onApplyRewrite}
+    />,
+  );
+  await user.click(screen.getByText("Chọn giọng và ngữ cảnh (tùy chọn)"));
+  expect(screen.getByLabelText("Kỹ năng viết lại")).toHaveValue(
+    "translationese-cleaner-vi",
+  );
+
+  await user.click(
+    screen.getByRole("button", { name: "Trào phúng / Châm biếm" }),
+  );
+  expect(screen.getByLabelText("Kỹ năng viết lại")).toHaveValue("humanizer-vi");
+  expect(screen.getByLabelText("Loại bài viết")).toHaveValue("social");
+
+  await user.selectOptions(
+    screen.getByLabelText("Kỹ năng viết lại"),
+    "style-guide-vi",
+  );
+  await user.click(
+    screen.getByRole("button", { name: /Viết lại bằng Gemini/i }),
+  );
+  expect(rewriteText).toHaveBeenCalledWith(
+    "Nhóm thực hiện việc kiểm tra trước 15:00.",
+    "style-guide-vi",
+    undefined,
+    expect.objectContaining({
+      context: expect.stringContaining("Văn trào phúng"),
+    }),
+  );
+
+  const diffToggle = await screen.findByRole("button", {
+    name: "So sánh thay đổi",
+  });
+  await user.click(diffToggle);
+  expect(diffToggle).toHaveAttribute("aria-pressed", "true");
+  expect(
+    screen.getByText(/thực hiện việc/, { selector: "del" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(/trực tiếp/, { selector: "ins" }),
+  ).toBeInTheDocument();
+
+  await user.click(screen.getByRole("button", { name: "Sao chép kết quả" }));
+  expect(write).toHaveBeenCalledWith("Nhóm kiểm tra trực tiếp trước 15:00.");
+
+  await user.click(screen.getByRole("button", { name: "Đưa vào ô soát tiếp" }));
+  expect(onApplyRewrite).toHaveBeenCalledWith(
+    "Nhóm kiểm tra trực tiếp trước 15:00.",
+  );
+});

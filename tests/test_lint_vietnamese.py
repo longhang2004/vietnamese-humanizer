@@ -588,3 +588,51 @@ def test_singular_self_pronoun_drift_ignores_reflexive_minh() -> None:
 
     reflexive = "Tôi làm việc một mình và tự mình kiểm tra báo cáo của mình."
     assert "VI-STY-P01" not in ids(reflexive, "style-guide-vi")
+
+
+def test_hidden_translationese_and_spoken_satire_patterns() -> None:
+    single_calques = (
+        "Báo cáo cho thấy rằng hệ thống phản hồi một cách nhanh chóng. "
+        "Tùy chọn này cho phép người dùng xuất báo cáo sau khi được duyệt."
+    )
+    assert "VI-TRA-S06" not in ids(single_calques, "translationese-cleaner-vi")
+    assert "VI-TRA-S07" not in ids(single_calques, "translationese-cleaner-vi")
+    assert "VI-TRA-S08" not in ids(single_calques, "translationese-cleaner-vi")
+
+    dense_adverbs = (
+        "Công cụ xử lý chứng từ một cách nhanh chóng và đối chiếu số liệu "
+        "một cách chính xác."
+    )
+    assert "VI-TRA-S06" in ids(dense_adverbs, "translationese-cleaner-vi")
+
+    split_adverbs = (
+        "Công cụ xử lý chứng từ một cách nhanh chóng.\n\n"
+        "Đội đối chiếu xử lý bảng kê một cách chính xác."
+    )
+    assert "VI-TRA-S06" not in ids(split_adverbs, "translationese-cleaner-vi")
+
+    dense_rang = (
+        "Báo cáo cho thấy rằng tỷ lệ lỗi giảm mạnh và nhóm nhận thấy rằng "
+        "thời gian xử lý cũng rút ngắn."
+    )
+    assert "VI-TRA-S07" in ids(dense_rang, "translationese-cleaner-vi")
+
+    allow_pair = (
+        "Tính năng này cho phép người dùng xuất tệp CSV. "
+        "Giao diện mới cho phép bạn lọc đơn theo ngày giao."
+    )
+    assert "VI-TRA-S08" in ids(allow_pair, "translationese-cleaner-vi")
+
+    video_meta = (
+        "Trong video ngày hôm nay, chúng ta sẽ cùng khám phá lý do pin "
+        "điện thoại tụt nhanh vào mùa lạnh."
+    )
+    assert "VI-HUM-D04" in ids(video_meta, "humanizer-vi")
+    assert "VI-HUM-D04" not in ids("Pin tụt nhanh vào mùa lạnh vì sao?", "humanizer-vi")
+
+    joke_explainer = (
+        "Họp 3 tiếng để đổi cỡ chữ từ 14 lên 16. "
+        "Điều này quả thực là một tình huống dở khóc dở cười."
+    )
+    assert "VI-HUM-D05" in ids(joke_explainer, "humanizer-vi")
+    assert "VI-HUM-D05" not in ids("Họp 3 tiếng để đổi cỡ chữ từ 14 lên 16.", "humanizer-vi")

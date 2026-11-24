@@ -8,6 +8,8 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Added
 
+- Five high-precision deterministic patterns (`VI-TRA-S06`, `VI-TRA-S07`, `VI-TRA-S08`, `VI-HUM-D04`, `VI-HUM-D05`, bringing the catalog to 49) covering dense `"một cách + adj"` calques, repeated redundant `"rằng"`, inanimate-subject `"cho phép"`, formulaic video/vlog openings, and AI joke-explaining commentary, wired into `rewriter.py` selective reference loading and aligned with `BENCH-HUM-117`/`119`.
+- Upgraded `/check` and `/start` workspace UX: multi-skill rewrite selection (`RewritePanel.tsx`), inline word-level diff view (`So sánh thay đổi`), apply-to-editor re-check loop (`Đưa vào ô soát tiếp`), and spoken/banter/satire scenario presets.
 - Expanded `conversational.md` with dedicated Vietnamese editing rules for scripted spoken forms: film/dramatic dialogue (situational ellipsis, lexical echoing, pragmatic final particles), vlog monologues (deictic openings, right-dislocated afterthoughts), and explainer/knowledge video scripts.
 - New reference guide `skills/humanizer-vi/references/humor-and-satire.md` and research note `docs/research/2026-11-23-spoken-humor-satire.md` covering social banter/self-deprecation (mock-formal framing, anti-climax twists without over-explaining jokes) and satirical techniques inspired by Vũ Trọng Phụng's *Số đỏ* (paradoxical juxtaposition, incongruous enumeration, deadpan mock-praise, and intentional slogan parody), with safety/factual boundaries.
 - Selective loading of `humor-and-satire.md` in `web/backend/app/services/rewriter.py` when `profile="social"` or when humor/satire cues appear in the text, context, or voice sample, plus 10 contextual benchmark cases (`benchmarks/cases/spoken-humor-satire.jsonl`, 161 total).

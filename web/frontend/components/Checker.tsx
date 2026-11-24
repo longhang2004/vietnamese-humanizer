@@ -14,9 +14,11 @@ export function Checker() {
   const capabilities = useCapabilities();
   const [skills, setSkills] = useState<SkillItem[]>([]);
   const [patterns, setPatterns] = useState<PatternItem[]>([]);
+  const [draftText, setDraftText] = useState("");
   const [result, setResult] = useState<{
     response: LintResponse;
     text: string;
+    skills: string[];
     requestId: number;
   } | null>(null);
   const [loading, setLoading] = useState(false);
@@ -55,7 +57,7 @@ export function Checker() {
     try {
       const response = await lintText(text, selectedSkills);
       if (requestId !== requestGeneration.current) return;
-      setResult({ response, text, requestId });
+      setResult({ response, text, skills: selectedSkills, requestId });
     } catch (error: unknown) {
       if (requestId !== requestGeneration.current) return;
       setErrorMsg(
@@ -68,6 +70,10 @@ export function Checker() {
     } finally {
       if (requestId === requestGeneration.current) setLoading(false);
     }
+  };
+  const handleApplyRewrite = (nextText: string) => {
+    setDraftText(nextText.slice(0, 20000));
+    invalidateResult();
   };
 
   return (
@@ -96,7 +102,11 @@ export function Checker() {
             skills={skills}
             onLint={handleLint}
             loading={loading}
-            onTextChange={invalidateResult}
+            value={draftText}
+            onTextChange={(nextText) => {
+              setDraftText(nextText);
+              invalidateResult();
+            }}
             onSkillsChange={invalidateResult}
           />
           <div className={styles.review}>
@@ -170,6 +180,8 @@ export function Checker() {
             key={`rewrite-${result.requestId}`}
             originalText={result.text}
             issueIds={result.response.issues.map((issue) => issue.pattern_id)}
+            selectedSkills={result.skills}
+            onApplyRewrite={handleApplyRewrite}
           />
         )}
       </div>

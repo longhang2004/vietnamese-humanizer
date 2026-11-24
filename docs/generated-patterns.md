@@ -309,6 +309,44 @@
 - Exceptions:
   - Khi nguồn đã được nêu rõ ở câu ngay trước và cụm này chỉ tham chiếu lại.
 
+## VI-HUM-D04: `mo-bai-video-khuon-mau`
+
+- Skill: `humanizer-vi`
+- Finding type: `preference`
+- Scope / aggregation: `document` / `single`
+- Severity / confidence: `low` / `high`
+- False-positive risk: `low`
+- Tóm tắt: Mở bài video hoặc vlog theo khuôn thông báo nội dung thay vì đi thẳng vào tình huống.
+- Rewrite strategy:
+  - Mở thẳng bằng câu hỏi, tình huống tại chỗ hoặc chi tiết chính của cảnh quay.
+- Good examples:
+  - `clean_rewrite`: Vì sao pin điện thoại tụt nhanh vào mùa lạnh?
+    - Reason: Đi thẳng vào câu hỏi trọng tâm ở giây đầu mà không tự thêm dữ kiện mới.
+  - `clean_rewrite`: Đây là cách dọn file cấu hình bị trùng.
+    - Reason: Vào thẳng nội dung thực hành như lời thoại nói.
+  - `no_change`: Quán này đóng lúc 22:00, mà bếp nghỉ từ 21:30 lận.
+    - Reason: Mở thẳng bằng tình huống và số liệu thực tế trong vlog.
+- Exceptions:
+  - Video chuỗi nhiều tập cần nhắc rõ phạm vi tập đang xem ngay ở câu đầu.
+
+## VI-HUM-D05: `giai-thich-tro-dua-khuon-ai`
+
+- Skill: `humanizer-vi`
+- Finding type: `heuristic`
+- Scope / aggregation: `paragraph` / `single`
+- Severity / confidence: `low` / `high`
+- False-positive risk: `low`
+- Tóm tắt: Chèn câu bình luận giải thích sự hài hước hoặc mỉa mai theo khuôn AI, làm mất điểm rơi câu đùa.
+- Rewrite strategy:
+  - Cắt phần bình luận thừa và giữ nguyên điểm dừng ở chi tiết gây chênh.
+- Good examples:
+  - `clean_rewrite`: Cả nhóm họp 3 tiếng chỉ để đổi cỡ chữ tiêu đề từ 14 lên 16.
+    - Reason: Dừng đúng điểm rơi anti-climax mà không bình luận giải thích thêm.
+  - `no_change`: Nhờ tinh thần quyết liệt cắt giảm thủ tục, quy trình xin cấp một chiếc bút bi nay chỉ còn sáu chữ ký và ba tuần chờ đợi.
+    - Reason: Giữ giọng khen ngược và liệt kê bất tương xứng mà không giảng giải.
+- Exceptions:
+  - Bài phân tích phê bình văn học cần gọi tên thủ pháp nghịch lý hoặc mỉa mai một cách tường minh.
+
 ## VI-HUM-L01: `dong-vai-tro-trong-viec`
 
 - Skill: `humanizer-vi`
@@ -807,4 +845,58 @@
 - Exceptions:
   - Văn bản pháp lý cần giữ nguyên tên thủ tục hoặc trích dẫn biểu mẫu chính thức.
 
-Tổng cộng: **44 pattern**.
+## VI-TRA-S06: `mot-cach-tinh-tu-day-dac`
+
+- Skill: `translationese-cleaner-vi`
+- Finding type: `heuristic`
+- Scope / aggregation: `paragraph` / `density`
+- Severity / confidence: `low` / `medium`
+- False-positive risk: `medium`
+- Tóm tắt: Lặp cụm trạng ngữ dịch sát “một cách + tính từ” nhiều lần trong cùng đoạn.
+- Rewrite strategy:
+  - Đổi thành tính từ, phó từ trực tiếp hoặc động từ cụ thể; giữ nguyên nếu cần tách rạch ròi cách thức ở điểm nhấn chính.
+- Good examples:
+  - `clean_rewrite`: Công cụ xử lý chứng từ nhanh và đối chiếu công nợ chính xác.
+    - Reason: Giữ nguyên dữ kiện và lược bỏ khuôn dịch sát “một cách + tính từ”.
+  - `no_change`: Hợp đồng quy định hai bên phải phản hồi một cách rõ ràng trước thứ Sáu.
+    - Reason: Chỉ xuất hiện một lần ở vị trí cần nhấn mạnh cách thức, không kích hoạt theo mật độ.
+- Exceptions:
+  - Khi cần phân biệt rõ cách thức thực hiện ở vị trí trọng tâm và không lặp trong đoạn.
+
+## VI-TRA-S07: `du-tu-noi-rang`
+
+- Skill: `translationese-cleaner-vi`
+- Finding type: `preference`
+- Scope / aggregation: `paragraph` / `density`
+- Severity / confidence: `low` / `medium`
+- False-positive risk: `medium`
+- Tóm tắt: Lặp từ nối “rằng” theo mệnh đề “that” tiếng Anh trong cùng đoạn khi lược đi vẫn rõ nghĩa.
+- Rewrite strategy:
+  - Bỏ “rằng” hoặc chuyển sang dấu hai chấm/ngắt câu khi ranh giới mệnh đề đã rõ.
+- Good examples:
+  - `clean_rewrite`: Báo cáo quý 3 cho thấy tỷ lệ lỗi giảm mạnh, đồng thời nhóm vận hành nhận thấy thời gian phản hồi cũng rút ngắn.
+    - Reason: Giữ đủ dữ kiện báo cáo quý 3, tỷ lệ lỗi và thời gian phản hồi với nhịp câu Việt tự nhiên.
+  - `no_change`: Ban kiểm tra nhấn mạnh rằng quy định này có hiệu lực từ ngày 1 tháng 12.
+    - Reason: Dùng một lần ở mệnh đề trọng tâm nên không cần coi là lặp dịch máy.
+- Exceptions:
+  - Khi “rằng” giúp tách ranh giới hai mệnh đề dài dễ nhập nhằng hoặc mang sắc thái nhấn mạnh trang trọng.
+
+## VI-TRA-S08: `chu-ngu-vo-tri-cho-phep`
+
+- Skill: `translationese-cleaner-vi`
+- Finding type: `preference`
+- Scope / aggregation: `sentence` / `count`
+- Severity / confidence: `low` / `medium`
+- False-positive risk: `medium`
+- Tóm tắt: Lặp cấu trúc chủ ngữ vô tri + “cho phép” dịch từ “allows/enables users to”.
+- Rewrite strategy:
+  - Đưa người làm lên làm chủ ngữ hoặc dùng “giúp / để” khi ý thật không phải là cấp quyền.
+- Good examples:
+  - `clean_rewrite`: Bạn có thể xuất báo cáo CSV bằng tính năng này và lọc đơn hàng theo ngày giao trên giao diện mới.
+    - Reason: Đưa người dùng làm chủ thể hành động, bỏ cấu trúc chủ ngữ vô tri lặp lại.
+  - `no_change`: Hệ thống này cho phép người dùng xuất báo cáo sau khi được quản trị viên cấp quyền.
+    - Reason: Xuất hiện một lần và mang đúng nghĩa cấp phép kỹ thuật.
+- Exceptions:
+  - Khi chủ thể thật sự nắm quyền cấp phép kỹ thuật (phân quyền, giới hạn truy cập, quy định bảo mật).
+
+Tổng cộng: **49 pattern**.

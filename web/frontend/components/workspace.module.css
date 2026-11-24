@@ -427,6 +427,31 @@
   color: var(--muted);
   font-size: 0.875rem;
 }
+.presetRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rewriteActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.diffRemoved {
+  border-radius: 2px;
+  padding-inline: 2px;
+  color: var(--danger);
+  background: var(--surface-raised);
+  text-decoration: line-through;
+}
+.diffAdded {
+  border-radius: 2px;
+  padding-inline: 2px;
+  color: var(--accent-ink);
+  background: var(--accent);
+  text-decoration: none;
+}
 .rewriteOutput {
   margin-top: 24px;
   border-top: 1px solid var(--border);
