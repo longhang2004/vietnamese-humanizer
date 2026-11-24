@@ -1,24 +1,24 @@
 ---
-version: 1
+version: 2
 slug: "web-frontend-app-page-tsx"
 primary_target: "web/frontend/app/page.tsx"
-related_targets: ["web/frontend/components/ComparisonExplorer.tsx"]
+related_targets: ["web/frontend/components/ComparisonExplorer.tsx","web/frontend/components/SiteHeader.tsx","web/frontend/components/SiteFooter.tsx","web/frontend/app/globals.css"]
 ---
 
 # Landing layout
 
-Mode: Persuade. Scope: project home and its genuine comparison.
+Mode: Persuade. Scope: project home and live dual-ground comparison specimen.
 
 ## Direction contract
 
-THESIS: Lead with evidence people can read, followed by a clear choice of tool. Remove the duplicated one-sided preview.
+THESIS: Reject the stacked generic dark SaaS hero and lead inside the first desktop viewport with an editorial specimen cabinet pairing bold Vietnamese typography beside the interactive dual-ground AI comparison.
 
-OWN-WORLD: Keep graphite surfaces, pale lime actions, Be Vietnam Pro and functional monospace. Use rules and editorial rows instead of a card grid.
+OWN-WORLD: Deep archival lacquer forest (`#0b1614` / `#11211e`) frames structural navigation and baseline text, while warm calico ivory (`#f3efe4` / `#141c1a`) carries the guided Vietnamese specimen sheet; chrome brass (`#e8c55a`) anchors primary actions and vermilion rules mark active proofreader selections. Sharp 4px–6px corners, 1px hairlines, flat elevation.
 
-STORY: A visitor reads what the project does, compares two actual AI outputs, then opens the checker or chatbot setup. Developers find installation with those use paths.
+STORY: A visitor immediately reads what the tool preserves, toggles live topics on the comparison specimen in the opening viewport, inspects the four deterministic/editorial skill drawers, and enters either the live web checker, chatbot packs, or CLI install command.
 
-FIRST VIEWPORT: A concise, wide heading pairs with supporting copy and two actions. The full-width comparison begins immediately below; its real toolbar and outputs are the main artifact.
+FIRST VIEWPORT: Asymmetric 12-column opening stage (`5fr` headline + concise value copy + chrome-brass primary CTA and outlined secondary CTA on left; `7fr` `ComparisonExplorer` with quick topic pills, `<select>`, stepper, baseline dark sheet vs. ivory guided sheet on right). Zero eyebrows, zero decorative numbers, zero shadows.
 
-FORM: A proof-led editorial workbench, chosen for this layout refactor within the approved visual world. No identity replacement or concept roll.
+FORM: Archival editorial specimen cabinet (`Candidate 6` grounded direction raised by disciplined container-query adaptation and cross-document view transitions), `seed:b3b4e67a046e1d61`.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

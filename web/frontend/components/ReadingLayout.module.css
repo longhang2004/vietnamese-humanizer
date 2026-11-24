@@ -3,8 +3,8 @@
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   align-items: end;
   gap: 48px;
-  padding-block: 64px 40px;
-  margin-bottom: 48px;
+  padding-block: 56px 36px;
+  margin-bottom: 44px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -20,13 +20,13 @@
 .layout {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
-  gap: 64px;
+  gap: 56px;
   padding-bottom: 40px;
 }
 
 .index {
   position: sticky;
-  top: 112px;
+  top: 104px;
   align-self: start;
   min-width: 0;
   font-size: 14px;
@@ -44,16 +44,17 @@
   display: flex;
   align-items: center;
   min-height: 44px;
-  padding: 8px 0;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-field);
   color: var(--muted);
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 5px;
+  text-decoration: none;
 }
 
 .index a:hover {
+  border-color: var(--border);
+  background: var(--surface);
   color: var(--accent);
-  text-decoration-color: currentColor;
 }
 
 .article {
@@ -63,12 +64,12 @@
 }
 
 .article section {
-  scroll-margin-top: 112px;
+  scroll-margin-top: 104px;
 }
 
 .article section + section {
-  margin-top: 48px;
-  padding-top: 40px;
+  margin-top: 44px;
+  padding-top: 36px;
 }
 
 .article p,
@@ -85,7 +86,7 @@
 }
 
 .article li::marker {
-  color: var(--muted);
+  color: var(--vermilion);
 }
 
 .examples {
@@ -94,7 +95,7 @@
 
 .methodology {
   margin-top: 0;
-  padding: 24px 0;
+  padding: 22px 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -102,6 +103,10 @@
   min-height: 44px;
   color: var(--foreground);
   font-weight: 600;
+}
+
+.methodology summary::marker {
+  color: var(--vermilion);
 }
 
 .methodology p {
@@ -117,7 +122,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  padding-block: 48px 24px;
+  padding-block: 44px 24px;
 }
 
 .nextAction h2 {
@@ -126,7 +131,7 @@
 }
 
 .nextAction p {
-  margin-top: 12px;
+  margin-top: 10px;
   color: var(--muted);
 }
 
@@ -137,7 +142,7 @@
 }
 
 .recovery {
-  padding-block: 96px 64px;
+  padding-block: 88px 64px;
   max-width: 73ch;
 }
 
@@ -171,13 +176,13 @@
 
 @media (max-width: 850px) {
   .header {
-    padding-top: 48px;
+    padding-top: 44px;
     margin-bottom: 24px;
   }
 
   .layout {
     grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
+    gap: 28px;
   }
 
   .index {
@@ -189,8 +194,8 @@
   .index ul {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 24px;
-    row-gap: 4px;
+    column-gap: 10px;
+    row-gap: 6px;
   }
 
   .nextAction {
@@ -203,7 +208,7 @@
 @media (max-width: 600px) {
   .header {
     gap: 16px;
-    padding-block: 40px 28px;
+    padding-block: 36px 24px;
   }
 
   .header h1 {
@@ -215,20 +220,20 @@
   }
 
   .article section + section {
-    margin-top: 40px;
-    padding-top: 32px;
+    margin-top: 36px;
+    padding-top: 28px;
   }
 
   .article h2 {
-    font-size: 23px;
+    font-size: 22px;
   }
 
   .nextAction {
-    padding-top: 40px;
+    padding-top: 36px;
   }
 
   .recovery {
-    padding-block: 64px 40px;
+    padding-block: 60px 40px;
   }
 
   .recovery h1 {

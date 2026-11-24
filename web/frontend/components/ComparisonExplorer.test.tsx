@@ -62,3 +62,13 @@ test("topic changes announce a short status instead of reading both outputs", as
       .closest("[aria-live]"),
   ).toBeNull();
 });
+
+test("topic quick-switch buttons update aria-pressed and selected specimen", async () => {
+  const user = userEvent.setup();
+  render(<ComparisonExplorer cases={cases} />);
+  const secondButton = screen.getByRole("button", { name: "Cộng đồng" });
+  expect(secondButton).toHaveAttribute("aria-pressed", "false");
+  await user.click(secondButton);
+  expect(secondButton).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByText("Đầu ra D")).toBeInTheDocument();
+});

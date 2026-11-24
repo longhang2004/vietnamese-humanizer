@@ -1,6 +1,6 @@
 .page {
   min-width: 0;
-  padding-bottom: 24px;
+  padding-bottom: 32px;
 }
 
 .header {
@@ -8,8 +8,8 @@
   align-items: end;
   justify-content: space-between;
   gap: 40px;
-  padding-block: 64px 40px;
-  margin-bottom: 40px;
+  padding-block: 56px 36px;
+  margin-bottom: 36px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -18,7 +18,7 @@
 }
 
 .header p {
-  margin-top: 20px;
+  margin-top: 16px;
   color: var(--muted);
 }
 
@@ -37,12 +37,12 @@
 
 .choices {
   position: sticky;
-  top: 112px;
+  top: 104px;
   display: grid;
-  gap: 32px;
+  gap: 28px;
   padding: 24px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-panel);
   background: var(--surface);
 }
 
@@ -54,7 +54,7 @@
 
 .choices legend,
 .task label {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   font-size: 14px;
   font-weight: 600;
 }
@@ -67,24 +67,25 @@
 
 .platform {
   min-height: 44px;
-  padding: 12px 8px;
+  padding: 10px 8px;
   border: 1px solid var(--control-border);
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   background: var(--background);
   color: var(--muted);
   font-size: 13px;
   font-weight: 600;
 }
 
-.platform:hover {
+.platform:hover:not(:disabled) {
   border-color: var(--foreground);
   color: var(--foreground);
+  background: var(--surface-raised);
 }
 
 .platform[aria-pressed="true"] {
   border-color: var(--accent);
-  background: var(--surface-raised);
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .task {
@@ -170,8 +171,8 @@
 
 .promptHeading {
   display: grid;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .promptHeading p {
@@ -189,9 +190,13 @@
   font-weight: 600;
 }
 
+/* Archival calico ivory tear-off prompt sheet */
 .promptField {
   min-height: 304px;
   resize: vertical;
+  background: var(--paper);
+  border-color: var(--paper-control-border);
+  color: var(--paper-ink);
   font-size: 15px;
   line-height: 1.8;
 }
@@ -215,7 +220,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: start;
-  gap: 64px;
+  gap: 56px;
   margin-top: 56px;
   padding-top: 32px;
   border-top: 1px solid var(--border);
@@ -236,11 +241,11 @@
 
 .fullGuide p,
 .references p {
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .fullGuide > a {
-  margin-top: 16px;
+  margin-top: 14px;
   font-size: 14px;
   font-weight: 600;
 }
@@ -250,6 +255,10 @@
   color: var(--foreground);
   font-size: 14px;
   font-weight: 600;
+}
+
+.references summary::marker {
+  color: var(--vermilion);
 }
 
 .references ul {
@@ -285,20 +294,20 @@
 
 @media (max-width: 850px) {
   .header {
-    padding-top: 48px;
-    margin-bottom: 32px;
+    padding-top: 44px;
+    margin-bottom: 28px;
   }
 
   .workspace {
     grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
+    gap: 36px;
   }
 
   .choices {
     position: static;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
-    gap: 32px;
+    gap: 28px;
     padding: 24px;
   }
 
@@ -309,8 +318,8 @@
 
 @media (max-width: 600px) {
   .header {
-    gap: 20px;
-    padding-block: 40px 28px;
+    gap: 18px;
+    padding-block: 36px 24px;
   }
 
   .header h1 {
@@ -337,7 +346,7 @@
 
   .setup h2,
   .prompt h2 {
-    font-size: 23px;
+    font-size: 22px;
   }
 
   .promptField {

@@ -24,7 +24,7 @@ Four skills, 49 rule patterns, six specialized writing profiles plus preservatio
 
 ## Brand Commitments
 
-Vietnamese Writing Skills. Direct, natural Vietnamese UI copy. The user explicitly chose a dark interface oriented toward technical users on 04-11-2026. Preserve a usable path for nontechnical readers.
+Vietnamese Writing Skills. Direct, natural Vietnamese UI copy. On 24-11-2026 the user selected the dual-ground archival editorial direction ("Tủ Phiếu Biên Tập & Sơn Mài Kỹ Thuật"): deep archival forest lacquer structural surfaces paired with warm calico ivory specimen sheets for Vietnamese reading and editing, chrome-brass primary actions and proofreader vermilion marks. Preserve a usable path for nontechnical readers.
 
 ## Evidence on Hand
 

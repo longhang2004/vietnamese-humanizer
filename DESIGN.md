@@ -1,32 +1,41 @@
 ---
 name: Vietnamese Writing Skills
-description: A dark workspace for editing Vietnamese with context.
+description: Dual-ground archival editorial cabinet for reviewing and editing Vietnamese with context.
 colors:
-  background: "#0b0f14"
-  surface: "#11171f"
-  surface-raised: "#18212b"
-  border: "#2b3846"
-  control-border: "#566678"
-  foreground: "#eef2f5"
-  muted: "#aab6c4"
-  accent: "#c4ef91"
-  accent-hover: "#d6f6b2"
-  accent-ink: "#14220b"
+  background: "#0b1614"
+  surface: "#11211e"
+  surface-raised: "#182e2a"
+  border: "#25403b"
+  control-border: "#486b64"
+  foreground: "#f2efe6"
+  muted: "#a3b8b1"
+  paper: "#f3efe4"
+  paper-subtle: "#e7e1d1"
+  paper-border: "#c9bfaa"
+  paper-control-border: "#7d7563"
+  paper-ink: "#141c1a"
+  paper-muted: "#44544f"
+  paper-accent: "#184d3b"
+  accent: "#e8c55a"
+  accent-hover: "#f2d57c"
+  accent-ink: "#141a10"
+  vermilion: "#f06b54"
   danger: "#ffb4b8"
-  warning: "#f3cc83"
-  guided-surface: "#141e1b"
+  danger-paper: "#a82419"
+  warning: "#f0c265"
+  guided-surface: "#f3efe4"
 typography:
   display:
     fontFamily: "Be Vietnam Pro, Segoe UI, sans-serif"
-    fontSize: "clamp(48px, 6.2vw, 88px)"
-    fontWeight: 600
-    lineHeight: 1.1
+    fontSize: "clamp(42px, 5vw, 72px)"
+    fontWeight: 700
+    lineHeight: 1.08
     letterSpacing: "-0.035em"
   headline:
     fontFamily: "Be Vietnam Pro, Segoe UI, sans-serif"
-    fontSize: "40px"
+    fontSize: "38px"
     fontWeight: 600
-    lineHeight: 1.25
+    lineHeight: 1.2
     letterSpacing: "-0.03em"
   workspace-heading:
     fontFamily: "Be Vietnam Pro, Segoe UI, sans-serif"
@@ -55,9 +64,9 @@ typography:
     fontWeight: 400
     lineHeight: 1.7
 rounded:
-  field: "8px"
-  button: "9px"
-  panel: "14px"
+  field: "4px"
+  button: "4px"
+  panel: "6px"
 spacing:
   inline-gap: "12px"
   field-block: "11px"
@@ -65,7 +74,7 @@ spacing:
   panel-padding: "24px"
   desktop-gutter: "32px"
   mobile-gutter: "18px"
-  reading-gap: "64px"
+  reading-gap: "56px"
 components:
   button-primary:
     backgroundColor: "{colors.accent}"
@@ -90,144 +99,64 @@ components:
     rounded: "{rounded.panel}"
 ---
 
-# Design System: Vietnamese Writing Skills
+# Design System: Vietnamese Writing Skills (v2 — Archival Specimen Cabinet)
 
 ## Overview
 
-**Creative North Star: "A dark workspace for Vietnamese writing"**
+**Creative North Star: "Tủ Phiếu Biên Tập & Sơn Mài Kỹ Thuật"**
 
-The user selected a dark interface aimed at technical users on 04 November 2026 and retained that identity for the layout refactor. Readable Vietnamese, actual output examples and a clear path into the editor remain the focus. Graphite surfaces and a pale lime accent establish the visual identity.
-
-The shared system supports wide working regions and controlled reading measures. Rules, aligned rows and restrained tonal changes organize the content; native controls and direct labels keep the same interface usable for nontechnical readers. Surface-specific composition is recorded in the briefs under `.impeccable/surfaces/`.
+On 24 November 2026 the user selected a dual-ground archival editorial direction to give the product a distinct personality beyond standard SaaS dark-mode templates. Structural navigation, rule drawers, and inspector columns sit on **deep archival lacquer forest** (`background` / `surface`), while the Vietnamese writing sheets, skill-guided specimens, and blind A/B comparison plates sit on **warm archival calico paper** (`paper`) with crisp carbon ink (`paper-ink`). Chrome brass (`accent`) anchors primary actions and structural index lines; vermilion (`vermilion` / `danger-paper`) marks active editorial proof points and deletions.
 
 **Key Characteristics:**
 
-- Dark canvas, flat surfaces and visible borders.
-- Vietnamese typography with commands in monospace.
-- Direct labels and progressive disclosure.
-- Native controls, visible focus and generous touch targets.
+- **Dual-ground contrast:** dark archival forest framing vs. high-legibility ivory paper specimen sheets.
+- **Sharp editorial joinery:** 4px/6px crisp architectural corners, 1px hairline rules, flat elevation (no shadows).
+- **Asymmetric first viewport on landing:** editorial headline + actions alongside the interactive comparison specimen inside the opening desktop viewport.
+- **Native ergonomics & progressive enhancement:** `@view-transition` cross-document fades, CSS `:has()` state styling, container-query comparison reflow, 44px interaction targets, and reduced-motion safeguards.
 
 ## Colors
 
-The frontmatter records the canonical colors from `web/frontend/app/globals.css`. The palette combines graphite layers with pale lime task emphasis.
+Canonical tokens live in `web/frontend/app/globals.css`. Contrast stays >= 4.5:1 across both dark cabinet planes and light paper sheets:
 
-### Primary
+### Cabinet Planes (Dark Archival Lacquer Forest)
 
-- **Pale lime** (`accent`): primary actions, focused controls, selected checks and links; the lighter hover variant provides state feedback.
-- **Lime ink** (`accent-ink`): dark lettering on lime fills and selection highlights.
+- **Deep lacquer canvas** (`background`): `#0b1614` page frame and sunken input beds inside dark drawers.
+- **Cabinet surface** (`surface`) and **raised drawer** (`surface-raised`): `#11211e` and `#182e2a` for inspection columns, navigation states, and unguided baseline specimens.
+- **Cabinet borders** (`border`, `control-border`): `#25403b` and `#486b64` hairline rules.
+- **Ivory reading white** (`foreground`) and **sage slate** (`muted`): `#f2efe6` and `#a3b8b1`.
 
-### Neutral
+### Specimen Planes (Archival Calico Paper)
 
-- **Graphite canvas** (`background`): the page and text-entry background.
-- **Graphite surface** (`surface`) and **raised graphite** (`surface-raised`): working regions and hover or active surfaces.
-- **Quiet border** (`border`) and **control border** (`control-border`): content separators and clearly identifiable interactive boundaries.
-- **Reading white** (`foreground`) and **muted slate** (`muted`): primary text and supporting copy.
-- **Guided graphite** (`guided-surface`): the subtle green-tinted background of the skill-loaded comparison output. It identifies the condition without declaring a winner.
+- **Specimen paper** (`paper`) and **paper tray** (`paper-subtle`): `#f3efe4` and `#e7e1d1` for `/check` drafting sheet, `/start` copyable prompt card, guided output comparison specimen, and neutral `/review` Output A & B sheets.
+- **Carbon ink** (`paper-ink`), **charcoal sage** (`paper-muted`), **forest link ink** (`paper-accent`), **paper rules** (`paper-border`, `paper-control-border`): `#141c1a`, `#44544f`, `#184d3b`, `#c9bfaa`, and `#7d7563`.
 
-Warning and danger colors accompany explicit text labels; color does not carry the finding type alone.
+### Editorial Accents & Status
 
-**The Evidence Rule.** Comparison emphasis distinguishes the two recorded conditions; it must not imply a measured quality advantage.
+- **Chrome brass** (`accent`, `accent-hover`, `accent-ink`): `#e8c55a`, `#f2d57c`, `#141a10`.
+- **Proofreader vermilion & semantic alerts**: `#f06b54` / `#ffb4b8` on dark; `#a82419` (`danger-paper`) on ivory paper; `#f0c265` (`warning`).
+
+**The Evidence Rule.** On `/examples` and `/`, dual-ground contrast distinguishes the baseline run from the skill-loaded run without claiming a quality score. On `/review`, both blind outputs (`a` and `b`) share the exact same archival ivory paper treatment so visual weight remains strictly unbiased.
 
 ## Typography
 
-**Display and Body Font:** self-hosted Be Vietnam Pro, with Segoe UI and sans-serif fallbacks. The shipped weights are 400, 600 and 700, including Vietnamese glyphs; licenses sit beside the font files.
-**Label/Mono Font:** Be Vietnam Pro for labels; self-hosted JetBrains Mono for commands, identifiers and measurements.
+- **Display and Body Font:** self-hosted Be Vietnam Pro (400, 600, 700) with full Vietnamese diacritic legibility.
+- **Technical Identifiers & Commands:** self-hosted JetBrains Mono (`13px`) restricted strictly to skill IDs, CLI install commands, pattern codes, line/column locations, and numeric counts.
+- **Measures & Hierarchy:** display headline scales `clamp(42px, 5vw, 72px)` (`fontWeight: 700`, `-0.035em`); route headings use `38px`; workspace headings use `2rem`; reading copy stays within `73ch` at `1.85` line height; textarea editing uses `1.75` line height.
 
-### Hierarchy
+## Layout & Breakpoints
 
-- **Display:** the landing heading uses the frontmatter clamp, with a compact-tablet override (64px at and below 960px) and mobile override (48px at and below 600px).
-- **Headline:** reading and onboarding route headings use the headline token, reducing to 32px at and below 600px. Checker and contribution headings use the workspace-heading token, reducing to 1.75rem at that breakpoint.
-- **Section heading:** landing sections scale between 28px and 36px; reading sections use 26px, reducing to 23px on mobile. Workspace region titles use 1.25rem, reducing to 1.125rem on mobile.
-- **Body:** the body token establishes the base rhythm. Reading copy and comparison outputs use the reading token; editor text uses a 1.75 line height. Reading articles are limited to 73ch.
-- **Label:** the label token defines shared action text. Supporting labels and metadata commonly use 14px; commands remain 13px and wrap within their control.
+- Shared container max-width: `1320px` with `32px` desktop gutters (`18px` at and below `600px`).
+- **Home Opening Stage (`.home-stage`):** 12-column asymmetric split (`minmax(0, 5fr)` editorial column + `minmax(0, 7fr)` live `ComparisonExplorer` specimen) above `1100px`, stacking cleanly into single column below `1100px`. `.comparison-explorer` uses `container-type: inline-size` so its internal 2-column outputs stack automatically whenever container width drops below `640px`.
+- **Capabilities & Use Ledger:** `.home-capabilities` uses ruled rows; `.use-section` places the highlighted ivory web-workspace sheet (`7fr`) beside stacked dark cabinet drawers (`5fr`) for chatbot packs and CLI agent installation.
+- **Workspace (`/check` & `/contribute`):** dual-ground workbench putting the ivory drafting `Editor` (`#f3efe4`) directly alongside the dark lacquer findings column (`#11211e`), with optional capability-gated `RewritePanel` below comparing original draft (dark surface) with proposed rewrite (ivory paper + inline `<del>`/`<ins>` diff).
+- **Onboarding (`/start`):** sticky dark cabinet rail beside setup instructions and ivory tear-off prompt sheet.
+- **Reading (`/examples`, `/guide`, `/about`):** dual-column editorial index + `73ch` prose layout.
+- **Blind Review (`/review`):** archival cabinet frame with balanced dual ivory specimen sheets for Output A and Output B.
 
-**The Vietnamese Reading Rule.** Preserve Vietnamese glyph coverage, comfortable line height and the original line breaks of published output examples.
+## Elevation, Motion & Controls
 
-## Layout
+- Strictly flat architecture: zero box-shadows, 1px hairline borders only, crisp `4px`/`6px` corners.
+- Progressive cross-document `@view-transition { navigation: auto; }` gated inside `@media (prefers-reduced-motion: no-preference)`.
+- Controls keep >= 44px touch height, native `<details>`/`<select>`/`<input>` semantics, CSS `:has(:checked)` selection states, and visible `2px` focus outlines (`4px` offset).
 
-The shared container is at most 1280px wide. Main content, header and footer use the desktop-gutter token on each side, switching to the mobile-gutter token at and below 600px. Grid children and command controls can shrink; long commands wrap instead of widening the page.
-
-The landing page uses a two-column heading and summary, then a full-width real comparison, followed by rule-separated capability, use and FAQ rows. The hero has 64px top and 52px bottom padding on desktop; later editorial sections use 56px top and 64px bottom padding. At and below 960px, the hero, capability and FAQ regions become one column. At and below 600px, the hero uses 36px/32px padding and later sections use 36px/40px.
-
-Checker source and findings occupy one bordered workbench with equal columns and a shared divider. The optional rewrite region follows beneath that pair. Contribution forms pair original and proposed text, then supporting fields and consent. Working regions use the panel-padding token, reducing to 20px on mobile. Feedback stays beside its action or in the result region.
-
-Onboarding uses a sticky selection rail (304px) beside setup and prompt content, with a 48px gap. Reading routes use a sticky index (220px) beside a 73ch article, with the reading-gap token. These are module layouts with their own responsive behavior.
-
-| Source and scope | Breakpoint | Implemented change |
-| --- | --- | --- |
-| Shared styles | 1100px | Compact navigation spacing, landing gaps and capability-row detail columns. |
-| Shared navigation and landing | 960px | Navigation becomes a disclosure; hero, capability and FAQ regions stack; use rows become two columns. |
-| Shared legacy reading primitives | 960px | The shared prose layout becomes one column; the route reading module below defines its current index behavior. |
-| Comparison explorer | 780px | Toolbar reflows, paired outputs stack, and provenance becomes vertical. |
-| Shared styles | 600px | Mobile gutters, 48px hero, full-width hero actions, single-column use rows and compact footer. |
-| Workspace module | 1100px | Check choices use one column inside the side-by-side workbench; rewrite options retain two columns. |
-| Workspace module | 850px | Source and findings stack; the check-choice grid returns to two columns in the wider stacked source region. |
-| Workspace module | 600px | Text pairs, checks and supplemental fields stack; padding reduces and applicable submit actions fill the width. |
-| Onboarding module | 1100px | Selection rail narrows to 280px with a 32px gap; heading and supporting link stack. |
-| Onboarding module | 850px | Rail becomes a static two-column choice region above setup. |
-| Onboarding module | 600px | Choices and support stack; task selection uses 16px text. |
-| Reading module | 1100px | Header stacks; index narrows to 192px and gap to 40px. |
-| Reading module | 850px | Index becomes a compact wrapping list above the article; next actions stack. |
-| Reading module | 600px | Header and section spacing compact; recovery heading reduces to 32px. |
-
-## Elevation & Depth
-
-The interface is flat: borders and tonal layers provide separation, with no box-shadow vocabulary. The sticky header is opaque. Shared controls use 160ms ease transitions for text, background and border colors. Reduced-motion preferences disable animations and transitions; the current landing page has no entrance animation.
-
-**The Flat Workbench Rule.** Use shared boundaries and tonal changes to organize working regions; avoid stacking decorative cards inside them.
-
-## Shapes
-
-Fields, filter chips and navigation states use the field radius; buttons use the button radius, and enclosing workbenches, comparison and onboarding panels use the panel radius. Borders are 1px. Text highlights use a small 2px radius; the system does not apply large pill shapes to controls.
-
-Actions and disclosures provide at least 44px touch targets; primary and secondary buttons are at least 46px high. Prose links remain text links.
-
-## Components
-
-### Buttons
-
-Primary actions have a pale lime fill and dark text, with a lighter hover fill. Secondary actions have a control border and transparent fill, changing to raised graphite on hover. Icon buttons are 44px square. All share visible focus (2px lime outline, 4px offset). Disabled buttons use 0.5 opacity and a disabled cursor.
-
-### Inputs / Fields
-
-Shared fields have a graphite canvas, control border, field radius and 16px type. The checker textarea uses 16px internal padding and a 1.75 line height. Placeholders remain readable; carets and native checkbox/radio accents use lime. Onboarding uses the same field primitive, with its task selector adapting to the compact rail.
-
-### Navigation
-
-The sticky header uses opaque graphite. Hover and active links use foreground text on raised graphite. At the navigation breakpoint the menu is a disclosure; Escape closes it and returns focus to its toggle. GitHub stars are loaded from the public API and omitted when unavailable.
-
-### Chips / Findings
-
-Finding filters are compact rectangular buttons with a 44px minimum height; selected filters use a lime border and text on the canvas background. Findings are separated by rules, with type labels, counts, location metadata, excerpts and optional native explanations.
-
-### Cards / Containers
-
-The panel primitive is a single flat, bordered enclosing surface. The comparison explorer uses it around a toolbar, paired outputs, prompt disclosure and provenance. A topic change updates both outputs and prompt together, and announces the topic. Heading levels follow the embedding page.
-
-### Editorial Workbench
-
-The checker keeps source and findings in one continuous working region, followed by capability-gated rewriting. All four checks start enabled and live in a native disclosure above the submit action. Text edits and changed checks invalidate old results and pending responses. Contributions keep original and proposed text together, with explicit consent; optional features remain gated by backend capabilities.
-
-### Selection and Reading
-
-Onboarding separates platform/task choice from setup and the copyable request. The reading index links to sections within the controlled article measure. Install commands wrap in monospace and place their copy button and announced confirmation beside the command. Copy and submission feedback remain adjacent to the relevant action.
-
-## Do's and Don'ts
-
-### Do:
-
-- **Do** keep the user's text and current task prominent.
-- **Do** keep outputs verbatim and link their prompts and skill snapshot.
-- **Do** use existing semantic colors, self-hosted fonts and native controls.
-- **Do** preserve visible focus, reduced-motion behavior and minimum action targets.
-- **Do** use the documented breakpoint for the affected module rather than assuming one global stacking threshold.
-- **Do** review desktop, tablet and 375px mobile layouts, including loading, error and empty states.
-
-### Don't:
-
-- **Don't** invent scores, stars or claims that a skill always improves output.
-- **Don't** put persistent supporting notices above the main task.
-- **Don't** add decorative metrics, gradient lettering or translucent panels to this design.
-- **Don't** promote surface-specific composition into a rule for every page.
-
-Design references: [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/dd9a1b4cf9f67ca2e326f646d93e101b2778db30), [Impeccable 4.8.0](https://github.com/pbakaus/impeccable/tree/c8891a9ae865d6ee311836ae5199bfce0fe115b1). See [PRODUCT.md](PRODUCT.md), the [surface briefs](.impeccable/surfaces/) and the [frontend README](web/frontend/README.md).
+Design references: [GoogleChrome/modern-web-guidance](https://github.com/googlechrome/modern-web-guidance), [Impeccable 4.8.0](https://github.com/pbakaus/impeccable/tree/c8891a9ae865d6ee311836ae5199bfce0fe115b1), [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/dd9a1b4cf9f67ca2e326f646d93e101b2778db30). See [PRODUCT.md](PRODUCT.md) and [.impeccable/surfaces/](.impeccable/surfaces/).
