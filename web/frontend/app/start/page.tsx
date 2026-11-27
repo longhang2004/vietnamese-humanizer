@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { GettingStarted } from "../../components/GettingStarted";
+import { InstallCommand } from "../../components/InstallCommand";
 
 export const metadata: Metadata = {
   title: "Dùng trong chatbot",
@@ -9,5 +10,19 @@ export const metadata: Metadata = {
 };
 
 export default function StartPage() {
-  return <GettingStarted />;
+  return (
+    <>
+      <GettingStarted />
+      <section className="start-cli-band" aria-labelledby="start-cli-title">
+        <div className="start-cli-copy">
+          <h2 id="start-cli-title">Dùng trong AI agent dòng lệnh?</h2>
+          <p>
+            Cài nhanh vào Cursor, Claude Code, Codex, Antigravity hoặc Windsurf
+            bằng một dòng lệnh <code>npx skills</code>.
+          </p>
+        </div>
+        <InstallCommand allowSkillSelect />
+      </section>
+    </>
+  );
 }

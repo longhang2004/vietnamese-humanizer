@@ -30,10 +30,13 @@ export default function HomePage() {
                 Dùng trong chatbot
               </Link>
             </div>
-            <p className="home-facts">
-              4 skill chuyên biệt · 49 quy tắc soát · 103 ví dụ có rà bảo toàn
-            </p>
           </div>
+          <div className="home-install">
+            <InstallCommand variant="hero" label="Cài trực tiếp vào AI agent" />
+          </div>
+          <p className="home-facts">
+            4 skill chuyên biệt · 49 quy tắc soát · 103 ví dụ có rà bảo toàn
+          </p>
         </div>
 
         <div
@@ -126,7 +129,7 @@ export default function HomePage() {
                   <Icon name="external" width="15" height="15" />
                 </a>
               </div>
-              <InstallCommand />
+              <InstallCommand allowSkillSelect />
             </article>
           </div>
         </div>
