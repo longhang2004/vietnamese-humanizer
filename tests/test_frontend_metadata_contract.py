@@ -20,7 +20,10 @@ def read_root_project() -> dict[str, object]:
 def test_frontend_uses_canonical_branding_without_a_runtime_version() -> None:
     layout = (FRONTEND / "app" / "layout.tsx").read_text(encoding="utf-8")
     package = json.loads((FRONTEND / "package.json").read_text(encoding="utf-8"))
-    package_lock = json.loads((FRONTEND / "package-lock.json").read_text(encoding="utf-8"))
+    pnpm_lock_path = FRONTEND / "pnpm-lock.yaml"
+    assert pnpm_lock_path.is_file()
+    assert not (FRONTEND / "package-lock.json").exists()
+    pnpm_lock = pnpm_lock_path.read_text(encoding="utf-8")
     root_project = read_root_project()
 
     assert root_project["name"] == "vietnamese-writing-skills"
@@ -40,7 +43,7 @@ def test_frontend_uses_canonical_branding_without_a_runtime_version() -> None:
     assert f'v{root_project["version"]}' not in layout
 
     assert "version" not in package
-    assert "version" not in package_lock["packages"][""]
+    assert re.search(r"^version:", pnpm_lock, re.MULTILINE) is None
 
 
 def test_render_blueprint_allows_the_published_frontend_origin() -> None:

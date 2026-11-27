@@ -67,13 +67,13 @@ vietnamese-humanizer/
 
 ## Chạy web app trên máy cá nhân
 
-Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và npm. Từ source checkout, lệnh khởi động chính là:
+Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và pnpm 10 trở lên. Từ source checkout, lệnh khởi động chính là:
 
 ```bash
 python3 scripts/dev.py demo
 ```
 
-Lệnh này kiểm tra điều kiện trên máy, tạo hoặc sửa `.venv`, cài package phát triển cho root và backend, chạy `npm ci`, rồi khởi động backend và frontend. Có thể chạy lại lệnh này. Mở `http://localhost:3000`; nhấn Ctrl-C để dừng cả hai server.
+Lệnh này kiểm tra điều kiện trên máy, tạo hoặc sửa `.venv`, cài package phát triển cho root và backend, chạy `pnpm install --frozen-lockfile`, rồi khởi động backend và frontend. Có thể chạy lại lệnh này. Mở `http://localhost:3000`; nhấn Ctrl-C để dừng cả hai server.
 
 Demo local chủ động tắt tính năng viết lại, nhận đóng góp và quản trị. Linter vẫn hoạt động mà không cần credential của nhà cung cấp hay cơ sở dữ liệu. Xem [hướng dẫn web](web/README.md) để biết biến môi trường theo tính năng và [hướng dẫn maintainer](docs/maintainer-guide.md) để kiểm tra repository, phát hành.
 

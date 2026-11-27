@@ -67,13 +67,13 @@ vietnamese-humanizer/
 
 ## Run the web app locally
 
-Python 3.11+, Node.js 20.9+, and npm are required. From a source checkout, the primary quickstart is:
+Python 3.11+, Node.js 20.9+, and pnpm 10+ are required. From a source checkout, the primary quickstart is:
 
 ```bash
 python3 scripts/dev.py demo
 ```
 
-The command checks the local prerequisites, creates or repairs `.venv`, installs the root and backend development packages, runs `npm ci`, and starts the backend and frontend. It is safe to run again. Open `http://localhost:3000`; press Ctrl-C to stop both servers.
+The command checks the local prerequisites, creates or repairs `.venv`, installs the root and backend development packages, runs `pnpm install --frozen-lockfile`, and starts the backend and frontend. It is safe to run again. Open `http://localhost:3000`; press Ctrl-C to stop both servers.
 
 The local demo intentionally disables rewrite, contribution, and admin capabilities. Lint remains available without provider credentials or a database. See the [web guide](web/README.md) for capability-specific environment variables and the [maintainer guide](docs/maintainer-guide.md) for repository checks and release work.
 

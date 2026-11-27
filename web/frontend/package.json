@@ -1,11 +1,12 @@
 {
   "name": "vietnamese-writing-skills-frontend",
   "private": true,
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npm run format:check && eslint . && npm run ui:check",
+    "lint": "pnpm run format:check && eslint . && pnpm run ui:check",
     "test": "vitest run",
     "format": "prettier --write app components lib \"*.config.{js,ts,mjs}\"",
     "format:check": "prettier --check app components lib \"*.config.{js,ts,mjs}\"",

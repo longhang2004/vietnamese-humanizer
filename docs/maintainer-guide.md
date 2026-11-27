@@ -4,13 +4,13 @@ This guide covers the commands and safety boundaries implemented in the reposito
 
 ## Local development
 
-Install Python 3.11+, Node.js 20+, and npm. The primary quickstart is:
+Install Python 3.11+, Node.js 20+, and pnpm 10+. The primary quickstart is:
 
 ```bash
 python3 scripts/dev.py demo
 ```
 
-`demo` runs the prerequisite check and the idempotent setup before starting the backend on port 8000 and the frontend on port 3000. It creates or repairs `.venv`, installs root and backend development dependencies, and runs `npm ci`. It forces rewrite, contributions, and admin off so the deterministic linter can be exercised without provider credentials or a database. Press Ctrl-C to stop both child processes.
+`demo` runs the prerequisite check and the idempotent setup before starting the backend on port 8000 and the frontend on port 3000. It creates or repairs `.venv`, installs root and backend development dependencies, and runs `pnpm install --frozen-lockfile`. It forces rewrite, contributions, and admin off so the deterministic linter can be exercised without provider credentials or a database. Press Ctrl-C to stop both child processes.
 
 Useful individual commands are:
 

@@ -40,7 +40,7 @@ _PACKAGE_DATA_CHECK = (
     "assert root.joinpath('benchmarks/case.schema.json').is_file(); "
     "assert root.joinpath('skills/humanizer-vi/SKILL.md').is_file()"
 )
-_NPM_UNRESOLVED = object()
+_PNPM_UNRESOLVED = object()
 
 
 class DevError(RuntimeError):
@@ -420,8 +420,8 @@ class Services:
         default_factory=lambda: tuple(sys.version_info[:3])
     )
     platform_name: str = os.name
-    _npm_command: tuple[str, ...] | None | object = field(
-        default=_NPM_UNRESOLVED,
+    _pnpm_command: tuple[str, ...] | None | object = field(
+        default=_PNPM_UNRESOLVED,
         init=False,
         repr=False,
     )
@@ -448,32 +448,32 @@ def _tool_version(services: Services, argv: list[str]) -> str | None:
     return result.stdout.strip()
 
 
-def _npm_argv(services: Services, *arguments: str) -> list[str]:
-    if services._npm_command is _NPM_UNRESOLVED:
-        npm_name = "npm.cmd" if services.platform_name == "nt" else "npm"
-        npm_executable = services.which(npm_name)
-        if npm_executable is None:
-            services._npm_command = None
+def _pnpm_argv(services: Services, *arguments: str) -> list[str]:
+    if services._pnpm_command is _PNPM_UNRESOLVED:
+        pnpm_name = "pnpm.cmd" if services.platform_name == "nt" else "pnpm"
+        pnpm_executable = services.which(pnpm_name)
+        if pnpm_executable is None:
+            services._pnpm_command = None
         elif services.platform_name == "nt":
             command_interpreter = services.which("cmd.exe")
-            services._npm_command = (
+            services._pnpm_command = (
                 (
                     command_interpreter,
                     "/d",
                     "/s",
                     "/c",
                     "call",
-                    npm_executable,
+                    pnpm_executable,
                 )
                 if command_interpreter is not None
                 else None
             )
         else:
-            services._npm_command = (npm_executable,)
+            services._pnpm_command = (pnpm_executable,)
 
-    if services._npm_command is None:
-        raise DevError("npm is required.")
-    return [*services._npm_command, *arguments]
+    if services._pnpm_command is None:
+        raise DevError("pnpm is required.")
+    return [*services._pnpm_command, *arguments]
 
 
 def doctor(services: Services) -> int:
@@ -492,11 +492,11 @@ def doctor(services: Services) -> int:
         problems.append("Node 20.9 or newer is required.")
 
     try:
-        npm_version = _tool_version(services, _npm_argv(services, "--version"))
+        pnpm_version = _tool_version(services, _pnpm_argv(services, "--version"))
     except DevError:
-        npm_version = None
-    if npm_version is None:
-        problems.append("npm is required.")
+        pnpm_version = None
+    if pnpm_version is None:
+        problems.append("pnpm is required.")
 
     for port in (BACKEND_PORT, FRONTEND_PORT):
         if not services.port_available(SERVER_HOST, port):
@@ -573,7 +573,11 @@ def setup(services: Services) -> int:
         ],
         cwd=services.root,
     )
-    _run_checked(services, _npm_argv(services, "ci"), cwd=services.root / "web" / "frontend")
+    _run_checked(
+        services,
+        _pnpm_argv(services, "install", "--frozen-lockfile"),
+        cwd=services.root / "web" / "frontend",
+    )
     _print(services, "Development dependencies are installed.")
     return 0
 
@@ -670,9 +674,9 @@ def check(services: Services) -> int:
     remaining_commands = [
         ([python, "-m", "ruff", "check", "."], backend),
         ([python, "-m", "pytest"], backend),
-        (_npm_argv(services, "run", "lint"), frontend),
-        (_npm_argv(services, "exec", "tsc", "--", "--noEmit"), frontend),
-        (_npm_argv(services, "run", "build"), frontend),
+        (_pnpm_argv(services, "run", "lint"), frontend),
+        (_pnpm_argv(services, "exec", "tsc", "--noEmit"), frontend),
+        (_pnpm_argv(services, "run", "build"), frontend),
     ]
     for argv, cwd in remaining_commands:
         _run_checked(services, argv, cwd=cwd)
@@ -765,10 +769,9 @@ def _start_servers(services: Services) -> list[Any]:
         ),
         (
             [
-                *_npm_argv(services),
+                *_pnpm_argv(services),
                 "run",
                 "dev",
-                "--",
                 "--hostname",
                 SERVER_HOST,
                 "--port",
@@ -1002,7 +1005,7 @@ def smoke(services: Services, *, skip_setup: bool = False) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Develop and verify the local web application.")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    subparsers.add_parser("doctor", help="Check Python, Node, npm, and local ports.")
+    subparsers.add_parser("doctor", help="Check Python, Node, pnpm, and local ports.")
     subparsers.add_parser("setup", help="Install Python and frontend dependencies.")
     for name, help_text in (
         ("demo", "Set up and run the local web application."),

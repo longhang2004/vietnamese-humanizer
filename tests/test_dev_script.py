@@ -13,8 +13,8 @@ import pytest
 from vietnamese_writing_skills.cli import dev
 
 ROOT = Path(__file__).resolve().parents[1]
-POSIX_NPM = "/opt/node/bin/npm"
-WINDOWS_NPM = r"C:\Program Files\nodejs\npm.cmd"
+POSIX_PNPM = "/opt/node/bin/pnpm"
+WINDOWS_PNPM = r"C:\Program Files\nodejs\pnpm.cmd"
 WINDOWS_COMMAND_INTERPRETER = r"C:\Windows\System32\cmd.exe"
 
 
@@ -49,8 +49,8 @@ def _tool_runner(calls):
         calls.append((argv, kwargs))
         if argv[0] == "node":
             return _completed("v20.15.0\n")
-        if argv[0].endswith(("npm", "npm.cmd")) and argv[1:] == ["--version"]:
-            return _completed("10.7.0\n")
+        if argv[0].endswith(("pnpm", "pnpm.cmd")) and argv[1:] == ["--version"]:
+            return _completed("10.13.1\n")
         return _completed()
 
     return run
@@ -78,8 +78,8 @@ def _services(tmp_path, **overrides):
         "windows_resume_process": lambda _process: None,
         "register_process": lambda processes, process: processes.append(process),
         "which": lambda executable: {
-            "npm": POSIX_NPM,
-            "npm.cmd": WINDOWS_NPM,
+            "pnpm": POSIX_PNPM,
+            "pnpm.cmd": WINDOWS_PNPM,
             "cmd.exe": WINDOWS_COMMAND_INTERPRETER,
         }.get(executable),
         "output": io.StringIO(),
@@ -102,52 +102,56 @@ def test_doctor_checks_versions_tools_and_both_ports_without_a_shell(tmp_path):
     assert dev.doctor(services) == 0
     assert [call[0] for call in calls] == [
         ["node", "--version"],
-        [POSIX_NPM, "--version"],
+        [POSIX_PNPM, "--version"],
     ]
     assert all(call[1]["shell"] is False for call in calls)
     assert ports == [("127.0.0.1", 8000), ("127.0.0.1", 3000)]
     assert "ready" in services.output.getvalue().lower()
 
 
-def test_npm_command_resolves_absolute_posix_executable_once(tmp_path):
+def test_pnpm_command_resolves_absolute_posix_executable_once(tmp_path):
     resolutions = []
     services = _services(
         tmp_path,
-        which=lambda executable: resolutions.append(executable) or POSIX_NPM,
+        which=lambda executable: resolutions.append(executable) or POSIX_PNPM,
     )
 
-    assert dev._npm_argv(services, "--version") == [POSIX_NPM, "--version"]
-    assert dev._npm_argv(services, "run", "lint") == [POSIX_NPM, "run", "lint"]
-    assert resolutions == ["npm"]
+    assert dev._pnpm_argv(services, "--version") == [POSIX_PNPM, "--version"]
+    assert dev._pnpm_argv(services, "run", "lint") == [POSIX_PNPM, "run", "lint"]
+    assert resolutions == ["pnpm"]
 
 
-def test_npm_command_uses_resolved_command_interpreter_for_windows_batch(tmp_path):
+def test_pnpm_command_uses_resolved_command_interpreter_for_windows_batch(tmp_path):
     resolutions = []
 
     def which(executable):
         resolutions.append(executable)
         return {
-            "npm.cmd": WINDOWS_NPM,
+            "pnpm.cmd": WINDOWS_PNPM,
             "cmd.exe": WINDOWS_COMMAND_INTERPRETER,
         }.get(executable)
 
     services = _services(tmp_path, platform_name="nt", which=which)
 
-    assert dev._npm_argv(services, "run", "lint") == [
+    assert dev._pnpm_argv(services, "run", "lint") == [
         WINDOWS_COMMAND_INTERPRETER,
         "/d",
         "/s",
         "/c",
         "call",
-        WINDOWS_NPM,
+        WINDOWS_PNPM,
         "run",
         "lint",
     ]
-    assert dev._npm_argv(services, "ci")[-2:] == [WINDOWS_NPM, "ci"]
-    assert resolutions == ["npm.cmd", "cmd.exe"]
+    assert dev._pnpm_argv(services, "install", "--frozen-lockfile")[-3:] == [
+        WINDOWS_PNPM,
+        "install",
+        "--frozen-lockfile",
+    ]
+    assert resolutions == ["pnpm.cmd", "cmd.exe"]
 
 
-def test_doctor_reports_missing_npm_without_attempting_provider_command(tmp_path):
+def test_doctor_reports_missing_pnpm_without_attempting_provider_command(tmp_path):
     calls = []
     services = _services(
         tmp_path,
@@ -157,7 +161,7 @@ def test_doctor_reports_missing_npm_without_attempting_provider_command(tmp_path
 
     assert dev.doctor(services) == 1
     assert [call[0] for call in calls] == [["node", "--version"]]
-    assert "[fail] npm is required." in services.output.getvalue()
+    assert "[fail] pnpm is required." in services.output.getvalue()
 
 
 def test_doctor_reports_every_failed_prerequisite(tmp_path):
@@ -177,7 +181,7 @@ def test_doctor_reports_every_failed_prerequisite(tmp_path):
     report = services.output.getvalue()
     assert "Python 3.11" in report
     assert "Node 20.9" in report
-    assert "npm" in report
+    assert "pnpm" in report
     assert "3000" in report
 
 
@@ -211,7 +215,7 @@ def test_setup_creates_venv_installs_both_editables_and_frontend(tmp_path):
         "web/backend[dev]",
         "twine>=5,<7",
     ]
-    assert calls[2][0] == [POSIX_NPM, "ci"]
+    assert calls[2][0] == [POSIX_PNPM, "install", "--frozen-lockfile"]
     assert calls[2][1]["cwd"] == tmp_path / "web" / "frontend"
     assert all(call[1]["shell"] is False for call in calls)
 
@@ -336,9 +340,9 @@ def test_check_runs_core_backend_and_frontend_command_set(tmp_path):
     assert commands[21:] == [
         [sys.executable, "-m", "ruff", "check", "."],
         [sys.executable, "-m", "pytest"],
-        [POSIX_NPM, "run", "lint"],
-        [POSIX_NPM, "exec", "tsc", "--", "--noEmit"],
-        [POSIX_NPM, "run", "build"],
+        [POSIX_PNPM, "run", "lint"],
+        [POSIX_PNPM, "exec", "tsc", "--noEmit"],
+        [POSIX_PNPM, "run", "build"],
     ]
     assert [call[1]["cwd"] for call in calls[:21]] == [tmp_path] * 21
     assert [call[1]["cwd"] for call in calls[21:23]] == [
@@ -595,10 +599,9 @@ def test_demo_starts_with_argv_lists_and_cleans_up_both_servers_on_interrupt(tmp
         "8000",
     ]
     assert popen_calls[1][0] == [
-        POSIX_NPM,
+        POSIX_PNPM,
         "run",
         "dev",
-        "--",
         "--hostname",
         "127.0.0.1",
         "--port",
@@ -639,10 +642,9 @@ def test_windows_servers_use_new_process_groups_without_start_new_session(tmp_pa
         "/s",
         "/c",
         "call",
-        WINDOWS_NPM,
+        WINDOWS_PNPM,
         "run",
         "dev",
-        "--",
         "--hostname",
         "127.0.0.1",
         "--port",
@@ -924,7 +926,7 @@ def test_demo_runs_setup_by_default(tmp_path):
 
     assert dev.demo(services) == 0
     assert any(call[0][1:3] == ["-m", "venv"] for call in calls)
-    assert any(call[0] == [POSIX_NPM, "ci"] for call in calls)
+    assert any(call[0] == [POSIX_PNPM, "install", "--frozen-lockfile"] for call in calls)
 
 
 class Clock:

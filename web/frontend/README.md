@@ -22,7 +22,7 @@ Comparison inputs and raw outputs live in [the research record](../../docs/resea
 
 1. Install dependencies:
    ```bash
-   npm install
+   pnpm install --frozen-lockfile
    ```
 
 2. Copy local environment settings:
@@ -32,7 +32,7 @@ Comparison inputs and raw outputs live in [the research record](../../docs/resea
 
 3. Run the development server:
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
    The web app will open at `http://localhost:3000`.
@@ -40,22 +40,22 @@ Comparison inputs and raw outputs live in [the research record](../../docs/resea
 ## Production Build
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ## Checks
 
 ```bash
-npm run format
-npm run lint
-npm test
-npx tsc --noEmit
+pnpm run format
+pnpm run lint
+pnpm test
+pnpm exec tsc --noEmit
 ```
 
-`npm run lint` checks formatting, ESLint and the pinned Impeccable source detector. `npm run ui:check` runs the detector alone. Generated comparison content and user downloads are kept outside the formatter's source scope.
+`pnpm run lint` checks formatting, ESLint and the pinned Impeccable source detector. `pnpm run ui:check` runs the detector alone. Generated comparison content and user downloads are kept outside the formatter's source scope.
 
 ## Project-local design skills
 
 The complete Impeccable 4.8.0 skill and command references are installed in [`.agents/skills/impeccable`](../../.agents/skills/impeccable/UPSTREAM.md), pinned to upstream commit `c8891a9ae865d6ee311836ae5199bfce0fe115b1`. Its Apache-2.0 license and NOTICE are included. Codex discovers the local skill on the next turn; contributors should read [AGENTS.md](../../AGENTS.md) before UI work.
 
-Route strategy is stored in `.impeccable/surfaces/`. The shared visual system remains in `DESIGN.md`. Impeccable and Prettier are development tools pinned in `package-lock.json`.
+Route strategy is stored in `.impeccable/surfaces/`. The shared visual system remains in `DESIGN.md`. Impeccable and Prettier are development tools pinned in `pnpm-lock.yaml`.

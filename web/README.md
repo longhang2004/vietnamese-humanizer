@@ -10,13 +10,13 @@ Mục “Loại bài viết” có văn viết rõ ràng, trao đổi công vi�
 
 ## Chạy local
 
-Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và npm. Từ root repository, chạy:
+Máy cần có Python 3.11 trở lên, Node.js 20 trở lên và pnpm 10 trở lên. Từ root repository, chạy:
 
 ```bash
 python3 scripts/dev.py demo
 ```
 
-Đây là quickstart chính. Lệnh tự kiểm tra điều kiện, tạo hoặc sửa `.venv`, cài dependency bằng pip và `npm ci`, sau đó chạy backend tại `http://localhost:8000` và frontend tại `http://localhost:3000`. Có thể chạy lại setup; nhấn Ctrl-C để dừng cả hai server.
+Đây là quickstart chính. Lệnh tự kiểm tra điều kiện, tạo hoặc sửa `.venv`, cài dependency bằng pip và `pnpm install --frozen-lockfile`, sau đó chạy backend tại `http://localhost:8000` và frontend tại `http://localhost:3000`. Có thể chạy lại setup; nhấn Ctrl-C để dừng cả hai server.
 
 Demo chủ động đặt `REWRITE_ENABLED=false`, `CONTRIBUTIONS_ENABLED=false` và `ADMIN_API_ENABLED=false`. Vì vậy, luồng local mặc định chỉ cần linter, không cần API key hay database. Dùng `python3 scripts/dev.py smoke` để setup, khởi động hai server, kiểm tra health/frontend/lint rồi tự dừng.
 
@@ -43,7 +43,7 @@ cd web/backend
 
 ```bash
 cd web/frontend
-npm run dev
+pnpm run dev
 ```
 
 ## Dữ liệu đóng góp và analytics
