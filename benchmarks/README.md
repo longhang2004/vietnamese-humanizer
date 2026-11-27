@@ -1,6 +1,6 @@
 # Benchmark
 
-Bộ benchmark gồm 161 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
+Bộ benchmark gồm 169 case đa miền cho bốn skill. Bộ này đánh giá biên tập và preservation, không đo khả năng phát hiện văn bản do AI tạo.
 
 `cases/report-and-research.jsonl` có sáu tình huống giả định về báo cáo tiến độ, số liệu sơ bộ, mô phỏng, phỏng vấn và phạm vi kết luận. Bộ này có bản cần sửa, bản nên giữ nguyên và bản cần góp ý về bằng chứng. [Ghi chú nguồn và kiểm chứng](../docs/research/2026-11-22-report-and-research.md)
 
@@ -19,6 +19,8 @@ Bộ benchmark gồm 161 case đa miền cho bốn skill. Bộ này đánh giá 
 `cases/voice-and-linguistics.jsonl` thêm 12 case theo sáu cặp đối chiếu ngữ cảnh cho `voice_sample`, cấu trúc Đề – Thuyết, chuỗi vị từ, phương ngữ kèm phân tầng Hán-Việt, calque dịch máy (`cho thấy rằng`, `cho phép`, `một cách + tính từ`), trượt ngôi tự xưng `tôi`/`mình` và liên từ kết quả thừa `vì vậy, nên`. Đây là case do agent tự viết để kiểm bảo toàn và ranh giới không sửa quá tay, chưa có human review.
 
 `cases/spoken-humor-satire.jsonl` thêm 10 case theo năm cặp đối chiếu ngữ cảnh cho lời thoại phim/tiểu phẩm, vlog và video kiến thức (`spoken_script`), văn cợt nhả/tự trào mạng xã hội (`social`) và văn trào phúng/châm biếm (tham chiếu thủ pháp *Số đỏ* của Vũ Trọng Phụng) cùng ranh giới an toàn và dẫn nguồn. Đây là case giả định do agent soạn, chưa có human review.
+
+`cases/new-pattern-restraint.jsonl` thêm 8 case (3 case true-positive cần sửa cho `VI-TRA-S06..S08` và 5 case đối chứng ngoại lệ `no_change` cho `VI-TRA-S06..S08` và `VI-HUM-D04..D05`) để kiểm ranh giới không bắt nhầm. Đây là case giả định do agent soạn, chưa có human review.
 
 Khi chạy một case qua API, chuyển `input` thành `text`, giữ nguyên `context` và `style`, đồng thời đưa yêu cầu biên tập trong `constraints` vào context. Không đưa expected mode, blocker hoặc evaluation notes vào prompt sinh. Khi chia development/test, giữ cả cặp trong cùng một phần. Có thể xuất sẵn gói đầu vào chấm mù không chứa đáp án bằng:
 

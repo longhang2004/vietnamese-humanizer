@@ -15,7 +15,7 @@ THESIS: Make one considered reading and one unbiased database-persisted vote the
 
 OWN-WORLD: Deep archival forest frame (`#0b1614` / `#11211e`) enclosing identically styled archival ivory Output A and Output B sheets (`#f3efe4` / `#141c1a`), chrome-brass submit CTA, `:has(:checked)` radio/checkbox states and 44px targets. Output A and Output B keep strictly identical visual weight.
 
-STORY: Read source draft and request, compare blind specimen sheets A and B neutrally, mark optional reasons, submit vote safely with retry support, and load next case.
+STORY: Read source draft and request, compare blind specimen sheets A and B neutrally (with a narrow-viewport toggle between Cả hai, Bản A, and Bản B that preserves DOM order and visual parity), pick A/B/Hòa/Bỏ qua, review optional relative-advantage reason hints (shown only when choosing A or B), submit safely with retry support, and load next case.
 
 FIRST VIEWPORT: Route heading and honest progress disclosure sit cleanly above source header and equal A/B ivory specimens. Mobile keeps DOM order (source, A, B, ballot).
 

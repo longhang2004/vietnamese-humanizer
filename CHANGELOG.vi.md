@@ -6,6 +6,15 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+### Added
+
+- Bộ 8 case benchmark mới trong `benchmarks/cases/new-pattern-restraint.jsonl` (3 case true-positive `clean_rewrite` và 5 case đối chứng ngoại lệ `no_change` cho `VI-TRA-S06..S08` và `VI-HUM-D04..D05`, nâng tổng benchmark lên 169 case) cùng bộ unit test mở rộng chống bắt nhầm trong `tests/test_lint_vietnamese.py`.
+
+### Changed
+
+- Cải thiện độ sẵn sàng pilot chấm mù A/B (`LON-123`): thêm thanh chuyển xem `Cả hai / Bản A / Bản B` trên màn hình hẹp và mô tả 4 tiêu chí điểm hơn qua `aria-describedby` ở `ABReview.tsx`/`ABReview.module.css`, thống nhất `Hòa` (`tie`) không gửi kèm lý do ở cả UI lẫn `ABVoteRequest`, bật `pool_pre_ping`/`pool_recycle` cho Postgres, seed sẵn study khi khởi động `lifespan()`, và phân bổ cold-start ưu tiên case ít lượt gán nhất trong `ab_reviews.py`.
+- Siết regex `VI-TRA-S06` bằng `(?<!\blà )` để cụm danh ngữ như `"là một cách nhanh chóng để..."` không bị báo nhầm.
+
 ## [0.8.0] - 2026-11-27
 
 ### Added

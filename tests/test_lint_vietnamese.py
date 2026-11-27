@@ -605,6 +605,12 @@ def test_hidden_translationese_and_spoken_satire_patterns() -> None:
     )
     assert "VI-TRA-S06" in ids(dense_adverbs, "translationese-cleaner-vi")
 
+    noun_phrase_methods = (
+        "Đây là một cách nhanh chóng để lập bảng kê và cũng là một cách hiệu quả "
+        "để lưu trữ hồ sơ."
+    )
+    assert "VI-TRA-S06" not in ids(noun_phrase_methods, "translationese-cleaner-vi")
+
     split_adverbs = (
         "Công cụ xử lý chứng từ một cách nhanh chóng.\n\n"
         "Đội đối chiếu xử lý bảng kê một cách chính xác."
@@ -617,22 +623,51 @@ def test_hidden_translationese_and_spoken_satire_patterns() -> None:
     )
     assert "VI-TRA-S07" in ids(dense_rang, "translationese-cleaner-vi")
 
+    split_rang = (
+        "Báo cáo quý 3 cho thấy rằng tỷ lệ lỗi giảm mạnh.\n\n"
+        "Nhóm vận hành nhận thấy rằng thời gian phản hồi cũng rút ngắn."
+    )
+    assert "VI-TRA-S07" not in ids(split_rang, "translationese-cleaner-vi")
+
     allow_pair = (
         "Tính năng này cho phép người dùng xuất tệp CSV. "
         "Giao diện mới cho phép bạn lọc đơn theo ngày giao."
     )
     assert "VI-TRA-S08" in ids(allow_pair, "translationese-cleaner-vi")
 
+    human_grant_pair = (
+        "Quản trị viên cho phép người dùng xuất tệp đối soát. "
+        "Trưởng nhóm cho phép bạn xem bảng tổng hợp."
+    )
+    assert "VI-TRA-S08" not in ids(human_grant_pair, "translationese-cleaner-vi")
+
     video_meta = (
         "Trong video ngày hôm nay, chúng ta sẽ cùng khám phá lý do pin "
         "điện thoại tụt nhanh vào mùa lạnh."
     )
+    episode_meta = (
+        "Ở tập này, mình sẽ hướng dẫn cách dọn file cấu hình bị trùng."
+    )
+    series_episode = (
+        "Trong tập 3 của loạt bài về bộ nhớ đệm, chúng ta đối chiếu ba cấu hình lưu nhật ký."
+    )
     assert "VI-HUM-D04" in ids(video_meta, "humanizer-vi")
+    assert "VI-HUM-D04" in ids(episode_meta, "humanizer-vi")
     assert "VI-HUM-D04" not in ids("Pin tụt nhanh vào mùa lạnh vì sao?", "humanizer-vi")
+    assert "VI-HUM-D04" not in ids(series_episode, "humanizer-vi")
 
     joke_explainer = (
         "Họp 3 tiếng để đổi cỡ chữ từ 14 lên 16. "
         "Điều này quả thực là một tình huống dở khóc dở cười."
     )
+    satire_contrast_cliche = (
+        "Lễ tiết kiệm giấy phát 300 thư mời in màu; điều này tạo nên sự tương phản hài hước."
+    )
+    literary_criticism = (
+        "Vũ Trọng Phụng đặt khẩu hiệu cải cách cạnh sinh hoạt thường nhật "
+        "để làm nổi rõ sắc thái mỉa mai."
+    )
     assert "VI-HUM-D05" in ids(joke_explainer, "humanizer-vi")
+    assert "VI-HUM-D05" in ids(satire_contrast_cliche, "humanizer-vi")
     assert "VI-HUM-D05" not in ids("Họp 3 tiếng để đổi cỡ chữ từ 14 lên 16.", "humanizer-vi")
+    assert "VI-HUM-D05" not in ids(literary_criticism, "humanizer-vi")

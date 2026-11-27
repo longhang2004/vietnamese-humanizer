@@ -42,7 +42,7 @@ Regex không đủ để humanize. Nó không biết metric có tồn tại tron
 
 ## Benchmark
 
-Benchmark tách khỏi unit test (`benchmarks/cases/` gồm 161 case, có `style.voice_sample` tùy chọn). Case lưu input, context, constraints, must-preserve, must-not-add và blocker. Cờ `--prepare-packet` xuất gói đầu vào chấm mù (`text`, `context` đã gộp constraints, `style`) và loại bỏ hoàn toàn nhãn đáp án. Kết quả review thủ công dùng schema riêng. Schema này hỗ trợ nhiều reviewer và báo average, blocker rate, cùng số case chưa review. Khi chưa có thiết kế và dữ liệu phù hợp, runner không tính agreement.
+Benchmark tách khỏi unit test (`benchmarks/cases/` gồm 169 case, có `style.voice_sample` tùy chọn). Case lưu input, context, constraints, must-preserve, must-not-add và blocker. Cờ `--prepare-packet` xuất gói đầu vào chấm mù (`text`, `context` đã gộp constraints, `style`) và loại bỏ hoàn toàn nhãn đáp án. Kết quả review thủ công dùng schema riêng. Schema này hỗ trợ nhiều reviewer và báo average, blocker rate, cùng số case chưa review. Khi chưa có thiết kế và dữ liệu phù hợp, runner không tính agreement.
 
 ## Documentation generation
 

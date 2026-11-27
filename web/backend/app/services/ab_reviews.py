@@ -5,6 +5,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from fastapi import HTTPException
+from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -125,10 +126,23 @@ def assign_case(db: Session, session_id: str | None) -> dict:
     assignment = assignments.outerjoin(ABVote).filter(ABVote.id.is_(None)).first()
     if assignment is None:
         assigned = assignments.with_entities(ABAssignment.case_id)
+        assignment_counts = (
+            db.query(
+                ABAssignment.case_id.label("case_id"),
+                func.count(ABAssignment.id).label("assignment_count"),
+            )
+            .filter(
+                ABAssignment.study_id == study.id,
+                ABAssignment.study_version == study.version,
+            )
+            .group_by(ABAssignment.case_id)
+            .subquery()
+        )
         case = (
             study_cases(db, study)
+            .outerjoin(assignment_counts, ABCase.id == assignment_counts.c.case_id)
             .filter(ABCase.id.not_in(assigned))
-            .order_by(ABCase.position)
+            .order_by(func.coalesce(assignment_counts.c.assignment_count, 0), ABCase.position)
             .first()
         )
         if case is not None:

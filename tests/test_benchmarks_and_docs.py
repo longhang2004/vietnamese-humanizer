@@ -396,3 +396,20 @@ def test_spoken_humor_satire_cases_are_valid() -> None:
             assert expected.issubset(found), f"{case['id']} thiếu pattern {expected}"
         elif case["expected_output_mode"] == "no_change":
             assert found == set(), f"{case['id']} báo nhầm trên case no_change: {found}"
+
+
+def test_new_pattern_restraint_cases_cover_true_positives_and_no_change() -> None:
+    cases = load_jsonl(ROOT / "benchmarks" / "cases" / "new-pattern-restraint.jsonl")
+    assert len(cases) == 8
+    assert sum(case["expected_output_mode"] == "clean_rewrite" for case in cases) == 3
+    assert sum(case["expected_output_mode"] == "no_change" for case in cases) == 5
+    triggered_patterns: set[str] = set()
+    for case in cases:
+        found = {issue["pattern_id"] for issue in lint_text(case["input"], {case["skill"]})}
+        expected = set(case["expected_patterns"])
+        if expected:
+            assert expected.issubset(found), f"{case['id']} thiếu pattern {expected}"
+            triggered_patterns.update(expected)
+        elif case["expected_output_mode"] == "no_change":
+            assert found == set(), f"{case['id']} báo nhầm trên case no_change: {found}"
+    assert triggered_patterns == {"VI-TRA-S06", "VI-TRA-S07", "VI-TRA-S08"}

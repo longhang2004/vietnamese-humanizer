@@ -9,10 +9,11 @@ from vietnamese_writing_skills import __version__
 from app.capabilities import validate_capability_settings
 from app.config import settings
 from app.db import models  # noqa: F401 - ensure models are registered with Base
-from app.db.database import Base, engine
+from app.db.database import Base, SessionLocal, engine
 from app.limiter import limiter
 from app.proxy import TrustedProxyHeadersMiddleware
 from app.routers import ab_review, admin, contributions, health, lint, patterns, rewrite
+from app.services.ab_reviews import seed_pilot
 
 
 @asynccontextmanager
@@ -20,6 +21,9 @@ async def lifespan(app: FastAPI):
     validate_capability_settings()
     if settings.CONTRIBUTIONS_ENABLED or settings.ADMIN_API_ENABLED or settings.AB_REVIEW_ENABLED:
         Base.metadata.create_all(bind=engine)
+    if settings.AB_REVIEW_ENABLED:
+        with SessionLocal() as db:
+            seed_pilot(db)
     yield
 
 

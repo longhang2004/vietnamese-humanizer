@@ -404,7 +404,7 @@ patterns:
   summary: Lặp cụm trạng ngữ dịch sát “một cách + tính từ” nhiều lần trong cùng đoạn.
   signals:
     regex:
-    - '\bmột cách\s+(?:hiệu quả|nhanh chóng|dễ dàng|đáng kể|toàn diện|rõ ràng|chặt chẽ|linh hoạt|trực tiếp|tối ưu|triệt để|sâu sắc|chính xác|liền mạch|chuyên nghiệp|minh bạch|bền vững|nhất quán|tự động|chủ động)\b'
+    - '(?<!\blà )\bmột cách\s+(?:hiệu quả|nhanh chóng|dễ dàng|đáng kể|toàn diện|rõ ràng|chặt chẽ|linh hoạt|trực tiếp|tối ưu|triệt để|sâu sắc|chính xác|liền mạch|chuyên nghiệp|minh bạch|bền vững|nhất quán|tự động|chủ động)\b'
   why_it_matters: Nhiều cụm “một cách + tính từ” dịch từ trạng từ “-ly” làm câu nặng nề và rườm rà khi dùng trực tiếp tính từ hoặc động từ gọn hơn.
   rewrite_strategy:
   - Đổi thành tính từ, phó từ trực tiếp hoặc động từ cụ thể; giữ nguyên nếu cần tách rạch ròi cách thức ở điểm nhấn chính.
