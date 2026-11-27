@@ -2,13 +2,13 @@
 
 # Roadmap
 
-Updated: 2026-11-24. The latest tagged product release is **0.7.0**. Further work on `main` is listed under `[Unreleased]` in the [changelog](CHANGELOG.md); a web deployment does not create a new release.
+Updated: 2026-11-27. The latest tagged product release is **0.8.0**. Further work on `main` is listed under `[Unreleased]` in the [changelog](CHANGELOG.md); a web deployment does not create a new release.
 
 ## Available today
 
-- Release 0.7.0 plus active development includes four Vietnamese writing skills, 49 linter patterns, 103 corpus examples, and **161 benchmark cases** (expanding the 0.7.0 benchmark set with 10 spoken/banter/satire cases alongside the earlier 12 voice-sample and linguistic cases). The six writing profiles are clear prose, work communication, technical documentation, administrative writing, social posts, and marketing, alongside the default preservation mode. Channel, register, pronouns, editing depth, and optional `voice_sample` remain independent choices.
+- Release 0.8.0 includes four Vietnamese writing skills, 49 linter patterns, 103 corpus examples, and **161 benchmark cases** (expanding the 0.7.0 benchmark set with 10 spoken/banter/satire cases alongside the 12 voice-sample and linguistic cases). The six writing profiles are clear prose, work communication, technical documentation, administrative writing, social posts, and marketing, alongside the default preservation mode. Channel, register, pronouns, editing depth, and optional `voice_sample` remain independent choices.
 - The rule-based checker, two-phase optional AI rewrite with multi-skill selection (`humanizer-vi`, `translationese-cleaner-vi`, `grammar-checker-vi`, `style-guide-vi`), selective context loading, token-preservation audit, `voice_sample` anchoring, inline word-level diff, and apply-to-editor loop on `/check`, plus `/start` onboarding with scenario presets and compact downloadable Claude/Gemini packs, are implemented. The benchmark CLI also supports exporting stripped blind evaluation packets (`--prepare-packet`).
-- The web application includes the dark project landing, `/check` workspace, examples, guide/about pages, capability-aware contributions, six genuine paired AI demonstrations, and the capability-gated `/review` blind A/B review pilot (`AB_REVIEW_ENABLED=false` by default in source; enabled explicitly in deployed environments). Votes remain anonymous web feedback with session keys, not verified reviewer identities.
+- The web application uses the dual-ground archival editorial specimen cabinet UI (`/` asymmetric 12-column opening stage, `/check` workspace, examples, guide/about pages, capability-aware contributions, six genuine paired AI demonstrations, and the capability-gated `/review` blind A/B review pilot with `AB_REVIEW_ENABLED=false` by default in source; enabled explicitly in deployed environments). Votes remain anonymous web feedback with session keys, not verified reviewer identities.
 - Corpus review is agent-based. There is no independently human-reviewed quality baseline. The six published AI pairs illustrate behavior; they are not a quality score.
 
 ## Next

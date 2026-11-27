@@ -6,6 +6,8 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-27
+
 ### Added
 
 - Five high-precision deterministic patterns (`VI-TRA-S06`, `VI-TRA-S07`, `VI-TRA-S08`, `VI-HUM-D04`, `VI-HUM-D05`, bringing the catalog to 49) covering dense `"một cách + adj"` calques, repeated redundant `"rằng"`, inanimate-subject `"cho phép"`, formulaic video/vlog openings, and AI joke-explaining commentary, wired into `rewriter.py` selective reference loading and aligned with `BENCH-HUM-117`/`119`.
@@ -16,6 +18,7 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ### Changed
 
+- Redesigned the full website UI (`/` asymmetric 12-column opening stage, `/check`, `/contribute`, `/start`, `/examples`, `/review`, `/guide`, `/about`) with the Dual-Ground Archival Editorial Specimen Cabinet design system (`DESIGN.md`, `PRODUCT.md`, `.impeccable/surfaces/*`), 1-click `ComparisonExplorer` topic tabs, `@view-transition`, container queries, and `:has()` states.
 - Added Conventional Commits validation (`commit-msg` stage) to `.pre-commit-config.yaml` and documented the convention in `CONTRIBUTING.md` and `CONTRIBUTING.vi.md`.
 
 ## [0.7.0] - 2026-11-22

@@ -6,6 +6,8 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-27
+
 ### Added
 
 - Bổ sung 5 quy tắc deterministic mới (`VI-TRA-S06`, `VI-TRA-S07`, `VI-TRA-S08`, `VI-HUM-D04`, `VI-HUM-D05`, nâng catalog lên 49 pattern) bắt cụm `"một cách + tính từ"` lặp dày, dư từ `"rằng"`, chủ ngữ vô tri dùng `"cho phép"`, mở bài video/vlog khuôn mẫu và câu giải thích trò đùa kiểu AI, đồng thời nối vào cơ chế nạp tài liệu chọn lọc trong `rewriter.py` và đồng bộ `BENCH-HUM-117`/`119`.
@@ -16,6 +18,7 @@ Tuân theo cấu trúc Keep a Changelog. Chưa cam kết Semantic Versioning tr�
 
 ### Changed
 
+- Thiết kế lại toàn bộ giao diện website (sân khấu mở 12 cột bất đối xứng ở `/`, cùng `/check`, `/contribute`, `/start`, `/examples`, `/review`, `/guide`, `/about`) theo hệ thống Tủ Phiếu Biên Tập & Sơn Mài Kỹ Thuật hai bề mặt (`DESIGN.md`, `PRODUCT.md`, `.impeccable/surfaces/*`), bổ sung nút chuyển nhanh chủ đề ở `ComparisonExplorer`, `@view-transition`, container queries và trạng thái `:has()`.
 - Bổ sung hook kiểm tra Conventional Commits ở stage `commit-msg` trong `.pre-commit-config.yaml` và cập nhật `CONTRIBUTING.md`, `CONTRIBUTING.vi.md`.
 
 ## [0.7.0] - 2026-11-22
