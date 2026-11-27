@@ -1,10 +1,10 @@
 .page {
   min-width: 0;
-  padding-block: 48px 64px;
+  padding-block: 44px 64px;
 }
 
 .heading {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .heading h1 {
@@ -70,13 +70,15 @@
 .study .progress {
   flex-shrink: 0;
   margin-top: 0;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
 .workbench {
   min-width: 0;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
   background: var(--surface);
 }
 
@@ -95,11 +97,11 @@
 }
 
 .source h2 {
-  scroll-margin-top: 112px;
+  scroll-margin-top: 104px;
 }
 
 .source h3 {
-  margin-block: 24px 8px;
+  margin-block: 20px 8px;
   color: var(--muted);
   font-size: 0.875rem;
   font-weight: 600;
@@ -112,6 +114,7 @@
   line-height: 1.85;
 }
 
+/* Strictly identical archival ivory specimen plates for unbiased blind comparison */
 .outputs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -124,13 +127,21 @@
   font-size: 0.875rem;
 }
 
+.output {
+  background: var(--paper);
+  color: var(--paper-ink);
+}
+
 .output + .output {
-  border-left: 1px solid var(--border);
+  border-inline-start: 1px solid var(--paper-border);
 }
 
 .output h3 {
-  margin-bottom: 20px;
-  font-size: 1.25rem;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--paper-border);
+  color: var(--paper-accent);
+  font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
@@ -162,7 +173,8 @@
   gap: 12px;
   padding: 10px 14px;
   border: 1px solid var(--control-border);
-  border-radius: 8px;
+  border-radius: var(--radius-field);
+  background: var(--background);
   cursor: pointer;
 }
 
@@ -172,12 +184,12 @@
 
 .choice:has(:checked) {
   border-color: var(--accent);
-  background: var(--background);
+  background: var(--surface-raised);
 }
 
 .choice:has(:focus-visible),
 .reasonOptions label:has(:focus-visible) {
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -293,7 +305,7 @@
 
 .skeleton div {
   height: 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   background: var(--surface-raised);
 }
 
@@ -327,8 +339,8 @@
   }
 
   .output + .output {
-    border-top: 1px solid var(--border);
-    border-left: 0;
+    border-top: 1px solid var(--paper-border);
+    border-inline-start: 0;
   }
 
   .study,
@@ -365,7 +377,7 @@
   }
 
   .disclosure summary {
-    min-height: 40px;
+    min-height: 44px;
   }
 
   .source,

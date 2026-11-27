@@ -75,6 +75,23 @@ export function ComparisonExplorer({
           </button>
         </div>
       </div>
+      <div
+        className="comparison-topics"
+        role="group"
+        aria-label="Chuyển nhanh chủ đề"
+      >
+        {cases.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className="topic-chip"
+            aria-pressed={item.id === selected.id}
+            onClick={() => setSelectedId(item.id)}
+          >
+            {item.topic}
+          </button>
+        ))}
+      </div>
       <p role="status" className="sr-only">
         {selected.topic}. Chủ đề {index + 1} trong {cases.length}.
       </p>

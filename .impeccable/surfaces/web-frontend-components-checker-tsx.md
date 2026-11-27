@@ -1,24 +1,24 @@
 ---
-version: 1
+version: 2
 slug: "web-frontend-components-checker-tsx"
 primary_target: "web/frontend/components/Checker.tsx"
-related_targets: ["web/frontend/app/check/page.tsx","web/frontend/app/contribute/page.tsx","web/frontend/components/ContributeForm.tsx","web/frontend/components/RewritePanel.tsx"]
+related_targets: ["web/frontend/app/check/page.tsx","web/frontend/app/contribute/page.tsx","web/frontend/components/ContributeForm.tsx","web/frontend/components/Editor.tsx","web/frontend/components/RewritePanel.tsx","web/frontend/components/workspace.module.css"]
 ---
 
 # Editorial workspace layout
 
-Mode: Operate. Scope: checker, findings, rewriting and contribution.
+Mode: Operate. Scope: checker, findings, multi-skill rewriting, inline word diff and contribution.
 
 ## Direction contract
 
-THESIS: Source text and its review belong to one working region. Keep the source first and the result stable beside it.
+THESIS: Source drafting belongs on archival paper while rule diagnostics belong on the dark lacquer inspector column; keep source first and findings aligned cleanly beside it.
 
-OWN-WORLD: Use the existing neutral layers, lime primary action, 16px fields and 44px controls. Native disclosures hold optional choices; borders separate groups without nested cards.
+OWN-WORLD: Archival calico ivory drafting surface (`#f3efe4`) on `.source` paired with deep forest cabinet `.review` (`#11211e`), CSS `:has(:checked)` check indicators, sharp 4px–6px corners, 44px controls, chrome-brass submit CTA, and paper/vermilion `<del>`/`<ins>` word diff marks in `.rewriteOutput`.
 
-STORY: Paste a draft, adjust checks if needed, submit, then read specific findings. Rewriting remains capability-gated. Contributions pair original and proposed text with explicit consent.
+STORY: Paste or sample Vietnamese prose on paper, toggle any of the four checks, inspect location-pinned findings on the cabinet column, unlock any of the four skills or spoken/satire presets for capability-gated rewriting, verify word changes with inline diff, and re-apply to the draft loop.
 
-FIRST VIEWPORT: A compact page heading precedes aligned source/result regions. Mobile stacks them in task order; supporting options must not bury submission. Contribution begins with a real route heading and a shrinkable form.
+FIRST VIEWPORT: Compact page heading precedes the paired ivory-source / forest-findings workbench. Mobile stacks in task order without burying submission. Contributions keep original and proposed drafts together on dual ivory sheets.
 
-FORM: A continuous editorial workbench inside the established visual system. Retain facts, input limits, consent and stale-result guards.
+FORM: Dual-ground proofreading desk harmonized with the v2 Archival Specimen Cabinet system (`seed:b3b4e67a046e1d61`), preserving facts, character limits, consent and stale-result guards.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

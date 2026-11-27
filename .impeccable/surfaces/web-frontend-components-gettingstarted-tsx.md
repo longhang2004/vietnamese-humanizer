@@ -1,24 +1,24 @@
 ---
-version: 1
+version: 2
 slug: "web-frontend-components-gettingstarted-tsx"
 primary_target: "web/frontend/components/GettingStarted.tsx"
-related_targets: ["web/frontend/app/start/page.tsx"]
+related_targets: ["web/frontend/app/start/page.tsx","web/frontend/components/GettingStarted.module.css"]
 ---
 
 # Chatbot onboarding layout
 
-Mode: Operate. Scope: platform/task selection and real setup instructions.
+Mode: Operate. Scope: platform/task/scenario selection, skill downloads and tear-off prompt sheet.
 
 ## Direction contract
 
-THESIS: Separate choosing a tool from carrying out its setup. Avoid one long box containing every stage.
+THESIS: Separate choosing a platform, writing skill, and scenario context on the dark cabinet rail from copying the ivory prompt card and setup instructions.
 
-OWN-WORLD: Reuse the approved dark palette, readable labels, native selection and shared field/button primitives.
+OWN-WORLD: Deep archival forest selection rail (`#11211e`) with chrome-brass active platform tabs alongside an archival ivory tear-off prompt field (`#f3efe4`, carbon ink `#141c1a`), crisp 4px–6px radii, 44px touch targets.
 
-STORY: Choose a platform and writing task, see the matching instructions or download, then copy a usable request. Keep the real platform URLs and package sizes.
+STORY: Pick a chatbot, choose a writing task and optional spoken/banter/satire scenario, download the compact ZIP package or open the platform, and copy the ready-to-paste Vietnamese prompt.
 
-FIRST VIEWPORT: A concise heading introduces a compact choice region beside the selected setup on desktop. On mobile, choices come first, then setup and prompt in the same DOM order. The launch/download action stays with its instructions.
+FIRST VIEWPORT: Concise header introduces the sticky selection rail beside the setup column on desktop; mobile stacks choices before instructions and prompt in clean DOM order.
 
-FORM: A selection rail and task-focused instructions. Remove the duplicate decorative step strip. Advanced installation references remain a native disclosure.
+FORM: Archival index rail paired with paper prompt sheet (`seed:b3b4e67a046e1d61`), retaining exact real platform links, byte sizes and advanced references disclosure.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
