@@ -192,6 +192,7 @@ def test_ownership_conflicting_retry_and_closed_study(client, db_session, monkey
         {"reasons": ["readability", "readability"]},
         {"reasons": ["unsupported"]},
         {"choice": "skip", "reasons": ["meaning"]},
+        {"choice": "tie", "reasons": ["meaning"]},
         {"session_id": "bad"},
         {"assignment_id": "bad"},
         {"reasons": ["meaning"] * 5},
@@ -534,3 +535,66 @@ def test_review_routes_are_rate_limited(client, monkeypatch):
     for _ in range(30):
         assert client.post("/api/ab-review/assignments", json={}).status_code == 200
     assert client.post("/api/ab-review/assignments", json={}).status_code == 429
+
+
+def test_cold_start_assignment_balances_least_assigned_cases(client, monkeypatch):
+    from app.services.ab_reviews import load_pilot
+
+    monkeypatch.setitem(settings.__dict__, "AB_REVIEW_ENABLED", True)
+    expected_order = [case["id"] for case in load_pilot()["cases"]]
+
+    first = client.post("/api/ab-review/assignments", json={}).json()
+    assert first["assignment"]["case_id"] == expected_order[0]
+
+    # A second session arriving before the first finishes gets the next least-assigned case.
+    second = client.post("/api/ab-review/assignments", json={}).json()
+    assert second["assignment"]["case_id"] == expected_order[1]
+
+    third = client.post("/api/ab-review/assignments", json={}).json()
+    assert third["assignment"]["case_id"] == expected_order[2]
+
+    # Completing the first session still traverses all 6 unique cases cleanly.
+    seen_first = [first["assignment"]["case_id"]]
+    current = first
+    for _ in range(5):
+        receipt = client.post(
+            "/api/ab-review/votes",
+            json={
+                "session_id": current["session_id"],
+                "assignment_id": current["assignment"]["id"],
+                "choice": "tie",
+                "reasons": [],
+            },
+        )
+        assert receipt.status_code == 200
+        current = client.post(
+            "/api/ab-review/assignments", json={"session_id": current["session_id"]}
+        ).json()
+        seen_first.append(current["assignment"]["case_id"])
+    assert set(seen_first) == set(expected_order)
+
+
+def test_lifespan_preseeds_ab_review_pilot_when_enabled(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app import main as main_module
+    from app.db.models import ABCase, ABStudy
+
+    engine = create_engine(
+        f"sqlite:///{tmp_path / 'lifespan.db'}",
+        connect_args={"check_same_thread": False},
+    )
+    sessions = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    monkeypatch.setitem(settings.__dict__, "AB_REVIEW_ENABLED", True)
+    monkeypatch.setattr(main_module, "engine", engine)
+    monkeypatch.setattr(main_module, "SessionLocal", sessions)
+    try:
+        with TestClient(app), sessions() as db:
+            assert db.query(ABStudy).count() == 1
+            assert db.query(ABCase).count() == 6
+        # Startup pre-seeding remains idempotent across restarts.
+        with TestClient(app), sessions() as db:
+            assert db.query(ABStudy).count() == 1
+            assert db.query(ABCase).count() == 6
+    finally:
+        engine.dispose()

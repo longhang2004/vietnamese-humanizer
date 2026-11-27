@@ -191,15 +191,17 @@ class ABVoteRequest(BaseModel):
     assignment_id: UUID
     choice: Literal["a", "b", "tie", "skip"]
     reasons: list[Literal["readability", "register", "meaning", "restraint"]] = Field(
-        default_factory=list, max_length=4
+        default_factory=list,
+        max_length=4,
+        description="Relative advantage reasons explaining why the chosen option (a or b) won.",
     )
 
     @model_validator(mode="after")
     def validate_reasons(self):
         if len(self.reasons) != len(set(self.reasons)):
             raise ValueError("Reasons must be unique.")
-        if self.choice == "skip" and self.reasons:
-            raise ValueError("Skipped cases cannot have reasons.")
+        if self.choice in {"skip", "tie"} and self.reasons:
+            raise ValueError("Only votes choosing A or B can include advantage reasons.")
         return self
 
 

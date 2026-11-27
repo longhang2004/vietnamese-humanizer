@@ -244,9 +244,16 @@ def test_lifespan_validates_before_database_initialization(monkeypatch):
 
 def test_reviews_alone_initialize_database_and_health_without_provider(monkeypatch):
     monkeypatch.setattr(settings, "AB_REVIEW_ENABLED", True)
-    with patch("app.main.Base.metadata.create_all") as create_all, TestClient(app) as client:
+    with (
+        patch("app.main.Base.metadata.create_all") as create_all,
+        patch("app.main.SessionLocal") as session_local,
+        patch("app.main.seed_pilot") as seed_pilot,
+        TestClient(app) as client,
+    ):
         response = client.get("/api/health")
     assert create_all.call_count == 1
+    session_local.assert_called_once()
+    assert seed_pilot.call_count == 1
     assert response.json()["capabilities"] == {
         "rewrite": False,
         "contributions": False,

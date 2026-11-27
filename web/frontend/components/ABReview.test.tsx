@@ -365,6 +365,77 @@ test("skip clears reasons and completion reports submitted comparisons separatel
   ).not.toBeInTheDocument();
 });
 
+test("tie clears relative advantage reasons and choice reveals accessible reason hints", async () => {
+  const user = userEvent.setup();
+  render(<ABReview />);
+  await user.click(await screen.findByRole("radio", { name: "Chọn A" }));
+  const readability = screen.getByRole("checkbox", { name: "Dễ đọc" });
+  expect(readability).toHaveAccessibleDescription(
+    "Câu trôi chảy, gọn, ít khựng khi đọc liền mạch.",
+  );
+  expect(
+    screen.getByRole("checkbox", { name: "Sửa vừa đủ" }),
+  ).toHaveAccessibleDescription("Không sửa lan sang những chỗ vốn đã ổn.");
+  await user.click(readability);
+  expect(readability).toBeChecked();
+
+  await user.click(screen.getByRole("radio", { name: "Hòa" }));
+  expect(
+    screen.queryByRole("checkbox", { name: "Dễ đọc" }),
+  ).not.toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: "Gửi lựa chọn" }));
+  expect(requests.at(-1)?.body).toMatchObject({ choice: "tie", reasons: [] });
+});
+
+test("narrow compare toggle switches visible specimen sheets and resets on next case", async () => {
+  const user = userEvent.setup();
+  render(<ABReview />);
+  await screen.findByText(assignment.instruction);
+
+  const regionA = screen.getByRole("region", { name: "Bản A" });
+  const regionB = screen.getByRole("region", { name: "Bản B" });
+  const bothButton = screen.getByRole("button", { name: "Cả hai" });
+  const buttonA = screen.getByRole("button", { name: "Bản A" });
+  const buttonB = screen.getByRole("button", { name: "Bản B" });
+
+  expect(bothButton).toHaveAttribute("aria-pressed", "true");
+  expect(regionA).not.toHaveAttribute("data-mobile-hidden");
+  expect(regionB).not.toHaveAttribute("data-mobile-hidden");
+
+  await user.click(buttonB);
+  expect(buttonB).toHaveAttribute("aria-pressed", "true");
+  expect(regionA).toHaveAttribute("data-mobile-hidden", "true");
+  expect(regionB).not.toHaveAttribute("data-mobile-hidden");
+
+  await user.click(buttonA);
+  expect(buttonA).toHaveAttribute("aria-pressed", "true");
+  expect(regionA).not.toHaveAttribute("data-mobile-hidden");
+  expect(regionB).toHaveAttribute("data-mobile-hidden", "true");
+
+  await user.click(screen.getByRole("radio", { name: "Chọn B" }));
+  await user.click(screen.getByRole("button", { name: "Gửi lựa chọn" }));
+  assign = async () => ({
+    ...response,
+    assignment: { ...assignment, id: "next", topic: "Mẫu tiếp theo" },
+    completed: 1,
+  });
+  await user.click(
+    await screen.findByRole("button", { name: "Chấm cặp tiếp theo" }),
+  );
+  await screen.findByRole("heading", { name: "Mẫu tiếp theo" });
+
+  expect(screen.getByRole("button", { name: "Cả hai" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  expect(screen.getByRole("region", { name: "Bản A" })).not.toHaveAttribute(
+    "data-mobile-hidden",
+  );
+  expect(screen.getByRole("region", { name: "Bản B" })).not.toHaveAttribute(
+    "data-mobile-hidden",
+  );
+});
+
 test("resumes a completed session and uses saved session ID", async () => {
   localStorage.setItem("vws:ab-review-session", session);
   assign = async () => ({

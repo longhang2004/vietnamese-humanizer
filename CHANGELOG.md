@@ -6,6 +6,15 @@ Follows Keep a Changelog structure. Semantic Versioning is not yet guaranteed be
 
 ## [Unreleased]
 
+### Added
+
+- Benchmark restraint and calque suite `benchmarks/cases/new-pattern-restraint.jsonl` (8 cases: 3 true-positive `clean_rewrite` and 5 `no_change` exception controls covering `VI-TRA-S06..S08` and `VI-HUM-D04..D05`, bringing the total to 169 cases) plus expanded negative/false-positive linter unit coverage in `tests/test_lint_vietnamese.py`.
+
+### Changed
+
+- Improved blind A/B pilot readiness (`LON-123`): added a narrow-container `Cả hai / Bản A / Bản B` specimen switcher and `aria-describedby` hints for the four relative-advantage reasons in `ABReview.tsx`/`ABReview.module.css`, unified `tie` semantics so `ABVoteRequest` accepts reasons only for `a`/`b`, added managed-Postgres `pool_pre_ping`/`pool_recycle`, startup pilot pre-seeding in `lifespan()`, and balanced least-assigned cold-start allocation in `ab_reviews.py`.
+- Tightened `VI-TRA-S06` with `(?<!\blà )` so natural noun phrases such as `"là một cách nhanh chóng để..."` do not false-trigger.
+
 ## [0.8.0] - 2026-11-27
 
 ### Added

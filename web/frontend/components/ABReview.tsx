@@ -62,11 +62,33 @@ const choices: { value: ReviewChoice; label: string }[] = [
   { value: "tie", label: "Hòa" },
   { value: "skip", label: "Bỏ qua" },
 ];
-const reasonOptions: { value: ReviewReason; label: string }[] = [
-  { value: "readability", label: "Dễ đọc" },
-  { value: "register", label: "Hợp giọng" },
-  { value: "meaning", label: "Giữ đúng ý" },
-  { value: "restraint", label: "Sửa vừa đủ" },
+type MobileCompareView = "both" | "a" | "b";
+const mobileCompareModes: { value: MobileCompareView; label: string }[] = [
+  { value: "both", label: "Cả hai" },
+  { value: "a", label: "Bản A" },
+  { value: "b", label: "Bản B" },
+];
+const reasonOptions: { value: ReviewReason; label: string; hint: string }[] = [
+  {
+    value: "readability",
+    label: "Dễ đọc",
+    hint: "Câu trôi chảy, gọn, ít khựng khi đọc liền mạch.",
+  },
+  {
+    value: "register",
+    label: "Hợp giọng",
+    hint: "Đúng sắc thái, cách xưng hô và ngữ cảnh đề bài.",
+  },
+  {
+    value: "meaning",
+    label: "Giữ đúng ý",
+    hint: "Không thêm, bớt hay làm lệch dữ kiện bản gốc.",
+  },
+  {
+    value: "restraint",
+    label: "Sửa vừa đủ",
+    hint: "Không sửa lan sang những chỗ vốn đã ổn.",
+  },
 ];
 
 const serviceMessages: Record<number, string> = {
@@ -119,6 +141,7 @@ function ReviewBallot() {
   const [attempt, setAttempt] = useState<ReviewVoteRequest | null>(null);
   const [choice, setChoice] = useState<ReviewChoice | null>(null);
   const [reasons, setReasons] = useState<ReviewReason[]>([]);
+  const [mobileView, setMobileView] = useState<MobileCompareView>("both");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -164,6 +187,7 @@ function ReviewBallot() {
     setAttempt(null);
     setChoice(null);
     setReasons([]);
+    setMobileView("both");
     void load();
   }
 
@@ -206,7 +230,7 @@ function ReviewBallot() {
       session_id: session.current,
       assignment_id: data.assignment.id,
       choice,
-      reasons: choice === "skip" ? [] : [...reasons],
+      reasons: choice === "a" || choice === "b" ? [...reasons] : [],
     };
     const unchanged =
       attempt &&
@@ -302,12 +326,37 @@ function ReviewBallot() {
                 Hai bản có thể chỉ khác vài chữ. Đọc kỹ câu mở đầu và câu kết.
               </p>{" "}
             </section>
+            <div
+              className={styles.mobileCompare}
+              role="group"
+              aria-label="Chế độ xem hai bản trên màn hình hẹp"
+            >
+              {mobileCompareModes.map((mode) => (
+                <button
+                  key={mode.value}
+                  type="button"
+                  className={styles.compareTab}
+                  aria-pressed={mobileView === mode.value}
+                  onClick={() => setMobileView(mode.value)}
+                >
+                  {mode.label}
+                </button>
+              ))}
+            </div>
             <div className={styles.outputs}>
-              <section className={styles.output} aria-labelledby="review-a">
+              <section
+                className={styles.output}
+                aria-labelledby="review-a"
+                data-mobile-hidden={mobileView === "b" ? "true" : undefined}
+              >
                 <h3 id="review-a">Bản A</h3>
                 <p className={styles.verbatim}>{currentAssignment.a}</p>
               </section>
-              <section className={styles.output} aria-labelledby="review-b">
+              <section
+                className={styles.output}
+                aria-labelledby="review-b"
+                data-mobile-hidden={mobileView === "a" ? "true" : undefined}
+              >
                 <h3 id="review-b">Bản B</h3>
                 <p className={styles.verbatim}>{currentAssignment.b}</p>
               </section>
@@ -335,37 +384,51 @@ function ReviewBallot() {
                         onChange={() => {
                           setChoice(item.value);
                           setAttempt(null);
-                          if (item.value === "skip") setReasons([]);
+                          if (item.value === "skip" || item.value === "tie") {
+                            setReasons([]);
+                          }
                         }}
                       />
                       <span>{item.label}</span>
                     </label>
                   ))}
                 </div>
-                {choice && choice !== "skip" && (
+                {(choice === "a" || choice === "b") && (
                   <fieldset className={styles.reasons}>
                     <legend>
-                      Lý do <span>(không bắt buộc)</span>
+                      Điểm hơn của bản bạn chọn <span>(không bắt buộc)</span>
                     </legend>
                     <div className={styles.reasonOptions}>
                       {reasonOptions.map((item) => (
-                        <label key={item.value}>
-                          <input
-                            type="checkbox"
-                            checked={reasons.includes(item.value)}
-                            onChange={(event) => {
-                              setAttempt(null);
-                              setReasons((selected) =>
-                                event.target.checked
-                                  ? [...selected, item.value]
-                                  : selected.filter(
-                                      (value) => value !== item.value,
-                                    ),
-                              );
-                            }}
-                          />
-                          <span>{item.label}</span>
-                        </label>
+                        <div className={styles.reasonItem} key={item.value}>
+                          <div className={styles.reasonControl}>
+                            <input
+                              id={`review-reason-${item.value}`}
+                              type="checkbox"
+                              aria-describedby={`review-reason-hint-${item.value}`}
+                              checked={reasons.includes(item.value)}
+                              onChange={(event) => {
+                                setAttempt(null);
+                                setReasons((selected) =>
+                                  event.target.checked
+                                    ? [...selected, item.value]
+                                    : selected.filter(
+                                        (value) => value !== item.value,
+                                      ),
+                                );
+                              }}
+                            />
+                            <label htmlFor={`review-reason-${item.value}`}>
+                              {item.label}
+                            </label>
+                          </div>
+                          <p
+                            id={`review-reason-hint-${item.value}`}
+                            className={styles.reasonHint}
+                          >
+                            {item.hint}
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </fieldset>
@@ -419,7 +482,7 @@ function ReviewBallot() {
                     ? "Lượt này không thể gửi lại. Tải lại để nhận trạng thái mới."
                     : receipt
                       ? "Lượt đã lưu. Bạn có thể chấm tiếp hoặc dừng ở đây."
-                      : "Hòa khi hai bản tương đương; Bỏ qua khi chưa đủ cơ sở để chọn."}
+                      : "Hòa khi hai bản tương đương (không cần chọn điểm hơn); Bỏ qua khi chưa đủ cơ sở để chọn."}
                 </p>
               </div>
             </form>
