@@ -33,4 +33,25 @@ Tiếng Anh hay chọn tính năng hoặc công cụ làm chủ ngữ với `all
 - Cứng: "Tính năng mới cho phép người dùng xuất báo cáo theo định dạng CSV."
 - Tự nhiên: "Người dùng có thể xuất báo cáo sang CSV bằng tính năng mới." (hoặc nếu chủ đề đoạn là tính năng: "Với tính năng mới, người dùng xuất được báo cáo sang CSV.")
 
+## `Một + danh từ trừu tượng` (calque của *a + abstract noun*)
+
+Tiếng Anh đặt mạo từ `a/an` trước danh từ trừu tượng (`a significant improvement`, `a seamless experience`); giữ nguyên `một` sang tiếng Việt khiến câu nặng và có mùi dịch (`một sự cải thiện đáng kể`). Nên gọi thẳng động từ/tính từ, chỉ giữ `một` khi thật sự đếm hoặc phân loại một đơn vị cụ thể.
+
+- Cứng: "Bản vá lần này mang lại một sự cải thiện đáng kể về tốc độ khởi động."
+- Tự nhiên: "Bản vá lần này cải thiện rõ tốc độ khởi động." (giữ đúng mức định tính nếu bản gốc nêu "đáng kể": "Bản vá lần này cải thiện đáng kể tốc độ khởi động.")
+
+## `Được / bị` lệch sắc thái do bị động tiếng Anh
+
+Bị động tiếng Anh trung tính về thái độ, còn tiếng Việt phân biệt `được` (thường mang hướng thuận lợi/đáng ghi nhận) với `bị` (bất lợi/ngoài ý muốn) và ưu tiên câu chủ động hoặc không đánh dấu khi chủ thể không quan trọng. Đừng máy móc dịch `was generated` hay `is updated` thành `đã được phát sinh` hoặc `bị cập nhật` sai ngữ cảnh.
+
+- Cứng: "Khi hết thời gian chờ, một cảnh báo đã được phát sinh cho quản trị viên."
+- Tự nhiên: "Khi hết thời gian chờ, hệ thống phát cảnh báo cho quản trị viên." (hoặc "Quản trị viên nhận cảnh báo khi hết thời gian chờ.")
+
+## Chuỗi sở hữu `của … của …` và đuôi phân từ `, qua đó… / , góp phần…`
+
+Cụm genitive lồng nhau (`X of Y of Z` → `X của Y của Z`) và mệnh đề phân từ nối đuôi (`, contributing to…`, `, highlighting…`) khiến câu dài mà thiếu điểm tựa. Tách phần khung sang đầu câu theo Đề – Thuyết, cắt lớp `của` thừa và chỉ giữ hệ quả ở vế sau khi dữ kiện gốc nêu rõ kết quả đó.
+
+- Cứng: "Việc tối ưu truy vấn của mô-đun báo cáo của hệ thống kế toán giúp giảm tải máy chủ, qua đó góp phần nâng cao độ ổn định chung."
+- Tự nhiên: "Ở mô-đun báo cáo của hệ thống kế toán, việc tối ưu truy vấn giúp giảm tải máy chủ." (Chỉ giữ vế độ ổn định nếu bản gốc có chỉ số hoặc căn cứ xác nhận.)
+
 Mỗi pattern có ngưỡng và ngoại lệ trong `patterns/translationese.yml`. Đếm các lớp hành chính theo từng câu; không gộp một tín hiệu ở câu này với một tín hiệu ở câu khác. Không dùng catalog làm từ điển thay thế một-một.

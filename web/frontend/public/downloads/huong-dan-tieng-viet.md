@@ -113,7 +113,7 @@ Biên tập chất lượng viết theo người đọc và mục đích văn b�
 
 ### Pha 2 — Đối chiếu bảo toàn & rà sửa thừa
 
-4. **Đọc bản sửa độc lập như người nhận:** Kiểm tra mạch câu có tự đứng vững, đại từ có tiền ngữ rõ, có rò giọng trợ lý hay rơi vào khuôn mẫu khác không. Trong bài kể, kiểm ai đang làm hoặc đang nhớ; trong hướng dẫn, kiểm dấu hiệu được đi tiếp nằm ngay tại bước liên quan.
+4. **Đọc bản sửa độc lập như người nhận:** Kiểm tra mạch câu có tự đứng vững, đại từ có tiền ngữ rõ, có rò giọng trợ lý hay rơi vào khuôn mẫu khác không. Tự rà lại một lượt cuối với câu hỏi: *"Chỗ nào vẫn nghe như văn mẫu, văn dịch hay giọng trợ lý?"* — soát nhanh xem còn sót kiểu né động từ đơn giản (`đóng vai trò như một`, `sở hữu`, `mang trong mình`), đuôi `, qua đó góp phần…`, rào đón xếp lớp, `một sự + danh từ`, xoay vòng từ đồng nghĩa cưỡng ép hay chuỗi liên từ sách giáo khoa (`Ngoài ra / Bên cạnh đó / Hơn nữa`) không; nếu có, gọt một lượt dứt điểm rồi đối chiếu lại bước 5. Trong bài kể, kiểm ai đang làm hoặc đang nhớ; trong hướng dẫn, kiểm dấu hiệu được đi tiếp nằm ngay tại bước liên quan.
 5. **Đối chiếu biên bản bảo toàn với bản gốc:** Kiểm lại từng con số, mốc giờ, phủ định, từ chỉ mức chắc chắn (`có thể`, `sẽ`, `phải`, `chưa`), phạm vi và ngoại lệ. Nếu cách sửa làm đổi nghĩa hoặc thiếu căn cứ, hoàn nguyên hoặc chuyển sang góp ý / hỏi tác giả. Chỉ giải thích thay đổi khi người dùng yêu cầu.
 
 ### Tài liệu tra cứu theo nhu cầu
@@ -148,7 +148,7 @@ Biên tập chất lượng viết theo người đọc và mục đích văn b�
 
 - Không tuyên bố văn bản do AI viết, chấm "xác suất AI" hay tối ưu để vượt detector.
 - Không thêm lỗi, tiếng lóng giả, chi tiết bịa hoặc lời mời trợ lý ("Nếu bạn muốn, tôi có thể…") vào bản sửa.
-- Không áp một giọng thân mật cho mọi văn bản, làm phẳng khác biệt vùng miền/thế hệ/nghề nghiệp, hay rút gọn làm mất ý quan trọng.
+- Không áp một giọng thân mật cho mọi văn bản, không gọt phẳng cá tính hoặc góc nhìn sẵn có của tác giả thành giọng thông cáo báo chí hay tổng đài CSKH vô trùng, không làm phẳng khác biệt vùng miền/thế hệ/nghề nghiệp, hay rút gọn làm mất ý quan trọng.
 - Không thay từ đồng nghĩa hàng loạt khi cấu trúc mới là vấn đề, và không biến nội dung kỹ thuật, học thuật hoặc pháp lý thành văn quảng cáo.
 
 ## Đầu ra
@@ -387,6 +387,25 @@ Ví dụ tự viết: trong thông báo nghỉ Tết, tác giả cho phép bỏ 
 
 Ví dụ cần giữ: “– Má ăn cơm chưa?\n– Rồi, con.” Hai dấu đầu dòng phân lượt nói; cách xưng hô đã rõ. Không tự đổi thành lời kể hoặc chuyển “má” sang một cách gọi khác.
 
+## Sáu mẫu câu chữ máy móc thường gặp khi đối chiếu với tiếng Việt
+
+Tham khảo hệ mẫu từ `blader/humanizer`, `op7418/Humanizer-zh`, `hardikpandya/stop-slop` và *Wikipedia: Signs of AI writing*, đối chiếu với cách viết tiếng Việt tự nhiên:
+
+- **Né động từ đơn giản (`là`, `có`, `làm`) bằng cụm màu mè (copula avoidance):** dùng `đóng vai trò như một…`, `sở hữu…` (gán cho tính năng hoặc vật vô tri), `mang trong mình…`, `đại diện cho…`, `hiện lên như một…` để câu nghe trang trọng giả tạo. Ưu tiên gọi thẳng `là`, `có`, `làm`, `dùng để`; chỉ giữ `đóng vai trò` hoặc `đại diện cho` khi chức năng đại diện là mệnh đề thực chất.
+  - *Cứng:* “Ứng dụng này đóng vai trò như một trợ lý đắc lực, sở hữu giao diện thân thiện và mang trong mình nhiều công cụ soát lỗi.”
+  - *Tự nhiên:* “Ứng dụng này có giao diện dễ nhìn và nhiều công cụ soát lỗi.”
+- **Đuôi bình giải tổng quát sau dấu phẩy (calque phân từ `-ing`):** khép câu bằng `, qua đó góp phần…`, `, từ đó tạo tiền đề cho…`, `, phản ánh xu hướng…`, `, nhấn mạnh tầm quan trọng của…`, `, mở ra cơ hội…` dù vế sau không thêm sự việc mới. Dừng ngay ở sự việc cụ thể, hoặc nêu hệ quả có thật nằm trong input/context bằng mệnh đề trực tiếp.
+  - *Cứng:* “Nhóm rút thời gian phản hồi từ 4 giờ xuống còn 45 phút, qua đó góp phần nâng cao trải nghiệm khách hàng và khẳng định cam kết chất lượng.”
+  - *Tự nhiên:* “Nhóm rút thời gian phản hồi từ 4 giờ xuống còn 45 phút.” (Chỉ giữ hệ quả phía sau nếu input nêu số liệu hài lòng hoặc bằng chứng cụ thể.)
+- **Khoảng liệt kê giả “từ X đến Y” (false ranges):** ghép hai khái niệm không cùng thang đo vào khuôn `từ [A] đến [B]` cho có vẻ bao quát (*“từ lỗi chính tả đến định hướng chiến lược”*). Giữ khi là khoảng có thứ tự đo lường thật (giờ giấc, giá tiền, độ tuổi, cấp độ, quy mô); còn lại liệt kê thẳng bằng `và` hoặc dấu phẩy.
+  - *Giữ nguyên:* “Mức phí dao động từ 50.000 đến 200.000 đồng tùy gói.”
+  - *Nên sửa:* “Khóa học hỗ trợ từ người mới viết đến tư duy phản biện.” → “Khóa học rèn kỹ năng viết cho người mới và cách lập luận phản biện.”
+- **Xoay vòng từ đồng nghĩa cưỡng ép (synonym cycling):** đổi 3–4 tên gọi cho cùng một thực thể ở các câu liền nhau (`ứng dụng → nền tảng → công cụ → giải pháp`; `tác giả → người viết → cây bút → chủ nhân bài viết`) chỉ để tránh lặp từ. Trong tiếng Việt rõ ràng, lặp đúng danh từ chuẩn, lược chủ ngữ khi tiền ngữ đã rõ hoặc dùng đại từ rõ ràng tự nhiên hơn.
+  - *Cứng:* “Ứng dụng nén ảnh trước khi tải lên. Nền tảng giữ nguyên độ phân giải gốc khi xuất tệp. Nhờ vậy, công cụ này tiết kiệm băng thông cho đội ngũ.”
+  - *Tự nhiên:* “Ứng dụng nén ảnh trước khi tải lên nhưng vẫn giữ nguyên độ phân giải gốc lúc xuất tệp, nên đội ngũ đỡ tốn băng thông hơn.”
+- **Danh sách tiêu đề in đậm lặp chữ (boldface inline-header spam):** mở đầu mỗi bullet bằng nhãn in đậm rồi lặp lại chính nhãn đó sau dấu hai chấm (`- **Tốc độ nhanh:** Tốc độ xử lý nhanh giúp…`). Bỏ phần lặp nhãn ở mệnh đề sau; chỉ giữ định dạng bullet có tiêu đề đậm trong tài liệu tra cứu hoặc checklist, còn bài văn xuôi hoặc email thường nên viết thành đoạn liền mạch.
+- **Rào đón xếp lớp và nguồn mơ hồ:** gộp chuỗi rào đón chồng chất (`có thể phần nào góp phần giúp…`, `dường như đang dần trở thành…`) về một dấu hiệu bất định giữ đúng mức chắc chắn của bản gốc (`có thể giúp…`, tuyệt đối không tự nâng thành `sẽ`). Với câu dẫn nguồn khuyết danh như `nhiều chuyên gia cho rằng` hoặc `các nghiên cứu chỉ ra` mà thiếu tên tổ chức/tác giả trong input/context, dùng `review_comment` để nhắc tác giả bổ sung nguồn thay vì trau chuốt câu cho trôi.
+
 ## Giữ nguyên khi có tác dụng
 
 - “Tôi cần bản nháp, không cần bản đã duyệt.” Giữ phạm vi yêu cầu.
@@ -595,6 +614,14 @@ Trong văn đời thường, blog cá nhân hay kịch bản nói, các từ đ�
 Giữ **nhất quán hệ từ vựng và tiểu từ vùng miền (Bắc – Trung – Nam)** trong cùng một giọng viết:
 - Không trộn ngẫu nhiên hệ Bắc (`bố mẹ`, `nhé`, `đấy`, `nhỉ`, `bảo`) với hệ Nam (`ba má`, `tụi mình`, `nha`, `nè`, `nghen`, `coi`) trong cùng một người nói, trừ khi đang trích dẫn nhiều nhân vật.
 - Giữ biến thể vùng miền có sẵn trong bản gốc hoặc `voice_sample`; không suy ra vùng miền từ tên người và không giả giọng bằng cách rải từ địa phương.
+
+## Tránh văn vô trùng và bám cách nối câu tiếng Việt tự nhiên
+
+- **Phân biệt sửa bản có sẵn với viết từ dàn ý:** Khi biên tập văn bản đã có, không bịa quan điểm hay cảm xúc mới, nhưng giữ nguyên góc nhìn, độ sắc và chi tiết cụ thể sẵn có thay vì gọt phẳng thành giọng thông cáo báo chí hoặc giọng tổng đài CSKH vô trùng (`dạ vâng`, cân bằng giả kiểu `một mặt… mặt khác…`). Khi soạn mới theo dàn ý người dùng cung cấp, đi thẳng vào ý chính ngay câu mở đầu thay vì dạo đầu kiểu bài nghị luận chung chung.
+- **Cách người Việt nối câu tự nhiên thay cho chuỗi liên từ sách giáo khoa:** Khi nhiều câu nối tiếp đều mở bằng `Ngoài ra,`, `Bên cạnh đó,`, `Hơn nữa,`, `Tuy nhiên,`, `Do đó,`, văn nghe như bài dịch hoặc dàn ý lắp ghép. Thay bằng cách nối ý trực tiếp (parataxis / chuỗi vị từ) hoặc dùng từ chuyển mạch gọn đúng sắc thái (`nhưng`, `mà`, `nên`, `chứ`, `còn`, `vậy nên`, `tuy vậy`, hoặc `thành ra` trong văn gần gũi).
+  - *Cứng:* “Tài liệu hướng dẫn còn thiếu ví dụ thực tế. Bên cạnh đó, mục tìm kiếm chạy chậm. Do đó, người mới mất nhiều thời gian tra cứu.”
+  - *Tự nhiên:* “Tài liệu còn thiếu ví dụ thực tế, lại thêm mục tìm kiếm chậm nên người mới mất nhiều thời gian tra cứu.”
+- **Tránh cụm `một + danh từ trừu tượng` dịch từ tiếng Anh (`a + abstract noun`):** Tiếng Việt thường gọi thẳng động từ hoặc tính từ thay vì mượn mạo từ `một` đặt trước danh từ hóa (`một sự cải thiện đáng kể` → `cải thiện rõ` hoặc `cải thiện đáng kể`; `mang lại một trải nghiệm mượt mà` → `dùng mượt hơn`). Giữ `một` khi thực sự đếm đơn vị hoặc phân loại cụ thể (`một lỗi nghiêm trọng`, `một phương án khác`).
 
 ## Bảo toàn và giảm cường điệu
 
@@ -860,7 +887,7 @@ Viết thẳng câu tiếng Việt tự nhiên cho đúng người nhận thay v
 
 ### 4. Đọc độc lập bản sửa
 
-Tạm rời bản gốc để đọc riêng output như người nhận: câu có tự đứng được không, đại từ có tiền ngữ rõ không, lời giải thích có chen ngang việc người đọc đang làm không, và có vô tình chép lại một khuôn mới hay giọng trợ lý không. Đọc thành tiếng nếu nhịp câu là vấn đề.
+Tạm rời bản gốc để đọc riêng output như người nhận: câu có tự đứng được không, đại từ có tiền ngữ rõ không, lời giải thích có chen ngang việc người đọc đang làm không, và có vô tình chép lại một khuôn mới hay giọng trợ lý không. Tự hỏi thêm một lượt: *"Chỗ nào vẫn nghe như văn mẫu, văn dịch hay giọng trợ lý?"* — rà nhanh copula vòng (`đóng vai trò như một`, `sở hữu`, `mang trong mình`), đuôi bình giải `, qua đó góp phần…`, rào đón xếp lớp, `một sự + danh từ`, xoay vòng từ đồng nghĩa cưỡng ép và chuỗi liên từ `Ngoài ra / Bên cạnh đó / Hơn nữa`, rồi chỉnh dứt điểm trước khi quay lại bước 5. Đọc thành tiếng nếu nhịp câu là vấn đề.
 
 ### 5. Đối chiếu bảo toàn với bản gốc
 
@@ -930,7 +957,7 @@ Mục tiêu là câu tiếng Việt đứng được độc lập, không phải
 
 1. Xác định domain, độc giả, register và mức ràng buộc với bản gốc.
 2. Nếu có bản tiếng Anh, đối chiếu ý, quan hệ logic, mức chắc chắn và thuật ngữ. Nếu không có, chỉ sửa các cấu trúc có đủ ngữ cảnh.
-3. Tìm cụm danh từ dài, danh hóa (`sự + V/Adj`), chủ ngữ giả, chủ ngữ vô tri dùng `cho phép`, bị động dịch sát, động từ yếu, bổ ngữ `một cách + tính từ` (calque trạng từ `-ly`), từ nối `rằng` thừa và metaphor dịch từng chữ.
+3. Tìm cụm danh từ dài, danh hóa (`sự + V/Adj`), `một + danh từ trừu tượng`, chủ ngữ giả, chủ ngữ vô tri dùng `cho phép`, bị động dịch sát hoặc lệch sắc thái `được / bị`, động từ yếu, bổ ngữ `một cách + tính từ` (calque trạng từ `-ly`), từ nối `rằng` thừa, chuỗi sở hữu `của … của …`, đuôi phân từ tiếng Anh dịch thành `, qua đó… / , góp phần…` và metaphor dịch từng chữ.
 4. Xác định hành động, chủ thể và thông tin mới của từng câu. Sắp theo cấu trúc Đề – Thuyết hoặc chuỗi vị từ tự nhiên của tiếng Việt thay vì giữ thứ tự SVO tiếng Anh.
 5. Dùng động từ trực tiếp khi chính xác hơn. Tách câu nếu chuỗi bổ nghĩa khiến người đọc phải đọc lại.
 6. Rà thuật ngữ với glossary của người dùng. Khi chưa chắc, giữ thuật ngữ và nêu phương án thay thế thay vì tự quyết.
@@ -1057,6 +1084,27 @@ Tiếng Anh hay chọn tính năng hoặc công cụ làm chủ ngữ với `all
 
 - Cứng: "Tính năng mới cho phép người dùng xuất báo cáo theo định dạng CSV."
 - Tự nhiên: "Người dùng có thể xuất báo cáo sang CSV bằng tính năng mới." (hoặc nếu chủ đề đoạn là tính năng: "Với tính năng mới, người dùng xuất được báo cáo sang CSV.")
+
+## `Một + danh từ trừu tượng` (calque của *a + abstract noun*)
+
+Tiếng Anh đặt mạo từ `a/an` trước danh từ trừu tượng (`a significant improvement`, `a seamless experience`); giữ nguyên `một` sang tiếng Việt khiến câu nặng và có mùi dịch (`một sự cải thiện đáng kể`). Nên gọi thẳng động từ/tính từ, chỉ giữ `một` khi thật sự đếm hoặc phân loại một đơn vị cụ thể.
+
+- Cứng: "Bản vá lần này mang lại một sự cải thiện đáng kể về tốc độ khởi động."
+- Tự nhiên: "Bản vá lần này cải thiện rõ tốc độ khởi động." (giữ đúng mức định tính nếu bản gốc nêu "đáng kể": "Bản vá lần này cải thiện đáng kể tốc độ khởi động.")
+
+## `Được / bị` lệch sắc thái do bị động tiếng Anh
+
+Bị động tiếng Anh trung tính về thái độ, còn tiếng Việt phân biệt `được` (thường mang hướng thuận lợi/đáng ghi nhận) với `bị` (bất lợi/ngoài ý muốn) và ưu tiên câu chủ động hoặc không đánh dấu khi chủ thể không quan trọng. Đừng máy móc dịch `was generated` hay `is updated` thành `đã được phát sinh` hoặc `bị cập nhật` sai ngữ cảnh.
+
+- Cứng: "Khi hết thời gian chờ, một cảnh báo đã được phát sinh cho quản trị viên."
+- Tự nhiên: "Khi hết thời gian chờ, hệ thống phát cảnh báo cho quản trị viên." (hoặc "Quản trị viên nhận cảnh báo khi hết thời gian chờ.")
+
+## Chuỗi sở hữu `của … của …` và đuôi phân từ `, qua đó… / , góp phần…`
+
+Cụm genitive lồng nhau (`X of Y of Z` → `X của Y của Z`) và mệnh đề phân từ nối đuôi (`, contributing to…`, `, highlighting…`) khiến câu dài mà thiếu điểm tựa. Tách phần khung sang đầu câu theo Đề – Thuyết, cắt lớp `của` thừa và chỉ giữ hệ quả ở vế sau khi dữ kiện gốc nêu rõ kết quả đó.
+
+- Cứng: "Việc tối ưu truy vấn của mô-đun báo cáo của hệ thống kế toán giúp giảm tải máy chủ, qua đó góp phần nâng cao độ ổn định chung."
+- Tự nhiên: "Ở mô-đun báo cáo của hệ thống kế toán, việc tối ưu truy vấn giúp giảm tải máy chủ." (Chỉ giữ vế độ ổn định nếu bản gốc có chỉ số hoặc căn cứ xác nhận.)
 
 Mỗi pattern có ngưỡng và ngoại lệ trong `patterns/translationese.yml`. Đếm các lớp hành chính theo từng câu; không gộp một tín hiệu ở câu này với một tín hiệu ở câu khác. Không dùng catalog làm từ điển thay thế một-một.
 

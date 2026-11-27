@@ -4,7 +4,7 @@ description: Làm sạch văn phong tiếng Việt dịch sát từ tiếng Anh,
 license: MIT
 metadata:
   language: vi
-  version: "0.2.1"
+  version: "0.3.0"
 ---
 
 # Làm sạch văn phong dịch Anh-Việt
@@ -15,7 +15,7 @@ Mục tiêu là câu tiếng Việt đứng được độc lập, không phải
 
 1. Xác định domain, độc giả, register và mức ràng buộc với bản gốc.
 2. Nếu có bản tiếng Anh, đối chiếu ý, quan hệ logic, mức chắc chắn và thuật ngữ. Nếu không có, chỉ sửa các cấu trúc có đủ ngữ cảnh.
-3. Tìm cụm danh từ dài, danh hóa (`sự + V/Adj`), chủ ngữ giả, chủ ngữ vô tri dùng `cho phép`, bị động dịch sát, động từ yếu, bổ ngữ `một cách + tính từ` (calque trạng từ `-ly`), từ nối `rằng` thừa và metaphor dịch từng chữ.
+3. Tìm cụm danh từ dài, danh hóa (`sự + V/Adj`), `một + danh từ trừu tượng`, chủ ngữ giả, chủ ngữ vô tri dùng `cho phép`, bị động dịch sát hoặc lệch sắc thái `được / bị`, động từ yếu, bổ ngữ `một cách + tính từ` (calque trạng từ `-ly`), từ nối `rằng` thừa, chuỗi sở hữu `của … của …`, đuôi phân từ tiếng Anh dịch thành `, qua đó… / , góp phần…` và metaphor dịch từng chữ.
 4. Xác định hành động, chủ thể và thông tin mới của từng câu. Sắp theo cấu trúc Đề – Thuyết hoặc chuỗi vị từ tự nhiên của tiếng Việt thay vì giữ thứ tự SVO tiếng Anh.
 5. Dùng động từ trực tiếp khi chính xác hơn. Tách câu nếu chuỗi bổ nghĩa khiến người đọc phải đọc lại.
 6. Rà thuật ngữ với glossary của người dùng. Khi chưa chắc, giữ thuật ngữ và nêu phương án thay thế thay vì tự quyết.

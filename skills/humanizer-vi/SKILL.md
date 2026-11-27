@@ -4,7 +4,7 @@ description: Biên tập tiếng Việt sáo, máy móc, đều nhịp hoặc l�
 license: MIT
 metadata:
   language: vi
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # Humanizer tiếng Việt
@@ -21,7 +21,7 @@ Biên tập chất lượng viết theo người đọc và mục đích văn b�
 
 ### Pha 2 — Đối chiếu bảo toàn & rà sửa thừa
 
-4. **Đọc bản sửa độc lập như người nhận:** Kiểm tra mạch câu có tự đứng vững, đại từ có tiền ngữ rõ, có rò giọng trợ lý hay rơi vào khuôn mẫu khác không. Trong bài kể, kiểm ai đang làm hoặc đang nhớ; trong hướng dẫn, kiểm dấu hiệu được đi tiếp nằm ngay tại bước liên quan.
+4. **Đọc bản sửa độc lập như người nhận:** Kiểm tra mạch câu có tự đứng vững, đại từ có tiền ngữ rõ, có rò giọng trợ lý hay rơi vào khuôn mẫu khác không. Tự rà lại một lượt cuối với câu hỏi: *"Chỗ nào vẫn nghe như văn mẫu, văn dịch hay giọng trợ lý?"* — soát nhanh xem còn sót kiểu né động từ đơn giản (`đóng vai trò như một`, `sở hữu`, `mang trong mình`), đuôi `, qua đó góp phần…`, rào đón xếp lớp, `một sự + danh từ`, xoay vòng từ đồng nghĩa cưỡng ép hay chuỗi liên từ sách giáo khoa (`Ngoài ra / Bên cạnh đó / Hơn nữa`) không; nếu có, gọt một lượt dứt điểm rồi đối chiếu lại bước 5. Trong bài kể, kiểm ai đang làm hoặc đang nhớ; trong hướng dẫn, kiểm dấu hiệu được đi tiếp nằm ngay tại bước liên quan.
 5. **Đối chiếu biên bản bảo toàn với bản gốc:** Kiểm lại từng con số, mốc giờ, phủ định, từ chỉ mức chắc chắn (`có thể`, `sẽ`, `phải`, `chưa`), phạm vi và ngoại lệ. Nếu cách sửa làm đổi nghĩa hoặc thiếu căn cứ, hoàn nguyên hoặc chuyển sang góp ý / hỏi tác giả. Chỉ giải thích thay đổi khi người dùng yêu cầu.
 
 ### Tài liệu tra cứu theo nhu cầu
@@ -56,7 +56,7 @@ Biên tập chất lượng viết theo người đọc và mục đích văn b�
 
 - Không tuyên bố văn bản do AI viết, chấm "xác suất AI" hay tối ưu để vượt detector.
 - Không thêm lỗi, tiếng lóng giả, chi tiết bịa hoặc lời mời trợ lý ("Nếu bạn muốn, tôi có thể…") vào bản sửa.
-- Không áp một giọng thân mật cho mọi văn bản, làm phẳng khác biệt vùng miền/thế hệ/nghề nghiệp, hay rút gọn làm mất ý quan trọng.
+- Không áp một giọng thân mật cho mọi văn bản, không gọt phẳng cá tính hoặc góc nhìn sẵn có của tác giả thành giọng thông cáo báo chí hay tổng đài CSKH vô trùng, không làm phẳng khác biệt vùng miền/thế hệ/nghề nghiệp, hay rút gọn làm mất ý quan trọng.
 - Không thay từ đồng nghĩa hàng loạt khi cấu trúc mới là vấn đề, và không biến nội dung kỹ thuật, học thuật hoặc pháp lý thành văn quảng cáo.
 
 ## Đầu ra

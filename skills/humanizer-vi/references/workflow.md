@@ -27,7 +27,7 @@ Viết thẳng câu tiếng Việt tự nhiên cho đúng người nhận thay v
 
 ### 4. Đọc độc lập bản sửa
 
-Tạm rời bản gốc để đọc riêng output như người nhận: câu có tự đứng được không, đại từ có tiền ngữ rõ không, lời giải thích có chen ngang việc người đọc đang làm không, và có vô tình chép lại một khuôn mới hay giọng trợ lý không. Đọc thành tiếng nếu nhịp câu là vấn đề.
+Tạm rời bản gốc để đọc riêng output như người nhận: câu có tự đứng được không, đại từ có tiền ngữ rõ không, lời giải thích có chen ngang việc người đọc đang làm không, và có vô tình chép lại một khuôn mới hay giọng trợ lý không. Tự hỏi thêm một lượt: *"Chỗ nào vẫn nghe như văn mẫu, văn dịch hay giọng trợ lý?"* — rà nhanh copula vòng (`đóng vai trò như một`, `sở hữu`, `mang trong mình`), đuôi bình giải `, qua đó góp phần…`, rào đón xếp lớp, `một sự + danh từ`, xoay vòng từ đồng nghĩa cưỡng ép và chuỗi liên từ `Ngoài ra / Bên cạnh đó / Hơn nữa`, rồi chỉnh dứt điểm trước khi quay lại bước 5. Đọc thành tiếng nếu nhịp câu là vấn đề.
 
 ### 5. Đối chiếu bảo toàn với bản gốc
 

@@ -93,6 +93,14 @@ Giữ **nhất quán hệ từ vựng và tiểu từ vùng miền (Bắc – Tr
 - Không trộn ngẫu nhiên hệ Bắc (`bố mẹ`, `nhé`, `đấy`, `nhỉ`, `bảo`) với hệ Nam (`ba má`, `tụi mình`, `nha`, `nè`, `nghen`, `coi`) trong cùng một người nói, trừ khi đang trích dẫn nhiều nhân vật.
 - Giữ biến thể vùng miền có sẵn trong bản gốc hoặc `voice_sample`; không suy ra vùng miền từ tên người và không giả giọng bằng cách rải từ địa phương.
 
+## Tránh văn vô trùng và bám cách nối câu tiếng Việt tự nhiên
+
+- **Phân biệt sửa bản có sẵn với viết từ dàn ý:** Khi biên tập văn bản đã có, không bịa quan điểm hay cảm xúc mới, nhưng giữ nguyên góc nhìn, độ sắc và chi tiết cụ thể sẵn có thay vì gọt phẳng thành giọng thông cáo báo chí hoặc giọng tổng đài CSKH vô trùng (`dạ vâng`, cân bằng giả kiểu `một mặt… mặt khác…`). Khi soạn mới theo dàn ý người dùng cung cấp, đi thẳng vào ý chính ngay câu mở đầu thay vì dạo đầu kiểu bài nghị luận chung chung.
+- **Cách người Việt nối câu tự nhiên thay cho chuỗi liên từ sách giáo khoa:** Khi nhiều câu nối tiếp đều mở bằng `Ngoài ra,`, `Bên cạnh đó,`, `Hơn nữa,`, `Tuy nhiên,`, `Do đó,`, văn nghe như bài dịch hoặc dàn ý lắp ghép. Thay bằng cách nối ý trực tiếp (parataxis / chuỗi vị từ) hoặc dùng từ chuyển mạch gọn đúng sắc thái (`nhưng`, `mà`, `nên`, `chứ`, `còn`, `vậy nên`, `tuy vậy`, hoặc `thành ra` trong văn gần gũi).
+  - *Cứng:* “Tài liệu hướng dẫn còn thiếu ví dụ thực tế. Bên cạnh đó, mục tìm kiếm chạy chậm. Do đó, người mới mất nhiều thời gian tra cứu.”
+  - *Tự nhiên:* “Tài liệu còn thiếu ví dụ thực tế, lại thêm mục tìm kiếm chậm nên người mới mất nhiều thời gian tra cứu.”
+- **Tránh cụm `một + danh từ trừu tượng` dịch từ tiếng Anh (`a + abstract noun`):** Tiếng Việt thường gọi thẳng động từ hoặc tính từ thay vì mượn mạo từ `một` đặt trước danh từ hóa (`một sự cải thiện đáng kể` → `cải thiện rõ` hoặc `cải thiện đáng kể`; `mang lại một trải nghiệm mượt mà` → `dùng mượt hơn`). Giữ `một` khi thực sự đếm đơn vị hoặc phân loại cụ thể (`một lỗi nghiêm trọng`, `một phương án khác`).
+
 ## Bảo toàn và giảm cường điệu
 
 Mặc định giữ cường độ đánh giá của tác giả. Nếu câu chỉ có lời khen mà chưa có căn cứ, dùng `review_comment`; đừng đổi một lời khen mạnh thành câu trung tính rồi gọi đó là bảo toàn hoàn toàn.

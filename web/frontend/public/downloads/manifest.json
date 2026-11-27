@@ -11,7 +11,7 @@
       "summary": "Rút câu vòng, sửa chỗ còn gượng và giữ cách nói riêng của người viết.",
       "description": "Sửa câu sáo rỗng, máy móc hoặc lệch giọng để bài viết rõ và tự nhiên hơn. Giữ dữ kiện và giọng tác giả; dùng để biên tập, không để đoán ai viết.",
       "request": "Biên tập đoạn dưới đây cho rõ, tự nhiên và hợp người đọc. Giữ giọng của tôi. Chỉ sửa chỗ cần thiết.",
-      "skill_version": "0.5.0"
+      "skill_version": "0.6.0"
     },
     {
       "id": "translationese-cleaner-vi",
@@ -19,7 +19,7 @@
       "summary": "Rà câu dịch sát tiếng Anh để câu tiếng Việt dễ đọc hơn.",
       "description": "Sửa câu tiếng Việt dịch sát cấu trúc tiếng Anh để dễ hiểu hơn. Dùng khi biên tập bản dịch; giữ thuật ngữ, quan điểm và mức độ chắc chắn của bản gốc.",
       "request": "Chỉnh đoạn dưới đây để sửa cấu trúc dịch sát tiếng Anh. Diễn đạt tự nhiên bằng tiếng Việt, giữ thuật ngữ và sắc thái của bản gốc.",
-      "skill_version": "0.2.1"
+      "skill_version": "0.3.0"
     },
     {
       "id": "grammar-checker-vi",
@@ -48,24 +48,24 @@
     "skills/grammar-checker-vi/references/common-errors.md": "5f0ee04e2d66bc83d7c522e67983897a21f084f78718df619696b69c55c51f8c",
     "skills/grammar-checker-vi/references/examples.md": "99432fa4df13086fcdc70fd4ad1c9b6d8300288a6abf02bc2b8b42c530f73e9c",
     "skills/grammar-checker-vi/references/punctuation.md": "bf255092948f57c12aa372fa94b83e459334c791de7371a594d7c760754003ed",
-    "skills/humanizer-vi/SKILL.md": "73062389586dd26bad057d7679bb1ec01b3c053ed21c7cb518b520a2cf13d1de",
+    "skills/humanizer-vi/SKILL.md": "ecf6dc655c3ab06409028e3584a443bfb437b65d9a3eb3b8c803184fd13bae97",
     "skills/humanizer-vi/assets/review-template.md": "f26469135d0fc7c10583b5f20a1f7e1a45a072698719c6bf7529336dc2ea2150",
     "skills/humanizer-vi/references/administrative-writing.md": "f97654ffc3c71db18d27f36ba768e26105b2ef64565dccaa5d114d57c7ec80d6",
     "skills/humanizer-vi/references/business-writing.md": "f8dcfb6cabf0c1ccf2ada7339efc859f869e07ebc7c1d4ccc22ff9c23a7095aa",
     "skills/humanizer-vi/references/conversational.md": "584e96d7f6ce712ffbc8f9f54dc0184e2767f8768c26f1d8b714045eda2075f8",
     "skills/humanizer-vi/references/evaluation.md": "24af84713bbad1f3742842cd1b3f45f005ecf01c0a1539316aed9203ef496446",
     "skills/humanizer-vi/references/examples.md": "eb5411f03f37c99572c7207f8bbb9ff522e00abbe2f401aa78a10387d62dc70f",
-    "skills/humanizer-vi/references/formulaic-prose.md": "4077228af523dc53a25523b12eec8958597c3682ae772c3f8159625d399972ab",
+    "skills/humanizer-vi/references/formulaic-prose.md": "0c05232b8024c0017e086ba53e374a4c2516bbd4805cbc94a8d3b6c994480f42",
     "skills/humanizer-vi/references/humor-and-satire.md": "3f13b06b9e80fb618b190b81f87f4c1025fe49a14b952fecb5f75f899b5d62e2",
     "skills/humanizer-vi/references/marketing-writing.md": "85eed2e252c56355f455d5f6e11d48883334d655c6be8ecfc20b05b99659570b",
-    "skills/humanizer-vi/references/naturalness.md": "391d26164f09180c2a6fcc6018a45a725a4d625f5143e81f848036e73ded2a4d",
+    "skills/humanizer-vi/references/naturalness.md": "ac93a6364f4cfb9c275e3cad745496163c84175424378ed6d376fdfa62e035eb",
     "skills/humanizer-vi/references/patterns.md": "cbc0476886d6d1136ef025bb6398a107042291e39deb20174b0a93241455db60",
     "skills/humanizer-vi/references/plain-writing.md": "dc4119093178b3632e5e6bc6377d79a9b9bac6834aa07b1e42b0baf2a589bd7e",
     "skills/humanizer-vi/references/preservation-rules.md": "bbd666fe4ef7f93540c3bc7245e6516ce456ebe7a024d1848dc131427f338edb",
     "skills/humanizer-vi/references/registers.md": "963277c6139cebc0c04420479f0e0993689cb24e4f0391ce3136ede3f2cc189f",
     "skills/humanizer-vi/references/social-writing.md": "0432ab41225378cf93d6a2def22b1c08e98c8f94f5ffeab4cffd1135a568b000",
     "skills/humanizer-vi/references/technical-writing.md": "5781c726c195e47fd0af8e9a642e31c699a281da5281251a9d875c0da2e295ba",
-    "skills/humanizer-vi/references/workflow.md": "893e1d30fee83f3ec3bb40a303edb4ae62242b068077a09bd5fa3bab8f59e715",
+    "skills/humanizer-vi/references/workflow.md": "98ac4d392db04122c1709a31e645f5f4b1266281bedae798e376bb421e9edf61",
     "skills/humanizer-vi/references/writing-profiles.md": "471c89d2ac99bc9304a6110c9aa798e9c3da24097a5f2d03332ae26f2d3832fd",
     "skills/style-guide-vi/SKILL.md": "87802c2e890fd0e2f9e62d43278834203bb959ae7903deeb61e5949c4a10d5fc",
     "skills/style-guide-vi/references/capitalization.md": "a3a719a81a356dd9c7704ff1993310ed96988467503c52786d7030e464befbd7",
@@ -74,10 +74,10 @@
     "skills/style-guide-vi/references/numbers-dates-units.md": "c2c311d09165b0579c13066cebd2bc39b5e05b1c1623988b65a1ac3854e712a8",
     "skills/style-guide-vi/references/pronouns.md": "296dd6e7192737b424912435c6d1d720e5971c6533c7eed49bf5d4a4a7610f82",
     "skills/style-guide-vi/references/terminology.md": "c8d61baa87e05301d236cf360d695cf20f6c10311f4077fc0e8569c093047c24",
-    "skills/translationese-cleaner-vi/SKILL.md": "5c412bc7a5fe4fefb8d38698fefe9359d9dd14aa15408e77820c000ee5da10ba",
+    "skills/translationese-cleaner-vi/SKILL.md": "82349dfe86c54714cf37186158b9b8a52459a2f2b10364cc818d48bbad592132",
     "skills/translationese-cleaner-vi/references/examples.md": "08645588cf6de477c48b5c90483e6a6022d882e4cddd32f1365534be5b2fec73",
     "skills/translationese-cleaner-vi/references/false-positives.md": "0a4645c516e5e856763227ec52b201a291f4cd57fd7669b2f2ac7904ba02c597",
-    "skills/translationese-cleaner-vi/references/patterns.md": "da0be09ab982d2ce7a6c8c205fc0d48e6cbb476c9e020c9e887523720db2754b"
+    "skills/translationese-cleaner-vi/references/patterns.md": "b553726fb8955805996516bac98bbfb24697ecba4d21154a2e549db14b742469"
   },
   "artifacts": {
     "BAT-DAU.txt": {
@@ -85,44 +85,44 @@
       "sha256": "f81985b4758bcb289fbe3127125a14495678dd1631145eb258aa14f2b49b9abe"
     },
     "chatgpt/vietnamese-writing-skills.zip": {
-      "bytes": 130629,
-      "sha256": "c490a77b27bac82fbc42872bf0766d1059453da462cdd04441a11209fc7b54d8"
+      "bytes": 141301,
+      "sha256": "ee0831959fde99fe3746e51e45d4737d00269f414faa58314d7e1bb97c01af9d"
     },
     "claude/grammar-checker-vi.zip": {
       "bytes": 9554,
       "sha256": "73c7e1f941c8a39123f9ee933930d2033dd4d21ec1a879190b8a4711c1da8fe5"
     },
     "claude/humanizer-vi.zip": {
-      "bytes": 91450,
-      "sha256": "a4a3875bc100e9ebd5ad8ad4414cf6117a662268a3591f7572bd2d2743f59bb4"
+      "bytes": 99419,
+      "sha256": "fc84d3b6cc75ada1d606a6b60857e10c04f8585031d27d3f179cac62ed932cde"
     },
     "claude/style-guide-vi.zip": {
       "bytes": 14033,
       "sha256": "e21f0acff70f078fd311393cbfbe625d2bff442e9038edda24cc631b4797330a"
     },
     "claude/translationese-cleaner-vi.zip": {
-      "bytes": 12174,
-      "sha256": "81c05376c1c8d4f827625cab8997a8e1f282f2d2c9184a3c7aa5e9122f7d8a8f"
+      "bytes": 14877,
+      "sha256": "32393f4f42bfea25752ca33c4b7fdaa9badcfbd43c8e664a5514ecccebfe9fdd"
     },
     "gemini/grammar-checker-vi.zip": {
       "bytes": 9326,
       "sha256": "e80d3db22080ed685c4dc9bf171db9545db4f2181315ce62b9b2fa5b23482153"
     },
     "gemini/humanizer-vi.zip": {
-      "bytes": 90930,
-      "sha256": "c4b003840e54a851243e97e6f59502d01390fc38f8cb16e6840f51b13753652f"
+      "bytes": 98899,
+      "sha256": "49eba8495d175070430212de812f777535b99c9cad7d406fe4a00be2df864757"
     },
     "gemini/style-guide-vi.zip": {
       "bytes": 13793,
       "sha256": "59716747f352c706688635af21fd6474f932b7bbe321e3342402ece87be0e177"
     },
     "gemini/translationese-cleaner-vi.zip": {
-      "bytes": 11914,
-      "sha256": "92925e63181f04caf11c1473b1cb0a25265bf8b5be1ef32aa546909146a22c4e"
+      "bytes": 14617,
+      "sha256": "f68517ff373689b24d0c8e0e874430e49615225d6f8e3c79e81d02a51e9be9fb"
     },
     "huong-dan-tieng-viet.md": {
-      "bytes": 126024,
-      "sha256": "b74fa2fdb77e700b09fd55881f962d61e587ff538a4c8b0fd31cb8e71835f201"
+      "bytes": 136696,
+      "sha256": "28b5c7ab4991e0829b198754c88396a62ea2eab83cafe7d55a876f96b292ed84"
     },
     "yeu-cau-bien-tap.txt": {
       "bytes": 1674,
